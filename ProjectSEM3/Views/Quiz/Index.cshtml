@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var endTime = DateTime.UtcNow.AddSeconds(425);
+    var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.UtcNow.Ticks).TotalSeconds;
+}
+
+<div class="quiz-wrapper pt-5">
+    <div class="container-fluid" style="z-index: 1">
+        <div class="row text-center">
+            <!-- Circles which indicates the steps of the form: -->
+            <div class="col d-flex flex-row justify-content-evenly d-none d-sm-block">
+                <span class="step bg-white rounded-pill finish finish"></span>
+                <span class="step bg-white rounded-pill active"></span>
+                <span class="step bg-white rounded-pill"></span>
+                <span class="step bg-white rounded-pill"></span>
+                <span class="step bg-white rounded-pill"></span>
+            </div>
+        </div>
+
+        <div class="container">
+            <form class="multisteps_form position-relative" id="wizard" method="POST" action="../thankyou/index-2.html">
+                <!------------------------- Step-1 ----------------------------->
+                <div class="multisteps_form_panel">
+                    <!-- Form-content -->
+                    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">Question 1/5</span>
+                    <h1 class="question_title text-center">What is Your Workplace?</h1>
+                    <!-- Form-items -->
+                    <div class="form_items d-flex justify-content-center">
+                        <ul class="ps-0">
+                            <li class="step_1 rounded-pill bg-white text-start">
+                                <input type="radio" id="opt_1" name="stp_1_select_option" value="A place where people don’t question my authority">
+                                <label for="opt_1">A place where people don’t question my authority</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_2" name="stp_1_select_option" value="Where ever my best friends are, that’s where i want to be">
+                                <label for="opt_2">Where ever my best friends are, that’s where i want to be</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_3" name="stp_1_select_option" value="One that’s organized, structured and has workplace policies set.">
+                                <label for="opt_3">One that’s organized, structured and has workplace policies set.</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_4" name="stp_1_select_option" value="A place where everyone knows I’m the boss.">
+                                <label for="opt_4">A place where everyone knows I’m the boss.</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form_btn text-center ms-5 mt-5">
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="prevBtn" onclick="nextPrev(-1)" style="display: inline;">Prev Question</button>
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="nextBtn" onclick="nextPrev(1)">Next Question</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="container text-center mt-5 mb-5">
+            <div class="d-flex justify-content-evenly align-items-center section-wrapper">
+                <div class="d-flex flex-column justify-content-center text-center">
+                    <div>
+                        <button type="button" class="btn" style="display: inline;">1</button>
+                    </div>
+                    <div class="mt-3">
+                        <span style="color: #000a38; font-size: 1rem">General Knowledge</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column justify-content-center text-center">
+                    <div>
+                        <button type="button" class="btn" style="display: inline;">2</button>
+                    </div>
+                    <div class="mt-3">
+                        <span style="color: #000a38; font-size: 1rem">General Knowledge</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column justify-content-center text-center">
+                    <div>
+                        <button type="button" class="btn" style="display: inline;">3</button>
+                    </div>
+                    <div class="mt-3">
+                        <span style="color: #000a38; font-size: 1rem">General Knowledge</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex text-center justify-content-center align-items-center timer-wrapper">
+            <div>
+                <span id="minRemaining"></span>
+            </div>
+            <div>
+                <span>:</span>
+            </div>
+            <div>
+                <span id="secRemaining"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var remSeconds = @timeRemaining;
+    var secCounter = remSeconds % 60;
+
+    function formatNumber(number) {
+        if (number < 10) return '0' + number;
+        else return '' + number;
+    }
+    function startTick() {
+            document.getElementById("secRemaining").innerText = formatNumber(secCounter);
+            document.getElementById("minRemaining").innerText = formatNumber(parseInt(remSeconds / 60));
+
+        var _tick = setInterval(function () {
+            if (remSeconds > 0 && secCounter == 0) {
+                remSeconds = remSeconds - 1;
+                secCounter = 60 - 1;
+                document.getElementById("secRemaining").innerText = formatNumber(secCounter);
+                document.getElementById("minRemaining").innerText = formatNumber(parseInt(remSeconds / 60));
+            }
+            else if (remSeconds > 0 && secCounter != 0) {
+                 remSeconds = remSeconds - 1;
+                 secCounter = secCounter - 1;
+                 document.getElementById("secRemaining").innerText = formatNumber(secCounter);
+                 document.getElementById("minRemaining").innerText = formatNumber(parseInt(remSeconds / 60));
+                 if (secCounter == 0)
+                    secCounter = 60;
+            }
+            else {
+                    alert('Times out!');
+                    clearInterval(_tick);
+                }
+            }, 1000);
+    }
+    startTick();
+</script>
+

@@ -20,7 +20,7 @@ namespace ProjectSEM3.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Career()
         {
             ViewBag.Message = "Your contact page.";
 
