@@ -41,19 +41,17 @@
                     </p>
                     <div class="divider-50 hidden-below-lg"></div>
                     <div class="divider-30 hidden-above-lg"></div>
-                    <form class="contact-form" method="post" action="/" style="padding: 0">
+                    <form class="contact-form" method="post" action="/" enctype="multipart/form-data" style="padding: 0">
                         <div class="row c-mb-10 c-gutter-10">
                             <div class="col-lg-6" style="padding: 0">
                                 <div class="form-group has-placeholder">
                                     <label for="name335x5553">Full Name <span class="required">*</span></label>
-                                    <i class="fas fa-user"></i>
                                     <input type="text" aria-required="true" size="30" value="" name="name" id="name335x5553" class="form-control" placeholder="Full Name">
                                 </div>
                             </div>
                             <div class="col-lg-6" style="padding: 0">
                                 <div class="form-group has-placeholder">
                                     <label for="email333">Email address<span class="required">*</span></label>
-                                    <i class="fas fa-envelope"></i>
                                     <input type="email" aria-required="true" size="30" value="" name="email" id="email333" class="form-control" placeholder="Email">
                                 </div>
                             </div>
@@ -62,14 +60,12 @@
                             <div class="col-lg-6" style="padding: 0">
                                 <div class="form-group has-placeholder">
                                     <label for="name3355553">Phone Number <span class="required">*</span></label>
-                                    <i class="fas fa-phone"></i>
                                     <input type="text" aria-required="true" size="30" value="" name="name" id="name3355553" class="form-control" placeholder="Phone Number">
                                 </div>
                             </div>
                             <div class="col-lg-6" style="padding: 0">
                                 <div class="form-group has-placeholder">
                                     <label for="name3355d553">Subject <span class="required">*</span></label>
-                                    <i class="fas fa-paperclip"></i>
                                     <input type="text" aria-required="true" size="30" value="" name="name" id="name3355d553" class="form-control" placeholder="Subject">
                                 </div>
                             </div>
@@ -78,10 +74,14 @@
                             <div class="col-sm-12" style="padding: 0">
                                 <div class="form-group has-placeholder">
                                     <label for="message335553">Message</label>
-                                    <i class="fas fa-edit"></i>
                                     <textarea aria-required="true" rows="8" cols="45" name="message" id="message335553" class="form-control" placeholder="Your Message"></textarea>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row c-mb-10 c-gutter-10 mb-3">
+                            <input id="cvInput" class="form-control" type="file" />
+                            <input id="resultInput" hidden />
+                            <span id="notiInput" class="text-muted" style="font-size: 10px">*File must be .pdf extension and less than 10kb</span>
                         </div>
                         <div class="row c-mb-10 c-gutter-10">
                             <div class="col-sm-12 mb-0 mt-lg-50 mt-30" style="padding: 0">
@@ -114,9 +114,6 @@
                     <div class="divider-60 hidden-below-lg"></div>
                     <div class="divider-30 hidden-above-lg"></div>
                     <div class="media text-center text-sm-left">
-                        <div class="icon-styled fs-60 color-main">
-                            <i class="ico ico-call"></i>
-                        </div>
                         <div class="media-body">
                             <h6 class="">
                                 Our Number
@@ -130,14 +127,11 @@
                     <div class="divider-60 hidden-below-lg"></div>
                     <div class="divider-30 hidden-above-lg"></div>
                     <div class="media text-center text-sm-left">
-                        <div class="icon-styled fs-60 color-main">
-                            <i class="ico ico-email"></i>
-                        </div>
                         <div class="media-body">
                             <h6 class="">
                                 Our Email
                             </h6>
-                            <p class="">nafta@example.com<br> nafta@sales.com</p>
+                            <p class="">pvsoilgas@example.com<br> pvsoilgas@sales.com</p>
                         </div>
                     </div>
                     <div class="divider-50 hidden-below-lg"></div>
@@ -145,12 +139,6 @@
                     <div class="divider-line bg-maincolor text-center"></div>
                     <div class="divider-60 hidden-below-lg"></div>
                     <div class="divider-30 hidden-above-lg"></div>
-                    <span class="social-icons">
-                        <a href="#" class="fab fa-facebook-f bg-icon light-bg rounded-icon"></a>
-                        <a href="#" class="fab fa-twitter bg-icon light-bg rounded-icon"></a>
-                        <a href="#" class="fab fa-linkedin-in bg-icon light-bg rounded-icon"></a>
-                        <a href="#" class="fab fa-instagram bg-icon light-bg rounded-icon"></a>
-                    </span>
                     <div class="fw-divider-space divider-xl-160 divider-lg-130 divider-md-90 divider-60"></div>
 
                 </div>
@@ -159,4 +147,31 @@
     </div>
 </section>
 
-<hr />
+<script>
+    //prevent image upload & restrict file's size
+    var cv = document.getElementById("cvInput");
+    var result = document.getElementById('resultInput');
+    var noti = document.getElementById('notiInput');
+
+    cv.addEventListener("change", e => {
+        const file = cv.files[0];
+        const type = cv.files[0].type.substring(6);
+
+        if (type.localeCompare("pdf") === 0 && file.size < 10 * 1024) {
+            result.value = 'rightType';
+        }
+        else {
+            result.value = 'falseType';
+            if (type.localeCompare("pdf") !== 0) {
+                noti.innerHTML = "";
+                noti.innerHTML = 'File must be .pdf extension';
+                noti.style.color = "red";
+            }
+            if (file.size > 10 * 1024) {
+                noti.innerHTML = "";
+                noti.innerHTML = 'File exceeds 10kb';
+                noti.style.color = "red";
+            }
+        }
+    })
+</script>
