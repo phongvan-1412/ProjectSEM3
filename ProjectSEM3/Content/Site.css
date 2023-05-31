@@ -168,6 +168,26 @@ body {
 .contact-form textarea {
     min-height: 100px;
 }
+
+/* About */
+.signature {
+    align-items: flex-start;
+    display: flex;
+    justify-content: center;
+}
+.signature .signature-image img {
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.about-img-carousel img{
+    width: 200px;
+    height: 100px;
+    border-radius: 8px;
+}
+.about-img-side img {
+    border-radius: 8px;
+}
 /* Animation */
 .animated {
     visibility: visible !important;
