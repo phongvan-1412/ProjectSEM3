@@ -1,20 +1,232 @@
-﻿/* Set padding to keep content from hitting the edges */
-.body-content {
-    margin-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+﻿/* Page Default */
+*, ::after, ::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+p {
+    line-height: 1.5em;
+    margin-bottom: 1.5em;
+    text-align: left;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
+input[type=text], input[type=email], input[type=url], input[type=password], input[type=search], input[type=tel], input[type=number], textarea, select, .form-control {
+    border: 2px solid #f2f5f7;
+    box-shadow: none;
+    color: #999;
+    font-size: 16px;
+    font-weight: 300;
+    height: auto !important;
+    line-height: 30px;
+    padding: 8px 30px;
+    width: 100%;
+}
+textarea {
+    overflow: auto;
+    resize: vertical;
+}
+label {
+    color: #999;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1;
+    margin-bottom: 12px;
+}
+h2 {
+    font-size: 40px;
+    margin-bottom: .7em;
+    margin-top: 1.2em;
+}
+
+h6 {
+    font-size: 20px;
+    margin-bottom: 1.5em;
+    margin-top: 2.5em;
+}
+
+form .has-placeholder label + [class*=fa-] + .form-control {
+    padding-left: 27px;
+    padding-right: 45px;
+}
+form label + [class*=fa-] + .form-control {
+    padding-left: 10px;
+}
+form .has-placeholder label + [class*=fa-] {
+    top: 20px;
+}
+form label + [class*=fa-], form label + [class*=fas-] {
+    color: #dd4454;
+    font-size: 12px;
+    position: absolute;
+    right: 30px;
+    text-align: center;
+    top: 60px;
+    width: 1em;
+}
+.ls input[type=text], .ls input[type=email], .ls input[type=url], .ls input[type=password], .ls input[type=search], .ls input[type=tel], .ls input[type=number], .ls textarea, .ls select, .ls .form-control {
+    background-color: #fff;
+}
+
+.fa, .fas {
+    font-family: 'font awesome 5 free',sans-serif;
+    font-weight: 900;
+}
+.fa, .fas, .far, .fal, .fab {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+.has-placeholder label {
+    display: none;
+}
 .dl-horizontal dt {
     white-space: normal;
 }
 
+.divider-25 {
+    margin-top: 25px;
+}
+
+.divider-30 {
+    margin-top: 30px;
+}
+
+.divider-50 {
+    margin-top: 50px;
+}
+
+.divider-60 {
+    margin-top: 60px;
+}
+
+.c-gutter-10 .row, div.row.c-gutter-10 {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+.c-mb-10 [class*=col-], .row.c-mb-10 > [class*=col-] {
+    margin-bottom: 10px;
+}
+.ds {
+    background-color: #09445a;
+    color: #fff;
+}
+
+.ls {
+    background-color: #fff;
+    color: #999;
+}
+    .ls h1, .ls h2, .ls h3, .ls h4, .ls h5, .ls h6 {
+        color: #09445a;
+    }
+    .ls.ms {
+        background-color: #f2f5f7;
+        color: #878787;
+    }
+.divider-line {
+    height: 2px;
+    margin-top: 18px;
+    width: 50px;
+}
+.bg-maincolor {
+    background-color: #dd4454;
+}
+body {
+    background-color: #fff;
+    counter-reset: special-heading;
+    font-family: poppins,sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.page-title img {
+    width: 100%;
+    height: 300px;
+}
+.special-heading {
+    display: inline-block;
+    letter-spacing: 0;
+    margin: -10px 0 0 !important;
+    position: relative;
+    width: 100%;
+    word-wrap: break-word;
+}
+.contact-form textarea {
+    min-height: 100px;
+}
+/* Animation */
+.animated {
+    visibility: visible !important;
+}
+.animated {
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 1s;
+}
+.animate {
+    visibility: hidden;
+}
+.scaleAppear {
+    -webkit-animation: scaleAppear 750ms ease;
+    -moz-animation: scaleAppear 750ms ease;
+    -o-animation: scaleAppear 750ms ease;
+    animation: scaleAppear 750ms ease;
+}
+/* Responsive */
+@media (min-width: 1450px) {
+    .special-column {
+        margin-left: auto;
+        max-width: 685px;
+        padding-right: 45px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .divider-xl-160 {
+        margin-top: 160px;
+    }
+}
+
+@media (min-width: 992px) {
+    .special-column {
+        margin-left: auto;
+        max-width: 570px;
+        padding-right: 45px;
+    }
+    .special-column2 {
+        margin-right: auto;
+        max-width: 380px;
+        padding-left: 62px;
+    }
+    .divider-lg-130 {
+        margin-top: 130px;
+    }
+    .hidden-above-lg {
+        display: none !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .divider-md-90 {
+        margin-top: 90px;
+    }
 }
