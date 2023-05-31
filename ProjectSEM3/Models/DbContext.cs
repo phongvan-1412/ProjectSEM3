@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -52,6 +53,40 @@ namespace ProjectSEM3.Models
                     var result = cmd.ExecuteScalar().ToString();
                     cmd.Connection.Close();
                     return JsonConvert.DeserializeObject<T>(result);
+                }
+            }
+        }
+
+        public string Exec(string storeName)
+        {
+            using (SqlConnection con = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = storeName;
+                    cmd.Connection.Open();
+                    var result = cmd.ExecuteScalar().ToString();
+                    cmd.Connection.Close();
+                    return result;
+                }
+            }
+        }
+
+        public string ExecParam(string storeName, Dictionary<string, dynamic> parameters)
+        {
+            using (SqlConnection con = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = storeName;
+                    foreach (var item in parameters)
+                    {
+                        cmd.Parameters.AddWithValue(item.Key, item.Value);
+                    }
+                    cmd.Connection.Open();
+                    var result = cmd.ExecuteScalar().ToString();
+                    cmd.Connection.Close();
+                    return result;
                 }
             }
         }
