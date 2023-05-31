@@ -131,6 +131,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DbContext.cs" />
+    <Compile Include="Models\DbStore.cs" />
+    <Compile Include="Models\Entities\Contestant.cs" />
+    <Compile Include="Models\Entities\ContestantQuestion.cs" />
+    <Compile Include="Models\Entities\Hr.cs" />
+    <Compile Include="Models\Entities\Level.cs" />
+    <Compile Include="Models\Entities\Question.cs" />
+    <Compile Include="Models\Entities\Type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,7 +221,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

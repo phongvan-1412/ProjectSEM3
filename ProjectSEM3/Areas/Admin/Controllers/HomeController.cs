@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectSEM3.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
+            DbContext.Instance.Test();
             return View();
         }
     }
