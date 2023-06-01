@@ -1,16 +1,10 @@
 ﻿@{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container col-md-4 mt-5">
-    <h1 class="mb-5">Login</h1>
-    @*@if (TempData["actorCreate"] != null)
-    {
-        <div class="form-group alert alert-success mb-3">
-            <strong>@TempData["createReviewer"]</strong>
-        </div>
-    }*@
+<div class="login-wrapper"></div>
+<div class="login-form-wrapper container text-white">
+    <h1 class="mt-2 mb-3 text-white" style="font-size: 40px">Login</h1>
     @if (TempData["accountFailed"] != null)
     {
         <div class="form-group alert alert-danger mb-3">
@@ -18,27 +12,29 @@
         </div>
     }
     @*@if (TempData["accountVerified"] != null)
-    {
-        <div class="form-group alert alert-success mb-3">
-            <strong>@TempData["accountVerified"]</strong>
-        </div>
-    }*@
-    <form action="Login" method="post">
+        {
+            <div class="form-group alert alert-success mb-3">
+                <strong>@TempData["accountVerified"]</strong>
+            </div>
+        }*@
+    <div class="container col-md-6 col-lg-6">
+        <form action="Login" method="post">
 
-        <div class="form-group mb-3">
-            <label class="form-label">Email</label>
-            <input name="acc_name" class="form-control" placeholder="Username" required="" />
-        </div>
+            <div class="form-group has-placeholder mb-3">
+                <label class="form-label">Email</label>
+                <input name="acc_name" class="form-control" placeholder="Username" required="" />
+            </div>
 
-        <div class="form-group mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" name="acc_password" class="form-control" placeholder="Password" required="" />
-        </div>
+            <div class="form-group has-placeholder mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" name="acc_password" class="form-control" placeholder="Password" required="" />
+            </div>
 
-        <div class="d-flex justify-content-between form-group mb-3">
-            <input type="submit" value="Login" class="btn btn-primary" />
-        </div>
+            <div class="d-flex justify-content-between form-group mb-3">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
 
-    </form>
+        </form>
+    </div>
 </div>
 
