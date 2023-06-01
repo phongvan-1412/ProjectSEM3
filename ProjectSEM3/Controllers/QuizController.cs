@@ -16,5 +16,13 @@ namespace ProjectSEM3.Controllers
             var lstQuest = DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
             return View(lstQuest);
         }
+
+        [HttpPost]
+        public JsonResult NextQuestion(string question, string answer)
+        {
+            var quest2 = DbContext.Instance.Exec<List<Question.Req>>("select * from question where cast(Content as varchar(max)) !=" + "'" + question + "'" + "for json path");
+
+            return Json(quest2);
+        }
     }
 }

@@ -22,47 +22,42 @@
         <div class="container">
             <form class="multisteps_form position-relative" id="wizard" method="POST" action="../thankyou/index-2.html">
                 <!------------------------- Step-1 ----------------------------->
-                <div id="questDisplay" class="multisteps_form_panel">
-
-                </div>
-                @*@foreach (var item in Model)
+                @foreach (var item in Model)
+                {
+                    var index = Model.IndexOf(item) + 1;
+                    if (index == 1)
                     {
-                        var index = Model.IndexOf(item) + 1;
-                        if (index == 1)
-                        {
-                            <div id="questDisplay" class="multisteps_form_panel">
-                                 Form-content
-                                <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-                                    Question
-                                    <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px"> @index</span>/5
-                                </span>
+                        <div id="questDisplay" class="multisteps_form_panel">
+                            <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                                Question
+                                <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px"> @index</span>/5
+                            </span>
 
-                                <h1 id="question-content" class="question_title text-center">@Model.First().Content</h1>
-                                 Form-items
-                                <div class="form_items d-flex justify-content-center">
-                                    <ul class="ps-0">
-                                        <li id="li1" class="step_1 rounded-pill bg-white text-start">
-                                            <input type="radio" id="opt_1" name="stp_1_select_option" value="@Model.First().A">
-                                            <label for="opt_1">@item.A</label>
-                                        </li>
-                                        <li class="step_1 rounded-pill bg-white">
-                                            <input type="radio" id="opt_2" name="stp_1_select_option" value="@Model.First().B">
-                                            <label for="opt_2">@item.B</label>
-                                        </li>
-                                        <li class="step_1 rounded-pill bg-white">
-                                            <input type="radio" id="opt_3" name="stp_1_select_option" value="@Model.First().C">
-                                            <label for="opt_3">@item.C</label>
-                                        </li>
-                                        <li class="step_1 rounded-pill bg-white">
-                                            <input type="radio" id="opt_4" name="stp_1_select_option" value="@Model.First().D">
-                                            <label for="opt_4">@item.D</label>
-                                        </li>
-                                    </ul>
-                                </div>
-
+                            <h1 id="question-content" class="question_title text-center">@Model.First().Content</h1>
+                            <div class="form_items d-flex justify-content-center">
+                                <ul class="ps-0">
+                                    <li id="li1" class="step_1 rounded-pill bg-white text-start">
+                                        <input type="radio" id="opt_1" name="stp_1_select_option" value="@Model.First().A">
+                                        <label for="opt_1">@Model.First().A</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_2" name="stp_1_select_option" value="@Model.First().B">
+                                        <label for="opt_2">@Model.First().B</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_3" name="stp_1_select_option" value="@Model.First().C">
+                                        <label for="opt_3">@Model.First().C</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_4" name="stp_1_select_option" value="@Model.First().D">
+                                        <label for="opt_4">@Model.First().D</label>
+                                    </li>
+                                </ul>
                             </div>
-                        }
-                    }*@
+                        </div>
+                    }
+
+                }
 
                 <div class="form_btn text-center ms-5 mt-5">
                     <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="prevBtn" style="display: inline;">Prev Question</button>
@@ -153,38 +148,32 @@
     startTick();
 
     /*-----------------------------------
-        Save into local storage
+        Answer Data
     -------------------------------------*/
-    //var li1 = document.getElementById("li1");
-    //var input1 = document.getElementById("opt_1");
-    //var input2 = document.getElementById("opt_2");
-    //var input3 = document.getElementById("opt_3");
-    //var input4 = document.getElementById("opt_4");
-    //var opt1 = input1.value;
-    //var opt2 = input2.value;
-    //var opt3 = input3.value;
-    //var opt4 = input4.value;
-    //var questContent = document.getElementById("question-content").innerHTML;
-    //var result = { questContent: "", optContent: "" };
-    //var lstResult = [];
+    var li1 = document.getElementById("li1");
+    var input1 = document.getElementById("opt_1");
+    var input2 = document.getElementById("opt_2");
+    var input3 = document.getElementById("opt_3");
+    var input4 = document.getElementById("opt_4");
+    var opt1 = input1.value;
+    var opt2 = input2.value;
+    var opt3 = input3.value;
+    var opt4 = input4.value;
+    var questContent = document.getElementById("question-content").innerHTML;
+    var answer = "";
 
-    //input1.addEventListener("click", () => {
-    //    result.questContent = questContent;
-    //    result.optContent = opt1;
-    //    console.log(li1);
-    //});
-    //input2.addEventListener("click", () => {
-    //    result.questContent = questContent;
-    //    result.optContent = opt2;
-    //});
-    //input3.addEventListener("click", () => {
-    //    result.questContent = questContent;
-    //    result.optContent = opt3;
-    //});
-    //input4.addEventListener("click", () => {
-    //    result.questContent = questContent;
-    //    result.optContent = opt4;
-    //});
+    input1.addEventListener("click", () => {
+        answer = opt1;
+    });
+    input2.addEventListener("click", () => {
+        answer = opt2;
+    });
+    input3.addEventListener("click", () => {
+        answer = opt3;
+    });
+    input4.addEventListener("click", () => {
+        answer = opt4;
+    });
 
     /*-----------------------------------
         Prev + Next Btn
@@ -192,31 +181,68 @@
     var prev = document.getElementById("prevBtn");
     var next = document.getElementById("nextBtn");
     var questNumber = document.getElementById("question-number");
-    var temp = 1;
+    let out = "";
+    let num = "";
 
-
-    //if (questNumber.innerHTML == " " || questNumber.innerHTML == null) {
-    //    questNumber.innerHTML = temp;
-    //}
-
-    if (temp == 1) {
+    if (questNumber.innerHTML == 1) {
         prev.style.display = "none";
     }
 
     next.addEventListener("click", () => {
         prev.style.display = "inline";
 
-        if (temp != 5 && temp > 0) {
-            if (temp == 4) {
+        if (questNumber.innerHTML != 5 && questNumber.innerHTML > 0) {
+            if (questNumber.innerHTML == 4) {
                 next.innerHTML = "Submit";
             } else {
                 next.innerHTML = "Next Question";
             }
-            temp = temp + 1;
-            questNumber.innerHTML = temp;
-            //lstResult.push(result);
-            //console.log(lstResult);
+            $.ajax({
+                type: "POST",
+                data: { question: questContent, answer: answer },
+                dataType: "json",
+                url: "/Quiz/NextQuestion",
+                success: function (result) {
+                    console.log(result);
+                    result.forEach(myFunction);
+                    function myFunction(item, index) {
+                        var row = `
+                            <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                                Question
+                                <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${parseInt(questNumber.innerHTML) + 1}</span>/5
+                            </span>
 
+                            <h1 id="question-content" class="question_title text-center">${item.Content}</h1>
+                            <div class="form_items d-flex justify-content-center">
+                                <ul class="ps-0">
+                                    <li id="li1" class="step_1 rounded-pill bg-white text-start">
+                                        <input type="radio" id="opt_1" name="stp_1_select_option" value="${item.A}">
+                                        <label for="opt_1">${item.A}</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_2" name="stp_1_select_option" value="${item.B}">
+                                        <label for="opt_2">${item.B}</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_3" name="stp_1_select_option" value="${item.C}">
+                                        <label for="opt_3">${item.C}</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_4" name="stp_1_select_option" value="${item.D}">
+                                        <label for="opt_4">${item.D}</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        `;
+                        out = row;
+                    };
+                    let display = document.getElementById("questDisplay");
+                    display.innerHTML = out;
+                },
+                error: function (req, status, error) {
+                    console.log(error);
+                }
+            });
         }
         else {
             questNumber.innerHTML = 5;
@@ -236,57 +262,14 @@
     });
 
     prev.addEventListener("click", () => {
-        if (temp == 2) {
+        if (questNumber.innerHTML == 2) {
             prev.style.display = "none";
         }
-        if (temp <= 5 ) {
+        if (questNumber.innerHTML <= 5 ) {
             next.innerHTML = "Next Question";
         }
-        temp = temp - 1;
-        questNumber.innerHTML = temp;
+        questNumber.innerHTML = parseInt(questNumber.innerHTML) - 1;
     });
-
-    /*-----------------------------------
-        Test render = js
-    -------------------------------------*/
-    let out = "";
-    var row = `
-                <div id="questDisplay" class="multisteps_form_panel">
-                            <!-- Form-content -->
-                            <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-                                Question
-                                <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px"> ${temp}</span>/5
-                            </span>
-
-                            <h1 id="question-content" class="question_title text-center">@Model.First().Content</h1>
-                            <!-- Form-items -->
-                            <div class="form_items d-flex justify-content-center">
-                                <ul class="ps-0">
-                                    <li id="li1" class="step_1 rounded-pill bg-white text-start">
-                                        <input type="radio" id="opt_1" name="stp_1_select_option" value="@Model.First().A">
-                                        <label for="opt_1">@Model.First().A</label>
-                                    </li>
-                                    <li class="step_1 rounded-pill bg-white">
-                                        <input type="radio" id="opt_2" name="stp_1_select_option" value="@Model.First().B">
-                                        <label for="opt_2">@Model.First().B</label>
-                                    </li>
-                                    <li class="step_1 rounded-pill bg-white">
-                                        <input type="radio" id="opt_3" name="stp_1_select_option" value="@Model.First().C">
-                                        <label for="opt_3">@Model.First().C</label>
-                                    </li>
-                                    <li class="step_1 rounded-pill bg-white">
-                                        <input type="radio" id="opt_4" name="stp_1_select_option" value="@Model.First().D">
-                                        <label for="opt_4">@Model.First().D</label>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
-            `;
-
-    out = row;
-    let display = document.getElementById('questDisplay');
-    display.innerHTML = out;
 
 </script>
 
