@@ -7,7 +7,7 @@ namespace ProjectSEM3.Models.Entities
 {
     public class Question
     {
-        public class Res
+        public class Req
         {
             public int Id { get; set; }
             public int IdType { get; set; }
@@ -22,14 +22,14 @@ namespace ProjectSEM3.Models.Entities
             public bool IsMultiAnwser { get; set; }
             public bool Status { get; set; }
 
-            public Res() { }
-            public Res(int id)
+            public Req() { }
+            public Req(int id)
             {
                 Id = id;
             }
         }
 
-        public class Req
+        public class Res
         {
             public int Id { get; set; }
             public int IdType { get; set; }
@@ -46,8 +46,8 @@ namespace ProjectSEM3.Models.Entities
             public bool IsMultiAnwser { get; set; }
             public bool Status { get; set; }
 
-            public Req() { }
-            public Req(int id)
+            public Res() { }
+            public Res(int id)
             {
                 Id = id;
             }
