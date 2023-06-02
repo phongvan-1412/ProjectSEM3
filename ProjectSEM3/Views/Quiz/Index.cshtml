@@ -1,0 +1,275 @@
+﻿@model List<ProjectSEM3.Models.Entities.Question.Req>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var endTime = DateTime.UtcNow.AddSeconds(425);
+    var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.UtcNow.Ticks).TotalSeconds.ToString("#");
+}
+
+<div class="quiz-wrapper pt-5">
+    <div class="container-fluid" style="z-index: 1">
+        <div class="row text-center">
+            <!-- Circles which indicates the steps of the form: -->
+            <div class="col d-flex flex-row justify-content-evenly d-none d-sm-block">
+                <span class="step bg-white rounded-pill finish finish"></span>
+                <span class="step bg-white rounded-pill active"></span>
+                <span class="step bg-white rounded-pill"></span>
+                <span class="step bg-white rounded-pill"></span>
+                <span class="step bg-white rounded-pill"></span>
+            </div>
+        </div>
+
+        <div class="container">
+            <form class="multisteps_form position-relative" id="wizard" method="POST" action="../thankyou/index-2.html">
+                <!------------------------- Step-1 ----------------------------->
+                @foreach (var item in Model)
+                {
+                    var index = Model.IndexOf(item) + 1;
+                    if (index == 1)
+                    {
+                        <div id="questDisplay" class="multisteps_form_panel">
+                            <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                                Question
+                                <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px"> @index</span>/5
+                            </span>
+
+                            <h1 id="question-content" class="question_title text-center">@Model.First().Content</h1>
+                            <div class="form_items d-flex justify-content-center">
+                                <ul class="ps-0">
+                                    <li id="li1" class="step_1 rounded-pill bg-white text-start">
+                                        <input type="radio" id="opt_1" name="stp_1_select_option" value="@Model.First().A">
+                                        <label for="opt_1">@Model.First().A</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_2" name="stp_1_select_option" value="@Model.First().B">
+                                        <label for="opt_2">@Model.First().B</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_3" name="stp_1_select_option" value="@Model.First().C">
+                                        <label for="opt_3">@Model.First().C</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_4" name="stp_1_select_option" value="@Model.First().D">
+                                        <label for="opt_4">@Model.First().D</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+
+                }
+
+                <div class="form_btn text-center ms-5 mt-5">
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="prevBtn" style="display: inline;">Prev Question</button>
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="nextBtn">Next Question</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="container text-center mt-5 mb-5">
+            <div class="d-flex justify-content-evenly align-items-center section-wrapper">
+                <div class="d-flex flex-column justify-content-center text-center">
+                    <div>
+                        <button type="button" class="btn" style="display: inline;">1</button>
+                    </div>
+                    <div class="mt-3">
+                        <span style="color: #000a38; font-size: 1rem">General Knowledge</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column justify-content-center text-center">
+                    <div>
+                        <button type="button" class="btn" style="display: inline;">2</button>
+                    </div>
+                    <div class="mt-3">
+                        <span style="color: #000a38; font-size: 1rem">Mathematics</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column justify-content-center text-center">
+                    <div>
+                        <button type="button" class="btn" style="display: inline;">3</button>
+                    </div>
+                    <div class="mt-3">
+                        <span style="color: #000a38; font-size: 1rem">Computer Technology</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex text-center justify-content-center align-items-center timer-wrapper">
+            <div>
+                <span id="minRemaining"></span>
+            </div>
+            <div>
+                <span>:</span>
+            </div>
+            <div>
+                <span id="secRemaining"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    /*-----------------------------------
+        Countdown
+    -------------------------------------*/
+    var remSeconds = @timeRemaining;
+    var secCounter = remSeconds % 60;
+
+    function formatNumber(number) {
+        if (number < 10) return '0' + number;
+        else return '' + number;
+    }
+    function startTick() {
+            document.getElementById("secRemaining").innerText = formatNumber(secCounter);
+            document.getElementById("minRemaining").innerText = formatNumber(parseInt(remSeconds / 60));
+
+        var _tick = setInterval(function () {
+            if (remSeconds > 0 && secCounter == 0) {
+                remSeconds = remSeconds - 1;
+                secCounter = 60 - 1;
+                document.getElementById("secRemaining").innerText = formatNumber(secCounter);
+                document.getElementById("minRemaining").innerText = formatNumber(parseInt(remSeconds / 60));
+            }
+            else if (remSeconds > 0 && secCounter != 0) {
+                 remSeconds = remSeconds - 1;
+                 secCounter = secCounter - 1;
+                 document.getElementById("secRemaining").innerText = formatNumber(secCounter);
+                 document.getElementById("minRemaining").innerText = formatNumber(parseInt(remSeconds / 60));
+                 if (secCounter == 0)
+                    secCounter = 60;
+            }
+            else {
+                    alert('Times out!');
+                    clearInterval(_tick);
+                }
+            }, 1000);
+    }
+    startTick();
+
+    /*-----------------------------------
+        Answer Data
+    -------------------------------------*/
+    var li1 = document.getElementById("li1");
+    var input1 = document.getElementById("opt_1");
+    var input2 = document.getElementById("opt_2");
+    var input3 = document.getElementById("opt_3");
+    var input4 = document.getElementById("opt_4");
+    var opt1 = input1.value;
+    var opt2 = input2.value;
+    var opt3 = input3.value;
+    var opt4 = input4.value;
+    var questContent = document.getElementById("question-content").innerHTML;
+    var answer = "";
+
+    input1.addEventListener("click", () => {
+        answer = opt1;
+    });
+    input2.addEventListener("click", () => {
+        answer = opt2;
+    });
+    input3.addEventListener("click", () => {
+        answer = opt3;
+    });
+    input4.addEventListener("click", () => {
+        answer = opt4;
+    });
+
+    /*-----------------------------------
+        Prev + Next Btn
+    -------------------------------------*/
+    var prev = document.getElementById("prevBtn");
+    var next = document.getElementById("nextBtn");
+    var questNumber = document.getElementById("question-number");
+    let out = "";
+    let num = "";
+
+    if (questNumber.innerHTML == 1) {
+        prev.style.display = "none";
+    }
+
+    next.addEventListener("click", () => {
+        prev.style.display = "inline";
+
+        if (questNumber.innerHTML != 5 && questNumber.innerHTML > 0) {
+            if (questNumber.innerHTML == 4) {
+                next.innerHTML = "Submit";
+            } else {
+                next.innerHTML = "Next Question";
+            }
+            $.ajax({
+                type: "POST",
+                data: { question: questContent, answer: answer },
+                dataType: "json",
+                url: "/Quiz/NextQuestion",
+                success: function (result) {
+                    console.log(result);
+                    result.forEach(myFunction);
+                    function myFunction(item, index) {
+                        var row = `
+                            <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                                Question
+                                <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${parseInt(questNumber.innerHTML) + 1}</span>/5
+                            </span>
+
+                            <h1 id="question-content" class="question_title text-center">${item.Content}</h1>
+                            <div class="form_items d-flex justify-content-center">
+                                <ul class="ps-0">
+                                    <li id="li1" class="step_1 rounded-pill bg-white text-start">
+                                        <input type="radio" id="opt_1" name="stp_1_select_option" value="${item.A}">
+                                        <label for="opt_1">${item.A}</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_2" name="stp_1_select_option" value="${item.B}">
+                                        <label for="opt_2">${item.B}</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_3" name="stp_1_select_option" value="${item.C}">
+                                        <label for="opt_3">${item.C}</label>
+                                    </li>
+                                    <li class="step_1 rounded-pill bg-white">
+                                        <input type="radio" id="opt_4" name="stp_1_select_option" value="${item.D}">
+                                        <label for="opt_4">${item.D}</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        `;
+                        out = row;
+                    };
+                    let display = document.getElementById("questDisplay");
+                    display.innerHTML = out;
+                },
+                error: function (req, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+        else {
+            questNumber.innerHTML = 5;
+            $.ajax({
+                type: "POST",
+                data: { id: productId, price: productPrice },
+                dataType: "json",
+                url: "/Quiz/Increase",
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (req, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+
+    prev.addEventListener("click", () => {
+        if (questNumber.innerHTML == 2) {
+            prev.style.display = "none";
+        }
+        if (questNumber.innerHTML <= 5 ) {
+            next.innerHTML = "Next Question";
+        }
+        questNumber.innerHTML = parseInt(questNumber.innerHTML) - 1;
+    });
+
+</script>
+
