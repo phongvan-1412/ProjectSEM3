@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.Web.Helpers;
 using static System.Collections.Specialized.BitVector32;
 
 namespace ProjectSEM3.Models
@@ -38,7 +39,7 @@ namespace ProjectSEM3.Models
             }
         }
 
-        public T ExecParam<T>(string storeName,Dictionary<string,dynamic> parameters)
+        public T Exec<T>(string storeName,Dictionary<string,dynamic> parameters)
         {
             using (SqlConnection con = new SqlConnection(connString))
             {
@@ -72,16 +73,20 @@ namespace ProjectSEM3.Models
             }
         }
 
-        public string ExecParam(string storeName, Dictionary<string, dynamic> parameters)
+        public string Exec(string storeName, Dictionary<string, dynamic> parameters)
         {
             using (SqlConnection con = new SqlConnection(connString))
             {
                 using (SqlCommand cmd = con.CreateCommand())
                 {
-                    cmd.CommandText = storeName;
+
+                    var test1 = string.Join(",", parameters.Keys).ToLower();
+                    cmd.CommandText = storeName + " " + test1;
                     foreach (var item in parameters)
                     {
-                        cmd.Parameters.AddWithValue(item.Key, item.Value);
+                        //cmd.Parameters.AddWithValue(item.Key, item.Value);
+                        var test = new SqlParameter(item.Key, item.Value);
+                        cmd.Parameters.Add(test);
                     }
                     cmd.Connection.Open();
                     var result = cmd.ExecuteScalar().ToString();

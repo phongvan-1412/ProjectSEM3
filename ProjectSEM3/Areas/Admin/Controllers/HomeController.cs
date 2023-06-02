@@ -1,4 +1,5 @@
 ﻿using ProjectSEM3.Models;
+using ProjectSEM3.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,13 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            DbContext.Instance.Test();
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@Name", "hr12 name" },
+                { "@Email", "hremail1@gmail.com" },
+                { "@Password", "111111" }
+            };
+            DbContext.Instance.Exec(DbStore.InsertHr, param);
             return View();
         }
     }
