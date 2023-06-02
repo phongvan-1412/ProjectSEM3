@@ -14,7 +14,7 @@ namespace ProjectSEM3.Models
     {
         private static DbContext instance;
         public string connString = ConfigurationManager.AppSettings.Get("ConnectionString");
-
+        private string _storeFormat = "{0} {1}";
         public static DbContext Instance
         {
             get
@@ -46,10 +46,11 @@ namespace ProjectSEM3.Models
             {
                 using (SqlCommand cmd = con.CreateCommand())
                 {
-                    cmd.CommandText = storeName;
+                    cmd.CommandText = GetStoreProduce(storeName, parameters);
                     foreach (var item in parameters)
                     {
-                        cmd.Parameters.AddWithValue(item.Key, item.Value);
+                        var test = new SqlParameter(item.Key, item.Value);
+                        cmd.Parameters.Add(test);
                     }
                     cmd.Connection.Open();
                     var result = cmd.ExecuteScalar().ToString();
@@ -80,12 +81,9 @@ namespace ProjectSEM3.Models
             {
                 using (SqlCommand cmd = con.CreateCommand())
                 {
-
-                    var test1 = string.Join(",", parameters.Keys).ToLower();
-                    cmd.CommandText = storeName + " " + test1;
+                    cmd.CommandText = GetStoreProduce(storeName, parameters);
                     foreach (var item in parameters)
                     {
-                        //cmd.Parameters.AddWithValue(item.Key, item.Value);
                         var test = new SqlParameter(item.Key, item.Value);
                         cmd.Parameters.Add(test);
                     }
@@ -95,6 +93,12 @@ namespace ProjectSEM3.Models
                     return result;
                 }
             }
+        }
+
+        private string GetStoreProduce(string storeName, Dictionary<string, dynamic> parameters)
+        {
+            var param = string.Join(",", parameters.Keys).ToLower();
+            return string.Format(_storeFormat, storeName, param);
         }
     }
 }
