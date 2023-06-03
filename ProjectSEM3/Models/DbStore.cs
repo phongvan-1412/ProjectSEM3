@@ -20,6 +20,8 @@
         public static string InsertHr = "Sp_InsertHr";
         public static string UpdateHr = "Sp_UpdateHr";
         public static string GetHrById = "Sp_GetHrById";
+        public static string GetHrByEmailPass = "Sp_GetHrByEmailPass";
+        public static string GetHrByEmail = "Sp_GetHrByEmail";
         public static string GetHrs = "Sp_GetHrs";
 
         public static string InsertQuestion = "Sp_InsertQuestion";
