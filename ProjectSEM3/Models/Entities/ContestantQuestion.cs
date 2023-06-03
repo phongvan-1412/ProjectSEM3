@@ -6,6 +6,8 @@
         {
             public int Id { get; set; }
             public int IdQuestion { get; set; }
+            public int IdContestant { get; set; }
+            public string Anwser { get; set; }
             public bool Status { get; set; }
 
             public Res() { }
@@ -20,6 +22,8 @@
         {
             public int Id { get; set; }
             public int IdQuestion { get; set; }
+            public int IdContestant { get; set; }
+            public string Anwser { get; set; }
             public bool Status { get; set; }
 
             public Req() { }

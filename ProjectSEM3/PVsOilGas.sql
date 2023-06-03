@@ -64,6 +64,7 @@ insert into Question(IdType,IdLevel,Content,Point,A,B,C,D,CorrectAnwser,IsMultiA
 create table ContestantQuestion(
 	Id int identity(1,1) primary key,
 	IdQuestion int references Question(Id),
+	IdContestant int references Contestant(Id),
 	Status bit default 1
 )
 

@@ -29,9 +29,9 @@
         public static string GetQuestionById = "Sp_GetQuestionById";
         public static string GetQuestions = "Sp_GetQuestions";
 
-        public static string InsertContestantQuestion = "Sp_InsertContestantQuestion";
-        public static string UpdateContestantQuestion = "Sp_UpdateContestantQuestion";
-        public static string GetContestantQuestionById = "Sp_GetContestantQuestionById";
+        public static string InsertContestantQuestion = "Sp_InsertContestantQuest";
+        public static string UpdateContestantQuestion = "Sp_UpdateContestantQuest";
+        public static string GetContestantQuestionById = "Sp_GetContestantQuestById";
         public static string GetContestantQuestions = "Sp_GetContestantQuestions";
     }
 }

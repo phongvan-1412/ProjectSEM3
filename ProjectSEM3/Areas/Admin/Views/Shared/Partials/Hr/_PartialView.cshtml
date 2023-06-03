@@ -1,0 +1,46 @@
+﻿@using ProjectSEM3.Models;
+
+@{
+    //var data = ViewBag.HrRes as List<ProjectSEM3.Models.Entities.Hr.Res>;
+    var data = new List<ProjectSEM3.Models.Entities.Hr.Res>();
+}
+
+@if (data.Count() <= 0)
+{
+    <h3>No records found.</h3>
+}
+
+else
+{
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in data)
+                {
+                    <tr>
+                        <td>
+                            @{
+                                var a = data.IndexOf(item) + 1;
+                            }
+                            @a
+                        </td>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td>
+                            @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Hr/_PartialUpdate.cshtml", item as ProjectSEM3.Models.Entities.Hr.Res)
+                            @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Hr/_PartialInfo.cshtml", item as ProjectSEM3.Models.Entities.Hr.Res)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

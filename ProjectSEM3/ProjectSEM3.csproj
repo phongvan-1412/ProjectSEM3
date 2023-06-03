@@ -121,11 +121,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContestantQuestionController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HrController.cs" />
     <Compile Include="Areas\Admin\Controllers\LevelController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuestionController.cs" />
     <Compile Include="Areas\Admin\Controllers\TypeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
@@ -248,10 +249,14 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Type\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Level\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\_PartialLeftNav.cshtml" />
     <Content Include="Areas\Admin\Views\Question\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Hr\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Hr\_PartialNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Hr\_PartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Hr\_PartialInfor.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Hr\_PartialUpdate.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -283,6 +288,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\ContestantQuestion\" />
+    <Folder Include="Areas\Admin\Views\Contestant\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
