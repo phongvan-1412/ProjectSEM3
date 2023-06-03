@@ -174,7 +174,7 @@
     let score = 0;
 
     /*-----------------------------------
-        Display question
+        Handle Content
     -------------------------------------*/
 
     var questNum = document.getElementById("question-number");
@@ -192,51 +192,66 @@
         score = 0;
         showQuestion();
     };
-
     function showQuestion() {
         resetState();
         let currentQuestion = data[index].Content;
         let questNo = index + 1;
 
+        /*----------------------------------- Display/Hide/Change button content -------------------------------------*/
+        if (index >= 1) {
+            prevButton.style.display = "inline";
+        }
+        else {
+            prevButton.style.display = "none";
+        }
+
+        if (index == 2) {
+            nextButton.innerHTML = "Submit";
+        }
+        else {
+            nextButton.innerHTML = "Next Question";
+        }
+
+        /*----------------------------------- Display content -------------------------------------*/
         questNum.innerHTML = questNo;
         questContent.innerHTML = currentQuestion;
+        /*---------- Answer A ----------*/
         const button1 = document.createElement("button");
         button1.innerHTML = data[index].A;
         button1.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
         answer.appendChild(button1);
         button1.dataset.selected = data[index].Status;
         button1.addEventListener("click", selectAnswer);
-        //btn1.innerHTML = data[index].A;
+
+        /*---------- Answer B ----------*/
         const button2 = document.createElement("button");
         button2.innerHTML = data[index].B;
         button2.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
         answer.appendChild(button2);
         button2.dataset.selected = data[index].Status;
         button2.addEventListener("click", selectAnswer);
-        //btn2.innerHTML = data[index].B;
+
+        /*---------- Answer C ----------*/
         const button3 = document.createElement("button");
         button3.innerHTML = data[index].C;
         button3.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
         answer.appendChild(button3);
         button3.dataset.selected = data[index].Status;
         button3.addEventListener("click", selectAnswer);
-        //btn3.innerHTML = data[index].C;
+
+        /*---------- Answer D ----------*/
         const button4 = document.createElement("button");
         button4.innerHTML = data[index].D;
         button4.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
         answer.appendChild(button4);
         button4.dataset.selected = data[index].Status;
         button4.addEventListener("click", selectAnswer);
-        //btn4.innerHTML = data[index].D;
     }
-
     function resetState() {
-        prevButton.style.display = "none";
         while (answer.firstChild) {
             answer.removeChild(answer.firstChild);
         };
     };
-
     function selectAnswer(e) {
         const selectedBtn = e.target;
         console.log(selectedBtn.dataset);
@@ -245,22 +260,34 @@
             selectedBtn.classList.add("selected");
         }
     };
-
     function handleNextButton() {
         index++;
         if (index < data.length) {
             showQuestion();
         }
     };
-
+    function handlePrevButton() {
+        index--;
+        if (index < data.length) {
+            showQuestion();
+        }
+    };
     nextButton.addEventListener("click", () => {
-        console.log(index, data.length);
         if (index < data.length) {
             handleNextButton();
         } else {
             startQuiz();
         }
     });
+    prevButton.addEventListener("click", () => {
+        console.log(index, data.length);
+        if (index < data.length) {
+            handlePrevButton();
+        } else {
+            startQuiz();
+        }
+    });
+
     startQuiz();
 
 </script>
