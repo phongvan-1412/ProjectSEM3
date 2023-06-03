@@ -1,7 +1,16 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Question";
 }
 
-<h2>Index</h2>
+@section Header {
+    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/_PartialHeader.cshtml")
+}
 
+@section LeftNavigator {
+    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/_PartialLeftNav.cshtml")
+}
+
+<h2>Question</h2>
+
+@Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialNew.cshtml")
+@Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialView.cshtml")

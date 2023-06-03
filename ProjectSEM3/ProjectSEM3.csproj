@@ -257,6 +257,11 @@
     <Content Include="Areas\Admin\Views\Shared\Partials\Hr\_PartialView.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\Hr\_PartialInfor.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\Hr\_PartialUpdate.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Question\_PartialInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Question\_PartialNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Question\_PartialUpdate.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Question\_PartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\_PartialHeader.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
