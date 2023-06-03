@@ -883,7 +883,10 @@ body .container-fluid {
 .rounded-pill {
     border-radius: 50rem !important;
 }
-
+.selected-button {
+    background-color: #ffc533;
+    color: #000a38;
+}
 .form_items ul {
     display: block;
     list-style-type: none;

@@ -16,7 +16,8 @@ namespace ProjectSEM3.Controllers
         public ActionResult Index()
         {
             ViewData["lstQuest"] = GetData();
-            return View();
+            List<Question.Req> temp = DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
+            return View(temp);
         }
 
         [HttpPost]

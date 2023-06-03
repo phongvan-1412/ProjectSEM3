@@ -24,8 +24,63 @@
         </div>
 
         <div class="container">
-            <form class="multisteps_form position-relative" id="wizard" method="POST" action="../thankyou/index-2.html">
-            </form>
+            <div id="wizard">
+                <div id="questDisplay" class="multisteps_form_panel">
+                    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                        Question
+                        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">1</span>/5
+                    </span>
+
+                    <h1 id="question-content" class="question_title text-center">Quest 1</h1>
+                    <div id="answer-button" class="form_items d-flex flex-column justify-content-center">
+
+                        <button id="btn1" class="btn rounded-pill bg-white text-start mb-3" style="height: 50px">Answer A</button>
+                        <button id="btn2" class="btn rounded-pill bg-white text-start mb-3" style="height: 50px">Answer B</button>
+                        <button id="btn3" class="btn rounded-pill bg-white text-start mb-3" style="height: 50px">Answer C</button>
+                        <button id="btn4" class="btn rounded-pill bg-white text-start" style="height: 50px">Answer D</button>
+
+                    </div>
+                </div>
+
+                <div class="form_btn text-center ms-5 mt-5">
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="prevBtn" style="display: inline;">Prev Question</button>
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="nextBtn">Next Question</button>
+                </div>
+            </div>
+                @*<div id="questDisplay" class="multisteps_form_panel">
+                    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                        Question
+                        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">1</span>/5
+                    </span>
+
+                    <h1 id="question-content" class="question_title text-center">Question goes here</h1>
+                    <div class="form_items answer-input d-flex justify-content-center">
+                        <ul class="answer-input ps-0">
+                            <li id="li1" class="step_1 rounded-pill bg-white text-start">
+                                <input type="radio" id="opt_1" name="stp_1_select_option" value="Answer A">
+                                <label id="lb_1" for="opt_1">Answer A</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_2" name="stp_1_select_option" value="Answer B">
+                                <label id="lb_2" for="opt_2">Answer B</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_3" name="stp_1_select_option" value="Answer C">
+                                <label id="lb_3" for="opt_3">Answer C</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_4" name="stp_1_select_option" value="Answer D">
+                                <label id="lb_4" for="opt_4">Answer D</label>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="form_btn text-center ms-5 mt-5">
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="prevBtn" style="display: inline;">Prev Question</button>
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="nextBtn">Next Question</button>
+                </div>*@
         </div>
 
         <div class="container text-center mt-5 mb-5">
@@ -115,162 +170,98 @@
     var lstQuest = @Html.Raw(Json.Encode(lst));
     var data = lstQuest.Data;
     console.log(data);
+    let index = 0;
+    let score = 0;
 
     /*-----------------------------------
-        Display first question
+        Display question
     -------------------------------------*/
-    let display = document.getElementById("wizard");
-    var row = `
-                 <div id="questDisplay" class="multisteps_form_panel">
-                    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-                        Question
-                        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px"> ${data[0].Id}</span>/5
-                    </span>
 
-                    <h1 id="question-content" class="question_title text-center">${data[0].Content}</h1>
-                    <div class="form_items d-flex justify-content-center">
-                        <ul class="ps-0">
-                            <li id="li1" class="step_1 rounded-pill bg-white text-start">
-                                <input type="radio" id="opt_1" name="stp_1_select_option" value="${data[0].A}">
-                                <label for="opt_1">${data[0].A}</label>
-                            </li>
-                            <li class="step_1 rounded-pill bg-white">
-                                <input type="radio" id="opt_2" name="stp_1_select_option" value="${data[0].B}">
-                                <label for="opt_2">${data[0].B}</label>
-                            </li>
-                            <li class="step_1 rounded-pill bg-white">
-                                <input type="radio" id="opt_3" name="stp_1_select_option" value="${data[0].C}">
-                                <label for="opt_3">${data[0].C}</label>
-                            </li>
-                            <li class="step_1 rounded-pill bg-white">
-                                <input type="radio" id="opt_4" name="stp_1_select_option" value="${data[0].D}">
-                                <label for="opt_4">${data[0].D}</label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+    var questNum = document.getElementById("question-number");
+    const questContent = document.getElementById("question-content");
+    const answer = document.getElementById("answer-button");
+    const btn1 = document.getElementById("btn1");
+    const btn2 = document.getElementById("btn2");
+    const btn3 = document.getElementById("btn3");
+    const btn4 = document.getElementById("btn4");
+    const nextButton = document.getElementById("nextBtn");
+    const prevButton = document.getElementById("prevBtn");
 
-                <div class="form_btn text-center ms-5 mt-5">
-                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="prevBtn" style="display: inline;">Prev Question</button>
-                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="nextBtn">Next Question</button>
-                </div>
-    `;
-    display.innerHTML = row;
-    /*-----------------------------------
-        Answer Data
-    -------------------------------------*/
-    var input1 = document.getElementById("opt_1");
-    var input2 = document.getElementById("opt_2");
-    var input3 = document.getElementById("opt_3");
-    var input4 = document.getElementById("opt_4");
-    var opt1 = input1.value;
-    var opt2 = input2.value;
-    var opt3 = input3.value;
-    var opt4 = input4.value;
-    var questContent = document.getElementById("question-content").innerHTML;
-    var answer = "";
+    function startQuiz() {
+        index = 0;
+        score = 0;
+        showQuestion();
+    };
 
-    input1.addEventListener("click", () => {
-        answer = opt1;
-    });
-    input2.addEventListener("click", () => {
-        answer = opt2;
-    });
-    input3.addEventListener("click", () => {
-        answer = opt3;
-    });
-    input4.addEventListener("click", () => {
-        answer = opt4;
-    });
+    function showQuestion() {
+        resetState();
+        let currentQuestion = data[index].Content;
+        let questNo = index + 1;
 
-    /*-----------------------------------
-        Prev + Next Btn
-    -------------------------------------*/
-    var prev = document.getElementById("prevBtn");
-    var next = document.getElementById("nextBtn");
-    var questNumber = document.getElementById("question-number");
-    let out = "";
-    let num = "";
-
-    if (questNumber.innerHTML == 1) {
-        prev.style.display = "none";
+        questNum.innerHTML = questNo;
+        questContent.innerHTML = currentQuestion;
+        const button1 = document.createElement("button");
+        button1.innerHTML = data[index].A;
+        button1.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
+        answer.appendChild(button1);
+        button1.dataset.selected = data[index].Status;
+        button1.addEventListener("click", selectAnswer);
+        //btn1.innerHTML = data[index].A;
+        const button2 = document.createElement("button");
+        button2.innerHTML = data[index].B;
+        button2.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
+        answer.appendChild(button2);
+        button2.dataset.selected = data[index].Status;
+        button2.addEventListener("click", selectAnswer);
+        //btn2.innerHTML = data[index].B;
+        const button3 = document.createElement("button");
+        button3.innerHTML = data[index].C;
+        button3.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
+        answer.appendChild(button3);
+        button3.dataset.selected = data[index].Status;
+        button3.addEventListener("click", selectAnswer);
+        //btn3.innerHTML = data[index].C;
+        const button4 = document.createElement("button");
+        button4.innerHTML = data[index].D;
+        button4.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
+        answer.appendChild(button4);
+        button4.dataset.selected = data[index].Status;
+        button4.addEventListener("click", selectAnswer);
+        //btn4.innerHTML = data[index].D;
     }
 
-    next.addEventListener("click", () => {
-        prev.style.display = "inline";
+    function resetState() {
+        prevButton.style.display = "none";
+        while (answer.firstChild) {
+            answer.removeChild(answer.firstChild);
+        };
+    };
 
-        if (questNumber.innerHTML != 5 && questNumber.innerHTML > 0) {
-            if (questNumber.innerHTML == 4) {
-                next.innerHTML = "Submit";
-            } else {
-                next.innerHTML = "Next Question";
-            }
-            /*----------------- Display next question -----------------*/
-            let display = document.getElementById("wizard");
-
-            var row = `
-                <div id="questDisplay" class="multisteps_form_panel">
-                    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-                        Question
-                        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px"> ${data[1].Id}</span>/5
-                    </span>
-
-                    <h1 id="question-content" class="question_title text-center">${data[1].Content}</h1>
-                    <div class="form_items d-flex justify-content-center">
-                        <ul class="ps-0">
-                            <li id="li1" class="step_1 rounded-pill bg-white text-start">
-                                <input type="radio" id="opt_1" name="stp_1_select_option" value="${data[1].A}">
-                                <label for="opt_1">${data[1].A}</label>
-                            </li>
-                            <li class="step_1 rounded-pill bg-white">
-                                <input type="radio" id="opt_2" name="stp_1_select_option" value="${data[1].B}">
-                                <label for="opt_2">${data[1].B}</label>
-                            </li>
-                            <li class="step_1 rounded-pill bg-white">
-                                <input type="radio" id="opt_3" name="stp_1_select_option" value="${data[1].C}">
-                                <label for="opt_3">${data[1].C}</label>
-                            </li>
-                            <li class="step_1 rounded-pill bg-white">
-                                <input type="radio" id="opt_4" name="stp_1_select_option" value="${data[1].D}">
-                                <label for="opt_4">${data[1].D}</label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="form_btn text-center ms-5 mt-5">
-                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="prevBtn" style="display: inline;">Prev Question</button>
-                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="nextBtn">Next Question</button>
-                </div>
-            `;
-            display.innerHTML = row;
+    function selectAnswer(e) {
+        const selectedBtn = e.target;
+        console.log(selectedBtn.dataset);
+        const isSelected = selectedBtn.dataset.selected === "true";
+        if (isSelected) {
+            selectedBtn.classList.add("selected");
         }
-        else {
-            questNumber.innerHTML = 5;
-            $.ajax({
-                type: "POST",
-                data: { result: localStorage.getItem("lstQuest") },
-                dataType: "json",
-                url: "/Quiz/Submit",
-                success: function (result) {
-                    console.log(result);
-                },
-                error: function (req, status, error) {
-                    console.log(error);
-                }
-            });
+    };
+
+    function handleNextButton() {
+        index++;
+        if (index < data.length) {
+            showQuestion();
+        }
+    };
+
+    nextButton.addEventListener("click", () => {
+        console.log(index, data.length);
+        if (index < data.length) {
+            handleNextButton();
+        } else {
+            startQuiz();
         }
     });
-
-    prev.addEventListener("click", () => {
-        if (questNumber.innerHTML == 2) {
-            prev.style.display = "none";
-        }
-        if (questNumber.innerHTML <= 5 ) {
-            next.innerHTML = "Next Question";
-        }
-        questNumber.innerHTML = parseInt(questNumber.innerHTML) - 1;
-    });
+    startQuiz();
 
 </script>
 
