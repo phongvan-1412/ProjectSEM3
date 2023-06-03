@@ -2,14 +2,18 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <!-- Define countdown time -->
     var endTime = DateTime.UtcNow.AddSeconds(425);
     var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.UtcNow.Ticks).TotalSeconds.ToString("#");
+
+    <!-- Get Question List -->
+    var lst = ViewData["lstQuest"];
 }
 
 <div class="quiz-wrapper pt-5">
     <div class="container-fluid" style="z-index: 1">
         <div class="row text-center">
-            <!-- Circles which indicates the steps of the form: -->
             <div class="col d-flex flex-row justify-content-evenly d-none d-sm-block">
                 <span class="step bg-white rounded-pill finish finish"></span>
                 <span class="step bg-white rounded-pill active"></span>
@@ -21,48 +25,6 @@
 
         <div class="container">
             <form class="multisteps_form position-relative" id="wizard" method="POST" action="../thankyou/index-2.html">
-                <!------------------------- Step-1 ----------------------------->
-                @foreach (var item in Model)
-                {
-                    var index = Model.IndexOf(item) + 1;
-                    if (index == 1)
-                    {
-                        <div id="questDisplay" class="multisteps_form_panel">
-                            <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-                                Question
-                                <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px"> @index</span>/5
-                            </span>
-
-                            <h1 id="question-content" class="question_title text-center">@Model.First().Content</h1>
-                            <div class="form_items d-flex justify-content-center">
-                                <ul class="ps-0">
-                                    <li id="li1" class="step_1 rounded-pill bg-white text-start">
-                                        <input type="radio" id="opt_1" name="stp_1_select_option" value="@Model.First().A">
-                                        <label for="opt_1">@Model.First().A</label>
-                                    </li>
-                                    <li class="step_1 rounded-pill bg-white">
-                                        <input type="radio" id="opt_2" name="stp_1_select_option" value="@Model.First().B">
-                                        <label for="opt_2">@Model.First().B</label>
-                                    </li>
-                                    <li class="step_1 rounded-pill bg-white">
-                                        <input type="radio" id="opt_3" name="stp_1_select_option" value="@Model.First().C">
-                                        <label for="opt_3">@Model.First().C</label>
-                                    </li>
-                                    <li class="step_1 rounded-pill bg-white">
-                                        <input type="radio" id="opt_4" name="stp_1_select_option" value="@Model.First().D">
-                                        <label for="opt_4">@Model.First().D</label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    }
-
-                }
-
-                <div class="form_btn text-center ms-5 mt-5">
-                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="prevBtn" style="display: inline;">Prev Question</button>
-                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="nextBtn">Next Question</button>
-                </div>
             </form>
         </div>
 
@@ -148,9 +110,55 @@
     startTick();
 
     /*-----------------------------------
+        Save Quest list into local storage
+    -------------------------------------*/
+    var lstQuest = @Html.Raw(Json.Encode(lst));
+    var data = lstQuest.Data;
+    console.log(data);
+
+    /*-----------------------------------
+        Display first question
+    -------------------------------------*/
+    let display = document.getElementById("wizard");
+    var row = `
+                 <div id="questDisplay" class="multisteps_form_panel">
+                    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                        Question
+                        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px"> ${data[0].Id}</span>/5
+                    </span>
+
+                    <h1 id="question-content" class="question_title text-center">${data[0].Content}</h1>
+                    <div class="form_items d-flex justify-content-center">
+                        <ul class="ps-0">
+                            <li id="li1" class="step_1 rounded-pill bg-white text-start">
+                                <input type="radio" id="opt_1" name="stp_1_select_option" value="${data[0].A}">
+                                <label for="opt_1">${data[0].A}</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_2" name="stp_1_select_option" value="${data[0].B}">
+                                <label for="opt_2">${data[0].B}</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_3" name="stp_1_select_option" value="${data[0].C}">
+                                <label for="opt_3">${data[0].C}</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_4" name="stp_1_select_option" value="${data[0].D}">
+                                <label for="opt_4">${data[0].D}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form_btn text-center ms-5 mt-5">
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="prevBtn" style="display: inline;">Prev Question</button>
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="nextBtn">Next Question</button>
+                </div>
+    `;
+    display.innerHTML = row;
+    /*-----------------------------------
         Answer Data
     -------------------------------------*/
-    var li1 = document.getElementById("li1");
     var input1 = document.getElementById("opt_1");
     var input2 = document.getElementById("opt_2");
     var input3 = document.getElementById("opt_3");
@@ -197,60 +205,53 @@
             } else {
                 next.innerHTML = "Next Question";
             }
-            $.ajax({
-                type: "POST",
-                data: { question: questContent, answer: answer },
-                dataType: "json",
-                url: "/Quiz/NextQuestion",
-                success: function (result) {
-                    console.log(result);
-                    result.forEach(myFunction);
-                    function myFunction(item, index) {
-                        var row = `
-                            <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-                                Question
-                                <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${parseInt(questNumber.innerHTML) + 1}</span>/5
-                            </span>
+            /*----------------- Display next question -----------------*/
+            let display = document.getElementById("wizard");
 
-                            <h1 id="question-content" class="question_title text-center">${item.Content}</h1>
-                            <div class="form_items d-flex justify-content-center">
-                                <ul class="ps-0">
-                                    <li id="li1" class="step_1 rounded-pill bg-white text-start">
-                                        <input type="radio" id="opt_1" name="stp_1_select_option" value="${item.A}">
-                                        <label for="opt_1">${item.A}</label>
-                                    </li>
-                                    <li class="step_1 rounded-pill bg-white">
-                                        <input type="radio" id="opt_2" name="stp_1_select_option" value="${item.B}">
-                                        <label for="opt_2">${item.B}</label>
-                                    </li>
-                                    <li class="step_1 rounded-pill bg-white">
-                                        <input type="radio" id="opt_3" name="stp_1_select_option" value="${item.C}">
-                                        <label for="opt_3">${item.C}</label>
-                                    </li>
-                                    <li class="step_1 rounded-pill bg-white">
-                                        <input type="radio" id="opt_4" name="stp_1_select_option" value="${item.D}">
-                                        <label for="opt_4">${item.D}</label>
-                                    </li>
-                                </ul>
-                            </div>
-                        `;
-                        out = row;
-                    };
-                    let display = document.getElementById("questDisplay");
-                    display.innerHTML = out;
-                },
-                error: function (req, status, error) {
-                    console.log(error);
-                }
-            });
+            var row = `
+                <div id="questDisplay" class="multisteps_form_panel">
+                    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                        Question
+                        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px"> ${data[1].Id}</span>/5
+                    </span>
+
+                    <h1 id="question-content" class="question_title text-center">${data[1].Content}</h1>
+                    <div class="form_items d-flex justify-content-center">
+                        <ul class="ps-0">
+                            <li id="li1" class="step_1 rounded-pill bg-white text-start">
+                                <input type="radio" id="opt_1" name="stp_1_select_option" value="${data[1].A}">
+                                <label for="opt_1">${data[1].A}</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_2" name="stp_1_select_option" value="${data[1].B}">
+                                <label for="opt_2">${data[1].B}</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_3" name="stp_1_select_option" value="${data[1].C}">
+                                <label for="opt_3">${data[1].C}</label>
+                            </li>
+                            <li class="step_1 rounded-pill bg-white">
+                                <input type="radio" id="opt_4" name="stp_1_select_option" value="${data[1].D}">
+                                <label for="opt_4">${data[1].D}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form_btn text-center ms-5 mt-5">
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="prevBtn" style="display: inline;">Prev Question</button>
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="nextBtn">Next Question</button>
+                </div>
+            `;
+            display.innerHTML = row;
         }
         else {
             questNumber.innerHTML = 5;
             $.ajax({
                 type: "POST",
-                data: { id: productId, price: productPrice },
+                data: { result: localStorage.getItem("lstQuest") },
                 dataType: "json",
-                url: "/Quiz/Increase",
+                url: "/Quiz/Submit",
                 success: function (result) {
                     console.log(result);
                 },

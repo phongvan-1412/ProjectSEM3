@@ -1,9 +1,11 @@
-﻿using ProjectSEM3.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using ProjectSEM3.Models;
 using ProjectSEM3.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
 using System.Web.Mvc;
 
 namespace ProjectSEM3.Controllers
@@ -13,8 +15,8 @@ namespace ProjectSEM3.Controllers
         // GET: Quiz
         public ActionResult Index()
         {
-            var lstQuest = DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
-            return View(lstQuest);
+            ViewData["lstQuest"] = GetData();
+            return View();
         }
 
         [HttpPost]
@@ -23,6 +25,12 @@ namespace ProjectSEM3.Controllers
             var quest2 = DbContext.Instance.Exec<List<Question.Req>>("select * from question where cast(Content as varchar(max)) !=" + "'" + question + "'" + "for json path");
 
             return Json(quest2);
+        }
+
+        public JsonResult GetData()
+        {
+            var lstQuest = DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
+            return Json(lstQuest);
         }
     }
 }
