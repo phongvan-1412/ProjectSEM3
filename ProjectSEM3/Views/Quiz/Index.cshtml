@@ -127,6 +127,7 @@
 </div>
 
 <script type="text/javascript">
+    localStorage.removeItem("lstResult")
     /*-----------------------------------
         Countdown
     -------------------------------------*/
@@ -178,7 +179,7 @@
     -------------------------------------*/
 
     var questNum = document.getElementById("question-number");
-    const questContent = document.getElementById("question-content");
+    const question = document.getElementById("question-content");
     const answer = document.getElementById("answer-button");
     const btn1 = document.getElementById("btn1");
     const btn2 = document.getElementById("btn2");
@@ -186,6 +187,9 @@
     const btn4 = document.getElementById("btn4");
     const nextButton = document.getElementById("nextBtn");
     const prevButton = document.getElementById("prevBtn");
+    let answerContent = "";
+    var result = { id: "", question: "", answer: "" };
+    var lstResult = [];
 
     function startQuiz() {
         index = 0;
@@ -214,7 +218,7 @@
 
         /*----------------------------------- Display content -------------------------------------*/
         questNum.innerHTML = questNo;
-        questContent.innerHTML = currentQuestion;
+        question.innerHTML = currentQuestion;
         /*---------- Answer A ----------*/
         const button1 = document.createElement("button");
         button1.innerHTML = data[index].A;
@@ -254,15 +258,28 @@
     };
     function selectAnswer(e) {
         const selectedBtn = e.target;
-        console.log(selectedBtn.dataset);
         const isSelected = selectedBtn.dataset.selected === "true";
         if (isSelected) {
             selectedBtn.classList.add("selected");
+            answerContent = selectedBtn.innerHTML;
         }
     };
+    function saveResult() {
+        result.id = index;
+        result.question = question.innerHTML;
+        result.answer = answerContent;
+        if (lstResult == null || lstResult == "") {
+            lstResult.push(result);
+        }
+        console.log(lstResult);
+        localStorage.setItem("lstResult", JSON.stringify(lstResult));
+        console.log(localStorage.getItem("lstResult"));
+
+    }
     function handleNextButton() {
         index++;
         if (index < data.length) {
+            saveResult();
             showQuestion();
         }
     };
