@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace ProjectSEM3.Areas.Admin.Controllers
 {
@@ -17,28 +18,28 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult NewHr(Hr.Req hr)
+        [Route("/admin/hr/newhr")]
+        public string NewHr(Hr.Req hr)
         {
-            var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.InsertHr, new Dictionary<string, dynamic> { { "@Email", "hremail1@gmail.com" } }).FirstOrDefault();
-
-            if (result == null)
+            var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrByEmail, new Dictionary<string, dynamic> { { "@Email", hr.Email } });
+            if (result != null)
             {
-                return RedirectToAction(nameof(Index));
+                return JsonConvert.SerializeObject("Email already exists");
             }
 
             var param = new Dictionary<string, dynamic>
             {
-                { "@Name", "hr12 name" },
-                { "@Email", "hremail1@gmail.com" },
-                { "@Password", "111111" },
-                { "@Contact", "111111" },
-                { "@Address", "111111" },
-                { "@Education", "111111" },
-                { "@Experience", "111111" }
+                { "@Name", hr.Name },
+                { "@Email", hr.Email},
+                { "@Password", hr.Password },
+                { "@Contact", hr.Contact },
+                { "@Address", hr.Address },
+                { "@Education", hr.Education },
+                { "@Experience",  hr.Experience }
             };
 
-            result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.InsertHr, param).FirstOrDefault();
-            return RedirectToAction(nameof(Index));
+            result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.InsertHr, param);
+            return JsonConvert.SerializeObject("Create Hr successfull.");
         }
 
         public ActionResult UpdateHr(Hr.Req hr)

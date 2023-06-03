@@ -15,3 +15,54 @@
 @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Hr/_PartialNew.cshtml")
 @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Hr/_PartialView.cshtml")
 
+
+@section Scripts {
+    <script>
+        const $name = $("#name")
+        const $email = $("#email")
+        const $password = $("#password")
+        const $confirmPassword = $("#confirmPassword")
+        const $contact = $("#contact")
+        const $education = $("#education")
+        const $address = $("#address")
+        const $experience = $("#experience")
+
+        const NewHr = () => {
+            const Name = $name.val()
+            const Email = $email.val()
+            const Password = $password.val()
+            const Contact = $contact.val()
+            const Education = $education.val()
+            const Address = $address.val()
+            const Experience = $experience.val()
+
+            const req = {
+                Name,
+                Email,
+                Password,
+                Contact,
+                Education,
+                Address,
+                Experience
+            }
+
+            console.log(req)
+            $.ajax({
+                type: "POST",
+                url: "/admin/hr/newhr",
+                data: req,
+                dataType: "json",
+                success: function (res) {
+                    console.log(res)
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    //do your own thing
+                    console.log(errorThrown)
+                    console.log(err)
+                    console.log("Something wrong in server.")
+                }
+            });
+        }
+    </script>
+}
+

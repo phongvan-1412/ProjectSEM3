@@ -53,9 +53,14 @@ namespace ProjectSEM3.Models
                         cmd.Parameters.Add(test);
                     }
                     cmd.Connection.Open();
-                    var result = cmd.ExecuteScalar().ToString();
+                    var result = cmd.ExecuteScalar();
                     cmd.Connection.Close();
-                    return JsonConvert.DeserializeObject<T>(result);
+                    if(result == null)
+                    {
+                        return default;
+                    }
+                    var res = result.ToString();
+                    return JsonConvert.DeserializeObject<T>(res);
                 }
             }
         }
