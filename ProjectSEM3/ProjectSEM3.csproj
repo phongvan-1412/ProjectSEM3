@@ -168,12 +168,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\fontello-codes.css" />
-    <Content Include="Content\fontello-embedded.css" />
-    <Content Include="Content\fontello-ie7-codes.css" />
-    <Content Include="Content\fontello-ie7.css" />
-    <Content Include="Content\fontello.css" />
     <Content Include="Content\images\author.jpg" />
     <Content Include="Content\images\blog-post-1.jpg" />
     <Content Include="Content\images\error-wrapper.jpg" />
@@ -224,9 +218,6 @@
     <Content Include="Content\images\zoom-small-4.jpg" />
     <Content Include="Content\images\zoom-small-5.jpg" />
     <Content Include="Content\images\zoom-small-6.jpg" />
-    <Content Include="Content\magnific-popup.css" />
-    <Content Include="Content\owl.carousel.css" />
-    <Content Include="Content\owl.theme.default.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
