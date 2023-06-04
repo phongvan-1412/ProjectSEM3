@@ -33,11 +33,28 @@
 
                     <h1 id="question-content" class="question_title text-center">Quest 1</h1>
                     <div id="answer-button" class="form_items d-flex flex-column justify-content-center">
-
-                        <button id="btn1" class="btn rounded-pill bg-white text-start mb-3" style="height: 50px">Answer A</button>
-                        <button id="btn2" class="btn rounded-pill bg-white text-start mb-3" style="height: 50px">Answer B</button>
+                        <ul class="answer-input ps-0">
+                            <li id="li1" class="rounded-pill bg-white text-start">
+                                <input type="radio" id="ip1" name="stp_1_select_option" value="Answer A">
+                                <label id="lb_1" for="ip1">Answer A</label>
+                            </li>
+                            <li id="li2" class="rounded-pill bg-white text-start">
+                                <input type="radio" id="ip2" name="stp_1_select_option" value="Answer B">
+                                <label id="lb_2" for="ip2">Answer B</label>
+                            </li>
+                            <li id="li3" class="rounded-pill bg-white text-start">
+                                <input type="radio" id="ip3" name="stp_1_select_option" value="Answer C">
+                                <label id="lb_3" for="ip3">Answer C</label>
+                            </li>
+                            <li id="li4" class="rounded-pill bg-white text-start">
+                                <input type="radio" id="ip4" name="stp_1_select_option" value="Answer D">
+                                <label id="lb_4" for="ip4">Answer D</label>
+                            </li>
+                        </ul>
+                        @*<button id="btn1" class="btn rounded-pill bg-white text-start mb-3" style="height: 50px">Answer A</button>*@
+                        @*<button id="btn2" class="btn rounded-pill bg-white text-start mb-3" style="height: 50px">Answer B</button>
                         <button id="btn3" class="btn rounded-pill bg-white text-start mb-3" style="height: 50px">Answer C</button>
-                        <button id="btn4" class="btn rounded-pill bg-white text-start" style="height: 50px">Answer D</button>
+                        <button id="btn4" class="btn rounded-pill bg-white text-start" style="height: 50px">Answer D</button>*@
 
                     </div>
                 </div>
@@ -47,40 +64,6 @@
                     <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="nextBtn">Next Question</button>
                 </div>
             </div>
-                @*<div id="questDisplay" class="multisteps_form_panel">
-                    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-                        Question
-                        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">1</span>/5
-                    </span>
-
-                    <h1 id="question-content" class="question_title text-center">Question goes here</h1>
-                    <div class="form_items answer-input d-flex justify-content-center">
-                        <ul class="answer-input ps-0">
-                            <li id="li1" class="step_1 rounded-pill bg-white text-start">
-                                <input type="radio" id="opt_1" name="stp_1_select_option" value="Answer A">
-                                <label id="lb_1" for="opt_1">Answer A</label>
-                            </li>
-                            <li class="step_1 rounded-pill bg-white">
-                                <input type="radio" id="opt_2" name="stp_1_select_option" value="Answer B">
-                                <label id="lb_2" for="opt_2">Answer B</label>
-                            </li>
-                            <li class="step_1 rounded-pill bg-white">
-                                <input type="radio" id="opt_3" name="stp_1_select_option" value="Answer C">
-                                <label id="lb_3" for="opt_3">Answer C</label>
-                            </li>
-                            <li class="step_1 rounded-pill bg-white">
-                                <input type="radio" id="opt_4" name="stp_1_select_option" value="Answer D">
-                                <label id="lb_4" for="opt_4">Answer D</label>
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
-
-                <div class="form_btn text-center ms-5 mt-5">
-                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="prevBtn" style="display: inline;">Prev Question</button>
-                    <button type="button" class="f_btn text-uppercase rounded-pill border-0" id="nextBtn">Next Question</button>
-                </div>*@
         </div>
 
         <div class="container text-center mt-5 mb-5">
@@ -181,10 +164,18 @@
     var questNum = document.getElementById("question-number");
     const question = document.getElementById("question-content");
     const answer = document.getElementById("answer-button");
-    const btn1 = document.getElementById("btn1");
-    const btn2 = document.getElementById("btn2");
-    const btn3 = document.getElementById("btn3");
-    const btn4 = document.getElementById("btn4");
+    const ip1 = document.getElementById("ip1");
+    const ip2 = document.getElementById("ip2");
+    const ip3 = document.getElementById("ip3");
+    const ip4 = document.getElementById("ip4");
+    const lb1 = document.getElementById("lb_1");
+    const lb2 = document.getElementById("lb_2");
+    const lb3 = document.getElementById("lb_3");
+    const lb4 = document.getElementById("lb_4");
+    const li1 = document.getElementById("li1");
+    const li2 = document.getElementById("li2");
+    const li3 = document.getElementById("li3");
+    const li4 = document.getElementById("li4");
     const nextButton = document.getElementById("nextBtn");
     const prevButton = document.getElementById("prevBtn");
     let answerContent = "";
@@ -197,7 +188,6 @@
         showQuestion();
     };
     function showQuestion() {
-        resetState();
         let currentQuestion = data[index].Content;
         let questNo = index + 1;
 
@@ -219,48 +209,35 @@
         /*----------------------------------- Display content -------------------------------------*/
         questNum.innerHTML = questNo;
         question.innerHTML = currentQuestion;
+
         /*---------- Answer A ----------*/
-        const button1 = document.createElement("button");
-        button1.innerHTML = data[index].A;
-        button1.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
-        answer.appendChild(button1);
-        button1.dataset.selected = data[index].Status;
-        button1.addEventListener("click", selectAnswer);
+        ip1.value = data[index].A;
+        lb1.innerHTML = data[index].A;
+        li1.addEventListener("click", selectAnswer);
 
         /*---------- Answer B ----------*/
-        const button2 = document.createElement("button");
-        button2.innerHTML = data[index].B;
-        button2.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
-        answer.appendChild(button2);
-        button2.dataset.selected = data[index].Status;
-        button2.addEventListener("click", selectAnswer);
+        ip2.value = data[index].B;
+        lb2.innerHTML = data[index].B;
+        li2.addEventListener("click", selectAnswer);
 
         /*---------- Answer C ----------*/
-        const button3 = document.createElement("button");
-        button3.innerHTML = data[index].C;
-        button3.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
-        answer.appendChild(button3);
-        button3.dataset.selected = data[index].Status;
-        button3.addEventListener("click", selectAnswer);
+        ip3.value = data[index].C;
+        lb3.innerHTML = data[index].C;
+        li3.addEventListener("click", selectAnswer);
+
 
         /*---------- Answer D ----------*/
-        const button4 = document.createElement("button");
-        button4.innerHTML = data[index].D;
-        button4.classList.add("btn", "rounded-pill", "bg-white", "text-start", "mb-3");
-        answer.appendChild(button4);
-        button4.dataset.selected = data[index].Status;
-        button4.addEventListener("click", selectAnswer);
+        ip4.value = data[index].D;
+        lb4.innerHTML = data[index].D;
+        li4.addEventListener("click", selectAnswer);
+
     }
-    function resetState() {
-        while (answer.firstChild) {
-            answer.removeChild(answer.firstChild);
-        };
-    };
     function selectAnswer(e) {
         const selectedBtn = e.target;
-        const isSelected = selectedBtn.dataset.selected === "true";
-        if (isSelected) {
-            selectedBtn.classList.add("selected");
+        console.log(selectedBtn.style);
+        if (selectedBtn.id === "li1") {
+            //selectedBtn.classList.remove("bg-white");
+            //selectedBtn.style.backgroundColor = "#ffc533";
             answerContent = selectedBtn.innerHTML;
         }
     };
