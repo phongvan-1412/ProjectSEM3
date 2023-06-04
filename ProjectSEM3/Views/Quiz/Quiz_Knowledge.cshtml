@@ -35,27 +35,22 @@
                     <div id="answer-button" class="form_items d-flex flex-column justify-content-center">
                         <ul class="answer-input ps-0">
                             <li id="li1" class="rounded-pill bg-white text-start">
-                                <input type="radio" id="ip1" name="stp_1_select_option" value="Answer A">
-                                <label id="lb_1" for="ip1">Answer A</label>
+                                <input type="radio" id="ip1" value="Answer A">
+                                <label id="lb_1" class="choice-text" for="ip1">Answer A</label>
                             </li>
                             <li id="li2" class="rounded-pill bg-white text-start">
-                                <input type="radio" id="ip2" name="stp_1_select_option" value="Answer B">
-                                <label id="lb_2" for="ip2">Answer B</label>
+                                <input type="radio" id="ip2" value="Answer B">
+                                <label id="lb_2" class="choice-text" for="ip2">Answer B</label>
                             </li>
                             <li id="li3" class="rounded-pill bg-white text-start">
-                                <input type="radio" id="ip3" name="stp_1_select_option" value="Answer C">
-                                <label id="lb_3" for="ip3">Answer C</label>
+                                <input type="radio" id="ip3" value="Answer C">
+                                <label id="lb_3" class="choice-text" for="ip3">Answer C</label>
                             </li>
                             <li id="li4" class="rounded-pill bg-white text-start">
-                                <input type="radio" id="ip4" name="stp_1_select_option" value="Answer D">
-                                <label id="lb_4" for="ip4">Answer D</label>
+                                <input type="radio" id="ip4" value="Answer D">
+                                <label id="lb_4" class="choice-text" for="ip4">Answer D</label>
                             </li>
                         </ul>
-                        @*<button id="btn1" class="btn rounded-pill bg-white text-start mb-3" style="height: 50px">Answer A</button>*@
-                        @*<button id="btn2" class="btn rounded-pill bg-white text-start mb-3" style="height: 50px">Answer B</button>
-                        <button id="btn3" class="btn rounded-pill bg-white text-start mb-3" style="height: 50px">Answer C</button>
-                        <button id="btn4" class="btn rounded-pill bg-white text-start" style="height: 50px">Answer D</button>*@
-
                     </div>
                 </div>
 
@@ -176,10 +171,11 @@
     const li2 = document.getElementById("li2");
     const li3 = document.getElementById("li3");
     const li4 = document.getElementById("li4");
+    const choices = Array.from(document.getElementsByClassName("choice-text"));
     const nextButton = document.getElementById("nextBtn");
     const prevButton = document.getElementById("prevBtn");
+    const maxQuestion = 3;
     let answerContent = "";
-    var result = { id: "", question: "", answer: "" };
     var lstResult = [];
 
     function startQuiz() {
@@ -192,7 +188,7 @@
         let questNo = index + 1;
 
         /*----------------------------------- Display/Hide/Change button content -------------------------------------*/
-        if (index >= 1) {
+        if (index > 0) {
             prevButton.style.display = "inline";
         }
         else {
@@ -231,32 +227,75 @@
         lb4.innerHTML = data[index].D;
         li4.addEventListener("click", selectAnswer);
 
-    }
+    };
     function selectAnswer(e) {
         const selectedBtn = e.target;
-        console.log(selectedBtn.style);
-        if (selectedBtn.id === "li1") {
-            //selectedBtn.classList.remove("bg-white");
-            //selectedBtn.style.backgroundColor = "#ffc533";
+        if (selectedBtn.id === "lb_1") {
+            ip1.checked = true;
+            lb1.dataset.checked = "true";
+            ip2.checked = false;
+            lb2.dataset.checked = "false";
+            ip3.checked = false;
+            lb3.dataset.checked = "false";
+            ip4.checked = false;
+            lb4.dataset.checked = "false";
+            answerContent = selectedBtn.innerHTML;
+        }
+        if (selectedBtn.id === "lb_2") {
+            ip1.checked = false;
+            lb1.dataset.checked = "false";
+            ip2.checked = true;
+            lb2.dataset.checked = "true";
+            ip3.checked = false;
+            lb3.dataset.checked = "false";
+            ip4.checked = false;
+            lb4.dataset.checked = "false";
+            answerContent = selectedBtn.innerHTML;
+        }
+        if (selectedBtn.id === "lb_3") {
+            ip1.checked = false;
+            lb1.dataset.checked = "false";
+            ip2.checked = false;
+            lb2.dataset.checked = "false";
+            ip3.checked = true;
+            lb3.dataset.checked = "true";
+            ip4.checked = false;
+            lb4.dataset.checked = "false";
+            answerContent = selectedBtn.innerHTML;
+        }
+        if (selectedBtn.id === "lb_4") {
+            ip1.checked = false;
+            lb1.dataset.checked = "false";
+            ip2.checked = false;
+            lb2.dataset.checked = "false";
+            ip3.checked = false;
+            lb3.dataset.checked = "false";
+            ip4.checked = true;
+            lb4.dataset.checked = "true";
             answerContent = selectedBtn.innerHTML;
         }
     };
-    function saveResult() {
-        result.id = index;
-        result.question = question.innerHTML;
+    function saveResult(i) {
+        var result = { id: "", question: "", answer: "" };
+        result.id = i + 1;
+        result.question = data[i].Content;
         result.answer = answerContent;
-        if (lstResult == null || lstResult == "") {
-            lstResult.push(result);
-        }
-        console.log(lstResult);
-        localStorage.setItem("lstResult", JSON.stringify(lstResult));
-        console.log(localStorage.getItem("lstResult"));
 
+        if (localStorage.getItem("lstResult") != null) {
+            lstResult = JSON.parse(localStorage.getItem("lstResult"));
+        }
+        lstResult.push(result);
+        localStorage.setItem("lstResult", JSON.stringify(lstResult));
+
+        if (nextButton.innerHTML === "Submit") {
+            submit();
+        }
+        console.log(localStorage.getItem("lstResult"));
     }
     function handleNextButton() {
+        saveResult(index);
         index++;
         if (index < data.length) {
-            saveResult();
             showQuestion();
         }
     };
@@ -265,7 +304,22 @@
         if (index < data.length) {
             showQuestion();
         }
+        checkResult(index);
     };
+    function submit() {
+        $.ajax({
+            type: "POST",
+            data: { result: JSON.stringify(lstResult) },
+            dataType: "json",
+            url: "/Quiz/Submit",
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (req, status, error) {
+                console.log(error);
+            }
+        });
+    }
     nextButton.addEventListener("click", () => {
         if (index < data.length) {
             handleNextButton();
@@ -274,7 +328,6 @@
         }
     });
     prevButton.addEventListener("click", () => {
-        console.log(index, data.length);
         if (index < data.length) {
             handlePrevButton();
         } else {

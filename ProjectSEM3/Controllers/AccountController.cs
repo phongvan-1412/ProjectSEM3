@@ -39,7 +39,7 @@ namespace ProjectSEM3.Controllers
                 TempData["accountVerified"] = "Log in successfully";
                 //Session["account"] = accountExist;
             }
-            return RedirectToAction("Index", "Quiz");
+            return RedirectToAction("Quiz_Knowledge", "Quiz");
         }
 
         public ActionResult Quiz()

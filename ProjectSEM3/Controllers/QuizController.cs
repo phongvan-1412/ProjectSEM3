@@ -13,7 +13,7 @@ namespace ProjectSEM3.Controllers
     public class QuizController : Controller
     {
         // GET: Quiz
-        public ActionResult Index()
+        public ActionResult Quiz_Knowledge()
         {
             ViewData["lstQuest"] = GetData();
             List<Question.Req> temp = DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
@@ -21,11 +21,13 @@ namespace ProjectSEM3.Controllers
         }
 
         [HttpPost]
-        public JsonResult NextQuestion(string question, string answer)
+        public ActionResult Submit(string result)
         {
-            var quest2 = DbContext.Instance.Exec<List<Question.Req>>("select * from question where cast(Content as varchar(max)) !=" + "'" + question + "'" + "for json path");
-
-            return Json(quest2);
+            var json = JsonConvert.DeserializeObject(result);
+            List<Result> results = JsonConvert.DeserializeObject<List<Result>>(json.ToString());
+           
+            Console.WriteLine(results);
+            return RedirectToAction("Index", "Home");
         }
 
         public JsonResult GetData()

@@ -333,7 +333,9 @@ body .container-fluid {
 
 /* ----------------------------------------------------------------- HOME -----------------------------------------------------------------*/
 
-/* Career */
+/*-----------------------------------
+    1. Career
+-------------------------------------*/
 .page-title img {
     width: 100%;
     height: 300px;
@@ -353,7 +355,9 @@ body .container-fluid {
     min-height: 100px;
 }
 
-/* About */
+/*-----------------------------------
+    2. About
+-------------------------------------*/
 .signature {
     align-items: flex-start;
     display: flex;
@@ -721,31 +725,6 @@ body .container-fluid {
 /*-------------------------
 3.6 Location
 ---------------------------*/
-/*.contact-wrapper {
-    background: #f6f8f9;
-    padding: 40px;
-}
-
-.contact-block {
-    background-color: #fff;
-    padding: 60px;
-}
-
-.contact-content {
-}
-
-    .contact-content ul {
-    }
-
-        .contact-content ul li {
-            line-height: 36px;
-            font-size: 17px;
-        }
-
-.contact-text {
-    padding-left: 20px;
-}*/
-
 .location-wrapper {
     padding: 40px;
     background-color: #0955b3;
@@ -768,7 +747,6 @@ body .container-fluid {
 .location-icon {
     margin-bottom: 30px;
 }
-
 
 /*-----------------------------------
 4. Footer 
@@ -819,7 +797,9 @@ body .container-fluid {
     }
 /* ----------------------------------------------------------------- ACCOUNT -----------------------------------------------------------------*/
 
-/* Account */
+/*-----------------------------------
+    1. Login 
+-------------------------------------*/
 .login-wrapper {
     width: 100%;
     height: 500px;
@@ -847,7 +827,9 @@ body .container-fluid {
 
 /* ----------------------------------------------------------------- QUIZ -----------------------------------------------------------------*/
 
-/* Quiz */
+/*-----------------------------------
+    1. Quiz_Knowledge 
+-------------------------------------*/
 .quiz-wrapper {
     position: relative;
     width: 100%;
@@ -898,7 +880,7 @@ body .container-fluid {
     width: 100%;
     color: #000a38;
     font-size: 1.3125rem;
-    padding: 0rem 3rem;
+    padding: 0rem 1rem;
     margin-top: 1.25rem;
     position: relative;
     cursor: pointer;
@@ -912,7 +894,6 @@ body .container-fluid {
         top: 30%;
         cursor: pointer;
     }
-
     .form_items li label{
         width: 100%;
         height: 3.5rem;
