@@ -12,22 +12,50 @@ namespace ProjectSEM3.Controllers
 {
     public class QuizController : Controller
     {
-        // GET: Quiz
-        public ActionResult Index()
+        public ActionResult Quiz_Knowledge()
         {
-            ViewData["lstQuest"] = GetData();
-            List<Question.Req> temp = DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
-            return View(temp);
+            ViewData["lstKnowledge"] = GetData();
+            return View();
+        }
+        public ActionResult Quiz_Math()
+        {
+            ViewData["lstMath"] = GetData();
+            return View();
+        }
+        public ActionResult Quiz_Computer()
+        {
+            ViewData["lstComputer"] = GetData();
+            return View();
         }
 
+
         [HttpPost]
-        public ActionResult Submit(string result)
+        public JsonResult SubmitKnowledge(string result)
         {
             var json = JsonConvert.DeserializeObject(result);
             List<Result> results = JsonConvert.DeserializeObject<List<Result>>(json.ToString());
-           
+
+            return Json("success");
+        }
+
+        [HttpPost]
+        public JsonResult SubmitMath(string result)
+        {
+            var json = JsonConvert.DeserializeObject(result);
+            List<Result> results = JsonConvert.DeserializeObject<List<Result>>(json.ToString());
+
             Console.WriteLine(results);
-            return RedirectToAction("Index", "Home");
+            return Json("success");
+        }
+
+        [HttpPost]
+        public JsonResult SubmitComputer(string result)
+        {
+            var json = JsonConvert.DeserializeObject(result);
+            List<Result> results = JsonConvert.DeserializeObject<List<Result>>(json.ToString());
+
+            Console.WriteLine(results);
+            return Json("success");
         }
 
         public JsonResult GetData()

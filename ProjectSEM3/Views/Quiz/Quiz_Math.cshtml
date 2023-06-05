@@ -7,7 +7,7 @@
     var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.UtcNow.Ticks).TotalSeconds.ToString("#");
 
     <!-- Get Question List -->
-    var lst = ViewData["lstKnowledge"];
+    var lst = ViewData["lstMath"];
 }
 
 <div class="quiz-wrapper pt-5">
@@ -218,10 +218,10 @@
             type: "POST",
             data: { result: localStorage.getItem("lstResult") },
             dataType: "json",
-            url: "/Quiz/SubmitKnowledge",
+            url: "/Quiz/SubmitMath",
             success: function (result) {
                 console.log(result);
-                window.location.href = "https://localhost:44376/Quiz/Quiz_Math";
+                window.location.href = "https://localhost:44376/Quiz/Quiz_Computer";
             },
             error: function (req, status, error) {
                 console.log(error);

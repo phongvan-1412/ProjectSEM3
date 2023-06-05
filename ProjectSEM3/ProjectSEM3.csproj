@@ -281,7 +281,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Quiz\Quiz_Knowledge.cshtml" />
-    <Content Include="Views\Quiz\Index.cshtml" />
+    <Content Include="Views\Quiz\Quiz_Math.cshtml" />
+    <Content Include="Views\Quiz\Quiz_Computer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

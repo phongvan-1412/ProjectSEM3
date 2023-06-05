@@ -1,5 +1,4 @@
-﻿@model List<ProjectSEM3.Models.Entities.Question.Req>
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -8,18 +7,13 @@
     var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.UtcNow.Ticks).TotalSeconds.ToString("#");
 
     <!-- Get Question List -->
-    var lst = ViewData["lstQuest"];
+    var lst = ViewData["lstComputer"];
 }
 
 <div class="quiz-wrapper pt-5">
     <div class="container-fluid" style="z-index: 1">
         <div class="row text-center">
             <div id="jumper-btns" class="col d-flex flex-row justify-content-evenly d-none d-sm-block">
-                @*<span class="step bg-white rounded-pill finish finish"></span>
-                    <span class="step bg-white rounded-pill active"></span>
-                    <span class="step bg-white rounded-pill"></span>
-                    <span class="step bg-white rounded-pill"></span>
-                    <span class="step bg-white rounded-pill"></span>*@
             </div>
         </div>
 
@@ -172,6 +166,7 @@
     let container = document.getElementById("wizard");
     let jumper = document.getElementById("jumper-btns");
     let selectedAnswers = {};
+    let lstTemp = [];
     let question;
     let index;
 
@@ -189,7 +184,7 @@
                 </div>
             `;
         }
-        
+
         return options;
     };
     function jumpButtons() {
@@ -201,23 +196,32 @@
     };
     function addAnswer() {
         let currentOptions = document.getElementsByName("answer-btn");
-        for (var i = 0; i < currentOptions.length; i++) {
+
+        for (let i = 0; i < currentOptions.length; i++) {
             let currentOption = currentOptions[i];
             if (currentOption.checked == true) {
                 selectedAnswers[`${question.Content}`] = currentOption.value;
-                localStorage.setItem("lstResult", JSON.stringify(selectedAnswers));
             }
         }
-        console.log(selectedAnswers);
     };
     function submitQuiz() {
+        let questSubmit = Object.keys(selectedAnswers);
+        for (var i = 0; i < questSubmit.length; i++) {
+            var temp = { question: "", answer: "" };
+            temp.question = questSubmit[i];
+            temp.answer = selectedAnswers[Object.keys(selectedAnswers)[i]];
+            lstTemp.push(temp);
+        }
+        localStorage.setItem("lstResult", JSON.stringify(lstTemp));
+
         $.ajax({
             type: "POST",
             data: { result: localStorage.getItem("lstResult") },
             dataType: "json",
-            url: "/Quiz/Submit",
+            url: "/Quiz/SubmitComputer",
             success: function (result) {
                 console.log(result);
+                window.location.href = "https://localhost:44376/Home/Index";
             },
             error: function (req, status, error) {
                 console.log(error);
