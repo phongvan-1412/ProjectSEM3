@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using static ProjectSEM3.Models.DbContext;
 
 namespace ProjectSEM3.Controllers
 {
@@ -33,7 +34,7 @@ namespace ProjectSEM3.Controllers
         public JsonResult SubmitKnowledge(string result)
         {
             var json = JsonConvert.DeserializeObject(result);
-            List<Result> results = JsonConvert.DeserializeObject<List<Result>>(json.ToString());
+            List<Models.Entities.Result> results = JsonConvert.DeserializeObject<List<Models.Entities.Result>>(json.ToString());
 
             return Json("success");
         }
@@ -42,7 +43,7 @@ namespace ProjectSEM3.Controllers
         public JsonResult SubmitMath(string result)
         {
             var json = JsonConvert.DeserializeObject(result);
-            List<Result> results = JsonConvert.DeserializeObject<List<Result>>(json.ToString());
+            List<Models.Entities.Result> results = JsonConvert.DeserializeObject<List<Models.Entities.Result>>(json.ToString());
 
             Console.WriteLine(results);
             return Json("success");
@@ -52,7 +53,7 @@ namespace ProjectSEM3.Controllers
         public JsonResult SubmitComputer(string result)
         {
             var json = JsonConvert.DeserializeObject(result);
-            List<Result> results = JsonConvert.DeserializeObject<List<Result>>(json.ToString());
+            List<Models.Entities.Result> results = JsonConvert.DeserializeObject<List<Models.Entities.Result>>(json.ToString());
 
             Console.WriteLine(results);
             return Json("success");

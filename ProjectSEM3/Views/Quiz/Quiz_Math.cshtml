@@ -110,55 +110,10 @@
     -------------------------------------*/
     var lstQuest = @Html.Raw(Json.Encode(lst));
     var data = lstQuest.Data;
-    let quest = [
-        {
-            "Id": 0,
-            "IdLevel": 0,
-            "IdType": 0,
-            "Content": "",
-            "Options": ["A","B","C","D"],
-            "CorrectAnwser": 0,
-            "Point": 0,
-            "IsMultiAnwser": 0,
-            "Status": true
-        },
-        {
-            "Id": 0,
-            "IdLevel": 0,
-            "IdType": 0,
-            "Content": "",
-            "Options": ["A", "B", "C", "D"],
-            "CorrectAnwser": 0,
-            "Point": 0,
-            "IsMultiAnwser": 0,
-            "Status": true
-        },
-        {
-            "Id": 0,
-            "IdLevel": 0,
-            "IdType": 0,
-            "Content": "",
-            "Options": ["A", "B", "C", "D"],
-            "CorrectAnwser": 0,
-            "Point": 0,
-            "IsMultiAnwser": 0,
-            "Status": true
-        }
-    ]
     for (var i = 0; i < data.length; i++) {
-        quest[i].Id = data[i].Id;
-        quest[i].IdType = data[i].IdType;
-        quest[i].Content = data[i].Content;
-        quest[i].Options[0] = data[i].A;
-        quest[i].Options[1] = data[i].B;
-        quest[i].Options[2] = data[i].C;
-        quest[i].Options[3] = data[i].D;
-        quest[i].CorrectAnwser = data[i].CorrectAnwser;
-        quest[i].Point = data[i].Point;
-        quest[i].IsMultiAnwser = data[i].IsMultiAnwser;
-        quest[i].Status = data[i].Status;
+        data[i].Options = JSON.parse(data[i].Options);
     }
-    console.log(quest);
+    console.log(data);
 
     /*-----------------------------------
         Handle Content
@@ -189,7 +144,7 @@
     };
     function jumpButtons() {
         let btns = ``;
-        for (let i = 0; i < quest.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             btns += `<span class="step bg-white rounded-pill ${i == index ? "finish" : ""}" onclick="showQuestion(${i})" style="cursor: pointer"></span>`;
         }
         jumper.innerHTML = btns;
@@ -230,15 +185,15 @@
     };
     function showQuestion(i) {
         index = i;
-        if (quest[i]) {
+        if (data[i]) {
             jumpButtons();
-            question = quest[i];
+            question = data[i];
             let options = showAnswer();
             container.innerHTML = `
                 <div id="questDisplay" class="multisteps_form_panel">
                     <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
                         Question
-                        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${quest.length}
+                        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${data.length}
                     </span>
 
                     <h1 class="question_title text-center">${question.Content} </h1>
@@ -249,7 +204,7 @@
 
                 <div class="form_btn action-btns text-center ms-5 mt-5">
                     ${index > 0 ? `<button type="button" onclick="showQuestion(${index - 1})" class="f_btn text-uppercase rounded-pill border-0" style="display: inline;">Prev Question</button>` : ""}
-                    ${index + 1 < quest.length ?
+                    ${index + 1 < data.length ?
                     `<button type="button" onclick="showQuestion(${index + 1})" class="f_btn text-uppercase rounded-pill border-0">Next Question</button>`
                     :
                     `<button type="button" onclick="submitQuiz()" class="f_btn text-uppercase rounded-pill border-0">Submit</button>`}
