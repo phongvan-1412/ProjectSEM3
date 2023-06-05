@@ -13,7 +13,8 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         // GET: Admin/Question
         public ActionResult Index()
         {
-            return View();
+            var result = DbContext.Instance.Exec<List<Question.Res>>(DbStore.GetQuestions);
+            return View(result);
         }
 
         [HttpPost]

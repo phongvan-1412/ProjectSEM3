@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Question";
 }
 
@@ -12,5 +13,232 @@
 
 <h2>Question</h2>
 
-@Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialNew.cshtml")
-@Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialView.cshtml")
+<div class="me-4">
+    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialNew.cshtml")
+</div>
+<div class="me-4">
+    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialView.cshtml" )
+</div>
+
+@section Scripts {
+    <script>
+        const $type = $("#type")
+        const $level = $("#level")
+        const $point = $("#point")
+        const $content = $("#content")
+        const $a = $("#a")
+        const $b = $("#b")
+        const $c = $("#c")
+        const $d = $("#d")
+
+        const $nameUpdate = $("#nameUpdate")
+        const $emailUpdate = $("#emailUpdate")
+        const $contactUpdate = $("#contactUpdate")
+        const $educationUpdate = $("#educationUpdate")
+        const $addressUpdate = $("#addressUpdate")
+        const $experienceUpdate = $("#experienceUpdate")
+
+        const $nameView = $("#nameView")
+        const $emailView = $("#emailView")
+        const $contactView = $("#contactView")
+        const $educationView = $("#educationView")
+        const $addressView = $("#addressView")
+        const $experienceView = $("#experienceView")
+
+        const $hrTable = $("#hrTable")
+        const $liveToast = $("#liveToast")
+        const $toastMes = $("#toastMes")
+        const $updateHr = $("#updateHr")
+
+
+        $hrTable.DataTable();
+
+        const OnNewHr = () => {
+            const Name = $name.val()
+            const Email = $email.val()
+            const Password = $password.val()
+            const Contact = $contact.val()
+            const Education = $education.val()
+            const Address = $address.val()
+            const Experience = $experience.val()
+
+            const req = {
+                Name,
+                Email,
+                Password,
+                Contact,
+                Education,
+                Address,
+                Experience
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/hr/newhr",
+                data: req,
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                    OnClearFormNewHr();
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
+
+            setTimeout(OnHideToast, 3000)
+        }
+
+        const OnHideToast = () => {
+            $liveToast.hide()
+        }
+
+        const OnAddClassName = (ele, className) => {
+            if (!ele[0].classList.contains(className)) {
+                ele[0].classList.add(className);
+            }
+        }
+
+        const OnRemoveClassName = (ele, className) => {
+            ele[0].classList.remove(className);
+        }
+
+        const OnChangeHrStatus = (e) => {
+            const Id = e.target.getAttribute('data-index')
+            const Status = e.target.checked
+            const hr = { Id, Status }
+            $.ajax({
+                type: "POST",
+                url: "/admin/hr/ChangeHrStatus",
+                data: hr,
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
+
+            setTimeout(OnHideToast, 3000)
+        }
+
+        let RowIndex = 0;
+        let CurrentId = 0;
+        let CurrentSelection = ''
+        const OnSelectRowHr = (e) => {
+            RowIndex = e.target.parentElement.parentElement.rowIndex
+            CurrentSelection = e.target
+            CurrentId = e.target.getAttribute('data-index')
+            const data = JSON.parse(e.target.getAttribute('data-hr'))
+            $nameUpdate.val(data.Name)
+            $emailUpdate.val(data.Email)
+            $contactUpdate.val(data.Contact)
+            $educationUpdate.val(data.Education)
+            $addressUpdate.val(data.Address)
+            $experienceUpdate.val(data.Experience)
+        }
+
+        const OnUpdateHr = (e) => {
+            const Id = CurrentId
+            const Name = $nameUpdate.val()
+            const Email = $emailUpdate.val()
+            const Contact = $contactUpdate.val()
+            const Education = $educationUpdate.val()
+            const Address = $addressUpdate.val()
+            const Experience = $experienceUpdate.val()
+
+            const hr = {
+                Id,
+                Name,
+                Email,
+                Contact,
+                Education,
+                Address,
+                Experience
+            }
+            const rowIndex = RowIndex
+            $.ajax({
+                type: "POST",
+                url: "/admin/hr/UpdateHR",
+                data: { hr, rowIndex },
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                    if (res.IsErr) {
+                        $hrTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
+                        $hrTable[0].rows[RowIndex].children[2].innerHTML = res.Data.Email;
+                        CurrentSelection.setAttribute('data-hr', JSON.stringify(res.Data))
+                        CurrentSelection.parentElement.children[1].setAttribute('data-hr', JSON.stringify(res.Data))
+                        //const tmp = {
+                        //    Mes : "Successfull.",
+                        //    IsErr : true
+                        //}
+                        //$hrTable[0].deleteRow(RowIndex);
+                        //var newRow = $hrTable[0].insertRow(RowIndex);
+                        //newRow.innerHTML = res;
+                    }
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
+
+            setTimeout(OnHideToast, 3000)
+        }
+
+        const OnViewHr = (e) => {
+            const data = JSON.parse(e.target.getAttribute('data-hr'))
+            $nameView[0].innerHTML = data.Name
+            $emailView[0].innerHTML = data.Email
+            $contactView[0].innerHTML = data.Contact
+            $educationView[0].innerHTML = data.Education
+            $addressView[0].innerHTML = data.Address
+            $experienceView[0].innerHTML = data.Experience
+
+        }
+
+        $updateHr[0].addEventListener('hidden.bs.modal', function (event) {
+            OnClearFormUpdateHr();
+        })
+
+        const OnClearFormUpdateHr = () => {
+            $nameUpdate.val("")
+            $emailUpdate.val("")
+            $contactUpdate.val("")
+            $educationUpdate.val("")
+            $addressUpdate.val("")
+            $experienceUpdate.val("")
+        }
+
+
+
+        const OnClearFormNewHr = () => {
+            $name.val("")
+            $email.val("")
+            $contact.val("")
+            $education.val("")
+            $address.val("")
+            $experience.val("")
+        }
+
+        const OnSetupToast = (res, $toast, $toastMes) => {
+            if (res.IsErr) {
+                OnRemoveClassName($toast, "bg-danger-subtle")
+                OnAddClassName($toast, "bg-primary-subtle");
+            } else {
+                OnRemoveClassName($toast, "bg-primary-subtle");
+                OnAddClassName($toast, "bg-danger-subtle")
+            }
+            $toastMes[0].innerHTML = res.Mes
+            $toast.show()
+        }
+
+        const OnServerErr = ($toast, $toastMes) => {
+            OnRemoveClassName($toast, "bg-primary-subtle");
+            OnAddClassName($toast, "bg-danger-subtle")
+            $toastMes[0].innerHTML = "Connection fail or Something wrong in server."
+
+        }
+    </script>
+}
