@@ -13,7 +13,7 @@ namespace ProjectSEM3.Controllers
     public class QuizController : Controller
     {
         // GET: Quiz
-        public ActionResult Quiz_Knowledge()
+        public ActionResult Index()
         {
             ViewData["lstQuest"] = GetData();
             List<Question.Req> temp = DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");

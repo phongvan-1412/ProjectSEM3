@@ -865,8 +865,21 @@ body .container-fluid {
 .rounded-pill {
     border-radius: 50rem !important;
 }
+    .rounded-pill input {
+        width: 1.7rem;
+        height: 1.7rem;
+        margin-right: 1rem;
+    }
+.answer-container {
+    display: flex;
+    align-items: center;
+    height: 3.5rem;
+    margin-bottom: 1rem;
+    padding: 0rem 2rem;
+    cursor: pointer;
+}
 
-.form_items ul {
+/*.form_items ul {
     display: block;
     list-style-type: none;
     margin-block-start: 1em;
@@ -900,7 +913,7 @@ body .container-fluid {
         padding-left: 3rem;
         padding-top: 1.5rem;
         cursor: pointer;
-    }
+    }*/
 
 .question_number {
     padding-top: 5rem;
