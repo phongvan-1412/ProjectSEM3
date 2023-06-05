@@ -1,6 +1,6 @@
-﻿<button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#newHr">New</button>
+﻿<i class="fa-solid fa-square-plus pointer fa-3x float-end mb-3" data-bs-toggle="modal" data-bs-target="#newQuest"></i>
 
-<div id="newHr" class="modal fade" role="dialog">
+<div id="newQuest" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
@@ -12,58 +12,110 @@
             <div class="modal-body">
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Name</b> <i style="color:red">*</i></span>
-                                <input class="form-control" id="name" type="text" />
-                            </div>
+                        <div class="col-3 m-1">
+                            <span><b>Type</b> <i style="color:red">*</i></span>
+                            <select class="form-select">
+                            </select>
                         </div>
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Email</b> <i style="color:red">*</i></span>
-                                <input class="form-control" id="email" type="text" />
+                        <div class="col-3 m-1">
+                            <span><b>Level</b> <i style="color:red">*</i></span>
+                            <select class="form-select">
+                            </select>
+                        </div>
+                        <div class="col-2 m-1">
+                            <span><b>Point</b> <i style="color:red">*</i></span>
+                            <select class="form-select">
+                                <option value="0" selected hidden>Point</option>
+                                <option value="1">1</option>
+                                <option value="1">2</option>
+                                <option value="1">3</option>
+                                <option value="1">4</option>
+                                <option value="1">5</option>
+                            </select>
+                        </div>
+                        <div class="col-3 m-1">
+                            <span><b>Is Multiselect</b> <i style="color:red">*</i></span>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Password</b> <i style="color:red">*</i></span>
-                                <input class="form-control" name="RevName" type="text" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Confirm Password</b> <i style="color:red">*</i></span>
-                                <input class="form-control" name="RevName" type="text" />
-                            </div>
+                        <div class="col-12">
+                            <span><b>Content</b> <i style="color:red">*</i></span>
+                            <textarea class="form-control p-0" placeholder="" id="experience" style="height: 100px"></textarea>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Contact</b> <i style="color:red">*</i></span>
-                                <input class="form-control" name="RevName" type="text" />
+                        <div class="col-12">
+                            <div class="row">
+                                <span class="col-1"><b>A</b> <i style="color:red">*</i></span>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input mt-2" type="checkbox" value="" id="flexCheckChecked">
+                                    <label class="form-check-label mt-2" for="flexRadioDefault2">
+                                        Is Correc Answer
+                                    </label>
+                                </div>
                             </div>
+                            <textarea class="form-control p-0" placeholder="" id="experience" style="height: 100px"></textarea>
                         </div>
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Education</b> <i style="color:red">*</i></span>
-                                <input class="form-control" name="RevName" type="text" />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <span class="col-1"><b>B</b> <i style="color:red">*</i></span>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input mt-2" type="checkbox" value="" id="flexCheckChecked">
+                                    <label class="form-check-label mt-2" for="flexRadioDefault2">
+                                        Is Correc Answer
+                                    </label>
+                                </div>
                             </div>
+                            <textarea class="form-control p-0" placeholder="" id="experience" style="height: 100px"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <span class="col-1"><b>C</b> <i style="color:red">*</i></span>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input mt-2" type="checkbox" value="" id="flexCheckChecked">
+                                    <label class="form-check-label mt-2" for="flexRadioDefault2">
+                                        Is Correc Answer
+                                    </label>
+                                </div>
+                            </div>
+                            <textarea class="form-control p-0" placeholder="" id="experience" style="height: 100px"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <span class="col-1"><b>D</b> <i style="color:red">*</i></span>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input mt-2" type="checkbox" value="" id="flexCheckChecked">
+                                    <label class="form-check-label mt-2" for="flexRadioDefault2">
+                                        Is Correc Answer
+                                    </label>
+                                </div>
+                            </div>
+                            <textarea class="form-control p-0" placeholder="" id="experience" style="height: 100px"></textarea>
                         </div>
                     </div>
 
                     <div class="m-1">
-                        <span><b>Address</b> <i style="color:red">*</i></span>
-                        <input class="form-control" name="RevName" type="text" />
+                        <span><b>Correct Answer</b> <i style="color:red">*</i></span>
+                        <input class="form-control  p-0" name="RevName" type="text" />
                     </div>
 
                     <div class="m-1">
                         <span><b>Experience</b> <i style="color:red">*</i></span>
-                        <input class="form-control" name="RevName" type="text" />
+                        <input class="form-control  p-0" name="RevName" type="text" />
                     </div>
 
                     <div class="m-1">
@@ -76,9 +128,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    const NewQuestion = () => {
-        console.log(123)
-    }
-</script>

@@ -50,7 +50,6 @@
         const $toastMes = $("#toastMes")
         const $updateHr = $("#updateHr")
 
-
         $hrTable.DataTable();
 
         const OnNewHr = () => {
@@ -104,8 +103,10 @@
         }
 
         const OnChangeHrStatus = (e) => {
+            RowIndex = e.target.parentElement.parentElement.rowIndex
             const Id = e.target.getAttribute('data-index')
-            const Status = e.target.checked
+            const data = JSON.parse(e.target.getAttribute('data-hr'))
+            const Status = !data.Status
             const hr = { Id, Status }
             $.ajax({
                 type: "POST",
@@ -114,6 +115,13 @@
                 dataType: "json",
                 success: function (res) {
                     OnSetupToast(res, $liveToast, $toastMes)
+                    e.target.setAttribute('data-hr', JSON.stringify(res.Data))
+                    if (res.Data.Status) {
+                        $hrTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-success">Active</span>`;
+                    } else {
+                        $hrTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-danger">Deleted</span>`;
+                        e.target.hidden = true
+                    }
                 },
                 error: function (jqXHR, err, errorThrown) {
                     OnServerErr($liveToast, $toastMes);
@@ -170,13 +178,6 @@
                         $hrTable[0].rows[RowIndex].children[2].innerHTML = res.Data.Email;
                         CurrentSelection.setAttribute('data-hr', JSON.stringify(res.Data))
                         CurrentSelection.parentElement.children[1].setAttribute('data-hr', JSON.stringify(res.Data))
-                        //const tmp = {
-                    //    Mes : "Successfull.",
-                    //    IsErr : true
-                    //}
-                    //$hrTable[0].deleteRow(RowIndex);
-                    //var newRow = $hrTable[0].insertRow(RowIndex);
-                    //newRow.innerHTML = res;
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
@@ -195,7 +196,6 @@
             $educationView[0].innerHTML = data.Education
             $addressView[0].innerHTML = data.Address
             $experienceView[0].innerHTML = data.Experience
-
         }
 
         $updateHr[0].addEventListener('hidden.bs.modal', function (event) {
@@ -210,8 +210,6 @@
             $addressUpdate.val("")
             $experienceUpdate.val("")
         }
-
-
 
         const OnClearFormNewHr = () => {
             $name.val("")

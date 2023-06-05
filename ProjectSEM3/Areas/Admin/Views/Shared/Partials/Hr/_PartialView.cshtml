@@ -1,7 +1,7 @@
-﻿@using ProjectSEM3.Models;
+﻿@using ProjectSEM3.Models.Entities;
 
 @{
-    var data = Model as List<ProjectSEM3.Models.Entities.Hr.Res>;
+    var data = Model as List<Hr.Res>;
 }
 
 @if (data.Count() <= 0)
@@ -35,24 +35,29 @@ else
                         <td>@item.Name</td>
                         <td>@item.Email</td>
                         <td>
-
-                            <div class="form-check form-switch">
-                                @if (@item.Status)
-                                {
-                                    <input class="form-check-input" style="cursor:pointer" onchange="OnChangeHrStatus(event)" data-index="@item.Id" type="checkbox" id="flexSwitchCheckDefault" checked>
-                                }
-                                else
-                                {
-                                    <input class="form-check-input" style="cursor:pointer" onchange="OnChangeHrStatus(event)" data-index="@item.Id" type="checkbox" id="flexSwitchCheckDefault">
-                                }
-                            </div>
+                            @if (@item.Status)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Deleted</span>
+                            }
                         </td>
                         <td>
                             @{
                                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(item);
                             }
-                            <i class="fa-solid fa-pen-to-square fa-2x pointer" data-bs-toggle="modal" data-bs-target="#updateHr" data-index="@item.Id" data-hr="@json" onclick="OnSelectRowHr(event)"></i>
-                            <i class="fa-sharp fa-solid fa-circle-info fa-2x pointer ms-3" data-bs-toggle="modal" data-bs-target="#infoHr" data-hr="@json" onclick="OnViewHr(event)"></i>
+                            <i class="fa-solid fa-pen-to-square fa-2x pointer" style="color:forestgreen" data-bs-toggle="modal" data-bs-target="#updateHr" data-index="@item.Id" data-hr="@json" onclick="OnSelectRowHr(event)"></i>
+                            <i class="fa-sharp fa-solid fa-circle-info fa-2x pointer ms-3" style="color: dodgerblue;" data-bs-toggle="modal" data-bs-target="#infoHr" data-hr="@json" onclick="OnViewHr(event)"></i>
+                            @if (@item.Status)
+                            {
+                                <i class="fa-solid fa-trash-can fa-2x pointer ms-3" style="color: red;" data-index="@item.Id" data-hr="@json" onclick="OnChangeHrStatus(event)"></i>
+                            }
+                            else
+                            {
+                                <i class="fa-solid fa-trash-can fa-2x pointer ms-3" style="color: red;" data-index="@item.Id" data-hr="@json" onclick="OnChangeHrStatus(event)" hidden></i>
+                            }
                         </td>
                     </tr>
                 }
