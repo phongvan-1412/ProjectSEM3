@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<ProjectSEM3.Models.Entities.QuestionView>
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -7,7 +8,7 @@
     var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.UtcNow.Ticks).TotalSeconds.ToString("#");
 
     <!-- Get Question List -->
-    var lst = ViewData["lstMath"];
+    //var lst = ViewData["lstMath"];
 }
 
 <div class="quiz-wrapper pt-5">
@@ -19,7 +20,24 @@
 
         <div class="container">
             <div id="wizard">
+                @foreach (var item in Model)
+                {
+                    <div id="questDisplay" class="multisteps_form_panel">
+                        <h1 class="question_title text-center">@item.Content</h1>
+                        <div class="form_items d-flex flex-column justify-content-center">
+                            @foreach (var option in item.Options)
+                            {
+                                <div class="answer-container rounded-pill bg-white text-start">
+                                    <input type="radio" name="answer-btn" value="@option">@option
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
 
+                <div class="form_btn action-btns text-center ms-5 mt-5">
+                    <button type="button" class="f_btn text-uppercase rounded-pill border-0">Submit</button>
+                </div>
             </div>
         </div>
 
@@ -108,112 +126,112 @@
     /*-----------------------------------
         Create json
     -------------------------------------*/
-    var lstQuest = @Html.Raw(Json.Encode(lst));
-    var data = lstQuest.Data;
-    for (var i = 0; i < data.length; i++) {
-        data[i].Options = JSON.parse(data[i].Options);
-    }
-    console.log(data);
+    @*var lstQuest = @Html.Raw(Json.Encode(lst));*@
+  //var data = lstQuest.Data;
+  //for (var i = 0; i < data.length; i++) {
+  //    data[i].Options = JSON.parse(data[i].Options);
+  //}
+  //console.log(data);
 
     /*-----------------------------------
         Handle Content
     -------------------------------------*/
-    let container = document.getElementById("wizard");
-    let jumper = document.getElementById("jumper-btns");
-    let selectedAnswers = {};
-    let lstTemp = [];
-    let question;
-    let index;
+  //let container = document.getElementById("wizard");
+  //let jumper = document.getElementById("jumper-btns");
+  //let selectedAnswers = {};
+  //let lstTemp = [];
+  //let question;
+  //let index;
 
-    function showAnswer() {
-        let options = ``;
-        for (var i = 0; i < question.Options.length; i++) {
-            let option = question.Options[i];
-            let selected = false;
-            if (selectedAnswers[`${question.Content}`] == option) {
-                selected = true;
-            }
-            options += `
-                <div class="answer-container rounded-pill bg-white text-start">
-                        <input type="radio" onclick="addAnswer()" name="answer-btn" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
-                </div>
-            `;
-        }
+  //function showAnswer() {
+  //    let options = ``;
+  //    for (var i = 0; i < question.Options.length; i++) {
+  //        let option = question.Options[i];
+  //        let selected = false;
+  //        if (selectedAnswers[`${question.Content}`] == option) {
+  //            selected = true;
+  //        }
+  //        options += `
+  //            <div class="answer-container rounded-pill bg-white text-start">
+  //                    <input type="radio" onclick="addAnswer()" name="answer-btn" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
+  //            </div>
+  //        `;
+  //    }
 
-        return options;
-    };
-    function jumpButtons() {
-        let btns = ``;
-        for (let i = 0; i < data.length; i++) {
-            btns += `<span class="step bg-white rounded-pill ${i == index ? "finish" : ""}" onclick="showQuestion(${i})" style="cursor: pointer"></span>`;
-        }
-        jumper.innerHTML = btns;
-    };
-    function addAnswer() {
-        let currentOptions = document.getElementsByName("answer-btn");
+  //    return options;
+  //};
+  //function jumpButtons() {
+  //    let btns = ``;
+  //    for (let i = 0; i < data.length; i++) {
+  //        btns += `<span class="step bg-white rounded-pill ${i == index ? "finish" : ""}" onclick="showQuestion(${i})" style="cursor: pointer"></span>`;
+  //    }
+  //    jumper.innerHTML = btns;
+  //};
+  //function addAnswer() {
+  //    let currentOptions = document.getElementsByName("answer-btn");
 
-        for (let i = 0; i < currentOptions.length; i++) {
-            let currentOption = currentOptions[i];
-            if (currentOption.checked == true) {
-                selectedAnswers[`${question.Content}`] = currentOption.value;
-            }
-        }
-    };
-    function submitQuiz() {
-        let questSubmit = Object.keys(selectedAnswers);
-        for (var i = 0; i < questSubmit.length; i++) {
-            var temp = { question: "", answer: "" };
-            temp.question = questSubmit[i];
-            temp.answer = selectedAnswers[Object.keys(selectedAnswers)[i]];
-            lstTemp.push(temp);
-        }
-        localStorage.setItem("lstResult", JSON.stringify(lstTemp));
+  //    for (let i = 0; i < currentOptions.length; i++) {
+  //        let currentOption = currentOptions[i];
+  //        if (currentOption.checked == true) {
+  //            selectedAnswers[`${question.Content}`] = currentOption.value;
+  //        }
+  //    }
+  //};
+  //function submitQuiz() {
+  //    let questSubmit = Object.keys(selectedAnswers);
+  //    for (var i = 0; i < questSubmit.length; i++) {
+  //        var temp = { question: "", answer: "" };
+  //        temp.question = questSubmit[i];
+  //        temp.answer = selectedAnswers[Object.keys(selectedAnswers)[i]];
+  //        lstTemp.push(temp);
+  //    }
+  //    localStorage.setItem("lstResult", JSON.stringify(lstTemp));
 
-        $.ajax({
-            type: "POST",
-            data: { result: localStorage.getItem("lstResult") },
-            dataType: "json",
-            url: "/Quiz/SubmitMath",
-            success: function (result) {
-                console.log(result);
-                window.location.href = "https://localhost:44376/Quiz/Quiz_Computer";
-            },
-            error: function (req, status, error) {
-                console.log(error);
-            }
-        });
-    };
-    function showQuestion(i) {
-        index = i;
-        if (data[i]) {
-            jumpButtons();
-            question = data[i];
-            let options = showAnswer();
-            container.innerHTML = `
-                <div id="questDisplay" class="multisteps_form_panel">
-                    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-                        Question
-                        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${data.length}
-                    </span>
+  //    $.ajax({
+  //        type: "POST",
+  //        data: { result: localStorage.getItem("lstResult") },
+  //        dataType: "json",
+  //        url: "/Quiz/SubmitMath",
+  //        success: function (result) {
+  //            console.log(result);
+  //            window.location.href = "https://localhost:44376/Quiz/Quiz_Computer";
+  //        },
+  //        error: function (req, status, error) {
+  //            console.log(error);
+  //        }
+  //    });
+  //};
+  //function showQuestion(i) {
+  //    index = i;
+  //    if (data[i]) {
+  //        jumpButtons();
+  //        question = data[i];
+  //        let options = showAnswer();
+  //        container.innerHTML = `
+  //            <div id="questDisplay" class="multisteps_form_panel">
+  //                <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+  //                    Question
+  //                    <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${data.length}
+  //                </span>
 
-                    <h1 class="question_title text-center">${question.Content} </h1>
-                    <div class="form_items d-flex flex-column justify-content-center">
-                        ${options}
-                    </div>
-                </div>
+  //                <h1 class="question_title text-center">${question.Content} </h1>
+  //                <div class="form_items d-flex flex-column justify-content-center">
+  //                    ${options}
+  //                </div>
+  //            </div>
 
-                <div class="form_btn action-btns text-center ms-5 mt-5">
-                    ${index > 0 ? `<button type="button" onclick="showQuestion(${index - 1})" class="f_btn text-uppercase rounded-pill border-0" style="display: inline;">Prev Question</button>` : ""}
-                    ${index + 1 < data.length ?
-                    `<button type="button" onclick="showQuestion(${index + 1})" class="f_btn text-uppercase rounded-pill border-0">Next Question</button>`
-                    :
-                    `<button type="button" onclick="submitQuiz()" class="f_btn text-uppercase rounded-pill border-0">Submit</button>`}
-                </div>
-            `;
-        }
-    };
+  //            <div class="form_btn action-btns text-center ms-5 mt-5">
+  //                ${index > 0 ? `<button type="button" onclick="showQuestion(${index - 1})" class="f_btn text-uppercase rounded-pill border-0" style="display: inline;">Prev Question</button>` : ""}
+  //                ${index + 1 < data.length ?
+  //                `<button type="button" onclick="showQuestion(${index + 1})" class="f_btn text-uppercase rounded-pill border-0">Next Question</button>`
+  //                :
+  //                `<button type="button" onclick="submitQuiz()" class="f_btn text-uppercase rounded-pill border-0">Submit</button>`}
+  //            </div>
+  //        `;
+  //    }
+  //};
 
-    showQuestion(0);
+  //showQuestion(0);
 
 </script>
 

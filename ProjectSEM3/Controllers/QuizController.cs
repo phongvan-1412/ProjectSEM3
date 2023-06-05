@@ -20,8 +20,38 @@ namespace ProjectSEM3.Controllers
         }
         public ActionResult Quiz_Math()
         {
-            ViewData["lstMath"] = GetData();
-            return View();
+            List<Question.Req> lst = DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
+            QuestionView temp;
+            List<QuestionView> lstTemp = new List<QuestionView>();
+            foreach (var item in lst)
+            {
+                List<string> a = item.Options.Split(',').ToList();
+                List<string> b = new List<string>();
+                foreach (var i in a)
+                {
+                    var c = i.Replace("[", "");
+                    var d = c.Replace("\"", "");
+                    var e = d.Replace("\\", "");
+                    var f = e.Replace("]", "");
+
+                    Console.WriteLine(f);
+                    b.Add(f);
+                }
+                temp = new QuestionView
+                {
+                    Id = item.Id,
+                    IdType = item.IdType,
+                    IdLevel = item.IdLevel,
+                    Content = item.Content,
+                    Point = item.Point,
+                    Options = b,
+                    CorrectAnwser = item.CorrectAnwser,
+                    IsMultiAnwser = item.IsMultiAnwser,
+                    Status = item.Status,
+                };
+                lstTemp.Add(temp);
+            }
+            return View(lstTemp);
         }
         public ActionResult Quiz_Computer()
         {

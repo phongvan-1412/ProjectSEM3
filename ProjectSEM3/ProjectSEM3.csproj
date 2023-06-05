@@ -140,6 +140,7 @@
     <Compile Include="Models\Entities\Hr.cs" />
     <Compile Include="Models\Entities\Level.cs" />
     <Compile Include="Models\Entities\Question.cs" />
+    <Compile Include="Models\Entities\QuestionView.cs" />
     <Compile Include="Models\Entities\Result.cs" />
     <Compile Include="Models\Entities\Type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
