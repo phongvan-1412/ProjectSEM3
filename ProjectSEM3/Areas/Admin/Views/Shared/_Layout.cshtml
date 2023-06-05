@@ -11,6 +11,17 @@
     <link rel="stylesheet" href="~/Content/Admin/fullcalendar.css" />
     <link rel="stylesheet" href="~/Content/Admin/fullcalendar.css" />
     <link rel="stylesheet" href="~/Content/Admin/main.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.css"
+          rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -37,8 +48,25 @@
         </div>
     </footer>
 
+    @*toast*@
+    <div class="position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast hide text-black">
+            <div class="toast-header">
+                <img src="~/Content/img/signature.png" style="width:30px; height:18px" class="rounded me-2" alt="...">
+                <strong class="me-auto"></strong>
+                <small>11 mins ago</small>
+                <button type="button" class="btn-close float-end" onclick="OnHideToast()" data-bs-dismiss="toast"></button>
+            </div>
+
+            <div class="toast-body" id="toastMes">
+
+            </div>
+        </div>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
-</html>
+</html>     

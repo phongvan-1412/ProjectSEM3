@@ -1018,3 +1018,8 @@ body .container-fluid {
         margin-top: 90px;
     }
 }
+
+
+.pointer {
+    cursor: pointer;
+}

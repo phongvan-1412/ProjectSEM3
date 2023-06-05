@@ -1,0 +1,25 @@
+﻿@using ProjectSEM3.Models;
+
+
+<td>@Model.RowIndex</td>
+<td>@Model.Name</td>
+<td>@Model.Email</td>
+<td>
+    <div class="form-check form-switch">
+        @if (Model.Status)
+        {
+            <input class="form-check-input" style="cursor:pointer" onchange="OnChangeHrStatus(event)" data-index="@Model.Id" type="checkbox" id="flexSwitchCheckDefault" checked>
+        }
+        else
+        {
+            <input class="form-check-input" style="cursor:pointer" onchange="OnChangeHrStatus(event)" data-index="@Model.Id" type="checkbox" id="flexSwitchCheckDefault">
+        }
+    </div>
+</td>
+<td>
+    @{
+        var json = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
+    }
+    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#updateHr" data-index="@Model.Id" data-hr="@json" onclick="OnSelectRowHr(event)">Update</button>
+    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Hr/_PartialInfor.cshtml", Model as ProjectSEM3.Models.Entities.Hr.Res)
+</td>

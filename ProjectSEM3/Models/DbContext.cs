@@ -105,5 +105,19 @@ namespace ProjectSEM3.Models
             var param = string.Join(",", parameters.Keys).ToLower();
             return string.Format(_storeFormat, storeName, param);
         }
+
+        public class Result<T>
+        {
+            public T Data;
+            public string Mes;
+            public bool IsErr;
+        }
+
+        public class Result
+        {
+            public string Mes;
+            public bool IsErr;
+        }
     }
+
 }

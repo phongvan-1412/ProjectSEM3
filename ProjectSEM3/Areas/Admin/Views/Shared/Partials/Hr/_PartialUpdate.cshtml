@@ -1,11 +1,9 @@
-﻿<button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#newHr">New</button>
-
-<div id="newHr" class="modal fade" role="dialog">
+﻿<div id="updateHr" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">New</h4>
+                <h4 class="modal-title">Update Hr</h4>
                 <button type="button" class="btn btn-info" data-bs-dismiss="modal">&times;</button>
             </div>
 
@@ -15,28 +13,13 @@
                         <div class="col-6">
                             <div class="m-1">
                                 <span><b>Name</b> <i style="color:red">*</i></span>
-                                <input class="form-control" id="name" type="text" />
+                                <input class="form-control p-0" id="nameUpdate" type="text" />
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="m-1">
                                 <span><b>Email</b> <i style="color:red">*</i></span>
-                                <input class="form-control" id="email" type="text" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Password</b> <i style="color:red">*</i></span>
-                                <input class="form-control" name="RevName" type="text" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Confirm Password</b> <i style="color:red">*</i></span>
-                                <input class="form-control" name="RevName" type="text" />
+                                <input class="form-control p-0" id="emailUpdate" type="text" />
                             </div>
                         </div>
                     </div>
@@ -45,29 +28,29 @@
                         <div class="col-6">
                             <div class="m-1">
                                 <span><b>Contact</b> <i style="color:red">*</i></span>
-                                <input class="form-control" name="RevName" type="text" />
+                                <input class="form-control p-0" id="contactUpdate" type="text" />
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="m-1">
                                 <span><b>Education</b> <i style="color:red">*</i></span>
-                                <input class="form-control" name="RevName" type="text" />
+                                <input class="form-control p-0" id="educationUpdate" type="text" />
                             </div>
                         </div>
                     </div>
 
                     <div class="m-1">
                         <span><b>Address</b> <i style="color:red">*</i></span>
-                        <input class="form-control" name="RevName" type="text" />
+                        <input class="form-control p-0" id="addressUpdate" type="text" />
                     </div>
 
                     <div class="m-1">
                         <span><b>Experience</b> <i style="color:red">*</i></span>
-                        <input class="form-control" name="RevName" type="text" />
+                        <textarea class="form-control p-0" placeholder="" id="experienceUpdate" style="height: 100px"></textarea>
                     </div>
 
                     <div class="m-1">
-                        <button class="btn btn-outline-info" type="button" onclick="UpdateHr()">Update</button>
+                        <button class="btn btn-outline-info" type="button" onclick="OnUpdateHr()">Update</button>
                     </div>
                 </div>
             </div>
@@ -76,9 +59,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    const UpdateHr = () => {
-        console.log("Update Hr")
-    }
-</script>

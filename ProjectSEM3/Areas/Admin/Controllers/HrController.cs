@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace ProjectSEM3.Areas.Admin.Controllers
 {
@@ -14,17 +15,33 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         // GET: Admin/Hr
         public ActionResult Index()
         {
-            return View();
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@Name", "" },
+                { "@Email", ""},
+                { "@Contact", "" },
+                { "@Address", "" },
+                { "@Education", "" },
+                { "@Experience",  "" }
+            };
+
+            var hrs = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrs, param);
+
+            return View(hrs);
         }
 
         [HttpPost]
         [Route("/admin/hr/newhr")]
-        public string NewHr(Hr.Req hr)
+        public JsonResult NewHr(Hr.Req hr)
         {
             var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrByEmail, new Dictionary<string, dynamic> { { "@Email", hr.Email } });
             if (result != null)
             {
-                return JsonConvert.SerializeObject("Email already exists");
+                return Json(new DbContext.Result
+                {
+                    Mes = "Email already exists.",
+                    IsErr = false,
+                });
             }
 
             var param = new Dictionary<string, dynamic>
@@ -39,23 +56,49 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             };
 
             result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.InsertHr, param);
-            return JsonConvert.SerializeObject("Create Hr successfull.");
+            return Json(new DbContext.Result
+            {
+                Mes = "Create Hr successfull.",
+                IsErr = true,
+            });
         }
 
-        public ActionResult UpdateHr(Hr.Req hr)
+        [HttpPost]
+        [Route("/admin/hr/UpdateHR")]
+        public JsonResult UpdateHr(Hr.Req hr,int rowIndex)
         {
             var param = new Dictionary<string, dynamic>
             {
-                { "@Name", "hr13 name" },
-                { "@Email", "hremai131@gmail.com" },
-                { "@Password", "111111" }
+                { "@Id", hr.Id },
+                { "@Name", hr.Name },
+                { "@Email", hr.Email},
+                { "@Contact", hr.Contact },
+                { "@Address", hr.Address },
+                { "@Education", hr.Education },
+                { "@Experience",  hr.Experience }
             };
-            var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.UpdateHr, param).FirstOrDefault();
-            return RedirectToAction(nameof(Index));
+            var ls = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.UpdateHr, param);
+            if(ls == null)
+            {
+                return Json(new DbContext.Result
+                {
+                    Mes = "Fail.",
+                    IsErr = false,
+                });
+            }
+            var result = ls.FirstOrDefault();
+            result.RowIndex = rowIndex;
+            return Json(new DbContext.Result<Hr.Res>
+            {
+                Data = result,
+                Mes = "Successfull.",
+                IsErr = true,
+            });
+            //return PartialView(@"~/Areas/Admin/Views/Shared/Partials/Hr/_PartialRowHr.cshtml", result);
         }
 
         [HttpGet]
-        public ActionResult GetHrById(int id)
+        public JsonResult GetHrById(int id)
         {
             var param = new Dictionary<string, dynamic>
             {
@@ -63,22 +106,42 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             };
             var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrById, param).FirstOrDefault();
 
-            return RedirectToAction(nameof(Index));
+            return Json(result);
         }
 
-        [HttpGet]
-        public ActionResult GetHrs(Hr.Req hr)
+        [HttpPost]
+        [Route("/admin/hr/ChangeHrStatus")]
+        public JsonResult ChangeHrStatus(Hr.Req hr)
         {
             var param = new Dictionary<string, dynamic>
             {
-                { "@Name", "hr13 name" },
-                { "@Email", "hremai131@gmail.com" },
-                { "@Contact", "111111" },
-                { "@Address", "111111" },
-                { "@Education", "111111" },
-                { "@Experience", "111111" }
+                { "@Id", hr.Id },
+                { "@Status", hr.Status },
             };
-            var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrs, param);
+            var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.ChangeHrStatus, param).FirstOrDefault();
+
+            return Json(new DbContext.Result<Hr.Res>
+            {
+                Data = result,
+                Mes = "Successfull.",
+                IsErr = true,
+            });
+        }
+
+        [HttpGet]
+        public ActionResult GetHrs()
+        {
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@Name", "" },
+                { "@Email", ""},
+                { "@Contact", "" },
+                { "@Address", "" },
+                { "@Education", "" },
+                { "@Experience",  "" }
+            };
+
+            var hrs = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrs, param);
 
             return RedirectToAction(nameof(Index));
         }

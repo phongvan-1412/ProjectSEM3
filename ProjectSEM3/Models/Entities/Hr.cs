@@ -17,6 +17,7 @@ namespace ProjectSEM3.Models.Entities
             public string Address { get; set; }
             public string Education { get; set; }
             public string Experience { get; set; }
+            public int RowIndex { get; set; }
 
             public bool Status { get; set; }
 
