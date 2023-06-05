@@ -14,10 +14,7 @@ namespace ProjectSEM3.Models.Entities
             public int IdLevel { get; set; }
             public string Content { get; set; }
             public int Point { get; set; }
-            public string A { get; set; }
-            public string B { get; set; }
-            public string C { get; set; }
-            public string D { get; set; }
+            public string Options { get; set; }
             public string CorrectAnwser { get; set; }
             public bool IsMultiAnwser { get; set; }
             public bool Status { get; set; }
@@ -38,10 +35,7 @@ namespace ProjectSEM3.Models.Entities
             public string LevelName { get; set; }
             public string Content { get; set; }
             public int Point { get; set; }
-            public string A { get; set; }
-            public string B { get; set; }
-            public string C { get; set; }
-            public string D { get; set; }
+            public string Options { get; set; }
             public string CorrectAnwser { get; set; }
             public bool IsMultiAnwser { get; set; }
             public bool Status { get; set; }
