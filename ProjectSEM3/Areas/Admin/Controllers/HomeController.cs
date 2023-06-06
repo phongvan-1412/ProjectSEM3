@@ -13,7 +13,6 @@ namespace ProjectSEM3.Areas.Admin.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Admin/Home
         public ActionResult Index()
         {
             return View();
@@ -29,6 +28,11 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             };
             var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrByEmailPass, param).FirstOrDefault();
             return RedirectToAction(nameof(Index));
+        }
+
+        public ActionResult Logout()
+        {
+            return View();
         }
     }
 }

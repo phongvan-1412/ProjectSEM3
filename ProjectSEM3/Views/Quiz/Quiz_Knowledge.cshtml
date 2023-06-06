@@ -114,7 +114,7 @@
         data[i].Options = JSON.parse(data[i].Options);
     }
     console.log(data);
-
+    localStorage.setItem("lst", JSON.stringify(data))
     /*-----------------------------------
         Handle Content
     -------------------------------------*/
@@ -150,9 +150,11 @@
         jumper.innerHTML = btns;
     };
     function addAnswer() {
+        var temp = JSON.parse(localStorage.getItem("lst"));
         let currentOptions = document.getElementsByName("answer-btn");
 
         for (let i = 0; i < currentOptions.length; i++) {
+            console.log(temp[i]);
             let currentOption = currentOptions[i];
             if (currentOption.checked == true) {
                 selectedAnswers[`${question.Content}`] = currentOption.value;
