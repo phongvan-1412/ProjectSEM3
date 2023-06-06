@@ -1,4 +1,12 @@
-﻿<i class="fa-solid fa-square-plus pointer fa-3x float-end mb-3" data-bs-toggle="modal" data-bs-target="#newQuest"></i>
+﻿@using ProjectSEM3.Models.Entities;
+
+@{
+    var types = ViewBag.Types as List<ProjectSEM3.Models.Entities.Type.Res>;
+    var levels = ViewBag.Levels as List<Level.Res>;
+}
+
+
+<i class="fa-solid fa-square-plus pointer fa-3x float-end mb-3" data-bs-toggle="modal" data-bs-target="#newQuest"></i>
 
 <div id="newQuest" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -14,23 +22,33 @@
                     <div class="row">
                         <div class="col-3 m-1">
                             <span><b>Type</b> <i style="color:red">*</i></span>
-                            <select class="form-select">
+                            <select class="form-select" id="type">
+                                <option value="0" selected hidden>Type</option>
+                                @foreach (var item in types)
+                                {
+                                    <option class="pointer" value="@item.Id">@item.Name</option>
+                                }
                             </select>
                         </div>
                         <div class="col-3 m-1">
                             <span><b>Level</b> <i style="color:red">*</i></span>
-                            <select class="form-select">
+                            <select class="form-select" id="level">
+                                <option value="0" selected hidden>Type</option>
+                                @foreach (var item in levels)
+                                {
+                                    <option class="pointer" value="@item.Id">@item.Name</option>
+                                }
                             </select>
                         </div>
                         <div class="col-2 m-1">
                             <span><b>Point</b> <i style="color:red">*</i></span>
-                            <select class="form-select">
+                            <select class="form-select" id="point">
                                 <option value="0" selected hidden>Point</option>
-                                <option value="1">1</option>
-                                <option value="1">2</option>
-                                <option value="1">3</option>
-                                <option value="1">4</option>
-                                <option value="1">5</option>
+                                <option class="pointer" value="1">1</option>
+                                <option class="pointer" value="1">2</option>
+                                <option class="pointer" value="1">3</option>
+                                <option class="pointer" value="1">4</option>
+                                <option class="pointer" value="1">5</option>
                             </select>
                         </div>
                         <div class="col-3 m-1">
@@ -53,9 +71,9 @@
                             <div class="row">
                                 <span class="col-1"><b>A</b> <i style="color:red">*</i></span>
                                 <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="isCorrectAnswer" type="radio" value="">
-                                    <label class="form-check-label" for="isCorrectAnswer">
-                                        Is Correc Answer
+                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="" type="radio" value="">
+                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
+                                        Is Correct Answer
                                     </label>
                                 </div>
                             </div>
@@ -68,9 +86,9 @@
                             <div class="row">
                                 <span class="col-1"><b>B</b> <i style="color:red">*</i></span>
                                 <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="isCorrectAnswer" type="radio" value="">
-                                    <label class="form-check-label" for="isCorrectAnswer">
-                                        Is Correc Answer
+                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="" type="radio" value="">
+                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
+                                        Is Correct Answer
                                     </label>
                                 </div>
                             </div>
@@ -83,9 +101,9 @@
                             <div class="row">
                                 <span class="col-1"><b>C</b> <i style="color:red">*</i></span>
                                 <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="isCorrectAnswer" type="radio" value="">
-                                    <label class="form-check-label" for="isCorrectAnswer">
-                                        Is Correc Answer
+                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="" type="radio" value="">
+                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
+                                        Is Correct Answer
                                     </label>
                                 </div>
                             </div>
@@ -94,13 +112,13 @@
                     </div>
                     <hr />
                     <div class="row">
-                        <div class="col-12">    
+                        <div class="col-12">
                             <div class="row">
                                 <span class="col-1"><b>D</b> <i style="color:red">*</i></span>
                                 <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="isCorrectAnswer" type="radio" value="">
-                                    <label class="form-check-label" for="isCorrectAnswer">
-                                        Is Correc Answer
+                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="" type="radio" value="">
+                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
+                                        Is Correct Answer
                                     </label>
                                 </div>
                             </div>
@@ -108,8 +126,8 @@
                         </div>
                     </div>
 
-                    <div class="m-1">
-                        <button class="btn btn-outline-info" type="button" onclick="NewQuestion()">Submit</button>
+                    <div class="m-2">
+                        <button class="btn btn-outline-info float-end" type="button" onclick="NewQuestion()">Submit</button>
                     </div>
                 </div>
             </div>

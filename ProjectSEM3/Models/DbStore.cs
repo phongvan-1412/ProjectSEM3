@@ -6,11 +6,13 @@
         public static string UpdateType = "Sp_UpdateType";
         public static string GetTypeById = "Sp_GetTypeById";
         public static string GetTypes = "Sp_GetTypes";
+        public static string GetAllTypes = "Sp_GetAllTypes";
 
         public static string InsertLevel = "Sp_InsertLevel";
         public static string UpdateLevel = "Sp_UpdateLevel";
         public static string GetLevelById = "Sp_GetLevelById";
         public static string GetLevels = "Sp_GetLevels";
+        public static string GetAllLevels = "Sp_GetAllLevels";
 
         public static string InsertContestant = "Sp_InsertContestant";
         public static string UpdateContestant = "Sp_UpdateContestant";
