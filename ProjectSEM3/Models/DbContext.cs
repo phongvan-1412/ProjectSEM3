@@ -38,7 +38,8 @@ namespace ProjectSEM3.Models
                     {
                         return default;
                     }
-                    var json = JsonConvert.DeserializeObject<T>(result);
+                    var res = result.ToString();
+                    var json = JsonConvert.DeserializeObject<T>(res);
                     return json;
                 }
             }
