@@ -51,6 +51,7 @@ namespace ProjectSEM3.Controllers
                 };
                 lstTemp.Add(temp);
             }
+            ViewData["lstMath"] = lstTemp; 
             return View(lstTemp);
         }
         public ActionResult Quiz_Computer()

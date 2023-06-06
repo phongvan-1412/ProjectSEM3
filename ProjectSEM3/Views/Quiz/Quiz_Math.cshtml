@@ -6,6 +6,9 @@
     <!-- Define countdown time -->
     var endTime = DateTime.UtcNow.AddSeconds(425);
     var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.UtcNow.Ticks).TotalSeconds.ToString("#");
+
+    <!-- Get Data -->
+    var lstMath = ViewData["lstMath"];
 }
 
 <div class="quiz-wrapper pt-5">
@@ -80,7 +83,7 @@
 </div>
 
 <script type="text/javascript">
-    localStorage.removeItem("lstResult")
+    localStorage.removeItem("lstCheckMath")
     /*-----------------------------------
         Countdown
     -------------------------------------*/
@@ -122,45 +125,50 @@
     /*-----------------------------------
         Handle Content
     -------------------------------------*/
-  let selectedAnswers = {};
-  let lstTemp = [];
+    var data = @Html.Raw(Json.Encode(lstMath));
+    let lstTemp = [];
+    for (var i = 0; i < data.length; i++) {
+        var temp = { id: "", question: "", answer: "" };
+        temp.id = data[i].Id;
+        temp.question = data[i].Content;
+        lstTemp.push(temp);
+    }
+    localStorage.setItem("lstCheckMath", JSON.stringify(lstTemp));
+    let selectedAnswers = {};
 
-  function addAnswer(index) {
-      let answered = document.getElementsByName("answer-a" + index);
-      let questioned = document.getElementById("question-q" + index);
-      console.log(questioned.innerHTML);
-      for (var i = 0; i < answered.length; i++) {
-          let currentOption = answered[i];
-          if (currentOption.checked == true) {
-              selectedAnswers[`${questioned.innerHTML}`] = currentOption.value;
+      function addAnswer(index) {
+          let answered = document.getElementsByName("answer-a" + index);
+          let questioned = document.getElementById("question-q" + index);
+          var a = JSON.parse(localStorage.getItem("lstCheckMath"));
+          console.log(a);
+          for (var i = 0; i < answered.length; i++) {
+              let currentOption = answered[i];
+              if (currentOption.checked == true) {
+                  selectedAnswers[`${questioned.innerHTML}`] = currentOption.value;
+                  for (var j = 0; j < a.length; j++) {
+                      if (a[j].question == questioned.innerHTML) {
+                          a[j].answer = currentOption.value;
+                          localStorage.setItem("lstCheckMath", JSON.stringify(a));
+                      }
+                  }
+              }
           }
-      }
-  };
-  function submitQuiz() {
-      let questSubmit = Object.keys(selectedAnswers);
-      for (var i = 0; i < questSubmit.length; i++) {
-          var temp = { question: "", answer: "" };
-          temp.question = questSubmit[i];
-          temp.answer = selectedAnswers[Object.keys(selectedAnswers)[i]];
-          lstTemp.push(temp);
-      }
-      console.log(lstTemp);
-      localStorage.setItem("lstResult", JSON.stringify(lstTemp));
-
-      $.ajax({
-          type: "POST",
-          data: { result: localStorage.getItem("lstResult") },
-          dataType: "json",
-          url: "/Quiz/SubmitMath",
-          success: function (result) {
-              console.log(result);
-              window.location.href = "https://localhost:44376/Quiz/Quiz_Computer";
-          },
-          error: function (req, status, error) {
-              console.log(error);
-          }
-      });
-  };
+      };
+      function submitQuiz() {
+          $.ajax({
+              type: "POST",
+              data: { result: localStorage.getItem("lstCheckMath") },
+              dataType: "json",
+              url: "/Quiz/SubmitMath",
+              success: function (result) {
+                  console.log(result);
+                  window.location.href = "https://localhost:44376/Quiz/Quiz_Computer";
+              },
+              error: function (req, status, error) {
+                  console.log(error);
+              }
+          });
+      };
 
 </script>
 

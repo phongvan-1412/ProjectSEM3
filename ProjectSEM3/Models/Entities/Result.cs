@@ -7,6 +7,7 @@ namespace ProjectSEM3.Models.Entities
 {
     public class Result
     {
+        public int Id { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
     }
