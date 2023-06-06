@@ -32,8 +32,12 @@ namespace ProjectSEM3.Models
                 {
                     cmd.CommandText = storeName;
                     cmd.Connection.Open();
-                    var result = cmd.ExecuteScalar().ToString();
+                    var result = cmd.ExecuteScalar();
                     cmd.Connection.Close();
+                    if (result == null)
+                    {
+                        return default;
+                    }
                     var json = JsonConvert.DeserializeObject<T>(result);
                     return json;
                 }
