@@ -12,6 +12,32 @@
         @Html.Partial("_TopBarAdminPartial")
         @RenderBody()
     </main>
+    @*<div class="position-fixed p-3" style="z-index: 9999; bottom: 0; right: 0;">
+            <div class="toast align-items-center text-white bg-primary border-0" id="liveToast" role="alert" aria-live="assertive" aria-atomic="true" style="min-height:30px; width: 30vw">
+                <div class="d-flex">
+                    <div id="toastMes" class="toast-body pl-3" style="font-size: 15px">
+
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    @*toast*@
+    <div class="position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast hide text-black">
+            <div class="toast-header">
+                <img src="~/Content/img/signature.png" style="width:30px; height:18px" class="rounded me-2" alt="...">
+                <strong class="me-auto"></strong>
+                <small></small>
+                <button type="button" class="btn-close float-end" onclick="OnHideToast()" data-bs-dismiss="toast"></button>
+            </div>
+
+            <div class="toast-body" id="toastMes">
+
+            </div>
+        </div>
+    </div>
+
+
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Content/js/bootstrap.bundle.min.js"></script>
     <script src="~/Content/js/Chart.min.js"></script>
