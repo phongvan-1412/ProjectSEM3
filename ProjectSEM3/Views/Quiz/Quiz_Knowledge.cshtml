@@ -110,18 +110,23 @@
     -------------------------------------*/
     var lstQuest = @Html.Raw(Json.Encode(lst));
     var data = lstQuest.Data;
+    let lstTemp = [];
     for (var i = 0; i < data.length; i++) {
+        var temp = { id: "", question: "", answer: "" };
         data[i].Options = JSON.parse(data[i].Options);
+        temp.id = data[i].Id;
+        temp.question = data[i].Content;
+        lstTemp.push(temp);
     }
     console.log(data);
-    localStorage.setItem("lst", JSON.stringify(data))
+    localStorage.setItem("lstCheck", JSON.stringify(lstTemp));
     /*-----------------------------------
         Handle Content
     -------------------------------------*/
     let container = document.getElementById("wizard");
     let jumper = document.getElementById("jumper-btns");
     let selectedAnswers = {};
-    let lstTemp = [];
+    
     let question;
     let index;
 
@@ -150,30 +155,27 @@
         jumper.innerHTML = btns;
     };
     function addAnswer() {
-        var temp = JSON.parse(localStorage.getItem("lst"));
+        var a = JSON.parse(localStorage.getItem("lstCheck"));
         let currentOptions = document.getElementsByName("answer-btn");
 
         for (let i = 0; i < currentOptions.length; i++) {
-            console.log(temp[i]);
             let currentOption = currentOptions[i];
+            
             if (currentOption.checked == true) {
                 selectedAnswers[`${question.Content}`] = currentOption.value;
+                for (var j = 0; j < a.length; j++) {
+                    if (a[j].question == question.Content) {
+                        a[j].answer = currentOption.value;
+                        localStorage.setItem("lstCheck", JSON.stringify(a));
+                    }
+                }
             }
         }
     };
     function submitQuiz() {
-        let questSubmit = Object.keys(selectedAnswers);
-        for (var i = 0; i < questSubmit.length; i++) {
-            var temp = { question: "", answer: "" };
-            temp.question = questSubmit[i];
-            temp.answer = selectedAnswers[Object.keys(selectedAnswers)[i]];
-            lstTemp.push(temp);
-        }
-        localStorage.setItem("lstResult", JSON.stringify(lstTemp));
-
         $.ajax({
             type: "POST",
-            data: { result: localStorage.getItem("lstResult") },
+            data: { result: localStorage.getItem("lstCheck") },
             dataType: "json",
             url: "/Quiz/SubmitKnowledge",
             success: function (result) {
