@@ -1,16 +1,7 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Question";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-@section Header {
-    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/_PartialHeader.cshtml")
-}
-
-@section LeftNavigator {
-    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/_PartialLeftNav.cshtml")
-}
-
 <h2>Question</h2>
 
 <div class="me-4">
@@ -22,14 +13,16 @@
 
 @section Scripts {
     <script>
+        const $isCorrectAnswer = $(".isCorrectAnswer")
         const $type = $("#type")
         const $level = $("#level")
         const $point = $("#point")
+        const $isMultiSelect = $("#isMultiSelect")
         const $content = $("#content")
-        const $a = $("#a")
-        const $b = $("#b")
-        const $c = $("#c")
-        const $d = $("#d")
+        const $answerA = $("#answerA")
+        const $answerB = $("#answerB")
+        const $answerC = $("#answerC")
+        const $answerD = $("#answerD")
 
         const $nameUpdate = $("#nameUpdate")
         const $emailUpdate = $("#emailUpdate")
@@ -50,9 +43,18 @@
         const $toastMes = $("#toastMes")
         const $updateHr = $("#updateHr")
 
-
         $hrTable.DataTable();
 
+        const OnMultiSelected = (e) => {
+            for (var ele of $isCorrectAnswer) {
+                if (e.target.checked) {
+                    ele.type = 'checkbox'
+                } else {
+                    ele.type = 'radio'
+                }
+            }
+        }
+        
         const OnNewHr = () => {
             const Name = $name.val()
             const Email = $email.val()
