@@ -36,7 +36,7 @@
                         <div class="col-3 m-1">
                             <span><b>Is Multiselect</b> <i style="color:red">*</i></span>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                <input class="form-check-input pointer" type="checkbox" id="isMultiSelect" onclick="OnMultiSelected(event)">
                             </div>
                         </div>
                     </div>
@@ -44,78 +44,68 @@
                     <div class="row">
                         <div class="col-12">
                             <span><b>Content</b> <i style="color:red">*</i></span>
-                            <textarea class="form-control p-0" placeholder="" id="experience" style="height: 100px"></textarea>
+                            <textarea class="form-control p-0 ckEditor" placeholder="" name="isCorrectAnswer" id="content" rows="3"></textarea>
                         </div>
                     </div>
-
+                    <hr />
                     <div class="row">
                         <div class="col-12">
                             <div class="row">
                                 <span class="col-1"><b>A</b> <i style="color:red">*</i></span>
                                 <div class="form-check col-6">
-                                    <input class="form-check-input mt-2" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label mt-2" for="flexRadioDefault2">
+                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="isCorrectAnswer" type="radio" value="">
+                                    <label class="form-check-label" for="isCorrectAnswer">
                                         Is Correc Answer
                                     </label>
                                 </div>
                             </div>
-                            <textarea class="form-control p-0" placeholder="" id="experience" style="height: 100px"></textarea>
+                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerA" rows="3"></textarea>
                         </div>
                     </div>
-
+                    <hr />
                     <div class="row">
                         <div class="col-12">
                             <div class="row">
                                 <span class="col-1"><b>B</b> <i style="color:red">*</i></span>
                                 <div class="form-check col-6">
-                                    <input class="form-check-input mt-2" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label mt-2" for="flexRadioDefault2">
+                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="isCorrectAnswer" type="radio" value="">
+                                    <label class="form-check-label" for="isCorrectAnswer">
                                         Is Correc Answer
                                     </label>
                                 </div>
                             </div>
-                            <textarea class="form-control p-0" placeholder="" id="experience" style="height: 100px"></textarea>
+                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerB" rows="3"></textarea>
                         </div>
                     </div>
-
+                    <hr />
                     <div class="row">
                         <div class="col-12">
                             <div class="row">
                                 <span class="col-1"><b>C</b> <i style="color:red">*</i></span>
                                 <div class="form-check col-6">
-                                    <input class="form-check-input mt-2" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label mt-2" for="flexRadioDefault2">
+                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="isCorrectAnswer" type="radio" value="">
+                                    <label class="form-check-label" for="isCorrectAnswer">
                                         Is Correc Answer
                                     </label>
                                 </div>
                             </div>
-                            <textarea class="form-control p-0" placeholder="" id="experience" style="height: 100px"></textarea>
+                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerC" rows="3"></textarea>
                         </div>
                     </div>
-
+                    <hr />
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12">    
                             <div class="row">
                                 <span class="col-1"><b>D</b> <i style="color:red">*</i></span>
                                 <div class="form-check col-6">
-                                    <input class="form-check-input mt-2" type="checkbox" value="" id="flexCheckChecked">
-                                    <label class="form-check-label mt-2" for="flexRadioDefault2">
+                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="isCorrectAnswer" type="radio" value="">
+                                    <label class="form-check-label" for="isCorrectAnswer">
                                         Is Correc Answer
                                     </label>
                                 </div>
                             </div>
-                            <textarea class="form-control p-0" placeholder="" id="experience" style="height: 100px"></textarea>
+                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerD" rows="3"></textarea>
                         </div>
-                    </div>
-
-                    <div class="m-1">
-                        <span><b>Correct Answer</b> <i style="color:red">*</i></span>
-                        <input class="form-control  p-0" name="RevName" type="text" />
-                    </div>
-
-                    <div class="m-1">
-                        <span><b>Experience</b> <i style="color:red">*</i></span>
-                        <input class="form-control  p-0" name="RevName" type="text" />
                     </div>
 
                     <div class="m-1">

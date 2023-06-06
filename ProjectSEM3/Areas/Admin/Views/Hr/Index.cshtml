@@ -1,15 +1,7 @@
 ﻿@{
     ViewBag.Title = "Human Resource";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-@section Header {
-    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/_PartialHeader.cshtml")
-}
-
-@section LeftNavigator {
-    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/_PartialLeftNav.cshtml")
-}
-
 <h1>Human Resource</h1>
 
 <div class="me-4">
@@ -19,9 +11,8 @@
     @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Hr/_PartialView.cshtml")
 </div>
 
-
 @section Scripts {
-    <script>
+    <script type="text/javascript">
         const $name = $("#name")
         const $email = $("#email")
         const $password = $("#password")
@@ -128,7 +119,7 @@
                 }
             });
 
-            setTimeout(OnHideToast,3000)
+            setTimeout(OnHideToast, 3000)
         }
 
         let RowIndex = 0;
@@ -146,7 +137,7 @@
             $addressUpdate.val(data.Address)
             $experienceUpdate.val(data.Experience)
         }
-        
+
         const OnUpdateHr = (e) => {
             const Id = CurrentId
             const Name = $nameUpdate.val()
@@ -169,7 +160,7 @@
             $.ajax({
                 type: "POST",
                 url: "/admin/hr/UpdateHR",
-                data: { hr ,rowIndex},
+                data: { hr, rowIndex },
                 dataType: "json",
                 success: function (res) {
                     OnSetupToast(res, $liveToast, $toastMes)
