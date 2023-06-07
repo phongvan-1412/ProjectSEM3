@@ -1,9 +1,7 @@
 ﻿using ProjectSEM3.Models.Entities;
 using ProjectSEM3.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ProjectSEM3.Areas.Admin.Controllers
@@ -14,6 +12,13 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var result = DbContext.Instance.Exec<List<Question.Res>>(DbStore.GetQuestions);
+
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@Status", 1 }
+            };
+            ViewBag.Types = DbContext.Instance.Exec<List<Type.Res>>(DbStore.GetAllTypes, param);
+            ViewBag.Levels = DbContext.Instance.Exec<List<Level.Res>>(DbStore.GetAllLevels, param);
             return View(result);
         }
 
