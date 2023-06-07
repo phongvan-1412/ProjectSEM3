@@ -336,11 +336,10 @@ body .container-fluid {
 /*-----------------------------------
     1. Career
 -------------------------------------*/
-.page-title img {
+hero-section img {
     width: 100%;
-    height: 300px;
+    height: 350px;
 }
-
 .special-heading {
     display: inline-block;
     letter-spacing: 0;
