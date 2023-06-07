@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="~/Content/Admin/fontawesome-free-6.4.0-web/css/all.min.css" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white">
         <div class="container">
-            @Html.ActionLink("PVSOil-Gas", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("PVsOilGas", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -19,10 +19,11 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Admin", "Index", "Home", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Career", "Index", "Career", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Career", "Career", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                <ul class="navbar-nav text-end">
+                    <li>@Html.ActionLink("Admin", "Index", "Home", new { area = "Admin" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Login", "Login", "Account", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
             </div>
@@ -30,72 +31,12 @@
     </nav>
     <div class="container-fluid body-content">
         @RenderBody()
-        <div class="footer bg-dark text-white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mt-5">
-                        <div class="footer-widget">
-                            <div style="height: 40px"></div>
-                            <p>Lead text are lacinia malesuada amet vestibulum orci tristique nonc ultricies lorem consectetur.</p>
-                        </div>
-                    </div>
-                    <!-- /.about us -->
-                    <div class=" col-lg-3 col-md-3 col-sm-4 col-xs-12 mt-5">
-                        <div class="footer-widget">
-                            <h3 class="footer-title">Contact Info</h3>
-                            <div class="contact-info">
-                                <p>2435 Shearwood Forest Drive Colebrook, Ahmedabad-16</p>
-                            </div>
-                            <div class="contact-info">
-                                <p class="contact-number ">+1800-123-4567</p>
-                            </div>
-                            <div class="contact-info">
-                                <span class="contact-icon"><i class="icon-mail-4"></i></span>
-                                <p>info@PVSoilgascompany.com</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class=" col-lg-2 col-md-2 col-sm-3 col-xs-12 mt-5">
-                        <div class="footer-widget">
-                            <h3 class="footer-title">Quick Links</h3>
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Career</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class=" col-lg-3 col-md-3 col-sm-5 col-xs-12 mt-5">
-                        <div class="footer-social">
-                            <h3 class="footer-title">Social Media</h3>
-                            <div class="">
-                                <ul>
-                                    <li><a href="#" class="footer-social-btn btn-facebook "><i class="fa fa-facebook"></i></a><span></span></li>
-                                    <li><a href="#" class="footer-social-btn btn-twitter "><i class="fa fa-twitter"></i></a><span></span></li>
-                                    <li><a href="#" class="footer-social-btn btn-googleplus "><i class="fa fa-google-plus"></i></a><span></span></li>
-                                    <li><a href="#" class="footer-social-btn btn-instagram "><i class="fa fa-instagram"></i></a><span></span></li>
-                                    <li><a href="#" class="footer-social-btn btn-linkedin "><i class="fa fa-linkedin"></i></a><span></span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tiny-footer bg-dark text-white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 d-flex justify-content-center align-items-center text-center">
-                        Copyright © All Rights Reserved 2023 Template Design by
-                        <a href="#" target="_blank">PVStemplate</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("~/Views/Shared/_Footer.cshtml")
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,97 @@
+﻿<div class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light" style="background-color: #f2f5f7;">
+    <div class="container">
+        <div class="collapse navbar-collapse d-sm-inline-flex align-items-center justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Career", "Index", "Career", new { area = "" }, new { @class = "nav-link" })</li>
+            </ul>
+            <ul class="navbar-nav text-end">
+                <li>
+                    <a href="#" id="social-facebook" class="me-2" title="Facebook">
+                        <img src="~/Content/img/social-media icon/facebook.png" style="width: 24px; height: 24px;" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="social-linkedin" class="me-2" title="Linkedin">
+                        <img src="~/Content/img/social-media icon/linkedin.png" style="width: 24px; height: 24px;" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="social-instagram" class="me-2" title="Instagram">
+                        <img src="~/Content/img/social-media icon/instagram.png" style="width: 24px; height: 24px;" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="social-twitter" class="me-2" title="Twitter">
+                        <img src="~/Content/img/social-media icon/twitter.png" style="width: 24px; height: 24px;" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="tiny-footer bg-white text-dark" style="background-color: #f3f2f1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 d-flex align-items-center justify-content-end" style="height: 70px; font-size: 11px">
+                Copyright © All Rights Reserved 2023 Template Design by
+                <a href="#" class="text-dark fw-bold ms-3">PVStemplate</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var facebook = document.getElementById("social-facebook");
+    var linkedin = document.getElementById("social-linkedin");
+    var instagram = document.getElementById("social-instagram");
+    var twitter = document.getElementById("social-twitter");
+
+    /*-----------------------------------
+        Change icon when hover
+    -------------------------------------*/
+    @* ----------Facebook----------*@
+    facebook.addEventListener("mouseenter", () => {
+        facebook.children[0].removeAttribute("src");
+        facebook.children[0].setAttribute("src", "https://localhost:44376/Content/img/social-media%20icon/facebook-color.png");
+
+    });
+    facebook.addEventListener("mouseleave", () => {
+        facebook.children[0].removeAttribute("src");
+        facebook.children[0].setAttribute("src", "https://localhost:44376/Content/img/social-media%20icon/facebook.png");
+    });
+
+    @* ----------Linkedin----------*@
+    linkedin.addEventListener("mouseenter", () => {
+        linkedin.children[0].removeAttribute("src");
+        linkedin.children[0].setAttribute("src", "https://localhost:44376/Content/img/social-media%20icon/linkedin-color.png");
+
+    });
+    linkedin.addEventListener("mouseleave", () => {
+        linkedin.children[0].removeAttribute("src");
+        linkedin.children[0].setAttribute("src", "https://localhost:44376/Content/img/social-media%20icon/linkedin.png");
+    });
+
+    @* ----------Instagram----------*@
+    instagram.addEventListener("mouseenter", () => {
+        instagram.children[0].removeAttribute("src");
+        instagram.children[0].setAttribute("src", "https://localhost:44376/Content/img/social-media%20icon/instagram-color.png");
+
+    });
+    instagram.addEventListener("mouseleave", () => {
+        instagram.children[0].removeAttribute("src");
+        instagram.children[0].setAttribute("src", "https://localhost:44376/Content/img/social-media%20icon/instagram.png");
+    });
+
+    @* ----------Twitter----------*@
+    twitter.addEventListener("mouseenter", () => {
+        twitter.children[0].removeAttribute("src");
+        twitter.children[0].setAttribute("src", "https://localhost:44376/Content/img/social-media%20icon/twitter-color.png");
+
+    });
+    twitter.addEventListener("mouseleave", () => {
+        twitter.children[0].removeAttribute("src");
+        twitter.children[0].setAttribute("src", "https://localhost:44376/Content/img/social-media%20icon/twitter.png");
+    });
+</script>
