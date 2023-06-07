@@ -48,7 +48,7 @@ insert into Hr(Name,Email,Password) values('Phuong','phuong@gmail.com','111111')
 	Content ntext default '',
 	Point int default 1,
 	Options nvarchar(max) default '',
-	CorrectAnwser varchar(10),
+	CorrectAnwser ntext default '',
 	IsMultiAnwser bit default 1,
 	Status bit default  1
 )
@@ -68,4 +68,6 @@ drop table ContestantQuestion(
 	Status bit default 1
 )
 
-select * from type for json path
+select * from hr for json path
+update hr
+set status = 1

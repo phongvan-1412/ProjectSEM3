@@ -8,7 +8,7 @@
     @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialNew.cshtml")
 </div>
 <div class="me-4">
-    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialView.cshtml" )
+    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialView.cshtml")
 </div>
 
 @section Scripts {
@@ -39,8 +39,8 @@
         //const $experienceView = $("#experienceView")
 
         //const $hrTable = $("#hrTable")
-        //const $liveToast = $("#liveToast")
-        //const $toastMes = $("#toastMes")
+        const $liveToast = $("#liveToast")
+        const $toastMes = $("#toastMes")
         //const $updateHr = $("#updateHr")
 
         //$hrTable.DataTable();
@@ -54,7 +54,7 @@
                 }
             }
         }
-        
+
         const NewQuestion = () => {
             var _correctAnwser = []
             for (var ele of $isCorrectAnswer) {
@@ -80,19 +80,20 @@
                 CorrectAnwser,
                 IsMultiAnwser
             }
-                //    $.ajax({
-        //        type: "POST",
-        //        url: "/admin/hr/ChangeHrStatus",
-        //        data: hr,
-        //        dataType: "json",
-        //        success: function (res) {
-        //            OnSetupToast(res, $liveToast, $toastMes)
-        //        },
-        //        error: function (jqXHR, err, errorThrown) {
-        //            OnServerErr($liveToast, $toastMes);
-        //        }
-        //    });
-            //setTimeout(OnHideToast, 3000)
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/question/NewQuestion",
+                data: req,
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
+            setTimeout(OnHideToast, 3000)
         }
 
         const OnIsCorrectTextClick = (e) => {
@@ -103,15 +104,15 @@
             $liveToast.hide()
         }
 
-        //const OnAddClassName = (ele, className) => {
-        //    if (!ele[0].classList.contains(className)) {
-        //        ele[0].classList.add(className);
-        //    }
-        //}
+        const OnAddClassName = (ele, className) => {
+            if (!ele[0].classList.contains(className)) {
+                ele[0].classList.add(className);
+            }
+        }
 
-        //const OnRemoveClassName = (ele, className) => {
-        //    ele[0].classList.remove(className);
-        //}
+        const OnRemoveClassName = (ele, className) => {
+            ele[0].classList.remove(className);
+        }
 
         //const OnChangeHrStatus = (e) => {
         //    const Id = e.target.getAttribute('data-index')
