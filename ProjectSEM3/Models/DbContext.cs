@@ -49,15 +49,16 @@ namespace ProjectSEM3.Models
             {
                 using (SqlCommand cmd = con.CreateCommand())
                 {
-                    cmd.CommandText = GetStoreProduce(storeName, parameters);
+                    cmd.CommandText = storeName;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    foreach (var item in parameters)
-                    {
-                        var test = new SqlParameter(item.Key, item.Value);
-                        cmd.Parameters.Add(test);
-                    }
                     cmd.Connection.Open();
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    foreach (var item in parameters)
+                    {
+                        cmd.Parameters.Add(new SqlParameter(item.Key, item.Value));
+                    }
+                    da.SelectCommand = cmd;
+
                     DataSet dataset = new DataSet();
                     da.Fill(dataset);
                     cmd.Connection.Close();
@@ -93,23 +94,21 @@ namespace ProjectSEM3.Models
                
                 using (SqlCommand cmd = con.CreateCommand())
                 {
-                    cmd.CommandText = GetStoreProduce(storeName, parameters);
+                    cmd.CommandText = storeName;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection.Open();
-                    var result = cmd.ExecuteScalar().ToString();
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    foreach (var item in parameters)
+                    {
+                        cmd.Parameters.Add(new SqlParameter(item.Key, item.Value));
+                    }
+                    da.SelectCommand = cmd;
                     DataSet dataset = new DataSet();
                     da.Fill(dataset);
                     cmd.Connection.Close();
                     return dataset.Tables[0];
                 }
             }
-        }
-
-        private string GetStoreProduce(string storeName, Dictionary<string, dynamic> parameters)
-        {
-            var param = string.Join(",", parameters.Keys).ToLower();
-            return string.Format(_storeFormat, storeName, param);
         }
 
         public class Result<T>
