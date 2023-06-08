@@ -23,8 +23,10 @@ namespace ProjectSEM3.Controllers
         [HttpPost]
         public ActionResult UploadCV(string job, string contName, string contEmail, string contPhone, HttpPostedFileBase cv)
         {
-            //var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\pdf\\" + cv.FileName;
-            //cv.SaveAs(path);
+            var savePath = "C:\\Aptech\\SEM3\\Project SEM3\\ProjectSEM3\\ProjectSEM3\\Content\\pdf\\" + cv.FileName;
+            cv.SaveAs(savePath);
+            var path = "https://localhost:44376/Content/pdf/" + cv.FileName;
+
             string date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
             var param = new Dictionary<string, dynamic>
@@ -33,7 +35,7 @@ namespace ProjectSEM3.Controllers
                 { "@Name", contName},
                 { "@Email", contEmail },
                 { "@Phone", contPhone },
-                { "@Filepath", cv.FileName },
+                { "@Filepath", path },
                 { "@Date_posted", date }
             };
 
