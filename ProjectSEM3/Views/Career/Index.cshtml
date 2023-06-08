@@ -30,59 +30,57 @@
                         </p>
                         <div class="divider-50 hidden-below-lg"></div>
                         <div class="divider-30 hidden-above-lg"></div>
-                        <form class="career-form" method="post" action="/" enctype="multipart/form-data" style="padding: 0">
+                        <form enctype="multipart/form-data" action="https://localhost:44376/Career/UploadCV" method="post">
+                            @*---------- Job ----------*@
                             <div class="row c-mb-10 c-gutter-10">
                                 <div class="col-lg-6" style="padding: 0rem .5rem 0rem 0rem">
                                     <div class="form-group">
                                         <label for="position" style="color: #09445a">Available Job <span class="required" style="color: #dd4454">*</span></label>
-                                        <select class="form-select" id="position" name="position">
-                                            <option>Fresher Software Engineering</option>
-                                            <option>Junior Software Engineering</option>
-                                            <option>Senior Software Engineering</option>
-                                            <option>Leader</option>
-                                            <option>Project Manager</option>
-                                            <option>Tech Lead</option>
+                                        <select class="form-select" id="job" name="job">
+                                            <option value="1">Fresher Software Engineering</option>
+                                            <option value="2">Junior Software Engineering</option>
+                                            <option value="3">Senior Software Engineering</option>
+                                            <option value="4">Leader</option>
+                                            <option value="5">Project Manager</option>
+                                            <option value="6">Tech Lead</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
+
+                            @*---------- Name + Email ----------*@
                             <div class="row c-mb-10 c-gutter-10">
                                 <div class="col-lg-6" style="padding: 0rem .5rem 0rem 0rem">
                                     <div class="form-group has-placeholder">
-                                        <label for="name335x5553">Full Name <span class="required">*</span></label>
-                                        <input type="text" aria-required="true" size="30" value="" name="name" id="name335x5553" class="form-control" placeholder="Full Name">
+                                        <label for="contName">Full Name <span class="required">*</span></label>
+                                        <input type="text" aria-required="true" size="30" value="" name="contName" id="contName" class="form-control" placeholder="Full Name">
                                     </div>
                                 </div>
                                 <div class="col-lg-6" style="padding: 0rem 0rem 0rem .5rem">
                                     <div class="form-group has-placeholder">
-                                        <label for="email333">Email address<span class="required">*</span></label>
-                                        <input type="email" aria-required="true" size="30" value="" name="email" id="email333" class="form-control" placeholder="Email">
+                                        <label for="contEmail">Email address<span class="required">*</span></label>
+                                        <input type="email" aria-required="true" size="30" value="" name="contEmail" id="contEmail" class="form-control" placeholder="Email">
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row c-mb-10 c-gutter-10">
-                                <div class="col-lg-6" style="padding: 0rem .5rem 0rem 0rem">
-                                    <div class="form-group has-placeholder">
-                                        <label for="name3355553">Phone Number <span class="required">*</span></label>
-                                        <input type="text" aria-required="true" size="30" value="" name="name" id="name3355553" class="form-control" placeholder="Phone Number">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6" style="padding: 0rem 0rem 0rem .5rem">
-                                    <div class="form-group has-placeholder">
-                                        <label for="name3355d553">Subject <span class="required">*</span></label>
-                                        <input type="text" aria-required="true" size="30" value="" name="name" id="name3355d553" class="form-control" placeholder="Subject">
-                                    </div>
-                                </div>
-                            </div>
+                            @*---------- Phone ----------*@
                             <div class="row c-mb-10 c-gutter-10">
                                 <div class="col-sm-12" style="padding: 0">
                                     <div class="form-group has-placeholder">
-                                        <label for="message335553">Message</label>
-                                        <textarea aria-required="true" rows="8" cols="45" name="message" id="message335553" class="form-control" placeholder="Your Message"></textarea>
+                                        <label for="contPhone">Phone Number <span class="required">*</span></label>
+                                        <input type="text" aria-required="true" size="30" value="" name="contPhone" id="contPhone" class="form-control" placeholder="Phone Number">
                                     </div>
                                 </div>
                             </div>
+                            @*<div class="row c-mb-10 c-gutter-10">
+                                    <div class="col-sm-12" style="padding: 0">
+                                        <div class="form-group has-placeholder">
+                                            <label for="message335553">Message</label>
+                                            <textarea aria-required="true" rows="8" cols="45" name="message" id="message335553" class="form-control" placeholder="Your Message"></textarea>
+                                        </div>
+                                    </div>
+                                </div>*@
                             @*---------- Attachment ----------*@
                             <div class="row c-mb-10 c-gutter-10">
                                 <div class="col-sm-12" style="padding: 0">
@@ -102,7 +100,7 @@
                                         <div class="collapse multi-collapse" id="btnAddFileWrapper">
                                             <span style="padding: 0rem; font-size: 10px">*File must be .pdf extension and less than 10kb</span>
                                             <button id="addFileContainer" class="btn addFileContainer mt-3" type="button" style="padding: 0rem">
-                                                <input id="cvInput" class="form-control profileAttachmentUploadFileInputStyle" type="file" />
+                                                <input id="cvInput" class="form-control profileAttachmentUploadFileInputStyle" type="file" name="cv" />
                                                 <i class="fa-light fa-plus me-2"></i>
                                                 Add a file
                                             </button>
@@ -111,17 +109,19 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                             @*---------- Apply Button ----------*@
                             <div class="row c-mb-10 c-gutter-10 mt-3">
                                 <div class="col-sm-12 mb-0 mt-lg-50 mt-30" style="padding: 0">
                                     <div class="form-group">
-                                        <input class="btn text-white" type="submit" value="Apply" style="background-color: #09445a">
+                                        <input id="applyBtn" class="btn text-white" type="submit" value="Apply" style="background-color: #09445a">
                                     </div>
                                 </div>
                             </div>
                         </form>
+
                         <div class="fw-divider-space divider-xl-160 divider-lg-130 divider-md-90 divider-60"></div>
                     </div>
                 </div>
@@ -191,31 +191,37 @@
         var result = document.getElementById('resultInput');
         var noti = document.getElementById('notiInput');
 
+        var job = document.getElementById("job");
+        var contName = document.getElementById("contName");
+        var contEmail = document.getElementById("contEmail");
+        var contPhone = document.getElementById("contPhone");
+        var formData = new FormData();
+        var submitBtn = document.getElementById("applyBtn");
         /*-----------------------------------
             Prevent image upload & restrict file's size
         -------------------------------------*/
-        cv.addEventListener("change", e => {
-            const file = cv.files[0];
-            const type = cv.files[0].type.substring(6);
+        //cv.addEventListener("change", e => {
+        //    const file = cv.files[0];
+        //    const type = cv.files[0].type.substring(6);
 
-            if (type.localeCompare("pdf") === 0 && file.size < 10 * 1024) {
-                result.value = 'rightType';
-            }
-            else {
-                result.value = 'falseType';
-                if (type.localeCompare("pdf") !== 0) {
-                    noti.innerHTML = "";
-                    noti.innerHTML = 'File must be .pdf extension';
-                    console.log(noti.style);
-                    noti.style.color = "rgb(92, 27, 134)";
-                }
-                if (file.size > 10 * 1024) {
-                    noti.innerHTML = "";
-                    noti.innerHTML = 'File exceeds 10kb';
-                    noti.style.color = "red";
-                }
-            }
-        })
+        //    if (type.localeCompare("pdf") === 0 && file.size < 10 * 1024) {
+        //        result.value = 'rightType';
+        //    }
+        //    else {
+        //        result.value = 'falseType';
+        //        if (type.localeCompare("pdf") !== 0) {
+        //            noti.innerHTML = "";
+        //            noti.innerHTML = 'File must be .pdf extension';
+        //            console.log(noti.style);
+        //            noti.style.color = "rgb(92, 27, 134)";
+        //        }
+        //        if (file.size > 10 * 1024) {
+        //            noti.innerHTML = "";
+        //            noti.innerHTML = 'File exceeds 10kb';
+        //            noti.style.color = "red";
+        //        }
+        //    }
+        //})
 
         /*-----------------------------------
             Open upload file dialog
@@ -237,5 +243,28 @@
                 icon.classList.add("fa-chevron-down");
             }
         });
+
+        /*-----------------------------------
+            Apply CV
+        -------------------------------------*/
+        //submitBtn.addEventListener("click", (e) => {
+        //    formData.append("files", cv.files[0]);
+        //    $.ajax({
+        //        type: "POST",
+        //        data: { job: job.value, contName: contName.value, contEmail: contEmail.value, contPhone: contPhone.value, cv: formData },
+        //        url: "/Career/UploadCV",
+        //        success: function (result) {
+        //            console.log(result);
+        //        },
+        //        error: function (req, status, error) {
+        //            console.log(error);
+        //        }
+        //    });
+        //    //console.log(job.value);
+        //    //console.log(contName.value);
+        //    //console.log(contEmail.value);
+        //    //console.log(contPhone.value);
+        //});
+
     </script>
 }
