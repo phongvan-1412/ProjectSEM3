@@ -23,24 +23,27 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult NewQuestion(Question.Req quest)
+        [Route("/admin/question/NewQuestion")]
+        public JsonResult NewQuestion(Question.Req req)
         {
             var param = new Dictionary<string, dynamic>
             {
-                { "@IdType", 1 },
-                { "@IdLevel", 1 },
-                { "@Content", "111111" },
-                { "@Point", 1 },
-                { "@A", "111111" },
-                { "@B", "111111" },
-                { "@C", "111111" },
-                { "@D", "111111" },
-                { "@CorrectAnwser", "A" },
-                { "@IsMultiAnwser", 0 },
+                { "@IdType", req.IdType },
+                { "@IdLevel", req.IdLevel },
+                { "@Content", req.Content },
+                { "@Point", req.Point },
+                { "@Optioins", req.Options },
+                { "@CorrectAnwser", req.CorrectAnwser },
+                { "@IsMultiAnwser", req.IsMultiAnwser },
             };
 
             var result = DbContext.Instance.Exec<List<Question.Res>>(DbStore.InsertQuestion, param).FirstOrDefault();
-            return RedirectToAction(nameof(Index));
+            return Json(new DbContext.Result<Question.Res>
+            {
+                Data = result,
+                Mes = "Create Question successfull.",
+                IsErr = true,
+            });
         }
 
         public ActionResult UpdateQuestion(Question.Req hr)

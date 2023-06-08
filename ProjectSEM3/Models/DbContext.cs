@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.Web.Helpers;
@@ -32,15 +33,12 @@ namespace ProjectSEM3.Models
                 {
                     cmd.CommandText = storeName;
                     cmd.Connection.Open();
-                    var result = cmd.ExecuteScalar();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataSet dataset = new DataSet();
+                    da.Fill(dataset);
                     cmd.Connection.Close();
-                    if (result == null)
-                    {
-                        return default;
-                    }
-                    var res = result.ToString();
-                    var json = JsonConvert.DeserializeObject<T>(res);
-                    return json;
+                    var res = JsonConvert.SerializeObject(dataset.Tables[0]);
+                    return JsonConvert.DeserializeObject<T>(res);
                 }
             }
         }
@@ -52,55 +50,58 @@ namespace ProjectSEM3.Models
                 using (SqlCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandText = GetStoreProduce(storeName, parameters);
+                    cmd.CommandType = CommandType.StoredProcedure;
                     foreach (var item in parameters)
                     {
                         var test = new SqlParameter(item.Key, item.Value);
                         cmd.Parameters.Add(test);
                     }
                     cmd.Connection.Open();
-                    var result = cmd.ExecuteScalar();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataSet dataset = new DataSet();
+                    da.Fill(dataset);
                     cmd.Connection.Close();
-                    if(result == null)
-                    {
-                        return default;
-                    }
-                    var res = result.ToString();
+                    var res = JsonConvert.SerializeObject(dataset.Tables[0]);
                     return JsonConvert.DeserializeObject<T>(res);
                 }
             }
         }
 
-        public string Exec(string storeName)
+        public DataTable Exec(string storeName)
         {
             using (SqlConnection con = new SqlConnection(connString))
             {
+               
                 using (SqlCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandText = storeName;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection.Open();
-                    var result = cmd.ExecuteScalar().ToString();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataSet dataset = new DataSet();
+                    da.Fill(dataset);
                     cmd.Connection.Close();
-                    return result;
+                    return dataset.Tables[0];
                 }
             }
         }
 
-        public string Exec(string storeName, Dictionary<string, dynamic> parameters)
+        public DataTable Exec(string storeName, Dictionary<string, dynamic> parameters)
         {
             using (SqlConnection con = new SqlConnection(connString))
             {
+               
                 using (SqlCommand cmd = con.CreateCommand())
                 {
                     cmd.CommandText = GetStoreProduce(storeName, parameters);
-                    foreach (var item in parameters)
-                    {
-                        var test = new SqlParameter(item.Key, item.Value);
-                        cmd.Parameters.Add(test);
-                    }
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection.Open();
                     var result = cmd.ExecuteScalar().ToString();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataSet dataset = new DataSet();
+                    da.Fill(dataset);
                     cmd.Connection.Close();
-                    return result;
+                    return dataset.Tables[0];
                 }
             }
         }
