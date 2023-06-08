@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,9 @@ namespace ProjectSEM3.Models.Entities
             public int Job { get; set; }
             public string Name { get; set; }
             public string Email { get; set; }
-            public HttpPostedFileBase File { get; set; }
+            public string Phone { get; set; }
+            public string FilePath { get; set; }
+            public string DatePosted { get; set; }
             public bool Status { get; set; }
             public Req() { }
         }
@@ -24,7 +27,10 @@ namespace ProjectSEM3.Models.Entities
             public int Job { get; set; }
             public string Name { get; set; }
             public string Email { get; set; }
-            public HttpPostedFileBase File { get; set; }
+            public string Phone { get; set; }
+            public string FilePath { get; set; }
+            public string DatePosted { get; set; }
+
             public bool Status { get; set; }
             public Res() { }
         }

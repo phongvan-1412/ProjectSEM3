@@ -13,6 +13,7 @@ namespace ProjectSEM3.Models.Entities
             public string Title { get; set; }
             public string Location { get; set; }
             public string DatePosted { get; set; }
+            public string EndDate { get; set; }
             public string EmpType { get; set; }
             public string Content { get; set; }
             public bool Status { get; set; }
@@ -27,6 +28,7 @@ namespace ProjectSEM3.Models.Entities
             public string Title { get; set; }
             public string Location { get; set; }
             public string DatePosted { get; set; }
+            public string EndDate { get; set; }
             public string EmpType { get; set; }
             public string Content { get; set; }
             public bool Status { get; set; }
