@@ -27,11 +27,11 @@
             $.ajax({
                 type: "POST",
                 url: "/admin/cv/ChangeCvStatus",
-                data: hr,
+                data: cv,
                 dataType: "json",
                 success: function (res) {
                     OnSetupToast(res, $liveToast, $toastMes)
-                    e.target.setAttribute('data-hr', JSON.stringify(res.Data))
+                    e.target.setAttribute('data-cv', JSON.stringify(res.Data))
                     if (res.Data.Status) {
                         $cvTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-success">Active</span>`;
                     } else {
