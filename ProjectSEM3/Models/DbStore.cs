@@ -38,6 +38,8 @@
         public static string GetContestantQuestions = "Sp_GetContestantQuestions";
 
         public static string InsertCV = "Sp_InsertCV";
+        public static string GetCVs = "Sp_GetCVs";
+        public static string ChangeCvStatus = "Sp_ChangeCvStatus";
 
     }
 }

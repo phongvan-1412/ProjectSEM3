@@ -336,10 +336,15 @@ body .container-fluid {
 /*-----------------------------------
     1. Career
 -------------------------------------*/
-hero-section img {
+
+/*------ Index ------*/
+.hero-section {
     width: 100%;
     height: 350px;
+    background-image: url(../Content/img/careerbg.png);
+    background-position: center;
 }
+
 .special-heading {
     display: inline-block;
     letter-spacing: 0;
@@ -350,20 +355,54 @@ hero-section img {
     color: #09445a;
 }
 
+.career-banner-wrapper {
+    position: absolute;
+    max-width: 100%;
+    top: 15%;
+    padding: 0 5rem;
+}
+
+.career-banner-wrapper p {
+    font-size: 26px;
+    color: white;
+}
+
+.career-banner-heading {
+    font-size: 42px;
+    color: white;
+}
+
+.job-search-wrapper {
+    display: flex;
+}
+
+.job-search-container {
+    align-items: center;
+    color: rgb(50, 49, 48);
+    font-weight: 400;
+}
+
+.searchBtn {
+    color: white;
+    background-color: rgb(92, 27, 134);
+}
+/*------ ApplyCV ------*/
 .career-form textarea {
     min-height: 100px;
 }
-/*------ Form ------*/
+
 .addFileWrapper {
     box-shadow: rgba(0, 0, 0, 0.13) 0px 3.2px 7.2px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px;
     padding: 24px;
     background: rgb(255, 255, 255);
 }
+
     .addFileWrapper h2 {
         display: flex;
         align-items: center;
         margin: 0px;
     }
+
     .addFileWrapper.headerContainer {
         display: flex;
         align-items: center;
@@ -420,6 +459,7 @@ hero-section img {
     font-size: 16px;
     flex: 0 0 auto;
 }
+
 .addFileContainer {
     display: flex;
     align-items: center;
@@ -447,10 +487,10 @@ hero-section img {
         border-radius: initial;
     }
 
-    .profileAttachmentUploadFileInputStyle {
-        display: none;
-        cursor: pointer;
-    }
+.profileAttachmentUploadFileInputStyle {
+    display: none;
+    cursor: pointer;
+}
 /*-----------------------------------
     2. About
 -------------------------------------*/
@@ -844,53 +884,6 @@ hero-section img {
     margin-bottom: 30px;
 }
 
-/*-----------------------------------
-4. Footer 
--------------------------------------*/
-.footer {
-    padding-bottom: 30px;
-    font-weight: 400;
-}
-
-.footer-title {
-    margin-bottom: 50px;
-    letter-spacing: 0px;
-    font-size: 22px;
-}
-
-.footer-widget {
-    margin-bottom: 30px;
-}
-
-    .footer-widget ul {
-        margin-bottom: 25px;
-    }
-
-        .footer-widget ul li a {
-            line-height: 32px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #fff;
-        }
-
-            .footer-widget ul li a:hover {
-                color: #0955b3;
-            }
-
-.contact-info {
-    margin-bottom: 20px;
-}
-/*-------------- Tiny Footer ------------*/
-.tiny-footer {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 15px;
-    text-align: center;
-}
-
-    .tiny-footer a {
-        color: #fff;
-    }
 /* ----------------------------------------------------------------- ACCOUNT -----------------------------------------------------------------*/
 
 /*-----------------------------------

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using ProjectSEM3.Models;
+﻿using ProjectSEM3.Models;
 using ProjectSEM3.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,8 +13,11 @@ namespace ProjectSEM3.Controllers
 {
     public class CareerController : Controller
     {
-
         public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult ApplyCV()
         {
             return View();
         }

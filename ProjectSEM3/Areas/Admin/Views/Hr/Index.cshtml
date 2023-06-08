@@ -2,14 +2,18 @@
     ViewBag.Title = "Human Resource";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<h1>Human Resource</h1>
 
-<div class="me-4">
-    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Hr/_PartialNew.cshtml")
+<div class="container">
+    <h1>Human Resource</h1>
+
+    <div class="me-4">
+        @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Hr/_PartialNew.cshtml")
+    </div>
+    <div class="me-4">
+        @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Hr/_PartialView.cshtml")
+    </div>
 </div>
-<div class="me-4">
-    @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Hr/_PartialView.cshtml")
-</div>
+
 
 @section Scripts {
     <script type="text/javascript">

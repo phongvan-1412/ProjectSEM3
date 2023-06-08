@@ -147,6 +147,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ContestantQuestionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CVController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HrController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuestionController.cs" />
@@ -2819,6 +2820,8 @@
     <Content Include="Content\Admin\fontawesome-free-6.4.0-web\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\Admin\fontawesome-free-6.4.0-web\webfonts\fa-v4compatibility.ttf" />
     <Content Include="Content\Admin\fontawesome-free-6.4.0-web\webfonts\fa-v4compatibility.woff2" />
+    <Content Include="Areas\Admin\Views\CV\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Cv\_PartialView.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2861,6 +2864,7 @@
     <Content Include="Content\js\.DS_Store" />
     <Content Include="Views\Career\Index.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Career\ApplyCV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
