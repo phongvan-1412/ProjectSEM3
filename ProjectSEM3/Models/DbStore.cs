@@ -36,5 +36,8 @@
         public static string UpdateContestantQuestion = "Sp_UpdateContestantQuest";
         public static string GetContestantQuestionById = "Sp_GetContestantQuestById";
         public static string GetContestantQuestions = "Sp_GetContestantQuestions";
+
+        public static string InsertCV = "Sp_InsertCV";
+
     }
 }
