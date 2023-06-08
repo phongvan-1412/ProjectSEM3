@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ProjectSEM3.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace ProjectSEM3.Controllers
             //    TempData["accountVerified"] = "Log in successfully";
             //    Session["account"] = accountExist;
             //}
+
             if (!acc_name.Equals("1") && !acc_password.Equals("1"))
             {
                 TempData["accountFailed"] = "Email or password is invalid. Please try again!";

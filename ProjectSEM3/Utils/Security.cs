@@ -6,9 +6,9 @@ using System.Web;
 
 namespace ProjectSEM3.Utils
 {
-    public class Security
+    public static class Security
     {
-        public static string EncryptPassword(string password)
+        public static string EncryptPassword(this string password)
         {
             if (string.IsNullOrEmpty(password))
             {
@@ -22,7 +22,7 @@ namespace ProjectSEM3.Utils
             }
         }
 
-        public static string DecryptPassword(string password)
+        public static string DecryptPassword(this string password)
         {
             if (string.IsNullOrEmpty(password))
             {

@@ -336,11 +336,10 @@ body .container-fluid {
 /*-----------------------------------
     1. Career
 -------------------------------------*/
-.page-title img {
+hero-section img {
     width: 100%;
-    height: 300px;
+    height: 350px;
 }
-
 .special-heading {
     display: inline-block;
     letter-spacing: 0;
@@ -351,10 +350,107 @@ body .container-fluid {
     color: #09445a;
 }
 
-.contact-form textarea {
+.career-form textarea {
     min-height: 100px;
 }
+/*------ Form ------*/
+.addFileWrapper {
+    box-shadow: rgba(0, 0, 0, 0.13) 0px 3.2px 7.2px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px;
+    padding: 24px;
+    background: rgb(255, 255, 255);
+}
+    .addFileWrapper h2 {
+        display: flex;
+        align-items: center;
+        margin: 0px;
+    }
+    .addFileWrapper.headerContainer {
+        display: flex;
+        align-items: center;
+        margin: 0px;
+    }
 
+.headerButton {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    border: none;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    flex: 1 1 auto;
+    text-align: inherit;
+    padding: 0px;
+    margin: 0px;
+    color: rgb(50, 49, 48);
+}
+
+.attachmentTitleContainer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.requiredTextContainer {
+    margin-left: .5rem;
+    font-size: 14px;
+    font-weight: 400;
+    color: #dd4454;
+}
+
+.headerSpacer {
+    width: 70%;
+}
+
+.iconChevron {
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-weight: 100;
+    speak: none;
+    transition: transform 300ms ease 0s;
+    align-self: baseline;
+    margin-top: 1px;
+    color: rgb(50, 49, 48);
+    font-size: 16px;
+    flex: 0 0 auto;
+}
+.addFileContainer {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    color: rgb(92, 27, 134);
+}
+
+    .addFileContainer i {
+        color: rgb(92, 27, 134);
+    }
+
+    .addFileContainer input[type="file" i] {
+        appearance: none;
+        background-color: initial;
+        cursor: default;
+        align-items: baseline;
+        color: inherit;
+        text-overflow: ellipsis;
+        text-align: start !important;
+        padding: initial;
+        border: initial;
+        border-color: initial;
+        overflow: hidden !important;
+        border-radius: initial;
+    }
+
+    .profileAttachmentUploadFileInputStyle {
+        display: none;
+        cursor: pointer;
+    }
 /*-----------------------------------
     2. About
 -------------------------------------*/
@@ -865,12 +961,14 @@ body .container-fluid {
 .rounded-pill {
     border-radius: 50rem !important;
 }
+
     .rounded-pill input {
         width: 1.7rem;
         height: 1.7rem;
         margin-right: 1rem;
     }
-.form_items >.answer-container {
+
+.form_items > .answer-container {
     display: flex;
     align-items: center;
     height: 3.5rem;
