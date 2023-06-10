@@ -12,9 +12,9 @@ namespace ProjectSEM3.Models.Entities
             public int Id { get; set; }
             public string Title { get; set; }
             public string Location { get; set; }
-            public string DatePosted { get; set; }
-            public string EndDate { get; set; }
-            public string EmpType { get; set; }
+            public DateTime DatePosted { get; set; }
+            public DateTime EndDate { get; set; }
+            public int EmpLevelId { get; set; }
             public string Content { get; set; }
             public bool Status { get; set; }
             public Req()
@@ -27,9 +27,10 @@ namespace ProjectSEM3.Models.Entities
             public int Id { get; set; }
             public string Title { get; set; }
             public string Location { get; set; }
-            public string DatePosted { get; set; }
-            public string EndDate { get; set; }
-            public string EmpType { get; set; }
+            public DateTime DatePosted { get; set; }
+            public DateTime EndDate { get; set; }
+            public int EmpLevelId { get; set; }
+            public int EmpLevelName { get; set; }
             public string Content { get; set; }
             public bool Status { get; set; }
             public Res()

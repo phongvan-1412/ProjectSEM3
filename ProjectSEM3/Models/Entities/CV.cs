@@ -23,11 +23,12 @@ namespace ProjectSEM3.Models.Entities
         public class Res
         {
             public int Id { get; set; }
-            public int Job { get; set; }
+            public int JobId { get; set; }
             public string Name { get; set; }
             public string Email { get; set; }
             public string Phone { get; set; }
             public string FilePath { get; set; }
+            public string JobTitle { get; set; }
             public DateTime DatePosted { get; set; }
 
             public bool Status { get; set; }

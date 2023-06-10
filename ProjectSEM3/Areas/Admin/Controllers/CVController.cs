@@ -16,8 +16,6 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             return View(lst);
         }
 
-
-
         [HttpPost]
         [Route("/admin/cv/ChangeCvStatus")]
         public JsonResult ChangeCvStatus(CV.Req cv)

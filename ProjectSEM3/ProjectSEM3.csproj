@@ -2822,6 +2822,9 @@
     <Content Include="Content\Admin\fontawesome-free-6.4.0-web\webfonts\fa-v4compatibility.woff2" />
     <Content Include="Areas\Admin\Views\CV\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\Cv\_PartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Cv\_PartialNewContest.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Cv\_PartialInfo.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

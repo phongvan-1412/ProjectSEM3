@@ -11,6 +11,14 @@ create table Level(
 	Status bit default 1
 )
 insert into Level(name) values ('Level Test 1')
+insert into Level(name) values ('Level Test 2')
+insert into Level(name) values ('Level Test 3')
+insert into Level(name) values ('Level Test 4')
+insert into Level(name) values ('Level Test 5')
+update Level
+set Name = 'Leader'
+where Id = 5
+select * from job
 create table Contestant(
 	Id int identity(1,1) primary key,
 	Name nvarchar(500) default '',
