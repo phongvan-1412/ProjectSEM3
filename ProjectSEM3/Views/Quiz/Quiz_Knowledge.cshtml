@@ -112,13 +112,15 @@
     var data = lstQuest.Data;
     let lstTemp = [];
     for (var i = 0; i < data.length; i++) {
-        var temp = { id: "", question: "", answer: "" };
+        var temp = { id: "", question: "", answer: [], IsMultiAnwser: false, CorrectAnwser: [] };
         data[i].Options = JSON.parse(data[i].Options);
+        data[i].CorrectAnwser = JSON.parse(data[i].CorrectAnwser);
         temp.id = data[i].Id;
         temp.question = data[i].Content;
+        temp.IsMultiAnwser = data[i].IsMultiAnwser;
+        temp.CorrectAnwser = data[i].CorrectAnwser;
         lstTemp.push(temp);
     }
-    console.log(data);
     localStorage.setItem("lstCheck", JSON.stringify(lstTemp));
     /*-----------------------------------
         Handle Content
@@ -126,25 +128,43 @@
     let container = document.getElementById("wizard");
     let jumper = document.getElementById("jumper-btns");
     let selectedAnswers = {};
-    
+
     let question;
     let index;
 
     function showAnswer() {
         let options = ``;
+
         for (var i = 0; i < question.Options.length; i++) {
             let option = question.Options[i];
             let selected = false;
-            if (selectedAnswers[`${question.Content}`] == option) {
-                selected = true;
-            }
-            options += `
-                <div class="answer-container rounded-pill bg-white text-start">
-                        <input type="radio" onclick="addAnswer()" name="answer-btn" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
-                </div>
-            `;
-        }
 
+            var a = JSON.parse(localStorage.getItem("lstCheck"));
+
+
+            if (a[index].IsMultiAnwser == false) {
+                if (a[index].answer == option) {
+                    selected = true;
+                }
+                options += `
+                    <div class="answer-container rounded-pill bg-white text-start">
+                            <input type="radio" onclick="addAnswer()" name="answer-btn" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
+                    </div>
+                `;
+            }
+            else {
+                for (var j = 0; j < a[index].answer.length; j++) {
+                    if (a[index].answer[j] == option) {
+                        selected = true;
+                    }
+                }
+                options += `
+                    <div class="answer-container rounded-pill bg-white text-start">
+                            <input type="checkbox" onclick="addAnswer(${i})" name="answer-btn${i}" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
+                    </div>
+                `;
+            }
+        }
         return options;
     };
     function jumpButtons() {
@@ -154,23 +174,49 @@
         }
         jumper.innerHTML = btns;
     };
-    function addAnswer() {
+    function addAnswer(b) {
         var a = JSON.parse(localStorage.getItem("lstCheck"));
         let currentOptions = document.getElementsByName("answer-btn");
+        let currentOpt = document.getElementsByName(`answer-btn${b}`);
 
-        for (let i = 0; i < currentOptions.length; i++) {
-            let currentOption = currentOptions[i];
-            
-            if (currentOption.checked == true) {
-                selectedAnswers[`${question.Content}`] = currentOption.value;
-                for (var j = 0; j < a.length; j++) {
-                    if (a[j].question == question.Content) {
-                        a[j].answer = currentOption.value;
-                        localStorage.setItem("lstCheck", JSON.stringify(a));
+        if (a[index].IsMultiAnwser == true) {
+            if (a[index].answer.length == 0) {
+                a[index].answer.push(currentOpt[0].value);
+            }
+            else {
+                if (currentOpt[0].checked == true) {
+                    for (var i = 0; i < a[index].answer.length; i++) {
+                        if (a[index].answer[i] != currentOpt[0].value) {
+                            a[index].answer.push(currentOpt[0].value);
+                            break;
+                        }
+                    }
+                } else {
+                    for (var i = 0; i < a[index].answer.length; i++) {
+                        if (a[index].answer[i] == currentOpt[0].value) {
+                            a[index].answer.splice(i, 1);
+                        }
                     }
                 }
+                
             }
+            localStorage.setItem("lstCheck", JSON.stringify(a));
         }
+        else {
+            for (var i = 0; i < currentOptions.length; i++) {
+                let currentOption = currentOptions[i];
+                if (currentOption.checked == true) {
+                    a[index].answer.push(currentOption.value);
+                }
+                else {
+                    a[index].answer.splice(i, 1);
+                }
+            }
+            localStorage.setItem("lstCheck", JSON.stringify(a));
+
+        }
+        console.log(a);
+
     };
     function submitQuiz() {
         $.ajax({

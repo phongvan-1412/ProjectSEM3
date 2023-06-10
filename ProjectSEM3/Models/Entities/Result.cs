@@ -9,6 +9,8 @@ namespace ProjectSEM3.Models.Entities
     {
         public int Id { get; set; }
         public string Question { get; set; }
-        public string Answer { get; set; }
+        public List<string> Answer { get; set; }
+        public bool IsMultiAnswer { get; set; }
+        public List<string> CorrectAnswer { get; set; }
     }
 }

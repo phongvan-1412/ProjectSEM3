@@ -168,7 +168,7 @@
     <Compile Include="Models\Entities\Level.cs" />
     <Compile Include="Models\Entities\Question.cs" />
     <Compile Include="ViewModel\QuestionView.cs" />
-    <Compile Include="ViewModel\Result.cs" />
+    <Compile Include="Models\Entities\Result.cs" />
     <Compile Include="Models\Entities\Type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\EnumStatus.cs" />
