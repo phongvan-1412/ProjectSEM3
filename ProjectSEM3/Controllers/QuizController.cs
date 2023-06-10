@@ -1,13 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ProjectSEM3.Models;
 using ProjectSEM3.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using static ProjectSEM3.Models.DbContext;
 
 namespace ProjectSEM3.Controllers
 {
@@ -20,7 +18,7 @@ namespace ProjectSEM3.Controllers
         }
         public ActionResult Quiz_Math()
         {
-            List<Question.Req> lst = DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
+            List<Question.Req> lst = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
             QuestionView temp;
             List<QuestionView> lstTemp = new List<QuestionView>();
             foreach (var item in lst)
@@ -65,7 +63,7 @@ namespace ProjectSEM3.Controllers
         public JsonResult SubmitKnowledge(string result)
         {
             var json = JsonConvert.DeserializeObject(result);
-            List<Models.Entities.Result> results = JsonConvert.DeserializeObject<List<Models.Entities.Result>>(json.ToString());
+            List<Result> results = JsonConvert.DeserializeObject<List<Result>>(json.ToString());
 
             return Json("success");
         }
@@ -92,8 +90,8 @@ namespace ProjectSEM3.Controllers
 
         public JsonResult GetData()
         {
-            var lstQuest = DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
-            return Json(lstQuest);
+            var lstQuest = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question");
+            return Json(lstQuest);  
         }
     }
 }
