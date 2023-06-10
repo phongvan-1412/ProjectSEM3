@@ -25,7 +25,7 @@ namespace ProjectSEM3.Controllers
         [HttpPost]
         public ActionResult UploadCV(string job, string contName, string contEmail, string contPhone, HttpPostedFileBase cv)
         {
-            var savePath = "C:\\Aptech\\SEM3\\Project SEM3\\ProjectSEM3\\ProjectSEM3\\Content\\pdf\\" + cv.FileName;
+            var savePath = Path.Combine(Server.MapPath("~/Content/pdf"), cv.FileName);
             cv.SaveAs(savePath);
             var path = "https://localhost:44376/Content/pdf/" + cv.FileName;
 

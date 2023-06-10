@@ -10,7 +10,7 @@ namespace ProjectSEM3.Models.Entities
         public class Req
         {
             public int Id { get; set; }
-            public int Job { get; set; }
+            public int JobId { get; set; }
             public string Name { get; set; }
             public string Email { get; set; }
             public string Phone { get; set; }

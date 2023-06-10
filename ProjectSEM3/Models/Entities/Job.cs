@@ -14,7 +14,7 @@ namespace ProjectSEM3.Models.Entities
             public string Location { get; set; }
             public DateTime DatePosted { get; set; }
             public DateTime EndDate { get; set; }
-            public int EmpLevelId { get; set; }
+            public int LevelId { get; set; }
             public string Content { get; set; }
             public bool Status { get; set; }
             public Req()
@@ -29,8 +29,8 @@ namespace ProjectSEM3.Models.Entities
             public string Location { get; set; }
             public DateTime DatePosted { get; set; }
             public DateTime EndDate { get; set; }
-            public int EmpLevelId { get; set; }
-            public int EmpLevelName { get; set; }
+            public int LevelId { get; set; }
+            public int LevelName { get; set; }
             public string Content { get; set; }
             public bool Status { get; set; }
             public Res()
