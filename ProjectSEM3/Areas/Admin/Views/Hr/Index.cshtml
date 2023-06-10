@@ -168,7 +168,7 @@
                 dataType: "json",
                 success: function (res) {
                     OnSetupToast(res, $liveToast, $toastMes)
-                    if (res.IsErr) {
+                    if (res.IsSuccess) {
                         $hrTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
                         $hrTable[0].rows[RowIndex].children[2].innerHTML = res.Data.Email;
                         CurrentSelection.setAttribute('data-hr', JSON.stringify(res.Data))
@@ -216,7 +216,7 @@
         }
 
         const OnSetupToast = (res, $toast, $toastMes) => {
-            if (res.IsErr) {
+            if (res.IsSuccess) {
                 OnRemoveClassName($toast, "bg-danger-subtle")
                 OnAddClassName($toast, "bg-primary-subtle");
             } else {

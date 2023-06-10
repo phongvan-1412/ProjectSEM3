@@ -3,6 +3,9 @@ using ProjectSEM3.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Data;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace ProjectSEM3.Areas.Admin.Controllers
 {
@@ -32,7 +35,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 { "@IdLevel", req.IdLevel },
                 { "@Content", req.Content },
                 { "@Point", req.Point },
-                { "@Optioins", req.Options },
+                { "@Options", req.Options },
                 { "@CorrectAnwser", req.CorrectAnwser },
                 { "@IsMultiAnwser", req.IsMultiAnwser },
             };
@@ -42,11 +45,14 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             {
                 Data = result,
                 Mes = "Create Question successfull.",
-                IsErr = true,
+                IsSuccess = true,
             });
         }
 
-        public ActionResult UpdateQuestion(Question.Req hr)
+
+        [HttpPost]
+        [Route("/admin/hr/UpdateQuestion")]
+        public JsonResult UpdateQuestion(Question.Req req, int rowIndex)
         {
             var param = new Dictionary<string, dynamic>
             {
@@ -63,8 +69,24 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 { "@IsMultiAnwser", 0 },
                 { "@Status", 1 },
             };
-            var result = DbContext.Instance.Exec<List<Question.Res>>(DbStore.UpdateQuestion, param).FirstOrDefault();
-            return RedirectToAction(nameof(Index));
+     
+            var ls = DbContext.Instance.Exec<List<Question.Res>>(DbStore.UpdateQuestion, param);
+            if (ls == null)
+            {
+                return Json(new DbContext.Result
+                {
+                    Mes = "Fail.",
+                    IsSuccess = false,
+                });
+            }
+            var result = ls.FirstOrDefault();
+            result.RowIndex = rowIndex;
+            return Json(new DbContext.Result<Question.Res>
+            {
+                Data = result,
+                Mes = "Successfull.",
+                IsSuccess = true,
+            });
         }
 
         [HttpGet]

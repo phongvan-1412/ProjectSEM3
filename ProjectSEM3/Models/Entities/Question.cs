@@ -38,6 +38,7 @@ namespace ProjectSEM3.Models.Entities
             public string Options { get; set; }
             public string CorrectAnwser { get; set; }
             public bool IsMultiAnwser { get; set; }
+            public int RowIndex { get; set; }
             public bool Status { get; set; }
 
             public Res() { }

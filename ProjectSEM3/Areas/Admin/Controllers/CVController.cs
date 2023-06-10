@@ -31,7 +31,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             {
                 Data = result,
                 Mes = "Successfull.",
-                IsErr = true,
+                IsSuccess = true,
             });
         }
     }

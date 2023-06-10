@@ -40,7 +40,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 return Json(new DbContext.Result
                 {
                     Mes = "Email already exists.",
-                    IsErr = false,
+                    IsSuccess = false,
                 });
             }
 
@@ -59,7 +59,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             return Json(new DbContext.Result
             {
                 Mes = "Create Hr successfull.",
-                IsErr = true,
+                IsSuccess = true,
             });
         }
 
@@ -83,7 +83,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 return Json(new DbContext.Result
                 {
                     Mes = "Fail.",
-                    IsErr = false,
+                    IsSuccess = false,
                 });
             }
             var result = ls.FirstOrDefault();
@@ -92,7 +92,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             {
                 Data = result,
                 Mes = "Successfull.",
-                IsErr = true,
+                IsSuccess = true,
             });
             //return PartialView(@"~/Areas/Admin/Views/Shared/Partials/Hr/_PartialRowHr.cshtml", result);
         }
@@ -124,7 +124,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             {
                 Data = result,
                 Mes = "Successfull.",
-                IsErr = true,
+                IsSuccess = true,
             });
         }
 

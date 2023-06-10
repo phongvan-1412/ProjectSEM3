@@ -1,56 +1,133 @@
-﻿<div id="updateHr" class="modal fade" role="dialog">
+﻿@using ProjectSEM3.Models.Entities;
+
+@{
+    var types = ViewBag.Types as List<ProjectSEM3.Models.Entities.Type.Res>;
+    var levels = ViewBag.Levels as List<Level.Res>;
+}
+
+
+<div id="updateQuestion" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Update Hr</h4>
-                <button type="button" class="btn btn-info" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Question</h4>
+                <i class="fa-solid fa-rectangle-xmark fa-2x pointer" data-bs-dismiss="modal"></i>
             </div>
 
             <div class="modal-body">
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Name</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-0" id="nameUpdate" type="text" />
-                            </div>
+                        <div class="col-3 m-1">
+                            <span><b>Type</b> <i style="color:red">*</i></span>
+                            <select class="form-select" id="typeUpdate">
+                                <option value="0" selected hidden>Type</option>
+                                @foreach (var item in types)
+                                {
+                                    <option class="pointer" value="@item.Id">@item.Name</option>
+                                }
+                            </select>
                         </div>
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Email</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-0" id="emailUpdate" type="text" />
+                        <div class="col-3 m-1">
+                            <span><b>Level</b> <i style="color:red">*</i></span>
+                            <select class="form-select" id="levelUpdate">
+                                <option value="0" selected hidden>Level</option>
+                                @foreach (var item in levels)
+                                {
+                                    <option class="pointer" value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2 m-1">
+                            <span><b>Point</b> <i style="color:red">*</i></span>
+                            <select class="form-select" id="pointUpdate">
+                                <option value="0" selected hidden>Point</option>
+                                <option class="pointer" value="1">1</option>
+                                <option class="pointer" value="2">2</option>
+                                <option class="pointer" value="3">3</option>
+                                <option class="pointer" value="4">4</option>
+                                <option class="pointer" value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="col-3 m-1">
+                            <span><b>Is Multiselect</b> <i style="color:red">*</i></span>
+                            <div class="form-check">
+                                <input class="form-check-input pointer" type="checkbox" id="isMultiSelectUpdate" onclick="OnMultiSelectedUpdate(event)">
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Contact</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-0" id="contactUpdate" type="text" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="m-1">
-                                <span><b>Education</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-0" id="educationUpdate" type="text" />
-                            </div>
+                        <div class="col-12">
+                            <span><b>Content</b> <i style="color:red">*</i></span>
+                            <textarea class="form-control p-0 ckEditor" placeholder="" name="isCorrectAnswer" id="contentUpdate" rows="3"></textarea>
                         </div>
                     </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
 
-                    <div class="m-1">
-                        <span><b>Address</b> <i style="color:red">*</i></span>
-                        <input class="form-control p-0" id="addressUpdate" type="text" />
+                                <span class="col-1"><b>A</b> <i style="color:red">*</i></span>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
+                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
+                                        Is Correct Answer
+                                    </label>
+                                </div>
+                            </div>
+                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerAUpdate" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <span class="col-1"><b>B</b> <i style="color:red">*</i></span>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
+                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
+                                        Is Correct Answer
+                                    </label>
+
+                                </div>
+                            </div>
+                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerBUpdate" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <span class="col-1"><b>C</b> <i style="color:red">*</i></span>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
+                                    <label class="form-check-label pointer" for="isCorrectAnswerCUpdate" onclick="OnIsCorrectTextClick(event)">
+                                        Is Correct Answer
+                                    </label>
+                                </div>
+                            </div>
+                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerCUpdate" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <span class="col-1"><b>D</b> <i style="color:red">*</i></span>
+                                <div class="form-check col-6">
+                                    <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
+                                    <label class="form-check-label pointer" for="isCorrectAnswerDUpdate" onclick="OnIsCorrectTextClick(event)">
+                                        Is Correct Answer
+                                    </label>
+                                </div>
+                            </div>
+                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerDUpdate" rows="3"></textarea>
+                        </div>
                     </div>
 
-                    <div class="m-1">
-                        <span><b>Experience</b> <i style="color:red">*</i></span>
-                        <textarea class="form-control p-0" placeholder="" id="experienceUpdate" style="height: 100px"></textarea>
-                    </div>
-
-                    <div class="m-1">
-                        <button class="btn btn-outline-info" type="button" onclick="OnUpdateHr()">Update</button>
+                    <div class="m-2">
+                        <button class="main-btn secondary-btn-outline btn-sm btn-hover float-end" type="button" onclick="OnUpdateQuestion()">Update</button>
                     </div>
                 </div>
             </div>

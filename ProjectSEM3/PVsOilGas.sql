@@ -47,7 +47,7 @@ insert into Hr(Name,Email,Password) values('Phuong','phuong@gmail.com','111111')
 	IdLevel int references Level(Id),
 	Content ntext default '',
 	Point int default 1,
-	Options nvarchar(max) default '',
+	Options ntext default '',
 	CorrectAnwser ntext default '',
 	IsMultiAnwser bit default 1,
 	Status bit default  1
@@ -60,7 +60,7 @@ insert into Question(IdType,IdLevel,Content,Point,A,B,C,D,CorrectAnwser,IsMultiA
 (1,1,'Question content 1',4,'[{'A' : 'ádasdasdasdasd'},{'B' : 'ádasdasdasdasd'},{'C' : 'ádasdasdasdasd'},{'D' : 'ádasdasdasdasd'}]','A',0),
 (1,1,'Question content 2',3,'[{'A' : 'ádasdasdasdasd'},{'B' : 'ádasdasdasdasd'},{'C' : 'ádasdasdasdasd'},{'D' : 'ádasdasdasdasd'}]','D',0)
 
-drop table ContestantQuestion(
+create table ContestantQuestion(
 	Id int identity(1,1) primary key,
 	IdQuestion int references Question(Id),
 	IdContestant int references Contestant(Id),
@@ -68,6 +68,6 @@ drop table ContestantQuestion(
 	Status bit default 1
 )
 
-select * from hr for json path
+select * from ContestantQuestion
 update hr
 set status = 1

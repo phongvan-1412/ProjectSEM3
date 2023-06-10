@@ -24,29 +24,51 @@
         const $answerC = $("#answerC")
         const $answerD = $("#answerD")
 
-        //const $nameUpdate = $("#nameUpdate")
-        //const $emailUpdate = $("#emailUpdate")
-        //const $contactUpdate = $("#contactUpdate")
-        //const $educationUpdate = $("#educationUpdate")
-        //const $addressUpdate = $("#addressUpdate")
-        //const $experienceUpdate = $("#experienceUpdate")
+        const $isCorrectAnswerUpdate = $(".isCorrectAnswerUpdate")
+        const $typeUpdate = $("#typeUpdate")
+        const $levelUpdate = $("#levelUpdate")
+        const $pointUpdate = $("#pointUpdate")
+        const $isMultiSelectUpdate = $("#isMultiSelectUpdate")
+        const $contentUpdate = $("#contentUpdate")
+        const $answerAUpdate = $("#answerAUpdate")
+        const $answerBUpdate = $("#answerBUpdate")
+        const $answerCUpdate = $("#answerCUpdate")
+        const $answerDUpdate = $("#answerDUpdate")
 
-        //const $nameView = $("#nameView")
-        //const $emailView = $("#emailView")
-        //const $contactView = $("#contactView")
-        //const $educationView = $("#educationView")
-        //const $addressView = $("#addressView")
-        //const $experienceView = $("#experienceView")
+        const $isCorrectAnswerView = $(".isCorrectAnswerView")
+        const $typeView = $("#typeView")
+        const $levelView = $("#levelView")
+        const $pointView = $("#pointView")
+        const $isMultiSelectView = $("#isMultiSelectView")
+        const $contentView = $("#contentView")
+        const $answerAView = $("#answerAView")
+        const $answerBView = $("#answerBView")
+        const $answerCView = $("#answerCView")
+        const $answerDView = $("#answerDView")
+        const $isCorrectAnswerAView = $("#isCorrectAnswerAView")
+        const $isCorrectAnswerBView = $("#isCorrectAnswerBView")
+        const $isCorrectAnswerCView = $("#isCorrectAnswerCView")
+        const $isCorrectAnswerDView = $("#isCorrectAnswerDView")
 
-        //const $hrTable = $("#hrTable")
+        const $questionTable = $("#questionTable")
         const $liveToast = $("#liveToast")
         const $toastMes = $("#toastMes")
         //const $updateHr = $("#updateHr")
 
-        //$hrTable.DataTable();
+        $questionTable.DataTable();
 
         const OnMultiSelected = (e) => {
-            for (var ele of $isCorrectAnswer) {
+            for (var ele of $isMultiSelect) {
+                if (e.target.checked) {
+                    ele.type = 'checkbox'
+                } else {
+                    ele.type = 'radio'
+                }
+            }
+        }
+
+        const OnMultiSelectedUpdate = (e) => {
+            for (var ele of $isCorrectAnswerUpdate) {
                 if (e.target.checked) {
                     ele.type = 'checkbox'
                 } else {
@@ -63,12 +85,17 @@
                 }
             }
 
-            const CorrectAnwser = _correctAnwser.toString()
+            const CorrectAnwser = JSON.stringify(_correctAnwser)
             const IdType = $type.val()
             const IdLevel = $level.val()
             const Content = $content.val()
             const Point = $point.val()
-            const Options = `${$answerA.val()},${$answerB.val()},${$answerC.val()},${$answerD.val()}`
+            const localOption = []
+            localOption.push($answerA.val())
+            localOption.push($answerB.val())
+            localOption.push($answerC.val())
+            localOption.push($answerD.val())
+            const Options = JSON.stringify(localOption)
             const IsMultiAnwser = $isMultiSelect[0].checked
 
             const req = {
@@ -80,7 +107,6 @@
                 CorrectAnwser,
                 IsMultiAnwser
             }
-
             $.ajax({
                 type: "POST",
                 url: "/admin/question/NewQuestion",
@@ -134,80 +160,147 @@
         //    setTimeout(OnHideToast, 3000)
         //}
 
-        //let RowIndex = 0;
-        //let CurrentId = 0;
-        //let CurrentSelection = ''
-        //const OnSelectRowHr = (e) => {
-        //    RowIndex = e.target.parentElement.parentElement.rowIndex
-        //    CurrentSelection = e.target
-        //    CurrentId = e.target.getAttribute('data-index')
-        //    const data = JSON.parse(e.target.getAttribute('data-hr'))
-        //    $nameUpdate.val(data.Name)
-        //    $emailUpdate.val(data.Email)
-        //    $contactUpdate.val(data.Contact)
-        //    $educationUpdate.val(data.Education)
-        //    $addressUpdate.val(data.Address)
-        //    $experienceUpdate.val(data.Experience)
-        //}
+        let RowIndex = 0;
+        let CurrentId = 0;
+        let CurrentSelection = ''
 
-        //const OnUpdateHr = (e) => {
-        //    const Id = CurrentId
-        //    const Name = $nameUpdate.val()
-        //    const Email = $emailUpdate.val()
-        //    const Contact = $contactUpdate.val()
-        //    const Education = $educationUpdate.val()
-        //    const Address = $addressUpdate.val()
-        //    const Experience = $experienceUpdate.val()
+        const OnSelectRowQuestion = (e) => {
+            RowIndex = e.target.parentElement.parentElement.rowIndex
+            CurrentSelection = e.target
+            CurrentId = e.target.getAttribute('data-index')
+            const data = JSON.parse(e.target.getAttribute('data-question'))
+            console.log(data)
 
-        //    const hr = {
-        //        Id,
-        //        Name,
-        //        Email,
-        //        Contact,
-        //        Education,
-        //        Address,
-        //        Experience
-        //    }
-        //    const rowIndex = RowIndex
-        //    $.ajax({
-        //        type: "POST",
-        //        url: "/admin/hr/UpdateHR",
-        //        data: { hr, rowIndex },
-        //        dataType: "json",
-        //        success: function (res) {
-        //            OnSetupToast(res, $liveToast, $toastMes)
-        //            if (res.IsErr) {
-        //                $hrTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
-        //                $hrTable[0].rows[RowIndex].children[2].innerHTML = res.Data.Email;
-        //                CurrentSelection.setAttribute('data-hr', JSON.stringify(res.Data))
-        //                CurrentSelection.parentElement.children[1].setAttribute('data-hr', JSON.stringify(res.Data))
-        //                //const tmp = {
-        //                //    Mes : "Successfull.",
-        //                //    IsErr : true
-        //                //}
-        //                //$hrTable[0].deleteRow(RowIndex);
-        //                //var newRow = $hrTable[0].insertRow(RowIndex);
-        //                //newRow.innerHTML = res;
-        //            }
-        //        },
-        //        error: function (jqXHR, err, errorThrown) {
-        //            OnServerErr($liveToast, $toastMes);
-        //        }
-        //    });
+            for (var i = 0; i < $typeUpdate[0].length; i++) {
+                if ($typeUpdate[0].options[i].innerHTML == data.TypeName) {
+                    $typeUpdate[0].options[i].selected = true;
+                }
+            }
 
-        //    setTimeout(OnHideToast, 3000)
-        //}
+            for (var i = 0; i < $levelUpdate[0].length; i++) {
+                if ($levelUpdate[0].options[i].innerHTML == data.LevelName) {
+                    $levelUpdate[0].options[i].selected = true;
+                }
+            }
 
-        //const OnViewHr = (e) => {
-        //    const data = JSON.parse(e.target.getAttribute('data-hr'))
-        //    $nameView[0].innerHTML = data.Name
-        //    $emailView[0].innerHTML = data.Email
-        //    $contactView[0].innerHTML = data.Contact
-        //    $educationView[0].innerHTML = data.Education
-        //    $addressView[0].innerHTML = data.Address
-        //    $experienceView[0].innerHTML = data.Experience
+            for (var i = 0; i < $pointUpdate[0].length; i++) {
+                if ($pointUpdate[0].options[i].innerHTML == data.Point) {
+                    $pointUpdate[0].options[i].selected = true;
+                }
+            }
+            $isMultiSelectUpdate[0].checked = data.IsMultiAnwser
+            $contentUpdate.val(data.Content)
 
-        //}
+            const options = JSON.parse(data.Options)
+            const correctAnwsers = JSON.parse(data.CorrectAnwser)
+            $answerAUpdate.val(options[0])
+            $answerBUpdate.val(options[1])
+            $answerCUpdate.val(options[2])
+            $answerDUpdate.val(options[3])
+
+            for (var ele of $isCorrectAnswerUpdate) {
+                if (data.IsMultiAnwser) {
+                    ele.type = 'checkbox'
+                } else {
+                    ele.type = 'radio'
+                }
+            }
+
+            for (var i = 0; i < options.length; i++) {
+                for (var answer of correctAnwsers) {
+                    $isCorrectAnswerUpdate[i].checked = !(answer == options[i])
+                }
+            }
+        }
+
+        const OnUpdateQuestion = (e) => {
+            const Id = CurrentId
+            var _correctAnwser = []
+            for (var ele of $isCorrectAnswerUpdate) {
+                if (ele.checked) {
+                    _correctAnwser.push(ele.parentElement.parentElement.parentElement.children[1].value)
+                }
+            }
+            const CorrectAnwser = JSON.stringify(_correctAnwser)
+            const IdType = $typeUpdate.val()
+            const IdLevel = $levelUpdate.val()
+            const Content = $contentUpdate.val()
+            const Point = $pointUpdate.val()
+            const localOption = []
+            localOption.push($answerAUpdate.val())
+            localOption.push($answerBUpdate.val())
+            localOption.push($answerCUpdate.val())
+            localOption.push($answerDUpdate.val())
+            const Options = JSON.stringify(localOption)
+            const IsMultiAnwser = $isMultiSelectUpdate[0].checked
+
+            const req = {
+                Id,
+                IdType,
+                IdLevel,
+                Content,
+                Point,
+                Options,
+                CorrectAnwser,
+                IsMultiAnwser
+            }
+            console.log(req)
+            const rowIndex = RowIndex
+
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/admin/hr/UpdateHR",
+            //    data: { hr, rowIndex },
+            //    dataType: "json",
+            //    success: function (res) {
+            //        OnSetupToast(res, $liveToast, $toastMes)
+            //        if (res.IsErr) {
+            //            $hrTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
+            //            $hrTable[0].rows[RowIndex].children[2].innerHTML = res.Data.Email;
+            //            CurrentSelection.setAttribute('data-hr', JSON.stringify(res.Data))
+            //            CurrentSelection.parentElement.children[1].setAttribute('data-hr', JSON.stringify(res.Data))
+            //            //const tmp = {
+            //            //    Mes : "Successfull.",
+            //            //    IsSuccess : true
+            //            //}
+            //            //$hrTable[0].deleteRow(RowIndex);
+            //            //var newRow = $hrTable[0].insertRow(RowIndex);
+            //            //newRow.innerHTML = res;
+            //        }
+            //    },
+            //    error: function (jqXHR, err, errorThrown) {
+            //        OnServerErr($liveToast, $toastMes);
+            //    }
+            //});
+
+            setTimeout(OnHideToast, 3000)
+        }
+
+        const OnViewQuestion = (e) => {
+            const data = JSON.parse(e.target.getAttribute('data-question'))
+
+            $typeView[0].innerHTML = data.TypeName
+            $levelView[0].innerHTML = data.LevelName
+            $pointView[0].innerHTML = data.Point
+            $isMultiSelectView[0].innerHTML = data.IsMultiAnwser
+            $contentView[0].innerHTML = data.Content
+            const options = JSON.parse(data.Options)
+            const correctAnwsers = JSON.parse(data.CorrectAnwser)
+
+            $answerAView[0].innerHTML = options[0]
+            $answerBView[0].innerHTML = options[1]
+            $answerCView[0].innerHTML = options[2]
+            $answerDView[0].innerHTML = options[3]
+
+
+            for (var i = 0; i < options.length; i++) {
+                for (var answer of correctAnwsers) {
+                    if (answer == options[i]) {
+                        $isCorrectAnswerView[i].hidden = false
+                    }
+                }
+            }
+        }
 
         //$updateHr[0].addEventListener('hidden.bs.modal', function (event) {
         //    OnClearFormUpdateHr();
@@ -234,7 +327,7 @@
         //}
 
         const OnSetupToast = (res, $toast, $toastMes) => {
-            if (res.IsErr) {
+            if (res.IsSuccess) {
                 OnRemoveClassName($toast, "bg-danger-subtle")
                 OnAddClassName($toast, "bg-primary-subtle");
             } else {

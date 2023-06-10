@@ -115,13 +115,13 @@ namespace ProjectSEM3.Models
         {
             public T Data;
             public string Mes;
-            public bool IsErr;
+            public bool IsSuccess;
         }
 
         public class Result
         {
             public string Mes;
-            public bool IsErr;
+            public bool IsSuccess;
         }
     }
 
