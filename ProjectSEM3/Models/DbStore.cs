@@ -29,6 +29,7 @@
 
         public static string InsertQuestion = "Sp_InsertQuestion";
         public static string UpdateQuestion = "Sp_UpdateQuestion";
+        public static string ChangeQuestionStatus = "Sp_ChangeQuestionStatus";
         public static string GetQuestionById = "Sp_GetQuestionById";
         public static string GetQuestions = "Sp_GetQuestions";
 

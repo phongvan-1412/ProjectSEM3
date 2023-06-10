@@ -140,25 +140,36 @@
             ele[0].classList.remove(className);
         }
 
-        //const OnChangeHrStatus = (e) => {
-        //    const Id = e.target.getAttribute('data-index')
-        //    const Status = e.target.checked
-        //    const hr = { Id, Status }
-        //    $.ajax({
-        //        type: "POST",
-        //        url: "/admin/hr/ChangeHrStatus",
-        //        data: hr,
-        //        dataType: "json",
-        //        success: function (res) {
-        //            OnSetupToast(res, $liveToast, $toastMes)
-        //        },
-        //        error: function (jqXHR, err, errorThrown) {
-        //            OnServerErr($liveToast, $toastMes);
-        //        }
-        //    });
+        const OnChangeQuestionStatus = (e) => {
+            RowIndex = e.target.parentElement.parentElement.rowIndex
+            const Id = e.target.getAttribute('data-index')
+            const data = JSON.parse(e.target.getAttribute('data-question'))
+            const Status = !data.Status
+            const req = { Id, Status }
+            $.ajax({
+                type: "POST",
+                url: "/admin/question/ChangeQuestionStatus",
+                data: req,
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                    e.target.setAttribute('data-question', JSON.stringify(res.Data))
+                    let statusText = 'Active'
+                    let bgCss = 'success'
+                    if (!res.Data.Status) {
+                        statusText = "Deleted"
+                        bgCss = 'danger'
+                        e.target.hidden = true
+                    }
+                    $questionTable[0].rows[RowIndex].children[4].innerHTML = `<span class="badge bg-${bgCss}">${statusText}</span>`;
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
 
-        //    setTimeout(OnHideToast, 3000)
-        //}
+            setTimeout(OnHideToast, 3000)
+        }
 
         let RowIndex = 0;
         let CurrentId = 0;
@@ -244,34 +255,27 @@
                 CorrectAnwser,
                 IsMultiAnwser
             }
-            console.log(req)
             const rowIndex = RowIndex
 
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/admin/hr/UpdateHR",
-            //    data: { hr, rowIndex },
-            //    dataType: "json",
-            //    success: function (res) {
-            //        OnSetupToast(res, $liveToast, $toastMes)
-            //        if (res.IsErr) {
-            //            $hrTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
-            //            $hrTable[0].rows[RowIndex].children[2].innerHTML = res.Data.Email;
-            //            CurrentSelection.setAttribute('data-hr', JSON.stringify(res.Data))
-            //            CurrentSelection.parentElement.children[1].setAttribute('data-hr', JSON.stringify(res.Data))
-            //            //const tmp = {
-            //            //    Mes : "Successfull.",
-            //            //    IsSuccess : true
-            //            //}
-            //            //$hrTable[0].deleteRow(RowIndex);
-            //            //var newRow = $hrTable[0].insertRow(RowIndex);
-            //            //newRow.innerHTML = res;
-            //        }
-            //    },
-            //    error: function (jqXHR, err, errorThrown) {
-            //        OnServerErr($liveToast, $toastMes);
-            //    }
-            //});
+            $.ajax({
+                type: "POST",
+                url: "/admin/question/UpdateQuestion",
+                data: { req, rowIndex },
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                    if (res.IsSuccess) {
+                        $questionTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Content;
+                        $questionTable[0].rows[RowIndex].children[2].innerHTML = res.Data.TypeName;
+                        $questionTable[0].rows[RowIndex].children[3].innerHTML = res.Data.LevelName;
+                        CurrentSelection.setAttribute('data-question', JSON.stringify(res.Data))
+                        CurrentSelection.parentElement.children[1].setAttribute('data-question', JSON.stringify(res.Data))
+                    }
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
 
             setTimeout(OnHideToast, 3000)
         }

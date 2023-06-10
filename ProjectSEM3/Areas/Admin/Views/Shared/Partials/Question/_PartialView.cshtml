@@ -16,8 +16,9 @@ else
             <thead class="text-bg-dark">
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
+                    <th>Content</th>
+                    <th>TypeName</th>
+                    <th>LevelName</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -31,6 +32,7 @@ else
                             var status = @item.Status;
                         }
                         <td>@index@{index++;}</td>
+                        <td>@item.Content</td>
                         <td>@item.TypeName</td>
                         <td>@item.LevelName</td>
                         <td>
@@ -51,11 +53,11 @@ else
                             <i class="fa-sharp fa-solid fa-circle-info fa-2x pointer ms-3" style="color: dodgerblue;" data-bs-toggle="modal" data-bs-target="#infoQuestion" data-question="@json" onclick="OnViewQuestion(event)"></i>
                             @if (status)
                             {
-                                <i class="fa-solid fa-trash-can fa-2x pointer ms-3" style="color: red;" data-index="@item.Id" data-hr="@json" onclick="OnChangeQuestionStatus(event)"></i>
+                                <i class="fa-solid fa-trash-can fa-2x pointer ms-3" style="color: red;" data-index="@item.Id" data-question="@json" onclick="OnChangeQuestionStatus(event)"></i>
                             }
                             else
                             {
-                                <i class="fa-solid fa-trash-can fa-2x pointer ms-3" style="color: red;" data-index="@item.Id" data-hr="@json" onclick="OnChangeQuestionStatus(event)" hidden></i>
+                                <i class="fa-solid fa-trash-can fa-2x pointer ms-3" style="color: red;" data-index="@item.Id" data-question="@json" onclick="OnChangeQuestionStatus(event)" hidden></i>
                             }
                         </td>
                     </tr>

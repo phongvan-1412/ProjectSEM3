@@ -111,12 +111,15 @@
                 success: function (res) {
                     OnSetupToast(res, $liveToast, $toastMes)
                     e.target.setAttribute('data-hr', JSON.stringify(res.Data))
-                    if (res.Data.Status) {
-                        $hrTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-success">Active</span>`;
-                    } else {
-                        $hrTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-danger">Deleted</span>`;
+                    let statusText = 'Active'
+                    let bgCss = 'success'
+                    if (!res.Data.Status) {
+                        statusText = "Deleted"
+                        bgCss = 'danger'
                         e.target.hidden = true
                     }
+
+                    $hrTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-${bgCss}">${statusText}</span>`;
                 },
                 error: function (jqXHR, err, errorThrown) {
                     OnServerErr($liveToast, $toastMes);

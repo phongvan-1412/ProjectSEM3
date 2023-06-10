@@ -49,27 +49,22 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             });
         }
 
-
         [HttpPost]
-        [Route("/admin/hr/UpdateQuestion")]
+        [Route("/admin/question/UpdateQuestion")]
         public JsonResult UpdateQuestion(Question.Req req, int rowIndex)
         {
             var param = new Dictionary<string, dynamic>
             {
-                { "@Id", 1 },
-                { "@IdType", 1 },
-                { "@IdLevel", 1 },
-                { "@Content", "111111" },
-                { "@Point", 1 },
-                { "@A", "111111" },
-                { "@B", "111111" },
-                { "@C", "111111" },
-                { "@D", "111111" },
-                { "@CorrectAnwser", "A" },
-                { "@IsMultiAnwser", 0 },
-                { "@Status", 1 },
+                { "@Id", req.Id },
+                { "@IdType", req.IdType },
+                { "@IdLevel", req.IdLevel },
+                { "@Content", req.Content },
+                { "@Point", req.Point },
+                { "@Options", req.Options },
+                { "@CorrectAnwser", req.CorrectAnwser },
+                { "@IsMultiAnwser", req.IsMultiAnwser },
             };
-     
+
             var ls = DbContext.Instance.Exec<List<Question.Res>>(DbStore.UpdateQuestion, param);
             if (ls == null)
             {
@@ -81,6 +76,36 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             }
             var result = ls.FirstOrDefault();
             result.RowIndex = rowIndex;
+            return Json(new DbContext.Result<Question.Res>
+            {
+                Data = result,
+                Mes = "Successfull.",
+                IsSuccess = true,
+            });
+        }
+
+        [HttpPost]
+        [Route("/admin/question/ChangeQuestionStatus")]
+        public JsonResult ChangeQuestionStatus(Question.Req req)
+        {
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@Id", req.Id },
+                { "@Status", req.Status },
+            };
+
+            var ls = DbContext.Instance.Exec<List<Question.Res>>(DbStore.ChangeQuestionStatus, param);
+            if (ls == null)
+            {
+                return Json(new DbContext.Result
+                {
+                    Mes = "Fail.",
+                    IsSuccess = false,
+                });
+            }
+
+            var result = ls.FirstOrDefault();
+
             return Json(new DbContext.Result<Question.Res>
             {
                 Data = result,
