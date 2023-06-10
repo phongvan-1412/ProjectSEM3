@@ -16,6 +16,9 @@
 @section Scripts{
     <script type="text/javascript">
         const $cvTable = $("#cvTable")
+        const $liveToast = $("#liveToast")
+        const $toastMes = $("#toastMes")
+
         $cvTable.DataTable();
 
         const OnChangeCvStatus = (e) => {
@@ -33,9 +36,9 @@
                     OnSetupToast(res, $liveToast, $toastMes)
                     e.target.setAttribute('data-cv', JSON.stringify(res.Data))
                     if (res.Data.Status) {
-                        $cvTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-success">Active</span>`;
+                        $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="badge bg-success">Active</span>`;
                     } else {
-                        $cvTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-danger">Deleted</span>`;
+                        $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="badge bg-danger">Deleted</span>`;
                         e.target.hidden = true
                     }
                 },
@@ -45,6 +48,39 @@
             });
 
             setTimeout(OnHideToast, 3000)
+        }
+
+        const OnHideToast = () => {
+            $liveToast.hide()
+        }
+
+        const OnSetupToast = (res, $toast, $toastMes) => {
+            if (res.IsErr) {
+                OnRemoveClassName($toast, "bg-danger-subtle")
+                OnAddClassName($toast, "bg-primary-subtle");
+            } else {
+                OnRemoveClassName($toast, "bg-primary-subtle");
+                OnAddClassName($toast, "bg-danger-subtle")
+            }
+            $toastMes[0].innerHTML = res.Mes
+            $toast.show()
+        }
+
+        const OnAddClassName = (ele, className) => {
+            if (!ele[0].classList.contains(className)) {
+                ele[0].classList.add(className);
+            }
+        }
+
+        const OnRemoveClassName = (ele, className) => {
+            ele[0].classList.remove(className);
+        }
+
+        const OnServerErr = ($toast, $toastMes) => {
+            OnRemoveClassName($toast, "bg-primary-subtle");
+            OnAddClassName($toast, "bg-danger-subtle")
+            $toastMes[0].innerHTML = "Connection fail or Something wrong in server."
+
         }
     </script>
 }
