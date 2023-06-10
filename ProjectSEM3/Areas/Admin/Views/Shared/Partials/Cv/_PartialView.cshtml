@@ -19,8 +19,7 @@ else
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Link</th>
-                    <th>Status</th>
+                    <th>Created Date</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -28,16 +27,16 @@ else
                 @foreach (var item in data)
                 {
                     <tr>
-                        <td>
-                            @{
-                                var a = data.IndexOf(item) + 1;
-                            }
-                            @a
-                        </td>
+                        @{
+                            var index = 1;
+                            var status = @item.Status;
+                        }
+                        <td>@index@{index++;}</td>
                         <td>@item.Name</td>
                         <td>@item.Email</td>
                         <td>@item.Phone</td>
-                        <td><a href="@item.FilePath">@item.FilePath</a></td>
+                        <td>@item.DatePosted</td>
+                        @*<td><a href="@item.FilePath">@item.FilePath</a></td>*@
                         <td>
                             @if (@item.Status)
                             {
@@ -52,7 +51,11 @@ else
                             @{
                                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(item);
                             }
-                            @if (item.Status)
+                            <i class="fa-solid fa-pen-to-square fa-2x pointer" style="color:forestgreen" data-bs-toggle="modal" data-bs-target="#updateQuestion" data-index="@item.Id" data-question="@json" onclick="OnSelectRowQuestion(event)"></i>
+                            <i class="fa-sharp fa-solid fa-circle-info fa-2x pointer ms-3" style="color: dodgerblue;" data-bs-toggle="modal" data-bs-target="#infoQuestion" data-question="@json" onclick="OnViewQuestion(event)"></i>
+                            <a href="@item.FilePath"><i class="fa-solid fa-download  fa-2x pointer ms-3"> </i></a>
+
+                            @if (status)
                             {
                                 <i class="fa-solid fa-trash-can fa-2x pointer ms-3" style="color: red;" data-index="@item.Id" data-cv="@json" onclick="OnChangeCvStatus(event)"></i>
                             }

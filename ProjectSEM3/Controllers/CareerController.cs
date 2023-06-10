@@ -29,7 +29,7 @@ namespace ProjectSEM3.Controllers
             cv.SaveAs(savePath);
             var path = "https://localhost:44376/Content/pdf/" + cv.FileName;
 
-            string date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            var date = DateTime.UtcNow;
 
             var param = new Dictionary<string, dynamic>
             {

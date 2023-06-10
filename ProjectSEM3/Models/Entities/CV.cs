@@ -15,7 +15,7 @@ namespace ProjectSEM3.Models.Entities
             public string Email { get; set; }
             public string Phone { get; set; }
             public string FilePath { get; set; }
-            public string DatePosted { get; set; }
+            public DateTime DatePosted { get; set; }
             public bool Status { get; set; }
             public Req() { }
         }
@@ -28,7 +28,7 @@ namespace ProjectSEM3.Models.Entities
             public string Email { get; set; }
             public string Phone { get; set; }
             public string FilePath { get; set; }
-            public string DatePosted { get; set; }
+            public DateTime DatePosted { get; set; }
 
             public bool Status { get; set; }
             public Res() { }

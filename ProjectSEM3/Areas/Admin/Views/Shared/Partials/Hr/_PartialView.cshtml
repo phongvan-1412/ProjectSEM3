@@ -25,17 +25,16 @@ else
             <tbody>
                 @foreach (var item in data)
                 {
-                    <tr >
-                        <td>
-                            @{
-                                var a = data.IndexOf(item) + 1;
-                            }
-                            @a
-                        </td>
+                    <tr>
+                        @{
+                            var index = 1;
+                            var status = @item.Status;
+                        }
+                        <td>@index@{index++;}</td>
                         <td>@item.Name</td>
                         <td>@item.Email</td>
                         <td>
-                            @if (@item.Status)
+                            @if (status)
                             {
                                 <span class="badge bg-success">Active</span>
                             }
@@ -50,7 +49,7 @@ else
                             }
                             <i class="fa-solid fa-pen-to-square fa-2x pointer" style="color:forestgreen" data-bs-toggle="modal" data-bs-target="#updateHr" data-index="@item.Id" data-hr="@json" onclick="OnSelectRowHr(event)"></i>
                             <i class="fa-sharp fa-solid fa-circle-info fa-2x pointer ms-3" style="color: dodgerblue;" data-bs-toggle="modal" data-bs-target="#infoHr" data-hr="@json" onclick="OnViewHr(event)"></i>
-                            @if (@item.Status)
+                            @if (status)
                             {
                                 <i class="fa-solid fa-trash-can fa-2x pointer ms-3" style="color: red;" data-index="@item.Id" data-hr="@json" onclick="OnChangeHrStatus(event)"></i>
                             }
