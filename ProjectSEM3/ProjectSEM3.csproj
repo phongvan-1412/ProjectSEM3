@@ -146,7 +146,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\ContestantQuestionController.cs" />
     <Compile Include="Areas\Admin\Controllers\CVController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HrController.cs" />
@@ -161,12 +160,14 @@
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\DbStore.cs" />
     <Compile Include="Models\Entities\Contestant.cs" />
-    <Compile Include="Models\Entities\ContestantQuestion.cs" />
     <Compile Include="Models\Entities\CV.cs" />
+    <Compile Include="Models\Entities\Exam.cs" />
+    <Compile Include="Models\Entities\ExamDetail.cs" />
     <Compile Include="Models\Entities\Hr.cs" />
     <Compile Include="Models\Entities\Job.cs" />
     <Compile Include="Models\Entities\Level.cs" />
     <Compile Include="Models\Entities\Question.cs" />
+    <Compile Include="Models\Entities\QuestionType.cs" />
     <Compile Include="ViewModel\QuestionView.cs" />
     <Compile Include="ViewModel\Result.cs" />
     <Compile Include="Models\Entities\Type.cs" />

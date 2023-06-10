@@ -15,11 +15,71 @@
 
 @section Scripts{
     <script type="text/javascript">
+        const $name = $("#name")
+        const $email = $("#email")
+        const $contact = $("#contact")
+        const $address = $("#address")
+        const $level = $("#level")
+        const $levelId = $("#levelId")
+        const $filePath = $("#filePath")
+
         const $cvTable = $("#cvTable")
         const $liveToast = $("#liveToast")
         const $toastMes = $("#toastMes")
 
         $cvTable.DataTable();
+
+        let RowIndex = 0;
+        let CurrentId = 0;
+        let CurrentSelection = ''
+
+        const OnSelectRowCv = (e) => {
+            RowIndex = e.target.parentElement.parentElement.rowIndex
+            CurrentSelection = e.target
+            CurrentId = e.target.getAttribute('data-index')
+            const data = JSON.parse(e.target.getAttribute('data-cv'))
+
+            $name.val(data.Name)
+            $email.val(data.Email)
+            $contact.val(data.Phone)
+            $address.val(data.Address)
+            $level.val(data.LevelName)
+            $levelId.val(data.LevelId)
+            $filePath.val(data.FilePath)
+        }
+
+        const OnNewContestant = () => {
+            const Name = $name.val()
+            const Email = $email.val()
+            const Contact = $contact.val()
+            const Address = $address.val()
+            const LevelId = $levelId.val()
+            const FilePath = $filePath.val()
+
+            const req = {
+                Name,
+                Email,
+                Contact,
+                Address,
+                LevelId,
+                FilePath
+            }
+
+            console.log(req)
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/admin/question/NewQuestion",
+            //    data: req,
+            //    dataType: "json",
+            //    success: function (res) {
+            //        OnSetupToast(res, $liveToast, $toastMes)
+            //    },
+            //    error: function (jqXHR, err, errorThrown) {
+            //        OnServerErr($liveToast, $toastMes);
+            //    }
+            //});
+            setTimeout(OnHideToast, 3000)
+        }
 
         const OnChangeCvStatus = (e) => {
             RowIndex = e.target.parentElement.parentElement.rowIndex

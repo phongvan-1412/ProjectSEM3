@@ -33,6 +33,8 @@
         public static string GetQuestionById = "Sp_GetQuestionById";
         public static string GetQuestions = "Sp_GetQuestions";
 
+        public static string GetAllQuestionTypes = "Sp_GetAllQuestionTypes";
+
         public static string InsertContestantQuestion = "Sp_InsertContestantQuest";
         public static string UpdateContestantQuestion = "Sp_UpdateContestantQuest";
         public static string GetContestantQuestionById = "Sp_GetContestantQuestById";
