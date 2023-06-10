@@ -112,13 +112,12 @@
     var data = lstQuest.Data;
     let lstTemp = [];
     for (var i = 0; i < data.length; i++) {
-        var temp = { id: "", question: "", answer: [], IsMultiAnwser: false, CorrectAnwser: [] };
+        var temp = { id: "", question: "", answer: [], IsMultiAnwser: false };
         data[i].Options = JSON.parse(data[i].Options);
         data[i].CorrectAnwser = JSON.parse(data[i].CorrectAnwser);
         temp.id = data[i].Id;
         temp.question = data[i].Content;
         temp.IsMultiAnwser = data[i].IsMultiAnwser;
-        temp.CorrectAnwser = data[i].CorrectAnwser;
         lstTemp.push(temp);
     }
     localStorage.setItem("lstCheck", JSON.stringify(lstTemp));
@@ -200,7 +199,6 @@
                 }
                 
             }
-            localStorage.setItem("lstCheck", JSON.stringify(a));
         }
         else {
             for (var i = 0; i < currentOptions.length; i++) {
@@ -212,13 +210,13 @@
                     a[index].answer.splice(i, 1);
                 }
             }
-            localStorage.setItem("lstCheck", JSON.stringify(a));
 
         }
-        console.log(a);
-
+        localStorage.setItem("lstCheck", JSON.stringify(a));
     };
     function submitQuiz() {
+        //var c = JSON.parse(localStorage.getItem("lstCheck"));
+        //console.log(c);
         $.ajax({
             type: "POST",
             data: { result: localStorage.getItem("lstCheck") },
