@@ -35,6 +35,12 @@
 
         public static string GetAllQuestionTypes = "Sp_GetAllQuestionTypes";
 
+        public static string InsertExam = "Sp_InsertExam";
+        public static string UpdateExam = "Sp_UpdateExam";
+        public static string ChangeExamStatus = "Sp_ChangeExamStatus";
+        public static string GetExamnById = "Sp_GetExamById";
+        public static string GetExamns = "Sp_GetExams";
+
         public static string InsertContestantQuestion = "Sp_InsertContestantQuest";
         public static string UpdateContestantQuestion = "Sp_UpdateContestantQuest";
         public static string GetContestantQuestionById = "Sp_GetContestantQuestById";
