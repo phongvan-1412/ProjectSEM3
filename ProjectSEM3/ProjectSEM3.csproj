@@ -2666,6 +2666,8 @@
     <Content Include="Content\images\zoom-small-5.jpg" />
     <Content Include="Content\images\zoom-small-6.jpg" />
     <Content Include="Content\img\careerbg.png" />
+    <Content Include="Content\img\icons\bin.png" />
+    <Content Include="Content\img\icons\file.png" />
     <Content Include="Content\img\social-media icon\facebook-color.png" />
     <Content Include="Content\img\social-media icon\facebook.png" />
     <Content Include="Content\img\social-media icon\instagram-color.png" />
