@@ -168,6 +168,7 @@
     <Compile Include="Models\Entities\Level.cs" />
     <Compile Include="Models\Entities\Question.cs" />
     <Compile Include="Models\Entities\QuestionType.cs" />
+    <Compile Include="Models\Entities\StatusType.cs" />
     <Compile Include="ViewModel\QuestionView.cs" />
     <Compile Include="Models\Entities\Result.cs" />
     <Compile Include="Models\Entities\Type.cs" />

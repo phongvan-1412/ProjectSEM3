@@ -47,30 +47,17 @@ namespace ProjectSEM3.Models.Entities
             switch (index)
             {
                 case 1:
-                    result =  new StatusType();
+                    result =  new StatusType("Pending", "badge bg-warning");
                     break;
                 case 2:
                     result = new StatusType("Accepted", "badge bg-success");
                     break;
                 case 3:
+                default:
                     result = new StatusType("Rejected", "badge bg-danger", true);
                     break;
             }
             return result;
-        }
-
-        public class StatusType
-        {
-            public string Name { get; set; }
-            public string BadgeCss { get; set; }
-            public bool IsHidden { get; set; }
-
-            public StatusType(string Name = "Pending", string BadgeCss = "badge bg-warning", bool IsRejected = false)
-            {
-                this.Name = Name;
-                this.BadgeCss = BadgeCss;
-                this.IsHidden = IsRejected;
-            }
         }
     }
 }
