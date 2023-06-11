@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ProjectSEM3.Models;
 using ProjectSEM3.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -90,7 +91,7 @@ namespace ProjectSEM3.Controllers
 
         public JsonResult GetData()
         {
-            var lstQuest = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question");
+            var lstQuest = Models.DbContext.Instance.Exec<List<Question.Req>>(DbStore.GetQuestions);
             return Json(lstQuest);  
         }
     }

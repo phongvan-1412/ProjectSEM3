@@ -110,6 +110,7 @@
     -------------------------------------*/
     var lstQuest = @Html.Raw(Json.Encode(lst));
     var data = lstQuest.Data;
+    console.log(data)
     let lstTemp = [];
     for (var i = 0; i < data.length; i++) {
         var temp = { id: "", question: "", answer: [], IsMultiAnwser: false };
