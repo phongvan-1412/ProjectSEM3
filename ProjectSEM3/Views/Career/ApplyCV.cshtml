@@ -98,7 +98,17 @@
                                             </button>
                                         </h2>
                                         <div class="collapse multi-collapse" id="btnAddFileWrapper">
-                                            <span style="padding: 0rem; font-size: 10px">*File must be .pdf extension and less than 10kb</span>
+                                            <div class="d-flex flex-column">
+                                                <span class="mb-3" style="padding: 0rem; font-size: 10px">*File must be .pdf extension and less than 5Mb</span>
+                                                <div>
+                                                    @*<div style="width: 100px; height: 5px; background-color: #0d6efd; border-radius: 3px;">
+
+                                                    </div>*@
+                                                    <span id="cvFileName"></span>
+
+                                                </div>
+                                            </div>
+
                                             <button id="addFileContainer" class="btn addFileContainer mt-3" type="button" style="padding: 0rem">
                                                 <input id="cvInput" class="form-control profileAttachmentUploadFileInputStyle" type="file" name="cv" />
                                                 <i class="fa-light fa-plus me-2"></i>
@@ -197,31 +207,49 @@
         var contPhone = document.getElementById("contPhone");
         var formData = new FormData();
         var submitBtn = document.getElementById("applyBtn");
+
+        var cvName = document.getElementById("cvFileName");
         /*-----------------------------------
             Prevent image upload & restrict file's size
         -------------------------------------*/
-        //cv.addEventListener("change", e => {
-        //    const file = cv.files[0];
-        //    const type = cv.files[0].type.substring(6);
+        cv.addEventListener("change", e => {
+            const file = cv.files[0];
+            const type = cv.files[0].type.substring(12);
+            noti.innerHTML = "";
+            noti.innerHTML = "";
+            cvName.innerHTML = "";
 
-        //    if (type.localeCompare("pdf") === 0 && file.size < 10 * 1024) {
-        //        result.value = 'rightType';
-        //    }
-        //    else {
-        //        result.value = 'falseType';
-        //        if (type.localeCompare("pdf") !== 0) {
-        //            noti.innerHTML = "";
-        //            noti.innerHTML = 'File must be .pdf extension';
-        //            console.log(noti.style);
-        //            noti.style.color = "rgb(92, 27, 134)";
-        //        }
-        //        if (file.size > 10 * 1024) {
-        //            noti.innerHTML = "";
-        //            noti.innerHTML = 'File exceeds 10kb';
-        //            noti.style.color = "red";
-        //        }
-        //    }
-        //})
+            if (type.localeCompare("pdf") === 0 && file.size < 5000 * 1024) {
+                result.value = 'rightType';
+                cvName.innerHTML = `
+                        <table class="table table-borderless m-0 p-0">
+                            <tr>
+                                <td>
+                                    <img src="https://localhost:44376/Content/img/icons/file.png" style="height: 20px; width: 20px; margin-right: .5rem; color: black"/>
+                                    ${cv.files[0].name}
+                                </td>
+                                <td>
+                                    <button type="button" onclick="deleteFileRow()" class="btn" style="background-color: transparent; border: none; color: rgb(92, 27, 134)">
+                                        <img src="https://localhost:44376/Content/img/icons/bin.png" style="width: 14px; height: 14px;"/>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    `;
+            }
+            else {
+                result.value = 'falseType';
+                if (type.localeCompare("pdf") !== 0) {
+                    noti.innerHTML = 'File must be .pdf extension';
+                    noti.style.color = "rgb(92, 27, 134)";
+                }
+                if (file.size > 5000 * 1024) {
+                    noti.innerHTML = 'File exceeds 5Mb';
+                    noti.style.color = "red";
+                }
+            }
+        })
 
         /*-----------------------------------
             Open upload file dialog
@@ -244,6 +272,16 @@
             }
         });
 
+        /*-----------------------------------
+            Delete File Row
+        -------------------------------------*/
+        function deleteFileRow() {
+            cvName.innerHTML = "";
+            cv.value = "";
+        }
+        deleteFileRow();
+
     </script>
+
 }
 
