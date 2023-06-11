@@ -16,6 +16,7 @@
         const $isCorrectAnswer = $(".isCorrectAnswer")
         const $type = $("#type")
         const $level = $("#level")
+        const $examTypes = $("#examTypes")
         const $point = $("#point")
         const $isMultiSelect = $("#isMultiSelect")
         const $content = $("#content")
@@ -27,6 +28,7 @@
         const $isCorrectAnswerUpdate = $(".isCorrectAnswerUpdate")
         const $typeUpdate = $("#typeUpdate")
         const $levelUpdate = $("#levelUpdate")
+        const $examTypesUpdate = $("#examTypesUpdate")
         const $pointUpdate = $("#pointUpdate")
         const $isMultiSelectUpdate = $("#isMultiSelectUpdate")
         const $contentUpdate = $("#contentUpdate")
@@ -88,6 +90,7 @@
             const CorrectAnwser = JSON.stringify(_correctAnwser)
             const IdType = $type.val()
             const IdLevel = $level.val()
+            const ExamTypesID = $examTypes.val()
             const Content = $content.val()
             const Point = $point.val()
             const localOption = []
@@ -101,12 +104,14 @@
             const req = {
                 IdType,
                 IdLevel,
+                ExamTypesID,
                 Content,
                 Point,
                 Options,
                 CorrectAnwser,
                 IsMultiAnwser
             }
+
             $.ajax({
                 type: "POST",
                 url: "/admin/question/NewQuestion",
@@ -192,12 +197,19 @@
                     $levelUpdate[0].options[i].selected = true;
                 }
             }
-
+            
             for (var i = 0; i < $pointUpdate[0].length; i++) {
                 if ($pointUpdate[0].options[i].innerHTML == data.Point) {
                     $pointUpdate[0].options[i].selected = true;
                 }
             }
+
+            for (var i = 0; i < $examTypesUpdate[0].length; i++) {
+                if ($examTypesUpdate[0].options[i].innerHTML == data.ExamTypeName) {
+                    $examTypesUpdate[0].options[i].selected = true;
+                }
+            }
+
             $isMultiSelectUpdate[0].checked = data.IsMultiAnwser
             $contentUpdate.val(data.Content)
 

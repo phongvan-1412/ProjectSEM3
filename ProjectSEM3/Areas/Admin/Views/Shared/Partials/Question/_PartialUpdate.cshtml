@@ -3,6 +3,7 @@
 @{
     var types = ViewBag.Types as List<QuestionType.Res>;
     var levels = ViewBag.Levels as List<Level.Res>;
+    var examTypes = ViewBag.ExamTypes as List<ProjectSEM3.Models.Entities.Type.Res>;
 }
 
 
@@ -18,7 +19,7 @@
             <div class="modal-body">
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-3 m-1">
+                        <div class="col-2 m-1">
                             <span><b>Type</b> <i style="color:red">*</i></span>
                             <select class="form-select" id="typeUpdate">
                                 <option value="0" selected hidden>Type</option>
@@ -28,7 +29,7 @@
                                 }
                             </select>
                         </div>
-                        <div class="col-3 m-1">
+                        <div class="col-2 m-1">
                             <span><b>Level</b> <i style="color:red">*</i></span>
                             <select class="form-select" id="levelUpdate">
                                 <option value="0" selected hidden>Level</option>
@@ -38,6 +39,18 @@
                                 }
                             </select>
                         </div>
+
+                        <div class="col-3 m-1">
+                            <span><b>Exam Type</b> <i style="color:red">*</i></span>
+                            <select class="form-select" id="examTypesUpdate">
+                                <option value="0" selected hidden>Exam Type</option>
+                                @foreach (var item in examTypes)
+                                {
+                                    <option class="pointer" value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+
                         <div class="col-2 m-1">
                             <span><b>Point</b> <i style="color:red">*</i></span>
                             <select class="form-select" id="pointUpdate">
@@ -49,8 +62,8 @@
                                 <option class="pointer" value="5">5</option>
                             </select>
                         </div>
-                        <div class="col-3 m-1">
-                            <span><b>Is Multiselect</b> <i style="color:red">*</i></span>
+                        <div class="col-2 m-1">
+                            <span><b>Multiselect</b> <i style="color:red">*</i></span>
                             <div class="form-check">
                                 <input class="form-check-input pointer" type="checkbox" id="isMultiSelectUpdate" onclick="OnMultiSelectedUpdate(event)">
                             </div>
