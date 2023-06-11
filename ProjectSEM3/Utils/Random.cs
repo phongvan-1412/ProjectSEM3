@@ -15,7 +15,7 @@ namespace ProjectSEM3.Utils
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        public static List<T> Lists<T>(this List<T> list, int count)
+        public static List<T> Random<T>(this IEnumerable<T> list, int count)
         {
             var random = new Random();
             return list.OrderBy(arg => random.Next()).Take(count).ToList();

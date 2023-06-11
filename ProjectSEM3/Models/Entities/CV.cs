@@ -60,4 +60,11 @@ namespace ProjectSEM3.Models.Entities
             return result;
         }
     }
+
+    public enum CvStatus
+    {
+        Pending = 1,
+        Accepted = 2,
+        Rejected = 3,
+    }
 }

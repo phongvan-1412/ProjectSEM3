@@ -44,7 +44,14 @@
         public static string GetExamnById = "Sp_GetExamById";
         public static string GetExamns = "Sp_GetExams";
 
+        public static string InsertExamDetail = "Sp_InsertExamDetail";
+        public static string UpdateExamDetail = "Sp_UpdateExamDetail";
+        public static string ChangeExamDetailStatus = "Sp_ChangeExamDetailStatus";
+        public static string GetExamnDetailById = "Sp_GetExamDetailById";
+        public static string GetExamnDetails = "Sp_GetExamDetails";
+
         public static string InsertCV = "Sp_InsertCV";
+        public static string UpdateCv = "Sp_UpdateCv";
         public static string GetCVs = "Sp_GetCVs";
         public static string ChangeCvStatus = "Sp_ChangeCvStatus";
 
