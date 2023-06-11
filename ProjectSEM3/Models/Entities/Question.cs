@@ -11,6 +11,7 @@ namespace ProjectSEM3.Models.Entities
         {
             public int Id { get; set; }
             public int TypeId { get; set; }
+            public int ExamTypeId { get; set; }
             public int LevelId { get; set; }
             public string Content { get; set; }
             public int Point { get; set; }
@@ -24,6 +25,8 @@ namespace ProjectSEM3.Models.Entities
         {
             public int Id { get; set; }
             public int TypeId { get; set; }
+            public int ExamTypeId { get; set; }
+            public string ExamTypeName { get; set; }
             public string TypeName { get; set; }
             public int LevelId { get; set; }
             public string LevelName { get; set; }

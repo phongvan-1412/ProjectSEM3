@@ -16,9 +16,10 @@ else
             <thead class="text-bg-dark">
                 <tr colspan="6">
                     <th style="width:5%">#</th>
-                    <th style="width:60%">Content</th>
+                    <th style="width:50%">Content</th>
                     <th>Type</th>
                     <th>Level</th>
+                    <th>Exam</th>
                     <th style="width:5%">Status</th>
                     <th>Action</th>
                 </tr>
@@ -34,6 +35,7 @@ else
                         <td>@item.Content</td>
                         <td>@item.TypeName</td>
                         <td>@item.LevelName</td>
+                        <td>@item.ExamTypeName</td>
                         <td><span class="@item.StatusType.BadgeCss">@item.StatusType.Name</span></td>
                         <td>
                             @{

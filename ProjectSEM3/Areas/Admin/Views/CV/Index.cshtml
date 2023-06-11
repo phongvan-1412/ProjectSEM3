@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Cv";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -65,19 +65,19 @@
                 FilePath
             }
 
-            console.log(req)
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/admin/question/NewQuestion",
-            //    data: req,
-            //    dataType: "json",
-            //    success: function (res) {
-            //        OnSetupToast(res, $liveToast, $toastMes)
-            //    },
-            //    error: function (jqXHR, err, errorThrown) {
-            //        OnServerErr($liveToast, $toastMes);
-            //    }
-            //});
+            $.ajax({
+                type: "POST",
+                url: "/admin/contestant/NewContestant",
+                data: req,
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
+
             setTimeout(OnHideToast, 3000)
         }
 
