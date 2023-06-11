@@ -91,7 +91,7 @@ namespace ProjectSEM3.Controllers
 
         public JsonResult GetData()
         {
-            var lstQuest = Models.DbContext.Instance.Exec<List<Question.Req>>(DbStore.GetQuestions);
+            var lstQuest = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question");
             return Json(lstQuest);  
         }
     }
