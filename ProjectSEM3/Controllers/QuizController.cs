@@ -38,8 +38,8 @@ namespace ProjectSEM3.Controllers
                 temp = new QuestionView
                 {
                     Id = item.Id,
-                    IdType = item.IdType,
-                    IdLevel = item.IdLevel,
+                    IdType = item.TypeId,
+                    IdLevel = item.LevelId,
                     Content = item.Content,
                     Point = item.Point,
                     Options = b,

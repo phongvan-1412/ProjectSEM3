@@ -15,13 +15,8 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var result = DbContext.Instance.Exec<List<Question.Res>>(DbStore.GetQuestions);
-
-            var param = new Dictionary<string, dynamic>
-            {
-                { "@Status", 1 }
-            };
-            ViewBag.Types = DbContext.Instance.Exec<List<Type.Res>>(DbStore.GetAllTypes, param);
-            ViewBag.Levels = DbContext.Instance.Exec<List<Level.Res>>(DbStore.GetAllLevels, param);
+            ViewBag.Types = DbContext.Instance.Exec<List<QuestionType.Res>>(DbStore.GetAllQuestionTypes);
+            ViewBag.Levels = DbContext.Instance.Exec<List<Level.Res>>(DbStore.GetAllLevels);
             return View(result);
         }
 
@@ -31,8 +26,8 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         {
             var param = new Dictionary<string, dynamic>
             {
-                { "@IdType", req.IdType },
-                { "@IdLevel", req.IdLevel },
+                { "@IdType", req.TypeId },
+                { "@IdLevel", req.LevelId },
                 { "@Content", req.Content },
                 { "@Point", req.Point },
                 { "@Options", req.Options },
@@ -56,8 +51,8 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             var param = new Dictionary<string, dynamic>
             {
                 { "@Id", req.Id },
-                { "@IdType", req.IdType },
-                { "@IdLevel", req.IdLevel },
+                { "@IdType", req.TypeId },
+                { "@IdLevel", req.LevelId },
                 { "@Content", req.Content },
                 { "@Point", req.Point },
                 { "@Options", req.Options },

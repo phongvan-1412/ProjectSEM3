@@ -180,7 +180,6 @@
             CurrentSelection = e.target
             CurrentId = e.target.getAttribute('data-index')
             const data = JSON.parse(e.target.getAttribute('data-question'))
-            console.log(data)
 
             for (var i = 0; i < $typeUpdate[0].length; i++) {
                 if ($typeUpdate[0].options[i].innerHTML == data.TypeName) {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
+using System.Web.Security;
 
 namespace ProjectSEM3.Models.Entities
 {
@@ -16,7 +18,8 @@ namespace ProjectSEM3.Models.Entities
             public string Phone { get; set; }
             public string FilePath { get; set; }
             public DateTime DatePosted { get; set; }
-            public bool Status { get; set; }
+            public int Status { get; set; }
+            public int LevelId { get; set; }
             public Req() { }
         }
 
@@ -30,9 +33,31 @@ namespace ProjectSEM3.Models.Entities
             public string FilePath { get; set; }
             public string JobTitle { get; set; }
             public DateTime DatePosted { get; set; }
+            public int Status { get; set; }
+            public int LevelId { get; set; }
+            public string LevelName { get; set; }
+            public StatusType StatusType => GetStatus(Status);
 
-            public bool Status { get; set; }
             public Res() { }
+        }
+
+        public static StatusType GetStatus(int index)
+        {
+            StatusType result = null;
+            switch (index)
+            {
+                case 1:
+                    result =  new StatusType("Pending", "badge bg-warning");
+                    break;
+                case 2:
+                    result = new StatusType("Accepted", "badge bg-success");
+                    break;
+                case 3:
+                default:
+                    result = new StatusType("Rejected", "badge bg-danger", true);
+                    break;
+            }
+            return result;
         }
     }
 }

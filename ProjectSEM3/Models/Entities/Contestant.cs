@@ -17,21 +17,7 @@ namespace ProjectSEM3.Models.Entities
             public string Cv { get; set; }
             public string Contact { get; set; }
             public string Address { get; set; }
-            public DateTime StartTime { get; set; }
-            public DateTime LateTime { get; set; }
-            public DateTime EndTime { get; set; }
-            public DateTime CreatedDate { get; set; }
             public bool Status { get; set; }
-
-            public Res()
-            {
-
-            }
-
-            public Res(int id)
-            {
-                Id = id;
-            }
         }
 
         public class Req
@@ -44,21 +30,7 @@ namespace ProjectSEM3.Models.Entities
             public string Cv { get; set; }
             public string Contact { get; set; }
             public string Address { get; set; }
-            public DateTime StartTime { get; set; }
-            public DateTime LateTime { get; set; }
-            public DateTime EndTime { get; set; }
-            public DateTime CreatedDate { get; set; }
             public bool Status { get; set; }
-
-            public Req()
-            {
-
-            }
-
-            public Req(int id)
-            {
-                Id = id;
-            }
         }
     }
 }
