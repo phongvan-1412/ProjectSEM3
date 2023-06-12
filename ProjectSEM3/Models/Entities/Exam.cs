@@ -14,6 +14,7 @@ namespace ProjectSEM3.Models.Entities
             public DateTime StartTime { get; set; }
             public DateTime EndTime { get; set; }
             public DateTime LateTime { get; set; }
+            public int TotalPoint { get; set; }
             public int Status { get; set; }
         }
 
