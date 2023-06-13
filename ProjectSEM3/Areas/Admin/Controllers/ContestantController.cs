@@ -15,6 +15,13 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         // GET: Admin/Contestant
         public ActionResult Index()
         {
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@Status", 1},
+            };
+
+            ViewBag.PendingCv = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCvByStatus, param);
+
             return View();
         }
 
@@ -27,6 +34,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 var check = DbContext.Instance.Exec<List<IsExistsEmail>>(DbStore.IsEmailIsExsists, new Dictionary<string, dynamic> { { "@Email", req.Email } }).FirstOrDefault();
                 List<Contestant.Res> contestResult = null;
                 Contestant.Res contest = null;
+                var isExistContest = false;
                 if (check.IsExists)
                 {
                     contestResult = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmail, new Dictionary<string, dynamic> { { "@Email", req.Email } });
@@ -40,7 +48,10 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                         });
                     }
                     else
+                    {
                         contest = contestResult.FirstOrDefault();
+                        isExistContest = true;
+                    }
                 }
 
 
@@ -137,10 +148,30 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                         IsSuccess = true,
                     });
                 }
+                var cv = cvResult.FirstOrDefault();
+                var email = new Email();
+                var emailWellcome = new Email.Wellcome
+                { 
+                    Name = contest.Name,
+                    UserName = contest.Email,
+                    Password = contest.Password.DecryptPassword(),
+                };
 
+                var emailExam = new Email.Exam 
+                {
+                    Name = contest.Name,
+                    StartTime = exam.StartTime,
+                    EndTime = exam.EndTime,
+                    LateTime = exam.LateTime,
+                };
+
+                if (!isExistContest)
+                   email.SendWellcome(emailWellcome);
+                
+                email.SendExam(emailExam);
                 return Json(new DbContext.Result<CV.Res>
                 {
-                    Data = cvResult.FirstOrDefault(),
+                    Data = cv,
                     Mes = "Create Exam successfull.",
                     IsSuccess = true,
                 });

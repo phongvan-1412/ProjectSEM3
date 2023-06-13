@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="col-2 m-1">
                             <span><b>Type</b> <i style="color:red">*</i></span>
-                            <select class="form-select" id="type">
+                            <select class="form-select" id="type" onchange="OnChangeQuestionType(event)">
                                 <option value="0" selected hidden>Type</option>
                                 @foreach (var item in types)
                                 {
@@ -44,7 +44,7 @@
                         <div class="col-3 m-1">
                             <span><b>Exam Type</b> <i style="color:red">*</i></span>
                             <select class="form-select" id="examTypes">
-                                <option value="0" selected hidden>Exam Type</option>
+                                <option value="0" selected hidden>Exam</option>
                                 @foreach (var item in examTypes)
                                 {
                                     <option class="pointer" value="@item.Id">@item.Name</option>
@@ -69,7 +69,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-12">
                             <span><b>Content</b> <i style="color:red">*</i></span>
@@ -77,65 +76,13 @@
                         </div>
                     </div>
                     <hr />
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
-                                <span class="col-1"><b>A</b> <i style="color:red">*</i></span>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="" type="radio" value="">
-                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
-                                        Is Correct Answer
-                                    </label>
-                                </div>
-                            </div>
-                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerA" rows="3"></textarea>
-                        </div>
+                    <div id="crossQuestion" hidden>
+                        @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialCrossQuestion.cshtml")
                     </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
-                                <span class="col-1"><b>B</b> <i style="color:red">*</i></span>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="" type="radio" value="">
-                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
-                                        Is Correct Answer
-                                    </label>
-                                </div>
-                            </div>
-                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerB" rows="3"></textarea>
-                        </div>
+                    <div id="normalQuestion" >
+                        @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialNormalQuestion.cshtml")
                     </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
-                                <span class="col-1"><b>C</b> <i style="color:red">*</i></span>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="" type="radio" value="">
-                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
-                                        Is Correct Answer
-                                    </label>
-                                </div>
-                            </div>
-                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerC" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
-                                <span class="col-1"><b>D</b> <i style="color:red">*</i></span>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswer" name="isCorrectAnswer" id="" type="radio" value="">
-                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
-                                        Is Correct Answer
-                                    </label>
-                                </div>
-                            </div>
-                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerD" rows="3"></textarea>
-                        </div>
-                    </div>
+
 
                     <div class="m-2">
                         <button class="main-btn secondary-btn-outline btn-sm  float-end" type="button" onclick="NewQuestion()">Submit</button>

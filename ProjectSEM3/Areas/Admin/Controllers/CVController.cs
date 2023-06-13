@@ -13,6 +13,12 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var lst = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCVs);
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@Status", 1},
+            };
+
+            ViewBag.PendingCv = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCvByStatus, param);
             return View(lst);
         }
 
