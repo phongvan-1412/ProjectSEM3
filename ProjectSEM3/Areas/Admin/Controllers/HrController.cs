@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using System.IO;
+using ProjectSEM3.Utils;
 
 namespace ProjectSEM3.Areas.Admin.Controllers
 {
@@ -34,8 +35,8 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         [Route("/admin/hr/newhr")]
         public JsonResult NewHr(Hr.Req hr)
         {
-            var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrByEmail, new Dictionary<string, dynamic> { { "@Email", hr.Email } });
-            if (result != null)
+            var check = DbContext.Instance.Exec<List<IsExistsEmail>>(DbStore.IsEmailIsExsists, new Dictionary<string, dynamic> { { "@Email", hr.Email } }).FirstOrDefault();
+            if (check.IsExists)
             {
                 return Json(new DbContext.Result
                 {
@@ -48,16 +49,26 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             {
                 { "@Name", hr.Name },
                 { "@Email", hr.Email},
-                { "@Password", hr.Password },
+                { "@Password", hr.Password.EncryptPassword() },
                 { "@Contact", hr.Contact },
                 { "@Address", hr.Address },
                 { "@Education", hr.Education },
                 { "@Experience",  hr.Experience }
             };
 
-            result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.InsertHr, param);
-            return Json(new DbContext.Result
+            var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.InsertHr, param);
+            if(result is null)
             {
+                return Json(new DbContext.Result
+                {
+                    Mes = "Something Wrong in server.",
+                    IsSuccess = true,
+                });
+            }
+
+            return Json(new DbContext.Result<Hr.Res>
+            {
+                Data = result.FirstOrDefault(),
                 Mes = "Create Hr successfull.",
                 IsSuccess = true,
             });

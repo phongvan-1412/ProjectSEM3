@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Cv";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -22,6 +22,7 @@
         const $level = $("#level")
         const $levelId = $("#levelId")
         const $filePath = $("#filePath")
+        const $cvId = $("#cvId")
 
         const $cvTable = $("#cvTable")
         const $liveToast = $("#liveToast")
@@ -38,7 +39,6 @@
             CurrentSelection = e.target
             CurrentId = e.target.getAttribute('data-index')
             const data = JSON.parse(e.target.getAttribute('data-cv'))
-
             $name.val(data.Name)
             $email.val(data.Email)
             $contact.val(data.Phone)
@@ -46,6 +46,7 @@
             $level.val(data.LevelName)
             $levelId.val(data.LevelId)
             $filePath.val(data.FilePath)
+            $cvId.val(data.Id)
         }
 
         const OnNewContestant = () => {
@@ -55,6 +56,7 @@
             const Address = $address.val()
             const LevelId = $levelId.val()
             const FilePath = $filePath.val()
+            const CvId = $cvId.val()
 
             const req = {
                 Name,
@@ -62,22 +64,28 @@
                 Contact,
                 Address,
                 LevelId,
-                FilePath
+                FilePath,
+                CvId
             }
 
-            console.log(req)
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/admin/question/NewQuestion",
-            //    data: req,
-            //    dataType: "json",
-            //    success: function (res) {
-            //        OnSetupToast(res, $liveToast, $toastMes)
-            //    },
-            //    error: function (jqXHR, err, errorThrown) {
-            //        OnServerErr($liveToast, $toastMes);
-            //    }
-            //});
+            $.ajax({
+                type: "POST",
+                url: "/admin/contestant/NewContestant",
+                data: req,
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                    e.target.setAttribute('data-cv', JSON.stringify(res.Data))
+                    console.log(res.Data)
+                    e.target.hidden = res.Data.StatusType.IsHidden
+                    $cvTable[0].rows[RowIndex].children[5].innerHTML =
+                        `<span class="${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
+
             setTimeout(OnHideToast, 3000)
         }
 
@@ -115,7 +123,7 @@
         }
 
         const OnSetupToast = (res, $toast, $toastMes) => {
-            if (res.IsErr) {
+            if (res.IsSuccess) {
                 OnRemoveClassName($toast, "bg-danger-subtle")
                 OnAddClassName($toast, "bg-primary-subtle");
             } else {

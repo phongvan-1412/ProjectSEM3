@@ -146,6 +146,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContestantController.cs" />
     <Compile Include="Areas\Admin\Controllers\CVController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HrController.cs" />
@@ -164,11 +165,13 @@
     <Compile Include="Models\Entities\Exam.cs" />
     <Compile Include="Models\Entities\ExamDetail.cs" />
     <Compile Include="Models\Entities\Hr.cs" />
+    <Compile Include="Models\Entities\IsExistsEmail.cs" />
     <Compile Include="Models\Entities\Job.cs" />
     <Compile Include="Models\Entities\Level.cs" />
     <Compile Include="Models\Entities\Question.cs" />
     <Compile Include="Models\Entities\QuestionType.cs" />
     <Compile Include="Models\Entities\StatusType.cs" />
+    <Compile Include="Utils\Random.cs" />
     <Compile Include="ViewModel\QuestionView.cs" />
     <Compile Include="Models\Entities\Result.cs" />
     <Compile Include="Models\Entities\Type.cs" />
@@ -2833,6 +2836,8 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\Cv\_PartialNewContest.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\Cv\_PartialInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Contestant\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Contestant\_PartialView.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2880,8 +2885,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\ContestantQuestion\" />
-    <Folder Include="Areas\Admin\Views\Contestant\" />
     <Folder Include="Content\pdf\" />
   </ItemGroup>
   <ItemGroup>

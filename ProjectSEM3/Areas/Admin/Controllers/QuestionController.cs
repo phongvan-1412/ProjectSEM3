@@ -16,6 +16,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         {
             var result = DbContext.Instance.Exec<List<Question.Res>>(DbStore.GetQuestions);
             ViewBag.Types = DbContext.Instance.Exec<List<QuestionType.Res>>(DbStore.GetAllQuestionTypes);
+            ViewBag.ExamTypes = DbContext.Instance.Exec<List<Type.Res>>(DbStore.GetAllTypes);
             ViewBag.Levels = DbContext.Instance.Exec<List<Level.Res>>(DbStore.GetAllLevels);
             return View(result);
         }
@@ -28,6 +29,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             {
                 { "@IdType", req.TypeId },
                 { "@IdLevel", req.LevelId },
+                { "@IdExamType", req.ExamTypeId },
                 { "@Content", req.Content },
                 { "@Point", req.Point },
                 { "@Options", req.Options },
@@ -122,7 +124,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetHrs(Question.Req hr)
+        public ActionResult GetQuestions(Question.Req hr)
         {
             var param = new Dictionary<string, dynamic>
             {

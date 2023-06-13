@@ -17,6 +17,8 @@
         public static string InsertContestant = "Sp_InsertContestant";
         public static string UpdateContestant = "Sp_UpdateContestant";
         public static string GetContestantById = "Sp_GetContestantById";
+        public static string GetContestantByEmail = "Sp_GetContestantByEmail";
+        public static string GetContestantByEmailPass = "Sp_GetContestantByEmailPass";
         public static string GetContestants = "Sp_GetContestants";
 
         public static string InsertHr = "Sp_InsertHr";
@@ -31,6 +33,7 @@
         public static string UpdateQuestion = "Sp_UpdateQuestion";
         public static string ChangeQuestionStatus = "Sp_ChangeQuestionStatus";
         public static string GetQuestionById = "Sp_GetQuestionById";
+        public static string GetQuestionsByLevel = "Sp_GetQuestionsByLevel";
         public static string GetQuestions = "Sp_GetQuestions";
 
         public static string GetAllQuestionTypes = "Sp_GetAllQuestionTypes";
@@ -41,14 +44,18 @@
         public static string GetExamnById = "Sp_GetExamById";
         public static string GetExamns = "Sp_GetExams";
 
-        public static string InsertContestantQuestion = "Sp_InsertContestantQuest";
-        public static string UpdateContestantQuestion = "Sp_UpdateContestantQuest";
-        public static string GetContestantQuestionById = "Sp_GetContestantQuestById";
-        public static string GetContestantQuestions = "Sp_GetContestantQuestions";
+        public static string InsertExamDetail = "Sp_InsertExamDetail";
+        public static string UpdateExamDetail = "Sp_UpdateExamDetail";
+        public static string ChangeExamDetailStatus = "Sp_ChangeExamDetailStatus";
+        public static string GetExamnDetailById = "Sp_GetExamDetailById";
+        public static string GetExamnDetails = "Sp_GetExamDetails";
 
         public static string InsertCV = "Sp_InsertCV";
+        public static string UpdateCv = "Sp_UpdateCv";
         public static string GetCVs = "Sp_GetCVs";
         public static string ChangeCvStatus = "Sp_ChangeCvStatus";
 
+
+        public static string IsEmailIsExsists = "Sp_IsEmailIsExsists";
     }
 }
