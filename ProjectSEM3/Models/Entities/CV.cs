@@ -19,8 +19,7 @@ namespace ProjectSEM3.Models.Entities
             public string FilePath { get; set; }
             public DateTime DatePosted { get; set; }
             public int Status { get; set; }
-            public int LevelId { get; set; }
-            public Req() { }
+            //public int LevelId { get; set; }
         }
 
         public class Res
@@ -32,13 +31,12 @@ namespace ProjectSEM3.Models.Entities
             public string Phone { get; set; }
             public string FilePath { get; set; }
             public string JobTitle { get; set; }
+            public string JobLink { get; set; }
             public DateTime DatePosted { get; set; }
             public int Status { get; set; }
             public int LevelId { get; set; }
             public string LevelName { get; set; }
             public StatusType StatusType => GetStatus(Status);
-
-            public Res() { }
         }
 
         public static StatusType GetStatus(int index)

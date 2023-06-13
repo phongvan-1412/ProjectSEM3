@@ -16,8 +16,15 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         {
             var result = DbContext.Instance.Exec<List<Question.Res>>(DbStore.GetQuestions);
             ViewBag.Types = DbContext.Instance.Exec<List<QuestionType.Res>>(DbStore.GetAllQuestionTypes);
-            ViewBag.ExamTypes = DbContext.Instance.Exec<List<Type.Res>>(DbStore.GetAllTypes);
+            ViewBag.ExamTypes = DbContext.Instance.Exec<List<Type.Res>>(DbStore.GetAllTypes, new Dictionary<string, dynamic>
+            {
+                { "@Status", 1},
+            });
             ViewBag.Levels = DbContext.Instance.Exec<List<Level.Res>>(DbStore.GetAllLevels);
+            ViewBag.PendingCv = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCvByStatus, new Dictionary<string, dynamic>
+            {
+                { "@Status", 1},
+            });
             return View(result);
         }
 

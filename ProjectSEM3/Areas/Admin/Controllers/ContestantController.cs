@@ -15,6 +15,13 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         // GET: Admin/Contestant
         public ActionResult Index()
         {
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@Status", 1},
+            };
+
+            ViewBag.PendingCv = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCvByStatus, param);
+
             return View();
         }
 

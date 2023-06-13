@@ -53,6 +53,7 @@
         public static string InsertCV = "Sp_InsertCV";
         public static string UpdateCv = "Sp_UpdateCv";
         public static string GetCVs = "Sp_GetCVs";
+        public static string GetCvByStatus = "Sp_GetCvByStatus";
         public static string ChangeCvStatus = "Sp_ChangeCvStatus";
 
 

@@ -41,7 +41,7 @@ namespace ProjectSEM3.Controllers
                 { "@Date_posted", date }
             };
 
-            DbContext.Instance.Exec<CV.Req>(DbStore.InsertCV, param);
+            DbContext.Instance.Exec<List<CV.Req>>(DbStore.InsertCV, param);
             return RedirectToAction("Index");
         }
 

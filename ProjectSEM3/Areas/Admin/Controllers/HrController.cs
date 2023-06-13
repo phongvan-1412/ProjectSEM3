@@ -28,6 +28,11 @@ namespace ProjectSEM3.Areas.Admin.Controllers
 
             var hrs = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrs, param);
 
+            ViewBag.PendingCv = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCvByStatus, new Dictionary<string, dynamic>
+            {
+                { "@Status", 1},
+            });
+
             return View(hrs);
         }
 

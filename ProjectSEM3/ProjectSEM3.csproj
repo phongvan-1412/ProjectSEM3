@@ -2839,6 +2839,9 @@
     <Content Include="Areas\Admin\Views\Shared\Partials\Cv\_PartialInfo.cshtml" />
     <Content Include="Areas\Admin\Views\Contestant\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\Contestant\_PartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Notification\_PartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Question\_PartialNormalQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Question\_PartialCrossQuestion.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

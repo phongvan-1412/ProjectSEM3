@@ -14,11 +14,15 @@
 @section Scripts {
     <script>
         const $isCorrectAnswer = $(".isCorrectAnswer")
+        const $questCross = $(".questCross")
+        const $answerCross = $(".answerCross")
         const $type = $("#type")
         const $level = $("#level")
         const $examTypes = $("#examTypes")
         const $point = $("#point")
         const $isMultiSelect = $("#isMultiSelect")
+        const $crossQuestion = $("#crossQuestion")
+        const $normalQuestion = $("#normalQuestion")
         const $content = $("#content")
         const $answerA = $("#answerA")
         const $answerB = $("#answerB")
@@ -59,8 +63,22 @@
 
         $questionTable.DataTable();
 
+        const OnChangeQuestionType = (e) => {
+            if (e.target.value == 1) {
+                $normalQuestion[0].hidden = false
+                $crossQuestion[0].hidden = true
+                $isMultiSelect[0].checked = false
+                $isMultiSelect[0].disabled = false
+            } else {
+                $normalQuestion[0].hidden = true
+                $crossQuestion[0].hidden = false
+                $isMultiSelect[0].checked = true
+                $isMultiSelect[0].disabled = true
+            }
+        }
+
         const OnMultiSelected = (e) => {
-            for (var ele of $isMultiSelect) {
+            for (var ele of $isCorrectAnswer) {
                 if (e.target.checked) {
                     ele.type = 'checkbox'
                 } else {
@@ -81,25 +99,41 @@
 
         const NewQuestion = () => {
             var _correctAnwser = []
-            for (var ele of $isCorrectAnswer) {
-                if (ele.checked) {
-                    _correctAnwser.push(ele.parentElement.parentElement.parentElement.children[1].value)
-                }
-            }
-
-            const CorrectAnwser = JSON.stringify(_correctAnwser)
             const IdType = $type.val()
             const IdLevel = $level.val()
             const ExamTypesID = $examTypes.val()
             const Content = $content.val()
             const Point = $point.val()
-            const localOption = []
-            localOption.push($answerA.val())
-            localOption.push($answerB.val())
-            localOption.push($answerC.val())
-            localOption.push($answerD.val())
-            const Options = JSON.stringify(localOption)
             const IsMultiAnwser = $isMultiSelect[0].checked
+
+            let Options = ''
+            let localOption = []
+            let CorrectAnwser = ''
+            if ($type.val() == 1) {
+                for (var ele of $isCorrectAnswer) {
+                    if (ele.checked) {
+                        _correctAnwser.push(ele.parentElement.parentElement.parentElement.children[1].value)
+                    }
+                }
+
+                localOption.push($answerA.val())
+                localOption.push($answerB.val())
+                localOption.push($answerC.val())
+                localOption.push($answerD.val())
+
+                CorrectAnwser = JSON.stringify(_correctAnwser)
+                Options = JSON.stringify(localOption)
+            } else {
+                for (var i = 0; i < 4; i++) {
+                    var tmp = []
+                    tmp.push($questCross[i].value)
+                    tmp.push($answerCross[i].value)
+                    localOption.push(tmp)
+                    tmp = []
+                }
+                CorrectAnwser = JSON.stringify(localOption)
+                Options = JSON.stringify(localOption)
+            }
 
             const req = {
                 IdType,
