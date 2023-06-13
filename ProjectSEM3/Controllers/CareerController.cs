@@ -43,6 +43,7 @@ namespace ProjectSEM3.Controllers
                 { "@Email", contEmail },
                 { "@Phone", contPhone },
                 { "@Filepath", path },
+                { "@JobLink", "https://localhost:44376/Career?id=" + job },
                 { "@Date_posted", date }
             };
 
