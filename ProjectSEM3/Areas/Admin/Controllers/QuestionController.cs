@@ -24,6 +24,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             ViewBag.PendingCv = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCvByStatus, new Dictionary<string, dynamic>
             {
                 { "@Status", 1},
+                { "@IsViewed", 0},
             });
             return View(result);
         }

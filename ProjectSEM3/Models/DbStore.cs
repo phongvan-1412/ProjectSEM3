@@ -54,8 +54,8 @@
         public static string UpdateCv = "Sp_UpdateCv";
         public static string GetCVs = "Sp_GetCVs";
         public static string GetCvByStatus = "Sp_GetCvByStatus";
+        public static string UpdateViewedCv = "Sp_UpdateViewedCv";
         public static string ChangeCvStatus = "Sp_ChangeCvStatus";
-
 
         public static string IsEmailIsExsists = "Sp_IsEmailIsExsists";
     }

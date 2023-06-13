@@ -13,7 +13,11 @@ else
     foreach (var item in data)
     {
         <li onclick="test(event)" class="pointer">
-            <a href="@item.JobLink">
+            @*<a href="@item.JobLink">*@
+            @{ 
+                var href = "https://localhost:44376/admin/cv/view?id=" + item.Id;
+            }
+            <a href="@href">
                 <div class="content">
                     <h6>
                         @item.Name
@@ -23,7 +27,7 @@ else
                     </h6>
                     <p>@item.JobLink</p>
                     <span>10 mins ago</span>
-                </div> 
+                </div>
             </a>
         </li>
     }
@@ -33,6 +37,6 @@ else
     const test = (e) => {
         console.log(e.target)
         //e.target.remove();
-        
+
     }
 </script>

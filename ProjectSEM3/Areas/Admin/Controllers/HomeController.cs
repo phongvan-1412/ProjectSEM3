@@ -18,6 +18,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             var param = new Dictionary<string, dynamic>
             {
                 { "@Status", 1},
+                { "@IsViewed", 0},
             };
 
             ViewBag.PendingCv = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCvByStatus, param);

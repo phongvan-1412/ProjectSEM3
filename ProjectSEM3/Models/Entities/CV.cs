@@ -19,6 +19,7 @@ namespace ProjectSEM3.Models.Entities
             public string FilePath { get; set; }
             public DateTime DatePosted { get; set; }
             public int Status { get; set; }
+            public int IsViewed { get; set; }
             //public int LevelId { get; set; }
         }
 
@@ -33,6 +34,7 @@ namespace ProjectSEM3.Models.Entities
             public string JobTitle { get; set; }
             public string JobLink { get; set; }
             public DateTime DatePosted { get; set; }
+            public bool IsViewed { get; set; }
             public int Status { get; set; }
             public int LevelId { get; set; }
             public string LevelName { get; set; }
