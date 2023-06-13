@@ -28,38 +28,36 @@ namespace ProjectSEM3.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("/admin/contestant/NewContestant")]
-        public JsonResult NewContestant(Contestant.Req req, int levelId,int cvId)
+        public JsonResult NewContestant(Contestant.Req req, int levelId, int cvId)
         {
             try
             {
-                var check = DbContext.Instance.Exec<List<IsExistsEmail>>(DbStore.IsEmailIsExsists, new Dictionary<string, dynamic> { { "@Email", req.Email } }).FirstOrDefault();
+                //var check = DbContext.Instance.Exec<List<IsExistsEmail>>(DbStore.IsEmailIsExsists, new Dictionary<string, dynamic> { { "@Email", req.Email } }).FirstOrDefault();
                 List<Contestant.Res> contestResult = null;
                 Contestant.Res contest = null;
                 var isExistContest = false;
-                if (check.IsExists)
-                {
-                    contestResult = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmail, new Dictionary<string, dynamic> { { "@Email", req.Email } });
+                //if (check.IsExists)
+                //{
+                //    contestResult = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmail, new Dictionary<string, dynamic> { { "@Email", req.Email } });
 
-                    if (contestResult is null)
-                    {
-                        return Json(new DbContext.Result
-                        {
-                            Mes = "Duplicate Email.",
-                            IsSuccess = false,
-                        });
-                    }
-                    else
-                    {
-                        contest = contestResult.FirstOrDefault();
-                        isExistContest = true;
-                    }
-                }
+                //    if (contestResult is null)
+                //    {
+                //        return Json(new DbContext.Result
+                //        {
+                //            Mes = "Duplicate Email.",
+                //            IsSuccess = false,
+                //        });
+                //    }
+                //    else
+                //    {
+                //        contest = contestResult.FirstOrDefault();
+                //        isExistContest = true;
+                //    }
+                //}
 
 
-                if (contest == null)
-                {
-                    var password = AppRandom.String().EncryptPassword();
-                    var contestParam = new Dictionary<string, dynamic>
+                var password = AppRandom.String().EncryptPassword();
+                var contestParam = new Dictionary<string, dynamic>
                 {
                     { "@Name", req.Name },
                     { "@Email", req.Email},
@@ -69,19 +67,18 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                     { "@Cv", req.Cv },
                 };
 
-                    contestResult = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.InsertContestant, contestParam);
+                contestResult = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.InsertContestant, contestParam);
 
-                    if (contestResult is null)
+                if (contestResult is null)
+                {
+                    return Json(new DbContext.Result
                     {
-                        return Json(new DbContext.Result
-                        {
-                            Mes = "Create contestant fail.",
-                            IsSuccess = false,
-                        });
-                    }
-                    else
-                        contest = contestResult.FirstOrDefault();
+                        Mes = "Create contestant fail.",
+                        IsSuccess = false,
+                    });
                 }
+                else
+                    contest = contestResult.FirstOrDefault();
 
                 var startTime = DateTime.UtcNow;
                 var endTime = startTime.AddDays(1);
@@ -105,19 +102,17 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                     });
                 }
 
-                var questionParam = new Dictionary<string, dynamic>
+
+                var questionResult = DbContext.Instance.Exec<List<Question.Res>>(DbStore.GetQuestions, new Dictionary<string, dynamic>
                 {
                     { "@IdLevel", levelId }
-                };
+                });
 
-                    var questionResult = DbContext.Instance.Exec<List<Question.Res>>(DbStore.GetQuestions, questionParam);
 
-                    var examTypeParam = new Dictionary<string, dynamic>
+                var examTypeResult = DbContext.Instance.Exec<List<Models.Entities.Type.Res>>(DbStore.GetAllTypes, new Dictionary<string, dynamic>
                 {
                     { "@Status", 1 }
-                };
-
-                var examTypeResult = DbContext.Instance.Exec<List<Models.Entities.Type.Res>>(DbStore.GetAllTypes, examTypeParam);
+                });
 
                 foreach (var type in examTypeResult)
                 {
@@ -152,13 +147,13 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 var cv = cvResult.FirstOrDefault();
                 var email = new Email();
                 var emailWellcome = new Email.Wellcome
-                { 
+                {
                     Name = contest.Name,
                     UserName = contest.Email,
                     Password = contest.Password.DecryptPassword(),
                 };
 
-                var emailExam = new Email.Exam 
+                var emailExam = new Email.Exam
                 {
                     Name = contest.Name,
                     StartTime = exam.StartTime,
@@ -167,8 +162,8 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 };
 
                 if (!isExistContest)
-                   email.SendWellcome(emailWellcome);
-                
+                    email.SendWellcome(emailWellcome);
+
                 email.SendExam(emailExam);
                 return Json(new DbContext.Result<CV.Res>
                 {
