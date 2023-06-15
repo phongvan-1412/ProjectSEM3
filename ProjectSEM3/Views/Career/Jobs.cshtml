@@ -5,54 +5,63 @@
 }
 
 <main>
-    @*---------- Hero Section ----------*@
+    @*-----------------------------------
+        Hero Section
+    -------------------------------------*@
     <section class="job-hero-section ds"></section>
 
-    @*---------- Banner ----------*@
-    <div class="job-search container-fluid d-flex align-items-center justify-content-center">
+    @*-----------------------------------
+        Banner Section
+    -------------------------------------*@
+    <div class="job-search-wrapper container-fluid d-flex align-items-center justify-content-center">
         <div class="searchControllerContainer container d-flex flex-column justify-content-center">
-            <div class="d-flex flex-row ms-5">
-                <div class="searchBoxContainer d-flex">
-                    @*----- Search box -----*@
-                    <div id="job-search-wrapper" class="c-mb-10 c-gutter-10 col-lg-6 col-sm-12 me-5">
-                        <div class="d-flex align-items-center">
-                            <div class="d-flex form-group has-placeholder col-12">
-                                <div class="d-flex" style="position: absolute; margin-left: .4rem; margin-top: 1.1rem;">
-                                    <i class="fa fa-search" style="width: 24px; height: 24px;"></i>
-                                </div>
-                                <input type="text" aria-required="true" size="30" value="" name="" id="" class="form-control" placeholder="Search by job title or key word">
+            @*-----------------------------------
+                Search Section
+            -------------------------------------*@
+            <div class="search-section d-flex">
+                @*----- Search box -----*@
+                <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex form-group has-placeholder col-12">
+                            <div class="d-flex" style="position: absolute; margin-left: .4rem; margin-top: 1.1rem;">
+                                <i class="fa fa-search" style="width: 24px; height: 24px;"></i>
                             </div>
-                        </div>
-                    </div>
-                    <hr class="vertical-line" />
-                    @*----- Search location -----*@
-                    <div id="job-search-wrapper" class="c-mb-10 c-gutter-10 col-lg-6 col-sm-12 ms-5">
-                        <div class="d-flex align-items-center justify-content-center">
-                            <div class="d-flex form-group has-placeholder col-10">
-                                <div class="d-flex" style="position: absolute; margin-left: .4rem; margin-top: 1.1rem;">
-                                    <i class="fa fa-search" style="width: 24px; height: 24px;"></i>
-                                </div>
-                                <input type="text" aria-required="true" size="30" value="" name="" id="" class="form-control" placeholder="Search by job title or key word">
-                            </div>
-                            <div class="col-2" style="margin-left: 1.5rem;">
-                                <button class="btn searchBtn" type="button" style="height: 50px;">Search</button>
-                            </div>
+                            <input type="text" aria-required="true" size="30" value="" name="" id="" class="form-control" placeholder="Search by job title or key word">
                         </div>
                     </div>
                 </div>
+                @*----- Search location -----*@
+                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex form-group has-placeholder col-12">
+                            <div class="d-flex" style="position: absolute; margin-left: .4rem; margin-top: 1.1rem;">
+                                <i class="fa fa-search" style="width: 24px; height: 24px;"></i>
+                            </div>
+                            <input type="text" aria-required="true" size="30" value="" name="" id="" class="form-control" placeholder="Search by job title or key word">
+                        </div>
+                    </div>
+                </div>
+                @*----- Search Button -----*@
+                <div class="col-lg-4 col-md-2 col-sm-12 mt-2">
+                    <div class="d-flex align-items-center">
+                        <button class="btn searchBtn" type="button">Search</button>
+                    </div>
+                </div>
             </div>
-            <div class="container d-flex flex-row ms-5">
-                @*---------- Filter ----------*@
-                <div id="job-search-wrapper" class="c-mb-10 c-gutter-10">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <div class="d-flex flex-row align-items-center col-lg-6 col-sm-12 me-3">
+            @*-----------------------------------
+                Filter Section
+            -------------------------------------*@
+            <div class="filter-section container d-flex">
+                <div id="filter-wrapper" class="filter-wrapper">
+                    <div class="filter-container d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center col-lg-6 col-md-6 col-sm-12 mb-2">
                             <label class="m-0">Experience</label>
                             <select class="form-select ms-2">
                                 <option>Students and Graduated</option>
                                 <option>Students and Graduated</option>
                             </select>
                         </div>
-                        <div class="d-flex flex-row align-items-center col-lg-6 col-sm-12">
+                        <div class="d-flex align-items-center col-lg-6 col-md-6 col-sm-12 mb-2">
                             <label class="m-0">Profession</label>
                             <select class="form-select ms-2">
                                 <option>Software Engineering</option>
@@ -63,7 +72,7 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
     <div class="fw-divider-space divider-60"></div>
 
