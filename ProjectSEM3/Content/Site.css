@@ -354,6 +354,13 @@ body .container-fluid {
     }
 }
 
+.vscomp-ele, .vscomp-toggle-button {
+    max-width: 100% !important;
+    height: 50px;
+}
+.vscomp-wrapper.has-clear-button .vscomp-toggle-button {
+    margin-right: 0px;
+}
 /*------ Index ------*/
 .hero-section {
     width: 100%;
