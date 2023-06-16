@@ -337,6 +337,30 @@ body .container-fluid {
     1. Career
 -------------------------------------*/
 
+.searchBtn {
+    width: 50%;
+    height: 50px;
+    color: white;
+    background-color: rgb(92, 27, 134);
+}
+
+    .searchBtn:hover {
+        background-color: rgb(92, 27, 134);
+    }
+
+@media (max-width: 1024px) {
+    .searchBtn {
+        width: 100% !important;
+    }
+}
+
+.vscomp-ele, .vscomp-toggle-button {
+    max-width: 100% !important;
+    height: 50px;
+}
+.vscomp-wrapper.has-clear-button .vscomp-toggle-button {
+    margin-right: 0px;
+}
 /*------ Index ------*/
 .hero-section {
     width: 100%;
@@ -362,29 +386,40 @@ body .container-fluid {
     padding: 0 5rem;
 }
 
-.career-banner-wrapper p {
-    font-size: 26px;
-    color: white;
-}
+    .career-banner-wrapper p {
+        font-size: 26px;
+        color: white;
+    }
 
 .career-banner-heading {
     font-size: 42px;
     color: white;
 }
 
-.job-search-wrapper {
-    display: flex;
+.searchHeadingWrapper div:not(:last-child) {
+    margin-right: 1rem;
 }
+@media (max-width: 990px) {
+    .hero-section {
+        height: 450px;
+    }
 
-.job-search-container {
-    align-items: center;
-    color: rgb(50, 49, 48);
-    font-weight: 400;
-}
+    .career-banner-wrapper {
+        top: 13%;
+    }
 
-.searchBtn {
-    color: white;
-    background-color: rgb(92, 27, 134);
+    .searchHeadingWrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .searchHeadingWrapper div:not(:last-child) {
+            margin-right: 0;
+        }
+
+        .searchHeadingWrapper.searchBtn {
+            width: 100% !important;
+        }
 }
 /*------ ApplyCV ------*/
 .career-form textarea {
@@ -494,36 +529,78 @@ body .container-fluid {
 /*------ Jobs ------*/
 .job-hero-section {
     width: 100%;
-    height: 200px;
+    height: 250px;
     padding: 3rem 0;
     background: linear-gradient(90.71deg, rgba(169, 124, 196, 0.33) 1.08%, rgba(117, 219, 255, 0.33) 100%), linear-gradient(0deg, rgb(238, 234, 243), rgb(238, 234, 243));
     box-shadow: rgba(0, 0, 0, 0.133) 0px 1.6px 3.6px, rgba(0, 0, 0, 0.11) 0px 0.3px 0.9px;
 }
+
 .searchControllerContainer {
     position: absolute;
     width: 100%;
-    top: 10%;
+    top: 11%;
     background-color: rgb(255, 255, 255);
     border-radius: 3px;
     box-shadow: rgba(0, 0, 0, 0.133) 0px 6.4px 14.4px, rgba(0, 0, 0, 0.11) 0px 1.2px 3.6px;
 }
-/*@media (min-width: 1366px) and (max-width: 1920px){
+
+.search-section, .filter-wrapper {
+    padding: 0 3rem;
+}
+
+.search-section {
+    margin-bottom: 2rem;
+}
+
+    .search-section .searchBtn {
+        width: 50%;
+    }
+
+    .search-section div:not(:last-child) {
+        margin-right: 1rem;
+    }
+
+
+.filter-container div:first-child {
+    margin-right: 1rem;
+}
+
+.filter-container label {
+    width: 120px;
+}
+
+@media (max-width: 768px) {
+    .job-hero-section {
+        height: 420px;
+    }
+
+    .search-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .filter-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .filter-container div:first-child {
+            margin-right: 0;
+        }
+}
+/*@media (min-width: 1366px) and (max-width: 1200px) {
     .job-search {
         height: 74.74%;
         width: 78.63%;
         margin-left: 12.66%;
         margin-right: 12.66%;
     }
-    
 }*/
-.searchControllerContainer{
+/*.searchControllerContainer {
     flex-wrap: nowrap;
     padding: 12px 0;
-}
-.vertical-line{
-    border-right-style: 1px solid;
-    color: red;
-}
+}*/
+
 /*-----------------------------------
     2. About
 -------------------------------------*/
@@ -971,19 +1048,27 @@ body .container-fluid {
     }
 
 .step {
-    width: 15rem;
-    height: 0.75rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
     display: inline-block;
+    color: #ffc533;
+    font-size: 18px;
+    font-weight: 600;
 }
-
     .step:not(:last-child) {
-        margin-right: 3rem;
+        margin-right: 2rem;
     }
 
     .step.finish {
+        color: white;
         background-color: #ffc533 !important;
     }
-
+@media (max-width: 768px) {
+    .step:not(:last-child) {
+        margin-right: 1rem;
+    }
+}
 .rounded-pill {
     border-radius: 50rem !important;
 }
