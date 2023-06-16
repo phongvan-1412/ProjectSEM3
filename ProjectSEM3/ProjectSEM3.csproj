@@ -150,6 +150,7 @@
     <Compile Include="Areas\Admin\Controllers\CVController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HrController.cs" />
+    <Compile Include="Areas\Admin\Controllers\JobController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuestionController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CareerController.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Models\Entities\Question.cs" />
     <Compile Include="Models\Entities\QuestionType.cs" />
     <Compile Include="Models\Entities\StatusType.cs" />
+    <Compile Include="Utils\Extension.cs" />
     <Compile Include="Utils\Random.cs" />
     <Compile Include="ViewModel\QuestionView.cs" />
     <Compile Include="Models\Entities\Result.cs" />
@@ -2842,6 +2844,11 @@
     <Content Include="Areas\Admin\Views\Shared\Partials\Notification\_PartialView.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\Question\_PartialNormalQuestion.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\Question\_PartialCrossQuestion.cshtml" />
+    <Content Include="Areas\Admin\Views\Job\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Job\_PartialInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Job\_PartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Job\_PartialUpdate.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Job\_PartialNew.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

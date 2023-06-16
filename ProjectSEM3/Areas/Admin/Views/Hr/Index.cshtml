@@ -66,21 +66,20 @@
                 Experience
             }
 
-            console.log(req)
 
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/admin/hr/newhr",
-            //    data: req,
-            //    dataType: "json",
-            //    success: function (res) {
-            //        OnSetupToast(res, $liveToast, $toastMes)
-            //        OnClearFormNewHr();
-            //    },
-            //    error: function (jqXHR, err, errorThrown) {
-            //        OnServerErr($liveToast, $toastMes);
-            //    }
-            //});
+            $.ajax({
+                type: "POST",
+                url: "/admin/hr/newhr",
+                data: req,
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                    OnClearFormNewHr();
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
 
             setTimeout(OnHideToast, 3000)
         }

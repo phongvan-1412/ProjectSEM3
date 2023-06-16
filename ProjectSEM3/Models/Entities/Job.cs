@@ -12,31 +12,48 @@ namespace ProjectSEM3.Models.Entities
             public int Id { get; set; }
             public string Title { get; set; }
             public string Location { get; set; }
-            public DateTime DatePosted { get; set; }
+            public DateTime PostedDate { get; set; }
             public DateTime EndDate { get; set; }
-            public int LevelId { get; set; }
+            public string LevelId { get; set; }
+            public string SalaryMin { get; set; }
+            public string SalaryMax { get; set; }
+            public string Icon { get; set; }
             public string Content { get; set; }
             public bool Status { get; set; }
-            public Req()
-            {
-
-            }
         }
         public class Res
         {
             public int Id { get; set; }
             public string Title { get; set; }
             public string Location { get; set; }
-            public DateTime DatePosted { get; set; }
+            public DateTime PostedDate { get; set; }
             public DateTime EndDate { get; set; }
             public int LevelId { get; set; }
-            public int LevelName { get; set; }
+            public string LevelName { get; set; }
+            public decimal SalaryMin { get; set; }
+            public decimal SalaryMax { get; set; }
+            public string Salary { get => "$" + SalaryMin + " - $" + SalaryMax; }
+            public string Icon { get; set; }
             public string Content { get; set; }
+            public int RowIndex { get; set; }
+            public string JobLink { get => "https://localhost:44376/Career?id=" + Id; }
             public bool Status { get; set; }
-            public Res()
+            public StatusType StatusType => GetStatus(Status);
+        }
+        public static StatusType GetStatus(bool index)
+        {
+            StatusType result = null;
+            switch (index)
             {
-
+                case true:
+                    result = new StatusType("Active", "badge bg-success");
+                    break;
+                case false:
+                default:
+                    result = new StatusType("Deleted", "badge bg-danger", true);
+                    break;
             }
+            return result;
         }
     }
 }
