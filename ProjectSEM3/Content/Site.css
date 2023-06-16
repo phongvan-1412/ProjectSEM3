@@ -1048,19 +1048,27 @@ body .container-fluid {
     }
 
 .step {
-    width: 15rem;
-    height: 0.75rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
     display: inline-block;
+    color: #ffc533;
+    font-size: 18px;
+    font-weight: 600;
 }
-
     .step:not(:last-child) {
-        margin-right: 3rem;
+        margin-right: 2rem;
     }
 
     .step.finish {
+        color: white;
         background-color: #ffc533 !important;
     }
-
+@media (max-width: 768px) {
+    .step:not(:last-child) {
+        margin-right: 1rem;
+    }
+}
 .rounded-pill {
     border-radius: 50rem !important;
 }

@@ -13,7 +13,7 @@
 <div class="quiz-wrapper pt-5">
     <div class="container-fluid" style="z-index: 1">
         <div class="row text-center">
-            <div id="jumper-btns" class="col d-flex flex-row justify-content-evenly d-none d-sm-block">
+            <div id="jumper-btns" class="d-flex align-items-center justify-content-center mt-3">
             </div>
         </div>
 
@@ -113,15 +113,17 @@
     console.log(data)
     let lstTemp = [];
     for (var i = 0; i < data.length; i++) {
-        var temp = { id: "", question: "", answer: [], IsMultiAnwser: false };
+        var temp = { id: "", question: "", answer: [], IsMultiAnwser: false, type: "" };
         data[i].Options = JSON.parse(data[i].Options);
         data[i].CorrectAnwser = JSON.parse(data[i].CorrectAnwser);
         temp.id = data[i].Id;
         temp.question = data[i].Content;
         temp.IsMultiAnwser = data[i].IsMultiAnwser;
+        temp.type = data[i].TypeId;
         lstTemp.push(temp);
     }
     console.log(data);
+    //console.log(lstTemp);
     localStorage.setItem("lstCheck", JSON.stringify(lstTemp));
     /*-----------------------------------
         Handle Content
@@ -135,43 +137,75 @@
 
     function showAnswer() {
         let options = ``;
+        if (question.TypeId == 2) {
+            let questCross = ``;
+            let ansCross = ``;
 
-        for (var i = 0; i < question.Options.length; i++) {
-            let option = question.Options[i];
-            let selected = false;
-
-            var a = JSON.parse(localStorage.getItem("lstCheck"));
-
-
-            if (a[index].IsMultiAnwser == false) {
-                if (a[index].answer == option) {
-                    selected = true;
-                }
-                options += `
-                    <div class="answer-container rounded-pill bg-white text-start">
-                            <input type="radio" onclick="addAnswer()" name="answer-btn" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
+            for (var k = 0; k < question.Options[0].length; k++) {
+                let qCross = question.Options[0][k];
+                questCross += `
+                    <div class="question-container">
+                            <input type="checkbox" onclick="addAnswer()" name="question-btn" value="${qCross}">${qCross}
                     </div>
                 `;
             }
-            else {
-                for (var j = 0; j < a[index].answer.length; j++) {
-                    if (a[index].answer[j] == option) {
+            for (var l = 0; l < question.Options[1].length; l++) {
+                let aCross = question.Options[1][l];
+                ansCross += `
+                    <div class="answer-container">
+                            <input type="checkbox" onclick="addAnswer()" name="answer-btn" value="${aCross}">${aCross}
+                    </div>
+                `;
+            }
+            options += `
+                <div>
+                    ${questCross}
+                    ${ansCross}
+                </div>
+            `;
+        }
+        else {
+            for (var i = 0; i < question.Options.length; i++) {
+                let option = question.Options[i];
+                let selected = false;
+
+                var a = JSON.parse(localStorage.getItem("lstCheck"));
+
+                if (a[index].IsMultiAnwser == false) {
+                    if (a[index].answer == option) {
                         selected = true;
                     }
+                    options += `
+                        <div class="answer-container rounded-pill bg-white text-start">
+                                <input type="radio" onclick="addAnswer()" name="answer-btn" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
+                        </div>
+                    `;
                 }
-                options += `
-                    <div class="answer-container rounded-pill bg-white text-start">
-                            <input type="checkbox" onclick="addAnswer(${i})" name="answer-btn${i}" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
-                    </div>
-                `;
+                else {
+                    for (var j = 0; j < a[index].answer.length; j++) {
+                        if (a[index].answer[j] == option) {
+                            selected = true;
+                        }
+                    }
+                    options += `
+                        <div class="answer-container rounded-pill bg-white text-start">
+                                <input type="checkbox" onclick="addAnswer(${i})" name="answer-btn${i}" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
+                        </div>
+                    `;
+                }
             }
         }
+        
         return options;
     };
     function jumpButtons() {
         let btns = ``;
         for (let i = 0; i < data.length; i++) {
-            btns += `<span class="step bg-white rounded-pill ${i == index ? "finish" : ""}" onclick="showQuestion(${i})" style="cursor: pointer"></span>`;
+            btns += `
+                <div class="step bg-white ${i == index ? "finish" : ""} d-flex align-items-center justify-content-center" onclick="showQuestion(${i})" style="cursor: pointer">
+                    <div class="d-flex align-items-center justify-content-center">${i + 1}</div>
+                </div>
+            `;
         }
         jumper.innerHTML = btns;
     };
@@ -180,40 +214,46 @@
         let currentOptions = document.getElementsByName("answer-btn");
         let currentOpt = document.getElementsByName(`answer-btn${b}`);
 
-        if (a[index].IsMultiAnwser == true) {
-            if (a[index].answer.length == 0) {
-                a[index].answer.push(currentOpt[0].value);
-            }
-            else {
-                if (currentOpt[0].checked == true) {
-                    for (var i = 0; i < a[index].answer.length; i++) {
-                        if (a[index].answer[i] != currentOpt[0].value) {
-                            a[index].answer.push(currentOpt[0].value);
-                            break;
-                        }
-                    }
-                } else {
-                    for (var i = 0; i < a[index].answer.length; i++) {
-                        if (a[index].answer[i] == currentOpt[0].value) {
-                            a[index].answer.splice(i, 1);
-                        }
-                    }
-                }
-                
-            }
+        if (a[index].TypeId === 2) {
+            console.log(a[index]);
         }
         else {
-            for (var i = 0; i < currentOptions.length; i++) {
-                let currentOption = currentOptions[i];
-                if (currentOption.checked == true) {
-                    a[index].answer.push(currentOption.value);
+            if (a[index].IsMultiAnwser == true) {
+                if (a[index].answer.length == 0) {
+                    a[index].answer.push(currentOpt[0].value);
                 }
                 else {
-                    a[index].answer.splice(i, 1);
+                    if (currentOpt[0].checked == true) {
+                        for (var i = 0; i < a[index].answer.length; i++) {
+                            if (a[index].answer[i] != currentOpt[0].value) {
+                                a[index].answer.push(currentOpt[0].value);
+                                break;
+                            }
+                        }
+                    } else {
+                        for (var i = 0; i < a[index].answer.length; i++) {
+                            if (a[index].answer[i] == currentOpt[0].value) {
+                                a[index].answer.splice(i, 1);
+                            }
+                        }
+                    }
+
                 }
             }
+            else {
+                for (var i = 0; i < currentOptions.length; i++) {
+                    let currentOption = currentOptions[i];
+                    if (currentOption.checked == true) {
+                        a[index].answer.push(currentOption.value);
+                    }
+                    else {
+                        a[index].answer.splice(i, 1);
+                    }
+                }
 
+            }
         }
+
         localStorage.setItem("lstCheck", JSON.stringify(a));
     };
     function submitQuiz() {
