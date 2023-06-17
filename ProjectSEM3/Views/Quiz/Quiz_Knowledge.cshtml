@@ -224,24 +224,51 @@
                 }
             }
         }
-        
+
         return options;
     };
     function addAnswer(b) {
         var a = JSON.parse(localStorage.getItem("lstCheck"));
         let currentOptions = document.getElementsByName("answer-btn");
         let currentOpt = document.getElementsByName(`answer-btn${b}`);
-
-        let currentCrosQuest = document.getElementsByName(`question-btn${b}`);
-
-
-        //console.log(a[index]);
+        let currentCrossOpt = document.getElementsByName(`answer-btn${b}`);
+        let currentCrossQuest = document.getElementsByName(`question-btn${b}`);
 
         if (question.TypeId === 2) {
-            console.log(a[index]);
             if (a[index].answer.length == 0) {
-                a[index].answer.push(currentOpt[0].value);
+                let crossObjTemp = ["", ""];
+                if (currentCrossQuest[0].checked == true) {
+                    crossObjTemp[0] = currentCrossQuest[0].value;
+                    a[index].answer.push(crossObjTemp);
+                }
+                else {
+                    if (currentCrossOpt[0].checked == true) {
+                        crossObjTemp[1] = currentCrossOpt[0].value;
+                        a[index].answer.push(crossObjTemp);
+                    }
+                } 
             }
+            else {
+                for (var i = 0; i < a[index].answer.length; i++) {
+                    let crossObj = ["", ""];
+                    if (currentCrossQuest[0].checked == true) {
+                        if (a[index].answer[i][0].value !== currentCrossQuest[0].value && a[index].answer.length < 4) {
+                            if (currentCrossOpt[0].checked == true) {
+                                crossObj[1] = currentCrossOpt[0].value;
+                            }
+                            crossObj[0] = currentCrossQuest[0].value;
+                            a[index].answer.push(crossObj);
+                            break;
+                        }
+                        //else {
+                        //    if (currentCrossOpt[0].checked == true) {
+                        //        crossObj[1] = currentCrossOpt[0].value;
+                        //    }
+                        //}
+                    }
+                }
+            }
+            console.log(a[index])
         }
         else {
             if (a[index].IsMultiAnwser == true) {
