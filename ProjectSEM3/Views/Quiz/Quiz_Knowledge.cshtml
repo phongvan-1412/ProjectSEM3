@@ -130,7 +130,6 @@
     -------------------------------------*/
     let container = document.getElementById("wizard");
     let jumper = document.getElementById("jumper-btns");
-    let selectedAnswers = [];
 
     let question;
     let index;
@@ -173,12 +172,13 @@
             else {
                 let crossObj = ["", ""];
                 if (currentCrossQuest[0].checked == true) {
-                    selectedAnswers.push(currentCrossQuest[0].value);
                     for (var i = 0; i < a[index].answer.length; i++) {
-                        if (a[index].answer[i][0].value !== currentCrossQuest[0].value && a[index].answer.length < 4) {
+                        if (a[index].answer[i][0].value !== currentCrossQuest[0].value) {
                             crossObj[0] = currentCrossQuest[0].value;
                             a[index].answer.push(crossObj);
-                            localStorage.setItem("lstCheck", JSON.stringify(a));
+                            if (currentCrossOpt[0].checked == true) {
+                                console.log(currentCrossOpt[0].value);
+                            }
                             break;
                         }
                     }
@@ -193,13 +193,14 @@
                     }
                     
                     if (currentCrossOpt[0].checked == true) {
-                        var t = JSON.parse(localStorage.getItem("lstCheck"));
-                        console.log(t);
                         for (var i = 0; i < a[index].answer.length; i++) {
-                            if (a[index].answer[i][1] !== currentCrossOpt[0].value) {
-                                a[index].answer[i][1] = currentCrossOpt[0].value;
-                                break;
+                            for (var j = 0; j < a[index].answer[i].length; j++) {
+                                if (a[index].answer[i][1] !== currentCrossOpt[0].value) {
+                                    a[index].answer[i][1] = currentCrossOpt[0].value;
+                                    break;
+                                }
                             }
+                            //console.log(a[index].answer[i])
                         }
                     }
                 }
