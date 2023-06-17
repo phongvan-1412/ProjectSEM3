@@ -178,30 +178,34 @@
                         if (a[index].answer[i][0].value !== currentCrossQuest[0].value && a[index].answer.length < 4) {
                             crossObj[0] = currentCrossQuest[0].value;
                             a[index].answer.push(crossObj);
+                            localStorage.setItem("lstCheck", JSON.stringify(a));
                             break;
                         }
                     }
                 }
                 else {
-                    for (var i = 0; i < a[index].answer.length; i++) {
-                        if (a[index].answer[i][0] == currentCrossQuest[0].value) {
-                            a[index].answer.splice(i, 1);
+                    if (currentCrossOpt[0].checked == false) {
+                        for (var i = 0; i < a[index].answer.length; i++) {
+                            if (a[index].answer[i][0] == currentCrossQuest[0].value) {
+                                a[index].answer.splice(i, 1);
+                            }
                         }
                     }
+                    
                     if (currentCrossOpt[0].checked == true) {
+                        var t = JSON.parse(localStorage.getItem("lstCheck"));
+                        console.log(t);
                         for (var i = 0; i < a[index].answer.length; i++) {
                             if (a[index].answer[i][1] !== currentCrossOpt[0].value) {
-                                console.log(a[index].answer[i]);
-                                //a[index].answer[i][1] = currentCrossOpt[0].value;
-                                //break;
+                                a[index].answer[i][1] = currentCrossOpt[0].value;
+                                break;
                             }
                         }
                     }
                 }
-                localStorage.setItem("lstCheck", JSON.stringify(a));
 
             }
-            //console.log(a[index]);
+            console.log(a[index]);
         }
         else {
             if (a[index].IsMultiAnwser == true) {
