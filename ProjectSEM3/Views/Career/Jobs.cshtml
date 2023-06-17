@@ -6,12 +6,12 @@
 
 <main>
     @*-----------------------------------
-            Hero Section
+                Hero Section
         -------------------------------------*@
     <section class="job-hero-section ds"></section>
 
     @*-----------------------------------
-            Banner Section
+               Banner Section
         -------------------------------------*@
     <div class="job-search-wrapper container-fluid d-flex align-items-center justify-content-center">
         <div class="searchControllerContainer container d-flex flex-column justify-content-center">
@@ -76,9 +76,169 @@
         </div>
 
     </div>
-    <div class="fw-divider-space divider-60"></div>
 
+    @*-----------------------------------
+               Content Section
+        -------------------------------------*@
+    <div class="container-fluid d-flex" style="margin-top: 3rem; padding: 0 3rem;">
+        <div class="jobs-list-wrapper d-flex flex-column align-items-center col-lg-5 col-md-12 col-sm-12">
+            @*----- Heading -----*@
+            <div id="jobListHeadingWrapper" class="jobListHeadingWrapper col-12">
+                <div class="jobListHeadingContainer">
+                    <div class="d-flex align-items-center">
+                        <h1 style="font-size: 18px; font-weight: 400">Showing 1-10 of 50 results</h1>
+                    </div>
+                    <div class="sort-wrapper d-flex align-items-center">
+                        <div class="d-flex align-items-center">Sort</div>
+                        <div>
+                            <select class="form-select">
+                                <option>Most Relevant</option>
+                                <option>Most Recent</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
 
+            @*----- Jobs List -----*@
+            <div id="jobListWrapper" class="jobListWrapper col-12">
+                <div class="jobListContainer d-flex flex-column align-items-center" onscroll="scroll()">
+
+                    <div class="listItem d-flex">
+                        <div class="jobDetailHeading d-flex flex-column">
+                            <div class="d-flex">
+                                <div style="position: absolute; right: 0; margin-top: 2%; margin-right: 3%; color: rgb(92, 27, 134); z-index: 1;">
+                                    <img src="https://localhost:44376/Content/img/icons/save.png" style="width: 1.5rem; height: 1.5rem;" />
+                                </div>
+                                <h2 class="listItemHeading">Principal Software Engineer</h2>
+                            </div>
+
+                            <div class="listItemHeadingIcon d-flex">
+                                <div class="d-flex flex-row">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-clock-four" style="color: rgb(100, 100, 100); height: 14px; width: 14px;"></i>
+                                        <span style="font-weight: 400; font-size: 14px; font-style: normal; color: rgb(23, 23, 23); margin-left: 5px;">Today</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-location" style="color: rgb(100, 100, 100); height: 14px; width: 14px;"></i>
+                                        <span style="font-weight: 400; font-size: 14px; font-style: normal; color: rgb(23, 23, 23); margin-left: 5px;">Washington, United States</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jobDescription d-flex align-items-center" style="margin-top: 17px; margin-left: 3%; padding: 0px; font-style: normal; font-weight: 400; font-size: 14px; margin-right: 3%; color: rgb(100, 100, 100);">
+                                <span style="font-size: 14px; font-weight: 400; color: rgb(50, 49, 48);">The Microsoft Silicon Engineering Solutions and Cloud Hardware Infrastructure Engineering (SCHIE) team is responsible for developing and delivering the hardware and firmware that is responsible for powering Microsoft’s “Intelligent Cloud” mission. SCHIE delive...</span>
+                            </div>
+                            <div class="d-flex" style="padding-top: 16px; padding-bottom: 3%; padding-left: 1.5%; min-width: 140px;">
+                                <button class="btn" style="font-style: normal; color: rgb(92, 27, 134); font-weight: 400; font-size: 14px; height: 20px; width: fit-content;">See Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listItem d-flex">
+                        <div class="jobDetailHeading d-flex flex-column">
+                            <div class="d-flex">
+                                <div style="position: absolute; right: 0; margin-top: 2%; margin-right: 3%; color: rgb(92, 27, 134); z-index: 1;">
+                                    <img src="https://localhost:44376/Content/img/icons/save.png" style="width: 1.5rem; height: 1.5rem;" />
+                                </div>
+                                <h2 class="listItemHeading">Principal Software Engineer</h2>
+                            </div>
+
+                            <div class="listItemHeadingIcon d-flex">
+                                <div class="d-flex flex-row">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-clock-four" style="color: rgb(100, 100, 100); height: 14px; width: 14px;"></i>
+                                        <span style="font-weight: 400; font-size: 14px; font-style: normal; color: rgb(23, 23, 23); margin-left: 5px;">Today</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-location" style="color: rgb(100, 100, 100); height: 14px; width: 14px;"></i>
+                                        <span style="font-weight: 400; font-size: 14px; font-style: normal; color: rgb(23, 23, 23); margin-left: 5px;">Washington, United States</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jobDescription d-flex align-items-center" style="margin-top: 17px; margin-left: 3%; padding: 0px; font-style: normal; font-weight: 400; font-size: 14px; margin-right: 3%; color: rgb(100, 100, 100);">
+                                <span style="font-size: 14px; font-weight: 400; color: rgb(50, 49, 48);">The Microsoft Silicon Engineering Solutions and Cloud Hardware Infrastructure Engineering (SCHIE) team is responsible for developing and delivering the hardware and firmware that is responsible for powering Microsoft’s “Intelligent Cloud” mission. SCHIE delive...</span>
+                            </div>
+                            <div class="d-flex" style="padding-top: 16px; padding-bottom: 3%; padding-left: 1.5%; min-width: 140px;">
+                                <button class="btn" style="font-style: normal; color: rgb(92, 27, 134); font-weight: 400; font-size: 14px; height: 20px; width: fit-content;">See Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listItem d-flex">
+                        <div class="jobDetailHeading d-flex flex-column">
+                            <div class="d-flex">
+                                <div style="position: absolute; right: 0; margin-top: 2%; margin-right: 3%; color: rgb(92, 27, 134); z-index: 1;">
+                                    <img src="https://localhost:44376/Content/img/icons/save.png" style="width: 1.5rem; height: 1.5rem;" />
+                                </div>
+                                <h2 class="listItemHeading">Principal Software Engineer</h2>
+                            </div>
+
+                            <div class="listItemHeadingIcon d-flex">
+                                <div class="d-flex flex-row">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-clock-four" style="color: rgb(100, 100, 100); height: 14px; width: 14px;"></i>
+                                        <span style="font-weight: 400; font-size: 14px; font-style: normal; color: rgb(23, 23, 23); margin-left: 5px;">Today</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-location" style="color: rgb(100, 100, 100); height: 14px; width: 14px;"></i>
+                                        <span style="font-weight: 400; font-size: 14px; font-style: normal; color: rgb(23, 23, 23); margin-left: 5px;">Washington, United States</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jobDescription d-flex align-items-center" style="margin-top: 17px; margin-left: 3%; padding: 0px; font-style: normal; font-weight: 400; font-size: 14px; margin-right: 3%; color: rgb(100, 100, 100);">
+                                <span style="font-size: 14px; font-weight: 400; color: rgb(50, 49, 48);">The Microsoft Silicon Engineering Solutions and Cloud Hardware Infrastructure Engineering (SCHIE) team is responsible for developing and delivering the hardware and firmware that is responsible for powering Microsoft’s “Intelligent Cloud” mission. SCHIE delive...</span>
+                            </div>
+                            <div class="d-flex" style="padding-top: 16px; padding-bottom: 3%; padding-left: 1.5%; min-width: 140px;">
+                                <button class="btn" style="font-style: normal; color: rgb(92, 27, 134); font-weight: 400; font-size: 14px; height: 20px; width: fit-content;">See Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="listItem d-flex">
+                        <div class="jobDetailHeading d-flex flex-column">
+                            <div class="d-flex">
+                                <div style="position: absolute; right: 0; margin-top: 2%; margin-right: 3%; color: rgb(92, 27, 134); z-index: 1;">
+                                    <img src="https://localhost:44376/Content/img/icons/save.png" style="width: 1.5rem; height: 1.5rem;" />
+                                </div>
+                                <h2 class="listItemHeading">Principal Software Engineer</h2>
+                            </div>
+
+                            <div class="listItemHeadingIcon d-flex">
+                                <div class="d-flex flex-row">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-clock-four" style="color: rgb(100, 100, 100); height: 14px; width: 14px;"></i>
+                                        <span style="font-weight: 400; font-size: 14px; font-style: normal; color: rgb(23, 23, 23); margin-left: 5px;">Today</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-location" style="color: rgb(100, 100, 100); height: 14px; width: 14px;"></i>
+                                        <span style="font-weight: 400; font-size: 14px; font-style: normal; color: rgb(23, 23, 23); margin-left: 5px;">Washington, United States</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jobDescription d-flex align-items-center" style="margin-top: 17px; margin-left: 3%; padding: 0px; font-style: normal; font-weight: 400; font-size: 14px; margin-right: 3%; color: rgb(100, 100, 100);">
+                                <span style="font-size: 14px; font-weight: 400; color: rgb(50, 49, 48);">The Microsoft Silicon Engineering Solutions and Cloud Hardware Infrastructure Engineering (SCHIE) team is responsible for developing and delivering the hardware and firmware that is responsible for powering Microsoft’s “Intelligent Cloud” mission. SCHIE delive...</span>
+                            </div>
+                            <div class="d-flex" style="padding-top: 16px; padding-bottom: 3%; padding-left: 1.5%; min-width: 140px;">
+                                <button class="btn" style="font-style: normal; color: rgb(92, 27, 134); font-weight: 400; font-size: 14px; height: 20px; width: fit-content;">See Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="job-detail-wrapper col-lg-7 col-md-12 col-sm-12">
+
+        </div>
+    </div>
 </main>
 
 <link href="~/Content/virtual-select.min.css" rel="stylesheet" />
@@ -87,4 +247,6 @@
     VirtualSelect.init({
         ele: '#selCountries'
     });
+
+
 </script>

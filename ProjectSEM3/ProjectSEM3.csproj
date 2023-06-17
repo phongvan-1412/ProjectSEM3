@@ -2680,6 +2680,7 @@
     <Content Include="Content\img\career\careerbg.png" />
     <Content Include="Content\img\icons\bin.png" />
     <Content Include="Content\img\icons\file.png" />
+    <Content Include="Content\img\icons\save.png" />
     <Content Include="Content\img\social-media icon\facebook-color.png" />
     <Content Include="Content\img\social-media icon\facebook.png" />
     <Content Include="Content\img\social-media icon\instagram-color.png" />
