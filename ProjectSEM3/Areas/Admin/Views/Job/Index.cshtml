@@ -1,0 +1,260 @@
+﻿@{
+    ViewBag.Title = "Job";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <h1>Job</h1>
+
+    <div class="me-4">
+        @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Job/_PartialNew.cshtml")
+    </div>
+    <div class="me-4">
+        @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Job/_PartialView.cshtml")
+    </div>
+</div>
+
+<input type="tẽt" name="name" id="test" value="" hidden />
+@section Scripts {
+    <script type="text/javascript">
+        const $title = $("#title")
+        const $location = $("#location")
+        const $endDate = $("#endDate")
+        const $salaryMin = $("#salaryMin")
+        const $salaryMax = $("#salaryMax")
+        const $level = $("#level")
+        const $content = CKEDITOR.replace('content');
+
+        const $titleUpdate = $("#titleUpdate")
+        const $locationUpdate = $("#locationUpdate")
+        const $endDateUpdate = $("#endDateUpdate")
+        const $salaryMinUpdate = $("#salaryMinUpdate")
+        const $salaryMaxUpdate = $("#salaryMaxUpdate")
+        const $levelUpdate = $("#levelUpdate")
+        const $contentUpdate = CKEDITOR.replace('contentUpdate');
+
+        //const $titleView = $("#titleView")
+        //const $locationView = $("#locationView")
+        //const $endDateView = $("#endDateView")
+        //const $salaryMinView = $("#salaryMinView")
+        //const $salaryMaxView = $("#salaryMaxView")
+        //const $levelView = $("#levelView")
+        //const $contentView = $("#contentView")
+
+        const $jobTable = $("#jobTable")
+        const $liveToast = $("#liveToast")
+        const $toastMes = $("#toastMes")
+        //const $updateHr = $("#updateHr")
+
+        $jobTable.DataTable();
+
+        const OnNewJob = () => {
+            const Title = $title.val()
+            const Location = $location.val()
+            const PostedDate = FormatDate(new Date().toUTCString());
+            const EndDate = FormatDate($endDate.val())
+            const SalaryMin = $salaryMin.val()
+            const SalaryMax = $salaryMax.val()
+            const LevelId = $level.val()
+            const Content = $content.getData()
+
+            const job = {
+                Title,
+                Location,
+                PostedDate,
+                EndDate,
+                SalaryMin,
+                SalaryMax,
+                LevelId,
+                Content
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/job/NewJob",
+                data: job ,
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
+         
+            setTimeout(OnHideToast, 3000)
+        }
+
+        const OnHideToast = () => {
+            $liveToast.hide()
+        }
+
+        const OnAddClassName = (ele, className) => {
+            if (!ele[0].classList.contains(className)) {
+                ele[0].classList.add(className);
+            }
+        }
+
+        const OnRemoveClassName = (ele, className) => {
+            ele[0].classList.remove(className);
+        }
+
+        const OnChangeJobStatus = (e) => {
+            RowIndex = e.target.parentElement.parentElement.rowIndex
+            const Id = e.target.getAttribute('data-index')
+            const data = JSON.parse(e.target.getAttribute('data-job'))
+            const Status = !data.Status
+            const job = { Id, Status }
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/job/ChangeJobStatus",
+                data: job,
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                    e.target.setAttribute('data-job', JSON.stringify(res.Data))
+                    let statusText = 'Active'
+                    let bgCss = 'success'
+                    if (!res.Data.Status) {
+                        statusText = "Deleted"
+                        bgCss = 'danger'
+                        e.target.hidden = true
+                    }
+
+                    $jobTable[0].rows[RowIndex].children[6].innerHTML = `<span class="badge bg-${bgCss}">${statusText}</span>`;
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
+
+            setTimeout(OnHideToast, 3000)
+        }
+
+        let RowIndex = 0;
+        let CurrentId = 0;
+        let CurrentSelection = ''
+        const OnSelectRowJob = (e) => {
+            RowIndex = e.target.parentElement.parentElement.rowIndex
+            CurrentSelection = e.target
+            CurrentId = e.target.getAttribute('data-index')
+            const data = JSON.parse(e.target.getAttribute('data-job'))
+            $titleUpdate.val(data.Title)
+            $locationUpdate.val(data.Location)
+            $endDateUpdate[0].valueAsNumber = Date.parse(data.EndDate)
+            $salaryMinUpdate.val(data.SalaryMin)
+            $salaryMaxUpdate.val(data.SalaryMax)
+
+            for (var i = 0; i < $levelUpdate[0].length; i++) {
+                if ($levelUpdate[0].options[i].innerHTML == data.LevelName) {
+                    $levelUpdate[0].options[i].selected = true;
+                }
+            }
+
+            $contentUpdate.setData(data.Content)
+        }
+
+        const OnUpdateJob = (e) => {
+            const Id = CurrentId
+            const Title = $titleUpdate.val()
+            const Location = $locationUpdate.val()
+            const EndDate = FormatDate($endDateUpdate.val())
+            const SalaryMin = $salaryMinUpdate.val()
+            const SalaryMax = $salaryMaxUpdate.val()
+            const LevelId = $levelUpdate.val()
+            const Content = $contentUpdate.getData()
+
+            const job = {
+                Id,
+                Title,
+                Location,
+                EndDate,
+                SalaryMin,
+                SalaryMax,
+                LevelId,
+                Content
+            }
+            const rowIndex = RowIndex
+            $.ajax({
+                type: "POST",
+                url: "/admin/Job/UpdateJob",
+                data: { job, rowIndex },
+                dataType: "json",
+                success: function (res) {
+                    OnSetupToast(res, $liveToast, $toastMes)
+                    if (res.IsSuccess) {
+                        $jobTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Title;
+                        $jobTable[0].rows[RowIndex].children[2].innerHTML = res.Data.Location;
+                        $jobTable[0].rows[RowIndex].children[3].innerHTML = res.Data.PostedDate;
+                        $jobTable[0].rows[RowIndex].children[4].innerHTML = res.Data.EndDate;
+                        $jobTable[0].rows[RowIndex].children[5].innerHTML = res.Data.Salary;
+                        CurrentSelection.setAttribute('data-job', JSON.stringify(res.Data))
+                        CurrentSelection.parentElement.children[1].setAttribute('data-job', JSON.stringify(res.Data))
+                    }
+                },
+                error: function (jqXHR, err, errorThrown) {
+                    OnServerErr($liveToast, $toastMes);
+                }
+            });
+
+            setTimeout(OnHideToast, 3000)
+        }
+
+        //const OnViewHr = (e) => {
+        //    const data = JSON.parse(e.target.getAttribute('data-hr'))
+        //    $nameView[0].innerHTML = data.Name
+        //    $emailView[0].innerHTML = data.Email
+        //    $contactView[0].innerHTML = data.Contact
+        //    $educationView[0].innerHTML = data.Education
+        //    $addressView[0].innerHTML = data.Address
+        //    $experienceView[0].innerHTML = data.Experience
+        //}
+
+        //$updateHr[0].addEventListener('hidden.bs.modal', function (event) {
+        //    OnClearFormUpdateHr();
+        //})
+
+        //const OnClearFormUpdateHr = () => {
+        //    $nameUpdate.val("")
+        //    $emailUpdate.val("")
+        //    $contactUpdate.val("")
+        //    $educationUpdate.val("")
+        //    $addressUpdate.val("")
+        //    $experienceUpdate.val("")
+        //}
+
+        //const OnClearFormNewHr = () => {
+        //    $name.val("")
+        //    $email.val("")
+        //    $contact.val("")
+        //    $education.val("")
+        //    $address.val("")
+        //    $experience.val("")
+        //}
+
+        const OnSetupToast = (res, $toast, $toastMes) => {
+            if (res.IsSuccess) {
+                OnRemoveClassName($toast, "bg-danger-subtle")
+                OnAddClassName($toast, "bg-primary-subtle");
+            } else {
+                OnRemoveClassName($toast, "bg-primary-subtle");
+                OnAddClassName($toast, "bg-danger-subtle")
+            }
+            $toastMes[0].innerHTML = res.Mes
+            $toast.show()
+        }
+
+        const OnServerErr = ($toast, $toastMes) => {
+            OnRemoveClassName($toast, "bg-primary-subtle");
+            OnAddClassName($toast, "bg-danger-subtle")
+            $toastMes[0].innerHTML = "Connection fail or Something wrong in server."
+        }
+
+        const FormatDate = (date) => {
+            var formatedDate = moment(date).format('YYYY/MM/DD HH:MM:SS');
+            return formatedDate;
+        }
+    </script>
+}
+

@@ -23,7 +23,7 @@ namespace ProjectSEM3.Models.Entities
 
         public Email()
         {
-            MailFrom = "vxp20xx @gmail.com";
+            MailFrom = "vxp20xx@gmail.com";
             UserName = "vxp20xx@gmail.com";
             Password = "lsahxzfrluhhhfue";
             MailTo = new List<string>();

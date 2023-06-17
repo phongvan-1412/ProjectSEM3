@@ -57,6 +57,12 @@
         public static string UpdateViewedCv = "Sp_UpdateViewedCv";
         public static string ChangeCvStatus = "Sp_ChangeCvStatus";
 
+        public static string InsertJob = "Sp_InsertJob";
+        public static string UpdateJob = "Sp_UpdateJob";
+        public static string ChangeJobStatus = "Sp_ChangeJobStatus";
+        public static string GetJobById = "Sp_GetJobById";
+        public static string GetJobs = "Sp_GetJobs";
+
         public static string IsEmailIsExsists = "Sp_IsEmailIsExsists";
     }
 }
