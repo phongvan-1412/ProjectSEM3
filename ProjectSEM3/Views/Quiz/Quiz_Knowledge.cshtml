@@ -356,6 +356,15 @@
         console.log(a);
         localStorage.setItem("lstCheck", JSON.stringify(a));
     };
+    function reset() {
+        var a = JSON.parse(localStorage.getItem("lstCheck"));
+
+        for (var i = 0; i < a[index].answer.length; i++) {
+            a[index].answer.splice(0, a[index].answer.length);
+        }
+        localStorage.setItem("lstCheck", JSON.stringify(a));
+        alert('Success!');
+    };
     
     function submitQuiz() {
         var c = JSON.parse(localStorage.getItem("lstCheck"));
@@ -383,10 +392,26 @@
             let optionsCross = showCrossAnswer();
             container.innerHTML = `
                 <div id="questDisplay" class="multisteps_form_panel">
-                    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-                        Question
-                        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${data.length}
-                    </span>
+                ${question.TypeId == 2
+                ? `
+                    <div class="d-flex align-items-center justify-content-center">
+                        <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                            Question
+                            <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${data.length}
+                        </span>
+                        <button type="button" class="reset-wrapper d-flex align-items-center justify-content-center text-uppercase border-0 ms-3" onclick="reset()">Reset</button>
+                    </div>
+                `
+                : `
+                    <div class="d-flex align-items-center justify-content-center">
+                        <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                            Question
+                            <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${data.length}
+                        </span>
+                    </div>
+                `}
+                
+                    
 
                     <h1 class="question_title text-center">${question.Content} </h1>
                     ${question.TypeId == 2
