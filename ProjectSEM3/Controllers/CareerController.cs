@@ -17,7 +17,7 @@ namespace ProjectSEM3.Controllers
         {
             return View();
         }
-        public ActionResult Jobs()
+        public ActionResult Jobs(string lstCountries)
         {
             return View();
         }
@@ -51,5 +51,10 @@ namespace ProjectSEM3.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult Search(string lstCountries)
+        {
+            return RedirectToAction("Jobs", lstCountries);
+        }
     }
 }
