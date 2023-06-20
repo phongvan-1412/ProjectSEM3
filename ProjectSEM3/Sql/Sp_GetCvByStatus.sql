@@ -8,4 +8,5 @@ begin
 		(@Status = -1 or [Status] = @Status)
 	and (@IsViewed = -1 or IsViewed = @IsViewed)
 end
-
+select * from QuestionType
+insert into QUestionType(name) values ('Ranking')

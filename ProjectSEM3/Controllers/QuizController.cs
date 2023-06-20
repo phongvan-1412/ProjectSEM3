@@ -14,7 +14,7 @@ namespace ProjectSEM3.Controllers
     {
         public ActionResult Quiz_Knowledge()
         {
-            ViewData["lstKnowledge"] = GetData();
+            //ViewData["lstKnowledge"] = GetData();
             return View();
         }
         public ActionResult Quiz_Math()
@@ -52,12 +52,12 @@ namespace ProjectSEM3.Controllers
             //}
             //ViewData["lstMath"] = lstTemp; 
             //return View(lstTemp);
-            ViewData["lstMath"] = GetData();
+            //ViewData["lstMath"] = GetData();
             return View();
         }
         public ActionResult Quiz_Computer()
         {
-            ViewData["lstComputer"] = GetData();
+            //ViewData["lstComputer"] = GetData();
             return View();
         }
 
@@ -91,9 +91,18 @@ namespace ProjectSEM3.Controllers
             return Json("success");
         }
 
-        public JsonResult GetData()
+        public JsonResult GetData(int id)
         {
             var lstQuest = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question");
+
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@ExamId", id},
+            };
+
+            var examDetails = DbContext.Instance.Exec<List<ExamDetail.Res>>(DbStore.GetExamnDetailById, param);
+            var result = new ContestantExam(examDetails);
+            Session["result"] = result;
             return Json(lstQuest);
         }
     }

@@ -162,6 +162,7 @@
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\DbStore.cs" />
     <Compile Include="Models\Entities\Contestant.cs" />
+    <Compile Include="Models\Entities\ContestantExam.cs" />
     <Compile Include="Models\Entities\CV.cs" />
     <Compile Include="Models\Entities\Email.cs" />
     <Compile Include="Models\Entities\Exam.cs" />

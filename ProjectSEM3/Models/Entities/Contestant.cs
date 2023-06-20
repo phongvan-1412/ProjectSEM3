@@ -18,6 +18,7 @@ namespace ProjectSEM3.Models.Entities
             public string Address { get; set; }
             public DateTime DatePosted { get; set; }
             public int JobId { get; set; }
+            public int ExamId { get; set; }
             public int Status { get; set; }
             public bool IsViewed { get; set; }
         }
@@ -37,6 +38,7 @@ namespace ProjectSEM3.Models.Entities
             public DateTime DatePosted { get; set; }
             public bool IsViewed { get; set; }
             public int Status { get; set; }
+            public int ExamId { get; set; }
             public int LevelId { get; set; }
             public string LevelName { get; set; }
             public StatusType StatusType => GetStatus(Status);

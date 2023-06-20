@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using ProjectSEM3.Models;
+using ProjectSEM3.Models.Entities;
 using ProjectSEM3.Utils;
 using System;
 using System.Collections.Generic;
@@ -15,33 +17,28 @@ namespace ProjectSEM3.Controllers
     {
         public ActionResult Login()
         {
-            return View();
+            var contestant = Session["Contestant"] as Contestant.Res;
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@Id", contestant.Id},
+            };
+
+            ViewBag.Exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, param);
+
+            return View(contestant);
         }
 
         [HttpPost]
-        public ActionResult Login(string acc_name, string acc_password)
+        public ActionResult Login(Contestant.Req contestant)
         {
-            //reviewer accountExist = Service.Instance.GetReviewerByEmail(reviewer.rev_email);
-            //if (accountExist == null || !DecryptPassword(accountExist.rev_password).Equals(reviewer.rev_password) || !accountExist.rev_email.Equals(reviewer.rev_email))
-            //{
-            //    TempData["accountFailed"] = "Email or password is invalid. Please try again!";
-            //}
-            //else
-            //{
-            //    TempData["accountVerified"] = "Log in successfully";
-            //    Session["account"] = accountExist;
-            //}
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@Email", contestant.Email},
+                { "@Password", contestant.Password.EncryptPassword() },
+            };
 
-            if (!acc_name.Equals("1") && !acc_password.Equals("1"))
-            {
-                TempData["accountFailed"] = "Email or password is invalid. Please try again!";
-            }
-            else
-            {
-                TempData["accountVerified"] = "Log in successfully";
-                //Session["account"] = accountExist;
-            }
-            return RedirectToAction("Quiz_Knowledge", "Quiz");
+            Session["Contestant"] = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantById, param);
+            return RedirectToAction(nameof(Login));
         }
 
         public ActionResult Quiz()
