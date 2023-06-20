@@ -14,6 +14,7 @@
 @section Scripts {
     <script>
         const $isCorrectAnswer = $(".isCorrectAnswer")
+        const $isCorrectAnswerWrap = $(".isCorrectAnswerWrap")
         const $questCross = $(".questCross")
         const $answerCross = $(".answerCross")
         const $type = $("#type")
@@ -69,9 +70,17 @@
                 $crossQuestion[0].hidden = true
                 $isMultiSelect[0].checked = false
                 $isMultiSelect[0].disabled = false
-            } else {
+            } else if (e.target.value == 2) {
                 $normalQuestion[0].hidden = true
                 $crossQuestion[0].hidden = false
+                $isMultiSelect[0].checked = true
+                $isMultiSelect[0].disabled = true
+            } else {
+                $normalQuestion[0].hidden = false
+                $crossQuestion[0].hidden = true
+                for (var ele of $isCorrectAnswerWrap) {
+                    ele.hidden = true
+                }
                 $isMultiSelect[0].checked = true
                 $isMultiSelect[0].disabled = true
             }
@@ -124,7 +133,7 @@
 
                 CorrectAnwser = JSON.stringify(_correctAnwser)
                 Options = JSON.stringify(localOption)
-            } else {
+            } else if ($type.val() == 2) {
                 var options = []
                 var optionAnwsers = []
                 for (var i = 0; i < 4; i++) {
@@ -142,6 +151,14 @@
 
                 Options = JSON.stringify(localOption)
                 CorrectAnwser = JSON.stringify(localAnwser)
+            } else {
+                localOption.push($answerA.val())
+                localOption.push($answerB.val())
+                localOption.push($answerC.val())
+                localOption.push($answerD.val())
+
+                Options = JSON.stringify(localOption)
+                CorrectAnwser = JSON.stringify(localOption)
             }
 
             const req = {
@@ -167,6 +184,7 @@
                     OnServerErr($liveToast, $toastMes);
                 }
             });
+
             setTimeout(OnHideToast, 3000)
         }
 
