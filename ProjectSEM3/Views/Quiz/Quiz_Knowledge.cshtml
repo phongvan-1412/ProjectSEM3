@@ -228,6 +228,7 @@
         let options = ``;
         let questCross = ``;
         let ansCross = ``;
+        let displayCross = ``;
 
         for (var i = 0; i < question.Options[0].length; i++) {
             let selectedQuest = false;
@@ -265,14 +266,27 @@
             `;
         }
 
+        for (var i = 0; i < a[index].answer.length; i++) {
+            displayCross += `
+                <div class="d-flex align-items-center justify-content-center">
+                    <span class="me-3 text-dark">Question "${a[index].answer[i][0]}": </span>
+                    <span>${a[index].answer[i][1]}</span>
+                </div>
+            `;
+        }
+
         options = `
-            <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center justify-content-evenly">
                 <div class="question-container d-flex flex-column">
                     ${questCross}
                 </div>
                 <div class="answer-container d-flex flex-column">
                     ${ansCross}
                 </div>
+            </div>
+
+            <div class="d-flex flex-column align-items-center justify-content-center mt-3">
+                    ${displayCross}
             </div>
         `;
         return options;
@@ -313,23 +327,31 @@
         let currentCrossOpt = document.getElementsByName(`answerCross-btn${b}`);
         var a = JSON.parse(localStorage.getItem("lstCheck"));
 
-        if (currentCrossOpt[0].checked == true) {
-            selectedAnswer[Object.keys(selectedAnswer)] = currentCrossOpt[0];
-            for (var i = 0; i < a[index].answer.length; i++) {
-                if (a[index].answer[i][0] == Object.keys(selectedAnswer)) {
-                    a[index].answer[i].push(currentCrossOpt[0].value);
-                    currentCrossOpt[0].setAttribute("disabled", true);
-                    selectedAnswer = {};
-                    break;
-                }
+        if (a[index].answer.length == 0) {
+            if (currentCrossOpt[0].checked == true) {
+                currentCrossOpt[0].checked = false;
+                alert('Please choose question first!');
             }
         } else {
-            for (var i = 0; i < a[index].answer.length; i++) {
-                if (a[index].answer[i][1] == currentCrossOpt[0].value) {
-                    a[index].answer.splice(i, 1);
+            if (currentCrossOpt[0].checked == true) {
+                selectedAnswer[Object.keys(selectedAnswer)] = currentCrossOpt[0];
+                for (var i = 0; i < a[index].answer.length; i++) {
+                    if (a[index].answer[i][0] == Object.keys(selectedAnswer)) {
+                        a[index].answer[i].push(currentCrossOpt[0].value);
+                        currentCrossOpt[0].setAttribute("disabled", true);
+                        selectedAnswer = {};
+                        break;
+                    }
+                }
+            } else {
+                for (var i = 0; i < a[index].answer.length; i++) {
+                    if (a[index].answer[i][1] == currentCrossOpt[0].value) {
+                        a[index].answer.splice(i, 1);
+                    }
                 }
             }
         }
+        
         console.log(a);
         localStorage.setItem("lstCheck", JSON.stringify(a));
     };
