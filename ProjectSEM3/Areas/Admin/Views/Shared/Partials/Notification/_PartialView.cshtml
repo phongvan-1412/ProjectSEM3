@@ -1,7 +1,7 @@
 ﻿@using ProjectSEM3.Models.Entities;
 
 @{
-    var data = ViewBag.PendingCv as List<CV.Res>;
+    var data = ViewBag.PendingCv as List<Contestant.Res>;
 }
 
 @if (data == null || data.Count() <= 0)
@@ -13,10 +13,7 @@ else
     foreach (var item in data)
     {
         <li onclick="test(event)" class="pointer">
-            @{ 
-                var cvLink = "https://localhost:44376/admin/cv/view?id=" + item.Id;
-            }
-            <a href="@cvLink">
+            <a href="@item.JobLink">
                 <div class="content">
                     <h6>
                         @item.Name
@@ -24,7 +21,7 @@ else
                             Apply Cv at
                         </span>
                     </h6>
-                    <p>@item.JobLink</p>
+                    <p>@item.JobTitle</p>
                     <span>10 mins ago</span>
                 </div>
             </a>
