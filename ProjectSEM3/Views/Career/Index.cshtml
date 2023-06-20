@@ -21,7 +21,7 @@
         </div>
 
         @*---------- Search Heading ----------*@
-        <div class="searchHeadingWrapper d-flex align-items-center">
+        <form action="/career/search" method="post" class="searchHeadingWrapper d-flex align-items-center">
             <div class="col-lg-4 col-md-12 col-sm-12 mt-2">
                 <div class="d-flex align-items-center">
                     <div class="d-flex form-group has-placeholder col-12">
@@ -38,7 +38,7 @@
                     <div class="d-flex form-group has-placeholder col-12">
                         <select id="selCountries" name="lstCountries" multiple placeholder="City, state, or country" data-search="true" data-silent-initial-value-set="true">
                             @*@foreach (var item in genres as List<RESTFULDemo.Models.genre>)
-                    {*@
+                                {*@
                             <option>Viet Nam</option>
                             @*  *@}
                         </select>
@@ -48,10 +48,11 @@
 
             <div class="col-lg-4 col-md-12 col-sm-12 mt-2">
                 <div class="d-flex align-items-center col-12">
-                    <button class="btn searchBtn" type="button">Find Job</button>
+                    <button class="btn searchBtn" type="submit">Find Job</button>
                 </div>
             </div>
-        </div>
+        </form>
+
     </div>
 
     @*---------- Content ----------*@

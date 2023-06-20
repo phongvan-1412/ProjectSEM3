@@ -112,13 +112,14 @@
     var data = lstQuest.Data;
     let lstTemp = [];
     for (var i = 0; i < data.length; i++) {
-        var temp = { id: "", question: "", answer: [], IsMultiAnwser: false, type: "" };
+        var temp = { id: "", question: "", answer: [], IsMultiAnwser: false, type: "", point: "" };
         data[i].Options = JSON.parse(data[i].Options);
         data[i].CorrectAnwser = JSON.parse(data[i].CorrectAnwser);
         temp.id = data[i].Id;
         temp.question = data[i].Content;
         temp.IsMultiAnwser = data[i].IsMultiAnwser;
         temp.type = data[i].TypeId;
+        temp.point = data[i].Point;
         lstTemp.push(temp);
     }
     console.log(data);
