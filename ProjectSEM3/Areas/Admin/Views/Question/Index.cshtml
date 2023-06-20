@@ -108,6 +108,7 @@
 
             let Options = ''
             let localOption = []
+            let localAnwser = []
             let CorrectAnwser = ''
             if ($type.val() == 1) {
                 for (var ele of $isCorrectAnswer) {
@@ -124,15 +125,23 @@
                 CorrectAnwser = JSON.stringify(_correctAnwser)
                 Options = JSON.stringify(localOption)
             } else {
+                var options = []
+                var optionAnwsers = []
                 for (var i = 0; i < 4; i++) {
-                    var tmp = []
-                    tmp.push($questCross[i].value)
-                    tmp.push($answerCross[i].value)
-                    localOption.push(tmp)
-                    tmp = []
+                    options.push($questCross[i].value)
+                    optionAnwsers.push($answerCross[i].value)
+
+                    var anwsers = []
+                    anwsers.push($questCross[i].value)
+                    anwsers.push($answerCross[i].value)
+                    localAnwser.push(anwsers)
+                    anwsers = []
                 }
-                CorrectAnwser = JSON.stringify(localOption)
+                localOption.push(options)
+                localOption.push(optionAnwsers)
+
                 Options = JSON.stringify(localOption)
+                CorrectAnwser = JSON.stringify(localAnwser)
             }
 
             const req = {
