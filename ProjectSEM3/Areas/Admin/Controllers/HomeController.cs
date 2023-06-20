@@ -21,7 +21,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 { "@IsViewed", 0},
             };
 
-            ViewBag.PendingCv = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCvByStatus, param);
+            ViewBag.PendingCv = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetCvByStatus, param);
 
             return View();
         }
