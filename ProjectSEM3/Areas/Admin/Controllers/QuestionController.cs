@@ -21,7 +21,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 { "@Status", 1},
             });
             ViewBag.Levels = DbContext.Instance.Exec<List<Level.Res>>(DbStore.GetAllLevels);
-            ViewBag.PendingCv = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCvByStatus, new Dictionary<string, dynamic>
+            ViewBag.PendingCv = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetCvByStatus, new Dictionary<string, dynamic>
             {
                 { "@Status", 1},
                 { "@IsViewed", 0},

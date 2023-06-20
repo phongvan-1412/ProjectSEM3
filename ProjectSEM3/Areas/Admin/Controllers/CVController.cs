@@ -13,27 +13,26 @@ namespace ProjectSEM3.Areas.Admin.Controllers
     {
         public ActionResult Index()
         {
-            var lst = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCVs);
+            var lst = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetCVs);
             var param = new Dictionary<string, dynamic>
             {
                 { "@Status", 1},
                 { "@IsViewed", 0},
             };
-
-            var cvs = Session["ViewCv"] as List<CV.Res>;
+            ViewBag.PendingCv = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetCvByStatus, param);
+            var cvs = Session["ViewCv"] as List<Contestant.Res>;
             if (cvs != null)
             {
                 lst.Clear();
                 lst.AddRange(cvs);
             }
 
-            ViewBag.PendingCv = DbContext.Instance.Exec<List<CV.Res>>(DbStore.GetCvByStatus, param);
             return View(lst);
         }
 
         public ActionResult View(int id)
         {
-            var cvs = DbContext.Instance.Exec<List<CV.Res>>(DbStore.UpdateViewedCv, new Dictionary<string, dynamic>
+            var cvs = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.UpdateViewedCv, new Dictionary<string, dynamic>
             {
                 { "@Id", id},
             });
@@ -45,7 +44,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         
         [HttpPost]
         [Route("/admin/cv/ChangeCvStatus")]
-        public JsonResult ChangeCvStatus(CV.Req cv)
+        public JsonResult ChangeCvStatus(Contestant.Req cv)
         {
             try
             {
@@ -54,7 +53,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                     { "@Id", cv.Id },
                     { "@Status", cv.Status },
                 };
-                var result = DbContext.Instance.Exec<List<CV.Res>>(DbStore.ChangeCvStatus, param);
+                var result = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.ChangeCvStatus, param);
 
                 if (result == null)
                 {
@@ -65,7 +64,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                     });
                 }
 
-                return Json(new DbContext.Result<CV.Res>
+                return Json(new DbContext.Result<Contestant.Res>
                 {
                     Data = result.FirstOrDefault(),
                     Mes = "Update Cv Successfull.",
@@ -84,7 +83,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("/admin/cv/Reject")]
-        public JsonResult Reject(CV.Req cv)
+        public JsonResult Reject(Contestant.Req cv)
         {
             try
             {
@@ -93,7 +92,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                     { "@Id", cv.Id },
                     { "@Status", 3 },
                 };
-                var result = DbContext.Instance.Exec<List<CV.Res>>(DbStore.ChangeCvStatus, param);
+                var result = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.ChangeCvStatus, param);
 
                 if (result == null)
                 {
@@ -115,7 +114,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
 
                 email.SendReject(emailReject);
 
-                return Json(new DbContext.Result<CV.Res>
+                return Json(new DbContext.Result<Contestant.Res>
                 {
                     Data = resultCv,
                     Mes = "Reject Cv Successfull.",

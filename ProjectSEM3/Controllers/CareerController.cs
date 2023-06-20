@@ -38,16 +38,15 @@ namespace ProjectSEM3.Controllers
 
             var param = new Dictionary<string, dynamic>
             {
-                { "@Job", 1 },
+                { "@JobId", 1 },
                 { "@Name", contName},
                 { "@Email", contEmail },
-                { "@Phone", contPhone },
-                { "@Filepath", path },
-                { "@JobLink", "https://localhost:44376/Career?id=" + job },
-                { "@Date_posted", date }
+                { "@Contact", contPhone },
+                { "@Cv", path },
+                { "@PostedDate", date }
             };
 
-            DbContext.Instance.Exec<List<CV.Req>>(DbStore.InsertCV, param);
+            DbContext.Instance.Exec<List<Contestant.Req>>(DbStore.InsertCV, param);
             return RedirectToAction("Index");
         }
 
