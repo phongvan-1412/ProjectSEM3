@@ -10,10 +10,14 @@
 }
 else
 {
+
     foreach (var item in data)
     {
         <li onclick="test(event)" class="pointer">
-            <a href="@item.JobLink">
+            @{
+                var link = $"https://localhost:44376/admin/cv/View/{item.JobId}";
+            }
+            <a href="@link">
                 <div class="content">
                     <h6>
                         @item.Name

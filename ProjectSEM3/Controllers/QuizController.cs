@@ -14,7 +14,7 @@ namespace ProjectSEM3.Controllers
     {
         public ActionResult Quiz_Knowledge()
         {
-            //ViewData["lstKnowledge"] = GetData();
+            ViewData["lstKnowledge"] = GetData(1);
             return View();
         }
         public ActionResult Quiz_Math()
@@ -57,7 +57,7 @@ namespace ProjectSEM3.Controllers
         }
         public ActionResult Quiz_Computer()
         {
-            //ViewData["lstComputer"] = GetData();
+            ViewData["lstComputer"] = GetData(1);
             return View();
         }
 
@@ -95,14 +95,14 @@ namespace ProjectSEM3.Controllers
         {
             var lstQuest = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question");
 
-            var param = new Dictionary<string, dynamic>
-            {
-                { "@ExamId", id},
-            };
+            //var param = new Dictionary<string, dynamic>
+            //{
+            //    { "@ExamId", id},
+            //};
 
-            var examDetails = DbContext.Instance.Exec<List<ExamDetail.Res>>(DbStore.GetExamnDetailById, param);
-            var result = new ContestantExam(examDetails);
-            Session["result"] = result;
+            //var examDetails = DbContext.Instance.Exec<List<ExamDetail.Res>>(DbStore.GetExamnDetailById, param);
+            //var result = new ContestantExam(examDetails);
+            //Session["result"] = result;
             return Json(lstQuest);
         }
     }
