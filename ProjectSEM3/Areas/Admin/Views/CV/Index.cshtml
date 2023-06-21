@@ -75,10 +75,9 @@
                 success: function (res) {
                     OnSetupToast(res, $liveToast, $toastMes)
                     //e.target.setAttribute('data-cv', JSON.stringify(res.Data))
-                    console.log(res.Data)
-                    //e.target.hidden = res.Data.StatusType.IsHidden
-                    //$cvTable[0].rows[RowIndex].children[5].innerHTML =
-                    //    `<span class="${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    e.target.hidden = res.Data.StatusType.IsHidden
+                    CurrentSelection.parentElement.children[3].hidden = res.Data.StatusType.IsHidden
+                    $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
                 },
                 error: function (jqXHR, err, errorThrown) {
                     OnServerErr($liveToast, $toastMes);
@@ -102,12 +101,9 @@
                 success: function (res) {
                     OnSetupToast(res, $liveToast, $toastMes)
                     e.target.setAttribute('data-cv', JSON.stringify(res.Data))
-                    if (res.Data.Status) {
-                        $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="badge bg-success">Active</span>`;
-                    } else {
-                        $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="badge bg-danger">Deleted</span>`;
-                        e.target.hidden = true
-                    }
+                    e.target.hidden = !res.Data.Status
+                    $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+
                 },
                 error: function (jqXHR, err, errorThrown) {
                     OnServerErr($liveToast, $toastMes);

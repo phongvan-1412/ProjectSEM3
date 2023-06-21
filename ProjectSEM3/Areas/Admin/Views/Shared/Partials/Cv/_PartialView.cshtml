@@ -26,12 +26,12 @@ else
                 </tr>
             </thead>
             <tbody>
+                @{
+                    var index = 1;
+                }
                 @foreach (var item in data)
                 {
                     <tr>
-                        @{
-                            var index = 1;
-                        }
                         <td>@index@{index++;}</td>
                         <td>@item.Name</td>
                         <td><a href="@item.JobLink">@item.JobTitle</a></td>
@@ -43,9 +43,16 @@ else
                             @{
                                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(item);
                             }
-                            <i class="fa-solid fa-user fa-2x pointer" data-bs-toggle="modal" data-index="@item.Id" data-cv="@json" data-bs-target="#newContest" onclick="OnSelectRowCv(event)"></i>
+                            @if (@item.StatusType.IsHidden)
+                            {
+                                <i class="fa-solid fa-user fa-2x pointer" data-bs-toggle="modal" data-index="@item.Id" data-cv="@json" data-bs-target="#newContest" onclick="OnSelectRowCv(event)" hidden></i>
+                            }
+                            else
+                            {
+                                <i class="fa-solid fa-user fa-2x pointer" data-bs-toggle="modal" data-index="@item.Id" data-cv="@json" data-bs-target="#newContest" onclick="OnSelectRowCv(event)"></i>
+                            }
                             <i class="fa-sharp fa-solid fa-circle-info fa-2x pointer ms-3" style="color: dodgerblue;" data-bs-toggle="modal" data-bs-target="#infoCv" data-cv="@json" onclick="OnViewCv(event)"></i>
-                            <a href="@item.Cv"><i class="fa-solid fa-download  fa-2x pointer ms-3"> </i></a>
+                            <a href="@item.Cv"><i class="fa-regular fa-file-pdf fa-2x pointer ms-3"> </i></a>
 
                             @if (@item.StatusType.IsHidden)
                             {

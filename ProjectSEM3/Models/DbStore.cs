@@ -4,12 +4,14 @@
     {
         public static string InsertType = "Sp_InsertType";
         public static string UpdateType = "Sp_UpdateType";
+        public static string ChangeTypeStatus = "Sp_ChangeTypeStatus";
         public static string GetTypeById = "Sp_GetTypeById";
         public static string GetTypes = "Sp_GetTypes";
         public static string GetAllTypes = "Sp_GetAllTypes";
 
         public static string InsertLevel = "Sp_InsertLevel";
         public static string UpdateLevel = "Sp_UpdateLevel";
+        public static string ChangeLevelStatus = "Sp_ChangeLevelStatus";
         public static string GetLevelById = "Sp_GetLevelById";
         public static string GetLevels = "Sp_GetLevels";
         public static string GetAllLevels = "Sp_GetAllLevels";
@@ -37,6 +39,9 @@
         public static string GetQuestionsByLevel = "Sp_GetQuestionsByLevel";
         public static string GetQuestions = "Sp_GetQuestions";
 
+        public static string InsertQuestionType = "Sp_InsertQuestionType";
+        public static string UpdateQuestionType = "Sp_UpdateQuestionType";
+        public static string ChangeQuestionTypeStatus = "Sp_ChangeQuestionTypeStatus";
         public static string GetAllQuestionTypes = "Sp_GetAllQuestionTypes";
 
         public static string InsertExam = "Sp_InsertExam";

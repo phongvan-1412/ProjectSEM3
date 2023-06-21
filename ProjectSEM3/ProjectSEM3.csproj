@@ -151,6 +151,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HrController.cs" />
     <Compile Include="Areas\Admin\Controllers\JobController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OtherController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuestionController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CareerController.cs" />
@@ -2854,6 +2855,10 @@
     <Content Include="Areas\Admin\Views\Shared\Partials\Job\_PartialView.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\Job\_PartialUpdate.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\Job\_PartialNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Other\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Exam\_PartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\Level\_PartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Partials\QuestionType\_PartialView.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

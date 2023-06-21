@@ -50,7 +50,7 @@ namespace ProjectSEM3.Models.Entities
                     result =  new StatusType("Pending", "badge bg-warning");
                     break;
                 case 2:
-                    result = new StatusType("Accepted", "badge bg-success");
+                    result = new StatusType("Accepted", "badge bg-success", true);
                     break;
                 case 3:
                 default:

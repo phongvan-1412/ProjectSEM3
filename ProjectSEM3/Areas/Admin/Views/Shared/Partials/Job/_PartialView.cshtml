@@ -26,14 +26,12 @@ else
                 </tr>
             </thead>
             <tbody>
+                @{
+                    var index = 1;
+                }
                 @foreach (var item in data)
                 {
                     <tr>
-                        @{
-                            var index = 1;
-
-                            var salary = item.SalaryMin ;
-                        }
                         <td>@index@{index++;}</td>
                         <td><a href="@item.JobLink">@item.Title</a></td>
                         <td>@item.Location</td>

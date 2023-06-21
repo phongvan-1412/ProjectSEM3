@@ -125,8 +125,8 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                     LateTime = exam.LateTime,
                 };
 
-                var test = email.SendWellcome(emailWellcome);
-                var test2 = email.SendExam(emailExam);
+                email.SendWellcome(emailWellcome);
+                email.SendExam(emailExam);
                 return Json(new DbContext.Result<Contestant.Res>
                 {
                     Data = contest,

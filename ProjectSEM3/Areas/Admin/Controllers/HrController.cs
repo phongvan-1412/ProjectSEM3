@@ -114,18 +114,6 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             //return PartialView(@"~/Areas/Admin/Views/Shared/Partials/Hr/_PartialRowHr.cshtml", result);
         }
 
-        [HttpGet]
-        public JsonResult GetHrById(int id)
-        {
-            var param = new Dictionary<string, dynamic>
-            {
-                { "@Id", 1 },
-            };
-            var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrById, param).FirstOrDefault();
-
-            return Json(result);
-        }
-
         [HttpPost]
         [Route("/admin/hr/ChangeHrStatus")]
         public JsonResult ChangeHrStatus(Hr.Req hr)
@@ -143,6 +131,18 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 Mes = "Successfull.",
                 IsSuccess = true,
             });
+        }
+
+        [HttpGet]
+        public JsonResult GetHrById(int id)
+        {
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@Id", 1 },
+            };
+            var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrById, param).FirstOrDefault();
+
+            return Json(result);
         }
 
         [HttpGet]

@@ -114,15 +114,8 @@
                 success: function (res) {
                     OnSetupToast(res, $liveToast, $toastMes)
                     e.target.setAttribute('data-job', JSON.stringify(res.Data))
-                    let statusText = 'Active'
-                    let bgCss = 'success'
-                    if (!res.Data.Status) {
-                        statusText = "Deleted"
-                        bgCss = 'danger'
-                        e.target.hidden = true
-                    }
-
-                    $jobTable[0].rows[RowIndex].children[6].innerHTML = `<span class="badge bg-${bgCss}">${statusText}</span>`;
+                    e.target.hidden = !res.Data.Status
+                    $jobTable[0].rows[RowIndex].children[6].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
                 },
                 error: function (jqXHR, err, errorThrown) {
                     OnServerErr($liveToast, $toastMes);
