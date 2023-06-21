@@ -25,7 +25,7 @@ namespace ProjectSEM3.Models.Entities
         public Email()
         {
             MailFrom = "bichvanphamnguyen1412@gmail.com";
-            UserName = "vxp20xx@gmail.com";
+            UserName = "phong.tramyen2111@gmail.com";
             Password = "zjdtzyhqtdanmmde";
             MailTo = new List<string>();
             MessageBody = new MailMessage();
@@ -92,18 +92,17 @@ namespace ProjectSEM3.Models.Entities
 
         public string SendExam(Exam email)
         {
-            Email contestant = new Email() { };
-            contestant.MailTo.Add(email.UserName);
-            contestant.MessageBody.Subject = "Exam schedule";
-            contestant.MessageBody.Priority = MailPriority.High;
-            contestant.MessageBody.IsBodyHtml = true;
+            MailTo.Add(email.UserName);
+            MessageBody.Subject = "Exam schedule";
+            MessageBody.Priority = MailPriority.High;
+            MessageBody.IsBodyHtml = true;
 
             var bodyFormat = "<h1>Dear {0}</h1> <br/> " +
                 "<h3>Your test will be start at: {1}</h3> <br/>" +
                 "<h3>And end at: {2}</h3> <br/>" +
                 "<p> <b>Please join in time. If you late 30 mins ({3}). Your test will fail automatically. </b> </p>";
 
-            contestant.MessageBody.Body = string.Format(bodyFormat, email.Name, email.StartTime, email.EndTime, email.LateTime);
+            MessageBody.Body = string.Format(bodyFormat, email.Name, email.StartTime, email.EndTime, email.LateTime);
 
             return SendEmail();
         }
@@ -149,7 +148,7 @@ namespace ProjectSEM3.Models.Entities
                 Client = new SmtpClient(HostMail, PortMail)
                 {
                     EnableSsl = SSL,
-                    Credentials = new NetworkCredential(UserName, Password),
+                    Credentials = new NetworkCredential(MailFrom, Password),
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     Timeout = 500000,
                 };
@@ -168,10 +167,8 @@ namespace ProjectSEM3.Models.Entities
                 {
                     return true;
                 };
-                Client.UseDefaultCredentials = false;
-                Client.EnableSsl = SSL;
-                Client.Send(MessageBody);
 
+                Client.Send(MessageBody);
                 Client.SendAsyncCancel();
                 MessageBody.Dispose();
                 return JsonConvert.SerializeObject(new DbContext.Result
