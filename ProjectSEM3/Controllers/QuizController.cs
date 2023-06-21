@@ -12,9 +12,30 @@ namespace ProjectSEM3.Controllers
 {
     public class QuizController : Controller
     {
-        public ActionResult Quiz_Knowledge()
+        public ActionResult Exam()
         {
-            ViewData["lstKnowledge"] = GetData(1);
+            var contestants = Session["Contestant"] as List<Contestant.Res>;
+            Contestant.Res contestant = contestants.FirstOrDefault();
+
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@ContestId", contestant.Id}
+            };
+
+            List<Exam.Res> exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, param);
+            ViewData["Exam"] = exam.FirstOrDefault();
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult StartQuiz(int id)
+        {
+            return RedirectToAction("Quiz_Knowledge", new { examId = id});
+        }
+        public ActionResult Quiz_Knowledge(int examId)
+        {
+            ViewData["lstKnowledge"] = GetData(examId);
             return View();
         }
         public ActionResult Quiz_Math()
@@ -93,17 +114,17 @@ namespace ProjectSEM3.Controllers
 
         public JsonResult GetData(int id)
         {
-            var lstQuest = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question");
+            //var lstQuest = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question");
 
-            //var param = new Dictionary<string, dynamic>
-            //{
-            //    { "@ExamId", id},
-            //};
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@ExamId", id},
+            };
 
-            //var examDetails = DbContext.Instance.Exec<List<ExamDetail.Res>>(DbStore.GetExamnDetailById, param);
-            //var result = new ContestantExam(examDetails);
+            var examDetails = DbContext.Instance.Exec<List<ExamDetail.Res>>(DbStore.GetExamnDetailById, param);
+            var result = new ContestantExam(examDetails);
             //Session["result"] = result;
-            return Json(lstQuest);
+            return Json(result);
         }
     }
 }

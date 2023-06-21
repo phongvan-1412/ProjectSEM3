@@ -18,9 +18,9 @@ namespace ProjectSEM3.Models.Entities
             Math = new List<ExamDetail.Res>();
             Math.AddRange(data.Where(x => x.ExamTypeId == 34).ToList());
             Computer = new List<ExamDetail.Res>();
-            Math.AddRange(data.Where(x => x.ExamTypeId == 35).ToList());
+            Computer.AddRange(data.Where(x => x.ExamTypeId == 35).ToList());
             Knowledge = new List<ExamDetail.Res>();
-            Math.AddRange(data.Where(x => x.ExamTypeId == 36).ToList());
+            Knowledge.AddRange(data.Where(x => x.ExamTypeId == 36).ToList());
         }
     }
 }

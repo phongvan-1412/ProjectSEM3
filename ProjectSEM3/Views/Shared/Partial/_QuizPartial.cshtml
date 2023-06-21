@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Exam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <!-- Define countdown time -->
+    var endTime = DateTime.UtcNow.AddSeconds(425);
+    var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.UtcNow.Ticks).TotalSeconds.ToString("#");
+
+    <!-- Get Question List -->
+    var lst = ViewData["lstKnowledge"];
+}
+
+<h2>_QuizPartial</h2>
+

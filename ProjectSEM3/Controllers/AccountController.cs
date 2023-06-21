@@ -17,19 +17,11 @@ namespace ProjectSEM3.Controllers
     {
         public ActionResult Login()
         {
-            var contestant = Session["Contestant"] as Contestant.Res;
-            var param = new Dictionary<string, dynamic>
-            {
-                { "@Id", contestant.Id},
-            };
-
-            ViewBag.Exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, param);
-
-            return View(contestant);
+            return View();
         }
 
         [HttpPost]
-        public ActionResult Login(Contestant.Req contestant)
+        public ActionResult Login(Contestant.Res contestant)
         {
             var param = new Dictionary<string, dynamic>
             {
@@ -37,13 +29,18 @@ namespace ProjectSEM3.Controllers
                 { "@Password", contestant.Password.EncryptPassword() },
             };
 
-            Session["Contestant"] = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantById, param);
-            return RedirectToAction(nameof(Login));
-        }
+            var account = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmailPass, param);
+            Session["Contestant"] = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmailPass, param);
 
-        public ActionResult Quiz()
-        {
-            return View();
+            if(account.Count() == 0)
+            {
+                TempData["accountFailed"] = "Your email or password is invalid. Please try again!";
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return RedirectToAction("Exam", "Quiz");
+            }
         }
     }
 }

@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Exam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lst = ViewData["Exam"] as ProjectSEM3.Models.Entities.Exam.Res;
+}
+
+<main>
+    <div class="container">
+        <h2>Exam</h2>
+        <button id="startQuizBtn" type="submit" class="btn btn-primary">Start Quiz</button>
+    </div>
+</main>
+
+
+<script type="text/javascript">
+    var startQuiz = document.getElementById("startQuizBtn");
+    var examId = parseInt(@lst.Id);
+    startQuiz.addEventListener("click", () => {
+        $.ajax({
+            type: "POST",
+            data: { id: examId },
+            dataType: "json",
+            url: "/Quiz/StartQuiz",
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (req, status, error) {
+                console.log(error);
+            }
+        });
+    });
+
+</script>
+

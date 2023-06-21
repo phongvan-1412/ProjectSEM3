@@ -5,29 +5,24 @@
 <div class="login-wrapper"></div>
 <div class="login-form-wrapper container text-white">
     <h1 class="mt-2 mb-3 text-white" style="font-size: 40px">Login</h1>
-    @if (TempData["accountFailed"] != null)
-    {
-        <div class="form-group alert alert-danger mb-3">
-            <strong>@TempData["accountFailed"]</strong>
-        </div>
-    }
-    @*@if (TempData["accountVerified"] != null)
-        {
-            <div class="form-group alert alert-success mb-3">
-                <strong>@TempData["accountVerified"]</strong>
-            </div>
-        }*@
+
     <div class="container col-md-6 col-lg-6">
+        @if (TempData["accountFailed"] != null)
+        {
+            <div class="form-group alert alert-danger mb-3">
+                <strong class="text-danger fw-bold">@TempData["accountFailed"]</strong>
+            </div>
+        }
         <form action="Login" method="post">
 
             <div class="form-group has-placeholder mb-3">
                 <label class="form-label">Email</label>
-                <input name="acc_name" class="form-control" placeholder="Username" required="" />
+                <input type="email" name="Email" class="form-control" placeholder="Email" required="" />
             </div>
 
             <div class="form-group has-placeholder mb-3">
                 <label class="form-label">Password</label>
-                <input type="password" name="acc_password" class="form-control" placeholder="Password" required="" />
+                <input type="password" name="Password" class="form-control" placeholder="Password" required="" />
             </div>
 
             <div class="d-flex justify-content-between form-group mb-3">
