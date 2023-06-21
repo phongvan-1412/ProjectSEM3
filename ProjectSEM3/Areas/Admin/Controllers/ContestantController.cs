@@ -28,43 +28,23 @@ namespace ProjectSEM3.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("/admin/contestant/NewContestant")]
-        public JsonResult NewContestant(Contestant.Req req, int levelId, int cvId)
+        public JsonResult NewContestant(Contestant.Req req, int levelId)
         {
             try
             {
-                //var check = DbContext.Instance.Exec<List<IsExistsEmail>>(DbStore.IsEmailIsExsists, new Dictionary<string, dynamic> { { "@Email", req.Email } }).FirstOrDefault();
                 List<Contestant.Res> contestResult = null;
                 Contestant.Res contest = null;
-                var isExistContest = false;
-                //if (check.IsExists)
-                //{
-                //    contestResult = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmail, new Dictionary<string, dynamic> { { "@Email", req.Email } });
-
-                //    if (contestResult is null)
-                //    {
-                //        return Json(new DbContext.Result
-                //        {
-                //            Mes = "Duplicate Email.",
-                //            IsSuccess = false,
-                //        });
-                //    }
-                //    else
-                //    {
-                //        contest = contestResult.FirstOrDefault();
-                //        isExistContest = true;
-                //    }
-                //}
-
 
                 var password = AppRandom.String().EncryptPassword();
                 var contestParam = new Dictionary<string, dynamic>
                 {
-                    { "@Name", req.Name },
-                    { "@Email", req.Email},
+                    { "@Id", req.Id },
                     { "@Password", password },
+                    { "@Name", req.Name },
+                    { "@Email", req.Email },
                     { "@Contact", req.Contact },
-                    { "@Address", req.Address },
-                    { "@Cv", req.Cv },
+                    { "@Address", req.Address?? string.Empty },
+                    { "@Status", (int)CvStatus.Accepted },
                 };
 
                 contestResult = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.InsertContestant, contestParam);
@@ -127,24 +107,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                         DbContext.Instance.Exec<List<Models.Entities.Type.Res>>(DbStore.InsertExamDetail, examDetailParam);
                     }
                 }
-
-                var cvParam = new Dictionary<string, dynamic>
-                {
-                    { "@Id",cvId},
-                    { "@Status", (int)CvStatus.Accepted }
-                };
-
-                var cvResult = DbContext.Instance.Exec<List<CV.Res>>(DbStore.UpdateCv, cvParam);
-
-                if (cvResult is null)
-                {
-                    return Json(new DbContext.Result
-                    {
-                        Mes = "Update Exam fail.",
-                        IsSuccess = true,
-                    });
-                }
-                var cv = cvResult.FirstOrDefault();
+                
                 var email = new Email();
                 var emailWellcome = new Email.Wellcome
                 {
@@ -156,18 +119,17 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 var emailExam = new Email.Exam
                 {
                     Name = contest.Name,
+                    UserName = contest.Email,
                     StartTime = exam.StartTime,
                     EndTime = exam.EndTime,
                     LateTime = exam.LateTime,
                 };
 
-                if (!isExistContest)
-                    email.SendWellcome(emailWellcome);
-
-                email.SendExam(emailExam);
-                return Json(new DbContext.Result<CV.Res>
+                var test = email.SendWellcome(emailWellcome);
+                var test2 = email.SendExam(emailExam);
+                return Json(new DbContext.Result<Contestant.Res>
                 {
-                    Data = cv,
+                    Data = contest,
                     Mes = "Create Exam successfull.",
                     IsSuccess = true,
                 });

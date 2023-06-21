@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Web;
 
@@ -29,7 +30,7 @@ namespace ProjectSEM3.Models.Entities
             MailTo = new List<string>();
             MessageBody = new MailMessage();
             SSL = true;
-            PortMail = 25;
+            PortMail = 587;
             HostMail = "smtp.gmail.com";//or another email sender provider
         }
 
@@ -149,7 +150,7 @@ namespace ProjectSEM3.Models.Entities
                     EnableSsl = SSL,
                     Credentials = new NetworkCredential(UserName, Password),
                     DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Timeout = 500000
+                    Timeout = 500000,
                 };
 
                 MessageBody.Sender = new MailAddress(MailFrom);
@@ -167,7 +168,7 @@ namespace ProjectSEM3.Models.Entities
                     return true;
                 };
                 Client.UseDefaultCredentials = false;
-                Client.EnableSsl = true;
+                Client.EnableSsl = SSL;
                 Client.Send(MessageBody);
 
                 Client.SendAsyncCancel();

@@ -16,6 +16,7 @@
 
         public static string InsertContestant = "Sp_InsertContestant";
         public static string UpdateContestant = "Sp_UpdateContestant";
+        public static string ChangeContestantStatus = "Sp_ChangeContestantStatus";
         public static string GetContestantById = "Sp_GetContestantById";
         public static string GetContestantByEmail = "Sp_GetContestantByEmail";
         public static string GetContestantByEmailPass = "Sp_GetContestantByEmailPass";

@@ -16,6 +16,7 @@
 @section Scripts{
     <script type="text/javascript">
         const $name = $("#name")
+        const $id = $("#id")
         const $email = $("#email")
         const $contact = $("#contact")
         const $address = $("#address")
@@ -41,22 +42,21 @@
             const data = JSON.parse(e.target.getAttribute('data-cv'))
             $name.val(data.Name)
             $email.val(data.Email)
-            $contact.val(data.Phone)
+            $contact.val(data.Contact)
             $address.val(data.Address)
             $level.val(data.LevelName)
             $levelId.val(data.LevelId)
             $filePath.val(data.FilePath)
-            $cvId.val(data.Id)
+            $id.val(data.Id)
         }
 
         const OnNewContestant = () => {
+            const Id = $id.val()
             const Name = $name.val()
             const Email = $email.val()
             const Contact = $contact.val()
             const Address = $address.val()
             const LevelId = $levelId.val()
-            const FilePath = $filePath.val()
-            const CvId = $cvId.val()
 
             const req = {
                 Name,
@@ -64,8 +64,7 @@
                 Contact,
                 Address,
                 LevelId,
-                FilePath,
-                CvId
+                Id
             }
 
             $.ajax({
@@ -75,11 +74,11 @@
                 dataType: "json",
                 success: function (res) {
                     OnSetupToast(res, $liveToast, $toastMes)
-                    e.target.setAttribute('data-cv', JSON.stringify(res.Data))
+                    //e.target.setAttribute('data-cv', JSON.stringify(res.Data))
                     console.log(res.Data)
-                    e.target.hidden = res.Data.StatusType.IsHidden
-                    $cvTable[0].rows[RowIndex].children[5].innerHTML =
-                        `<span class="${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    //e.target.hidden = res.Data.StatusType.IsHidden
+                    //$cvTable[0].rows[RowIndex].children[5].innerHTML =
+                    //    `<span class="${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
                 },
                 error: function (jqXHR, err, errorThrown) {
                     OnServerErr($liveToast, $toastMes);

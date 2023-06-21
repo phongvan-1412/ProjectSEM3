@@ -21,6 +21,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             };
             ViewBag.PendingCv = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetCvByStatus, param);
             var cvs = Session["ViewCv"] as List<Contestant.Res>;
+            Session.Remove("ViewCv");
             if (cvs != null)
             {
                 lst.Clear();
