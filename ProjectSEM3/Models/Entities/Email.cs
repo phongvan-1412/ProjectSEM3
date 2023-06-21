@@ -24,9 +24,9 @@ namespace ProjectSEM3.Models.Entities
 
         public Email()
         {
-            MailFrom = "vxp20xx@gmail.com";
+            MailFrom = "bichvanphamnguyen1412@gmail.com";
             UserName = "vxp20xx@gmail.com";
-            Password = "lsahxzfrluhhhfue";
+            Password = "zjdtzyhqtdanmmde";
             MailTo = new List<string>();
             MessageBody = new MailMessage();
             SSL = true;
@@ -92,17 +92,18 @@ namespace ProjectSEM3.Models.Entities
 
         public string SendExam(Exam email)
         {
-            MailTo.Add(email.UserName);
-            MessageBody.Subject = "Exam schedule";
-            MessageBody.Priority = MailPriority.High;
-            MessageBody.IsBodyHtml = true;
+            Email contestant = new Email() { };
+            contestant.MailTo.Add(email.UserName);
+            contestant.MessageBody.Subject = "Exam schedule";
+            contestant.MessageBody.Priority = MailPriority.High;
+            contestant.MessageBody.IsBodyHtml = true;
 
             var bodyFormat = "<h1>Dear {0}</h1> <br/> " +
                 "<h3>Your test will be start at: {1}</h3> <br/>" +
                 "<h3>And end at: {2}</h3> <br/>" +
                 "<p> <b>Please join in time. If you late 30 mins ({3}). Your test will fail automatically. </b> </p>";
 
-            MessageBody.Body = string.Format(bodyFormat, email.Name, email.StartTime, email.EndTime, email.LateTime);
+            contestant.MessageBody.Body = string.Format(bodyFormat, email.Name, email.StartTime, email.EndTime, email.LateTime);
 
             return SendEmail();
         }
