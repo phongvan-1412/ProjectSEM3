@@ -3,13 +3,62 @@
     ViewBag.Title = "Exam";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var lst = ViewData["Exam"] as ProjectSEM3.Models.Entities.Exam.Res;
+
+    if (lst == null)
+    {
+        lst = new ProjectSEM3.Models.Entities.Exam.Res();
+    }
 }
 
 <main>
-    <div class="container">
-        <h2>Exam</h2>
-        <button id="startQuizBtn" type="submit" class="btn btn-primary">Start Quiz</button>
-    </div>
+    @if (TempData["loadExamFailed"] != null)
+    {
+        <div class="container d-flex flex-column align-items-center justify-content-center" style="height: 100vh; margin-top: -8rem;">
+            <img src="https://localhost:44376/Content/img/icons/paper.png" alt="paper" style="width: 230px; height: 230px" />
+            <h1 class="mt-3" style="color: rgb(50, 49, 48); font-weight: 600; font-size: 26px;">@TempData["loadExamFailed"]</h1>
+            <a href="https://localhost:44376/Home/Index">Go back to Home</a>
+        </div>
+    }
+    else
+    {
+        <div class="container-fluid d-flex align-items-center justify-content-center" style="height: 80vh">
+            <div class="exam-wrapper container d-flex flex-column align-items-center">
+                <div class="d-flex flex-row align-items-center justify-content-center mb-3">
+                    <h2 class="d-flex align-items-center m-0">Interview Exam</h2>
+                    <span class="ms-3">
+                        <img src="https://localhost:44376/Content/img/icons/clock.png" style="width: 15px; height: 15px" />
+                        60 minutes
+                    </span>
+                </div>
+                <div class="d-flex align-items-center justify-content-evenly text-start">
+                    <ul class="exam-section-list">
+                        <li>
+                            <span>1.</span>
+                            General Knowledge (20 minutes)
+                        </li>
+                        <li>
+                            <span>2.</span>
+                            Mathematics (20 minutes)
+                        </li>
+                        <li>
+                            <span>3.</span>
+                            Computer Science (20 minutes)
+                        </li>
+                    </ul>
+
+                </div>
+                <div>
+                    <span>
+                        <span class="fw-bold">Note:</span> The exam divided into 3 parts, remind time in each part and check your answers carefully before submit.
+                    </span>
+                </div>
+                <div class="mt-3">
+                    <button id="startQuizBtn" type="submit" class="btn text-white fw-600" style="width: 200px; background-color: rgb(92, 27, 134); border-radius: 3px;">Start Exam</button>
+                </div>
+            </div>
+        </div>
+    }
+
 </main>
 
 

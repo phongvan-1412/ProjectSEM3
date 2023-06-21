@@ -15,23 +15,30 @@ namespace ProjectSEM3.Controllers
         public ActionResult Exam()
         {
             var contestants = Session["Contestant"] as List<Contestant.Res>;
-            Contestant.Res contestant = contestants.FirstOrDefault();
-
-            var param = new Dictionary<string, dynamic>
+            try
             {
-                { "@ContestId", contestant.Id}
-            };
+                Contestant.Res contestant = contestants.FirstOrDefault();
 
-            List<Exam.Res> exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, param);
-            ViewData["Exam"] = exam.FirstOrDefault();
+                var param = new Dictionary<string, dynamic>
+                {
+                    { "@ContestId", contestant.Id}
+                };
 
+                List<Exam.Res> exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, param);
+                ViewData["Exam"] = exam.FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                TempData["loadExamFailed"] = "Sorry! Page doesn't exist.";
+                return View();
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult StartQuiz(int id)
         {
-            return RedirectToAction("Quiz_Knowledge", new { examId = id});
+            return RedirectToAction("Quiz_Knowledge", new { examId = id });
         }
         public ActionResult Quiz_Knowledge(int examId)
         {

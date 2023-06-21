@@ -358,6 +358,7 @@ body .container-fluid {
     max-width: 100% !important;
     height: 50px;
 }
+
 .vscomp-wrapper.has-clear-button .vscomp-toggle-button {
     margin-right: 0px;
 }
@@ -399,6 +400,7 @@ body .container-fluid {
 .searchHeadingWrapper div:not(:last-child) {
     margin-right: 1rem;
 }
+
 @media (max-width: 990px) {
     .hero-section {
         height: 450px;
@@ -588,6 +590,7 @@ body .container-fluid {
             margin-right: 0;
         }
 }
+
 .jobs-list-wrapper {
     border: 1px solid #fff;
     border-radius: 2px;
@@ -597,6 +600,7 @@ body .container-fluid {
     text-overflow: ellipsis;
     overflow-y: scroll
 }
+
 .jobListHeadingWrapper {
     position: relative;
     height: auto;
@@ -611,6 +615,7 @@ body .container-fluid {
     padding-bottom: 5px;
     user-select: none;
 }
+
 .jobListHeadingContainer {
     display: flex;
     flex-flow: column nowrap;
@@ -621,6 +626,7 @@ body .container-fluid {
     margin-right: 3%;
     box-sizing: border-box;
 }
+
 .sort-wrapper {
     width: 200px;
     margin-bottom: 10px;
@@ -629,9 +635,11 @@ body .container-fluid {
     display: flex;
     vertical-align: middle;
 }
-.sort-wrapper div:first-child{
-    margin-right: .75rem;
-}
+
+    .sort-wrapper div:first-child {
+        margin-right: .75rem;
+    }
+
 .jobListContainer {
     position: relative;
     height: auto;
@@ -646,6 +654,7 @@ body .container-fluid {
     padding-bottom: 5px;
     user-select: none;
 }
+
 .listItem {
     width: 100%;
     -webkit-font-smoothing: antialiased;
@@ -662,6 +671,7 @@ body .container-fluid {
     cursor: pointer;
     user-select: text;
 }
+
 .listItemHeading {
     width: 100%;
     margin: 3% 0 5px 3%;
@@ -673,12 +683,15 @@ body .container-fluid {
     overflow-wrap: break-word;
     white-space: pre-wrap;
 }
+
 .listItemHeadingIcon {
     margin: 1% 0 5px 3%;
 }
-.listItemHeadingIcon div:first-child {
-    margin-right: 1rem;
-}
+
+    .listItemHeadingIcon div:first-child {
+        margin-right: 1rem;
+    }
+
 .fixedPos {
     position: fixed;
     left: 0;
@@ -686,7 +699,7 @@ body .container-fluid {
     width: 100%;
     z-index: 100;
     top: 0;
-} 
+}
 /*-----------------------------------
     2. About
 -------------------------------------*/
@@ -1111,9 +1124,25 @@ body .container-fluid {
 }
 
 /* ----------------------------------------------------------------- QUIZ -----------------------------------------------------------------*/
-
 /*-----------------------------------
-    1. Quiz_Knowledge 
+    1. Exam
+-------------------------------------*/
+.exam-wrapper {
+    width: 50%;
+    max-height: 100vh;
+    margin: 5rem 0;
+    padding: 3rem;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.13) 0px 3.2px 7.2px, rgba(0, 0, 0, 0.11) 0px 0.6px 1.8px;
+}
+
+.exam-section-list li span {
+    margin-right: 1.5rem;
+    font-weight: bold;
+}
+/*-----------------------------------
+    2. Quiz
 -------------------------------------*/
 .quiz-wrapper {
     position: relative;
@@ -1142,6 +1171,7 @@ body .container-fluid {
     font-size: 18px;
     font-weight: 600;
 }
+
     .step:not(:last-child) {
         margin-right: 2rem;
     }
@@ -1150,11 +1180,13 @@ body .container-fluid {
         color: white;
         background-color: #ffc533 !important;
     }
+
 @media (max-width: 768px) {
     .step:not(:last-child) {
         margin-right: 1rem;
     }
 }
+
 .rounded-pill {
     border-radius: 50rem !important;
 }
@@ -1263,6 +1295,7 @@ body .container-fluid {
     .timer-wrapper span {
         color: #000a38;
     }
+
 .reset-wrapper {
     width: 150px;
     height: 40px;
