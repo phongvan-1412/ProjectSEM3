@@ -75,12 +75,11 @@ namespace ProjectSEM3.Models.Entities
             MessageBody.Priority = MailPriority.High;
             MessageBody.IsBodyHtml = true;
 
-            var bodyFormat = "<h1>Wellcome {0}</h1> <br/> " +
-                "<h3>Your account is: {1}</h3> <br/>" +
-                "<h3>Your password is: {2}</h3> <br/>" +
+            var bodyFormat = "<h1>Wellcome {0}</h1>" +
+                "<h3>Your account is: {1}</h3>" +
+                "<h3>Your password is: {2}</h3>" +
                 "<p>Thanks for your interest in joining XXXX XXXX XXXX! To complete your registration, we need you to verify your email address.</p>" +
-                "<p>This is Email verify account. Please click link below to verify your account</p>" +
-                "<span><b>Activate</b> <a class='nav-link text-dark'target='blank' href='https://localhost:7256/Home/ActivateEmail?email={3}&token={4}'>Link</a></span>";
+                "<p>This is Email verify account. Please click link below to verify your account</p>";
 
             var encryptASCIIEmail = email.UserName.EncryptPassword();
             var encryptASCIIToken = email.Token.EncryptPassword();
@@ -97,9 +96,9 @@ namespace ProjectSEM3.Models.Entities
             MessageBody.Priority = MailPriority.High;
             MessageBody.IsBodyHtml = true;
 
-            var bodyFormat = "<h1>Dear {0}</h1> <br/> " +
-                "<h3>Your test will be start at: {1}</h3> <br/>" +
-                "<h3>And end at: {2}</h3> <br/>" +
+            var bodyFormat = "<h1>Dear {0}</h1>" +
+                "<h3>Your test will be start at: {1}</h3>" +
+                "<h3>And end at: {2}</h3>" +
                 "<p> <b>Please join in time. If you late 30 mins ({3}). Your test will fail automatically. </b> </p>";
 
             MessageBody.Body = string.Format(bodyFormat, email.Name, email.StartTime, email.EndTime, email.LateTime);
@@ -114,8 +113,8 @@ namespace ProjectSEM3.Models.Entities
             MessageBody.Priority = MailPriority.High;
             MessageBody.IsBodyHtml = true;
 
-            var bodyFormat = "<h1>Dear {0}</h1> <br/> " +
-                "<p>Thanks for your interest our job at: </p> <a class='nav-link text-dark'target='blank' href='{1}'>Link</a>" +
+            var bodyFormat = "<h1>Dear {0}</h1>" +
+                "<p>Thanks for your interest our job at </p> <a class='nav-link text-dark'target='blank' href='{1}'>Link</a>" +
                 "<p>Unfortunately your experience suitable for our job.</p> ";
 
             MessageBody.Body = string.Format(bodyFormat, email.Name, email.JobLink);

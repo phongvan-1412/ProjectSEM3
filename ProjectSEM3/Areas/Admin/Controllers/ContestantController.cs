@@ -82,7 +82,6 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                     });
                 }
 
-
                 var questionResult = DbContext.Instance.Exec<List<Question.Res>>(DbStore.GetQuestions, new Dictionary<string, dynamic>
                 {
                     { "@IdLevel", levelId }
@@ -108,12 +107,12 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                     }
                 }
                 
-                var email = new Email();
+                var WellcomeEmail = new Email();
                 var emailWellcome = new Email.Wellcome
                 {
                     Name = contest.Name,
                     UserName = contest.Email,
-                    Password = contest.Password.DecryptPassword(),
+                    Password = password,
                 };
 
                 var emailExam = new Email.Exam
@@ -125,8 +124,9 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                     LateTime = exam.LateTime,
                 };
 
-                email.SendWellcome(emailWellcome);
-                email.SendExam(emailExam);
+                WellcomeEmail.SendWellcome(emailWellcome);
+                var ExamEmail = new Email();
+                ExamEmail.SendExam(emailExam);
                 return Json(new DbContext.Result<Contestant.Res>
                 {
                     Data = contest,

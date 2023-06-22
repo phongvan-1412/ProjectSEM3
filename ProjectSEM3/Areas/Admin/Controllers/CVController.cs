@@ -44,45 +44,6 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         }
         
         [HttpPost]
-        [Route("/admin/cv/ChangeCvStatus")]
-        public JsonResult ChangeCvStatus(Contestant.Req cv)
-        {
-            try
-            {
-                var param = new Dictionary<string, dynamic>
-                {
-                    { "@Id", cv.Id },
-                    { "@Status", cv.Status },
-                };
-                var result = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.ChangeCvStatus, param);
-
-                if (result == null)
-                {
-                    return Json(new DbContext.Result
-                    {
-                        Mes = "Update Cv Fail.",
-                        IsSuccess = false,
-                    });
-                }
-
-                return Json(new DbContext.Result<Contestant.Res>
-                {
-                    Data = result.FirstOrDefault(),
-                    Mes = "Update Cv Successfull.",
-                    IsSuccess = true,
-                });
-            }
-            catch (Exception)
-            {
-                return Json(new DbContext.Result
-                {
-                    Mes = "Something wrong in server.",
-                    IsSuccess = false,
-                });
-            }
-        }
-
-        [HttpPost]
         [Route("/admin/cv/Reject")]
         public JsonResult Reject(Contestant.Req cv)
         {
@@ -91,7 +52,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 var param = new Dictionary<string, dynamic>
                 {
                     { "@Id", cv.Id },
-                    { "@Status", 3 },
+                    { "@Status", cv.Status },
                 };
                 var result = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.ChangeCvStatus, param);
 
@@ -118,7 +79,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 return Json(new DbContext.Result<Contestant.Res>
                 {
                     Data = resultCv,
-                    Mes = "Reject Cv Successfull.",
+                    Mes = "Update Cv Successfull.",
                     IsSuccess = true,
                 });
             }
