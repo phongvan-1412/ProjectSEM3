@@ -53,7 +53,7 @@ namespace ProjectSEM3.Controllers
         [HttpPost]
         public ActionResult Search(string lstCountries)
         {
-            return RedirectToAction("Jobs", lstCountries);
+            return RedirectToAction("Jobs", "Career", lstCountries);
         }
     }
 }

@@ -2680,10 +2680,18 @@
     <Content Include="Content\img\career\career3.png" />
     <Content Include="Content\img\career\career4.png" />
     <Content Include="Content\img\career\careerbg.png" />
+    <Content Include="Content\img\icons\calendar.png" />
     <Content Include="Content\img\icons\clock.png" />
     <Content Include="Content\img\icons\bin.png" />
     <Content Include="Content\img\icons\file.png" />
+    <Content Include="Content\img\icons\healthcare.png" />
+    <Content Include="Content\img\icons\heart.png" />
+    <Content Include="Content\img\icons\money.png" />
+    <Content Include="Content\img\icons\mortarboard.png" />
+    <Content Include="Content\img\icons\networking.png" />
     <Content Include="Content\img\icons\paper.png" />
+    <Content Include="Content\img\icons\price-tag.png" />
+    <Content Include="Content\img\icons\profile.png" />
     <Content Include="Content\img\icons\save.png" />
     <Content Include="Content\img\social-media icon\facebook-color.png" />
     <Content Include="Content\img\social-media icon\facebook.png" />
@@ -2906,6 +2914,7 @@
     <Content Include="Views\Career\Jobs.cshtml" />
     <Content Include="Views\Shared\Partial\_QuizPartial.cshtml" />
     <Content Include="Views\Quiz\Exam.cshtml" />
+    <Content Include="Views\Career\JobDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
