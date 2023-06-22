@@ -119,7 +119,7 @@ namespace ProjectSEM3.Controllers
             return Json("success");
         }
 
-        public JsonResult GetData(int id)
+        public JsonResult GetData(int id = 60)
         {
             //var lstQuest = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question");
 
@@ -132,6 +132,19 @@ namespace ProjectSEM3.Controllers
             var result = new ContestantExam(examDetails);
             //Session["result"] = result;
             return Json(result);
+        }
+
+        public ActionResult ViewQuiz(int id = 60)
+        {
+
+            var param = new Dictionary<string, dynamic>
+            {
+                { "@ExamId", id},
+            };
+
+            var examDetails = DbContext.Instance.Exec<List<ExamDetail.Res>>(DbStore.GetExamnDetailById, param);
+            var result = new ContestantExam(examDetails);
+            return View(result);
         }
     }
 }

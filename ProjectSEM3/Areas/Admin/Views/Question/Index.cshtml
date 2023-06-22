@@ -108,9 +108,9 @@
 
         const NewQuestion = () => {
             var _correctAnwser = []
-            const IdType = $type.val()
-            const IdLevel = $level.val()
-            const ExamTypesID = $examTypes.val()
+            const TypeId = $type.val()
+            const LevelId = $level.val()
+            const ExamTypeId = $examTypes.val()
             const Content = $content.val()
             const Point = $point.val()
             const IsMultiAnwser = $isMultiSelect[0].checked
@@ -162,9 +162,9 @@
             }
 
             const req = {
-                IdType,
-                IdLevel,
-                ExamTypesID,
+                TypeId,
+                LevelId,
+                ExamTypeId,
                 Content,
                 Point,
                 Options,
