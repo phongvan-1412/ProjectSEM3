@@ -1,4 +1,5 @@
-﻿using ProjectSEM3.Models;
+﻿using Newtonsoft.Json;
+using ProjectSEM3.Models;
 using ProjectSEM3.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,19 @@ namespace ProjectSEM3.Controllers
     {
         public ActionResult Index()
         {
+            ViewData["lstCountries"] = Country();
             return View();
         }
         public ActionResult Jobs(string lstCountries)
         {
+            if(lstCountries != null)
+            {
+                string[] lst = lstCountries.Split(',');
+                List<string> list = new List<string>(lst);
+            }
+
+            ViewData["lstCountries"] = Country();
+            ViewData["lstLevels"] = Levels();
             return View();
         }
 
@@ -53,7 +63,21 @@ namespace ProjectSEM3.Controllers
         [HttpPost]
         public ActionResult Search(string lstCountries)
         {
-            return RedirectToAction("Jobs", "Career", lstCountries);
+            return RedirectToAction("Jobs", "Career", new { lstCountries = lstCountries });
+        }
+
+        public List<Country> Country()
+        {
+            string countryText = System.IO.File.ReadAllText(@"C:\Aptech\SEM3\Project SEM3\countries.json");
+            string countryJson = JsonConvert.SerializeObject(countryText);
+            var countriesText = JsonConvert.DeserializeObject(countryJson);
+            List<Country> countries = JsonConvert.DeserializeObject<List<Country>>(countriesText.ToString());
+            return countries;
+        }
+        public List<Level.Res> Levels()
+        {
+            List<Level.Res> lstLevel = DbContext.Instance.Exec<List<Level.Res>>(DbStore.GetAllLevels);
+            return lstLevel;
         }
     }
 }

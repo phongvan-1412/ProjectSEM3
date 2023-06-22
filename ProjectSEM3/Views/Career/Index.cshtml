@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Career";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var lstCountries = ViewData["lstCountries"];
 }
 <main>
     @*---------- Hero Section ----------*@
@@ -37,10 +38,10 @@
                 <div class="d-flex align-items-center">
                     <div class="d-flex form-group has-placeholder col-12">
                         <select id="selCountries" name="lstCountries" multiple placeholder="City, state, or country" data-search="true" data-silent-initial-value-set="true">
-                            @*@foreach (var item in genres as List<RESTFULDemo.Models.genre>)
-                                {*@
-                            <option>Viet Nam</option>
-                            @*  *@}
+                            @foreach (var item in lstCountries as List<ProjectSEM3.Models.Entities.Country>)
+                            {
+                                <option>@item.Name</option>
+                            }
                         </select>
                     </div>
                 </div>
