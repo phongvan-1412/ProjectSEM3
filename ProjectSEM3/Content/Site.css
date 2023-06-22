@@ -540,18 +540,21 @@ body .container-fluid {
 .searchControllerContainer {
     position: absolute;
     width: 100%;
-    top: 15%;
+    top: 11%;
+    padding: 16px;
     background-color: rgb(255, 255, 255);
     border-radius: 3px;
     box-shadow: rgba(0, 0, 0, 0.133) 0px 6.4px 14.4px, rgba(0, 0, 0, 0.11) 0px 1.2px 3.6px;
 }
-
+.pop-comp-wrapper {
+    width: 250px;
+}
 .search-section, .filter-wrapper {
     padding: 0 3rem;
 }
 
 .search-section {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
     .search-section .searchBtn {
@@ -590,7 +593,18 @@ body .container-fluid {
             margin-right: 0;
         }
 }
-
+.choice-wrapper{
+    background-color: #f1e6f9;
+}
+.choice-wrapper span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 30px;
+    margin: 0px 6px 0px 10px;
+    font-size: 14px;
+    color: rgb(92, 27, 134);
+}
 .jobs-list-wrapper {
     border: 1px solid #fff;
     border-radius: 2px;

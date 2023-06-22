@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Jobs";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var lstLevels = (List<ProjectSEM3.Models.Entities.Level.Res>)ViewData["lstLevels"];
+    var lstCountries = (List<ProjectSEM3.Models.Entities.Country>)ViewData["lstCountries"];
+
 }
 
 <main>
@@ -26,7 +29,7 @@
                             <div class="d-flex" style="position: absolute; margin-left: .4rem; margin-top: 1.1rem;">
                                 <i class="fa fa-search" style="width: 24px; height: 24px;"></i>
                             </div>
-                            <input type="text" aria-required="true" size="30" value="" name="" id="" class="form-control" placeholder="Search by job title or key word">
+                            <input type="text" aria-required="true" size="30" value="" name="" id="" class="form-control" placeholder="Search by job title or key word" style="border-radius: 2px;">
                         </div>
                     </div>
                 </div>
@@ -35,10 +38,10 @@
                     <div class="d-flex align-items-center">
                         <div class="d-flex form-group has-placeholder col-12">
                             <select id="selCountries" name="lstCountries" multiple placeholder="City, state, or country" data-search="true" data-silent-initial-value-set="true" style="padding: 0">
-                                @*@foreach (var item in genres as List<RESTFULDemo.Models.genre>)
-                                    {*@
-                                <option>Viet Nam</option>
-                                @*  *@}
+                                @foreach (var item in lstCountries as List<ProjectSEM3.Models.Entities.Country>)
+                                {
+                                    <option>@item.Name</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -46,7 +49,7 @@
                 @*----- Search Button -----*@
                 <div class="col-lg-4 col-md-2 col-sm-12 mt-2">
                     <div class="d-flex align-items-center">
-                        <button class="btn searchBtn" type="button">Search</button>
+                        <button class="btn searchBtn" type="button" style="border-radius: 2px">Search</button>
                     </div>
                 </div>
             </div>
@@ -56,21 +59,34 @@
             <div class="filter-section container d-flex">
                 <div id="filter-wrapper" class="filter-wrapper">
                     <div class="filter-container d-flex align-items-center justify-content-center">
-                        <div class="d-flex align-items-center col-lg-6 col-md-6 col-sm-12 mb-2">
-                            <label class="m-0">Experience</label>
-                            <select class="form-select ms-2">
-                                <option>Students and Graduated</option>
-                                <option>Students and Graduated</option>
+                        <div class="d-flex align-items-center col-lg-6 col-md-6 col-sm-12 mb-2" style="margin-left: -5px;">
+                            <select id="selExperience" name="experience" placeholder="Experience" data-search="false" data-silent-initial-value-set="true">
+                                @foreach (var item in lstLevels)
+                                {
+                                    <option data-value="@item.Name">@item.Name</option>
+                                }
                             </select>
                         </div>
                         <div class="d-flex align-items-center col-lg-6 col-md-6 col-sm-12 mb-2">
-                            <label class="m-0">Profession</label>
-                            <select class="form-select ms-2">
-                                <option>Software Engineering</option>
-                                <option>Project Manager</option>
+                            <select id="selProfessions" name="profession" placeholder="Profession" data-search="false" data-silent-initial-value-set="true">
+                                <option data-value="Software Engineering">Software Engineering</option>
+                                <option data-value="Project Manager">Project Manager</option>
                             </select>
                         </div>
                     </div>
+                </div>
+            </div>
+            @*-----------------------------------
+                    Display Choice Section
+                -------------------------------------*@
+            <div id="displayChoiceContainer" class="displayChoice-section container d-flex" style="padding: 0 48px;">
+                <div id="experienceChoiceWrapper" class="choice-wrapper me-3" style="display: none">
+                    <span id="experienceText"></span>
+                    <button id="experienceDeleteBtn" class="btn delete-btn" style="color: #605e5c; font-size: 12px">X</button>
+                </div>
+                <div id="professionChoiceWrapper" class="choice-wrapper me-3" style="display: none">
+                    <span id="professionText"></span>
+                    <button id="professionDeleteBtn" class="btn delete-btn" style="color: #605e5c; font-size: 12px">X</button>
                 </div>
             </div>
         </div>
@@ -234,7 +250,7 @@
         </div>
         <div id="job-detail-wrapper" class="job-detail-wrapper d-flex align-items-center justify-content-center col-lg-7 col-md-12 col-sm-12">
             <input id="jobDetailContent" value="no" hidden />
-            
+
         </div>
     </div>
 </main>
@@ -243,9 +259,24 @@
 <script type="text/javascript" src="~/Scripts/virtual-select.min.js"></script>
 <script>
     VirtualSelect.init({
-        ele: '#selCountries'
+        ele: '#selCountries',
     });
 
+    VirtualSelect.init({
+        ele: '#selExperience',
+        dropboxWidth: "250px",
+
+    });
+
+    VirtualSelect.init({
+        ele: '#selProfessions',
+        dropboxWidth: "250px",
+
+    });
+
+    /* -----------------------------------
+        Display Content
+    -------------------------------------*/
     var jobDetailBtn = document.getElementById("jobDetailBtn");
     var jobContent = document.getElementById("jobDetailContent");
     let jobDetailWrapper = document.getElementById("job-detail-wrapper");
@@ -260,7 +291,6 @@
 
         `;
     });
-
     if (jobContent.value === "no") {
         jobDetailWrapper.innerHTML = `
             <div class="d-flex flex-column align-content-center justify-content-center">
@@ -270,4 +300,50 @@
             </div>
         `;
     }
+
+    /* -----------------------------------
+        Display Choice
+    -------------------------------------*/
+    var displayChoice = document.getElementById("displayChoiceContainer");
+    var selExperience = document.getElementById("selExperience");
+    var selProfessions = document.getElementById("selProfessions");
+    var selectedExperience = document.getElementById("experienceChoiceWrapper");
+    var selectedProfessions = document.getElementById("professionChoiceWrapper");
+    var experienceText = document.getElementById("experienceText");
+    var professionText = document.getElementById("professionText");
+    var experienceDeleteBtn = document.getElementById("experienceDeleteBtn");
+    var professionDeleteBtn = document.getElementById("professionDeleteBtn");
+
+    selExperience.addEventListener("click", () => {
+        var selected = selExperience.getElementsByTagName("input")[0].value;
+        console.log(selected)
+        if (selected == "") {
+            selectedExperience.style.display = "none";
+        }
+        else {
+            selectedExperience.style.display = "inline";
+            experienceText.innerHTML = selected;
+        }
+    });
+
+    selProfessions.addEventListener("click", () => {
+        var selected = selProfessions.getElementsByTagName("input")[0].value;
+        console.log(selected)
+
+        if (selected == "") {
+            selectedProfessions.style.display = "none";
+        }
+        else {
+            selectedProfessions.style.display = "inline";
+            professionText.innerHTML = selected;
+        }
+    });
+
+    experienceDeleteBtn.addEventListener("click", () => {
+        selectedExperience.style.display = "none";
+    });
+
+    professionDeleteBtn.addEventListener("click", () => {
+        selectedProfessions.style.display = "none";
+    });
 </script>
