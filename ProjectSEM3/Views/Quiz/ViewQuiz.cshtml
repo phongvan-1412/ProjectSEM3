@@ -6,19 +6,71 @@
 }
 
 <div id="quizView">
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-1"></div>
-        <div class="col-4"></div>
-    </div>
+    
 </div>
 
 @section scripts {
     <script type="text/javascript">
         const $quizView = $("#quizView")
         var quests = @Html.Raw(Json.Encode(result));
-        const maths = quests.Math;
-        //const quest = maths.filter(x => x.TypeName == "Cross")[0]
+        const maths = quests.Computer;
+        const quest = maths.filter(x => x.TypeName == "Ranking")[0]
+        //Ranking demo
+        let $rankingOptions = ''
+        let $solfAbleList = ''
+        const options = JSON.parse(quest.Options)
+        let template = ''
+        let localAnswer = []
+        const ShowRankingQuestion = () => {
+            for (var i = 0; i < 4; i++) {
+                template += `
+                    <li>
+                        <div class="card rankingOptions" ondrag="OnDrag(event)" draggable=true style="cursor:pointer">
+                            ${options[i]}
+                        </div>
+                    </li>
+                `;
+            }
+            $quizView[0].innerHTML = `<ul class="solfAbleList">${template}</ul>`
+            $rankingOptions = $(".rankingOptions")
+            $solfAbleList = $(".solfAbleList")
+        }
+
+        const OnSubmitRanking = () => {
+            for (var ele of $rankingOptions) {
+                localAnswer.push(ele.innerHTML.trim())
+            }
+            console.log(localAnswer)
+        }
+
+        ShowRankingQuestion()
+        OnSubmitRanking()
+        
+        const OnDrag = (e) => {
+            e.target.classList.add("dragging")
+        }
+
+        const OnDragEnd = (e) => {
+            e.target.classList.remove("dragging")
+        }
+
+        const Test = (e) => {
+            e.preventDefault();
+            const draggingItem = $solfAbleList[0].querySelector(".dragging");
+            const siblings = [...$solfAbleList[0].querySelectorAll(".rankingOptions:not(.dragging)")]
+            let nextSiblings = siblings.find(sibling => {
+                return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
+            })
+            draggingItem.addEventListener("dragend", () => { draggingItem.classList.remove("dragging") })
+
+            $solfAbleList[0].insertBefore(draggingItem, nextSiblings)
+        }
+
+        $solfAbleList[0].addEventListener("dragover", Test)
+        //$solfAbleList.on("dragover", Test())
+
+
+        // Cross demo
         //const options = JSON.parse(quest.Options)
         //const question = options[0]
         //const answer = options[1]
@@ -85,7 +137,7 @@
         //        return;
         //    }
         //    var localData = JSON.parse(localStorage.getItem("localCross"))
-           
+
         //    for (var item of localData) {
         //        if (item[0] == tmpQuestion) {
         //            item[1] = tmpAnswer
