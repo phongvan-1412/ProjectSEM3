@@ -22,7 +22,7 @@ namespace ProjectSEM3.Models.Entities
             public int QuestionId { get; set; }
             public int ExamId { get; set; }
             public string Answer { get; set; }
-            public string Contest { get; set; }
+            public string Content { get; set; }
             public int Point { get; set; }
             public string Options { get; set; }
             public string CorrectAnwser { get; set; }
