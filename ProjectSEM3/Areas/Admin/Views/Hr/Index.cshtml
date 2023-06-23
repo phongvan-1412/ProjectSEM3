@@ -65,7 +65,7 @@
                 Address,
                 Experience
             }
-
+            BlockUI()
 
             $.ajax({
                 type: "POST",
@@ -73,29 +73,19 @@
                 data: req,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
-                    OnClearFormNewHr();
+                    if (res.IsSuccess) {
+                        OnClearFormNewHr();
+                    }
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
 
             setTimeout(OnHideToast, 3000)
-        }
-
-        const OnHideToast = () => {
-            $liveToast.hide()
-        }
-
-        const OnAddClassName = (ele, className) => {
-            if (!ele[0].classList.contains(className)) {
-                ele[0].classList.add(className);
-            }
-        }
-
-        const OnRemoveClassName = (ele, className) => {
-            ele[0].classList.remove(className);
         }
 
         const OnChangeHrStatus = (e) => {
@@ -104,18 +94,24 @@
             const data = JSON.parse(e.target.getAttribute('data-hr'))
             const Status = !data.Status
             const hr = { Id, Status }
+            BlockUI()
+
             $.ajax({
                 type: "POST",
                 url: "/admin/hr/ChangeHrStatus",
                 data: hr,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
-                    e.target.setAttribute('data-hr', JSON.stringify(res.Data))
-                    e.target.hidden = !res.Data.Status
-                    $hrTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    if (res.IsSuccess) {
+                        e.target.setAttribute('data-hr', JSON.stringify(res.Data))
+                        e.target.hidden = !res.Data.Status
+                        $hrTable[0].rows[RowIndex].children[5].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    }
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
@@ -158,12 +154,15 @@
                 Experience
             }
             const rowIndex = RowIndex
+            BlockUI()
+
             $.ajax({
                 type: "POST",
                 url: "/admin/hr/UpdateHR",
                 data: { hr, rowIndex },
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
                     if (res.IsSuccess) {
                         $hrTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
@@ -173,6 +172,7 @@
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
@@ -210,25 +210,6 @@
             $education.val("")
             $address.val("")
             $experience.val("")
-        }
-
-        const OnSetupToast = (res, $toast, $toastMes) => {
-            if (res.IsSuccess) {
-                OnRemoveClassName($toast, "bg-danger-subtle")
-                OnAddClassName($toast, "bg-primary-subtle");
-            } else {
-                OnRemoveClassName($toast, "bg-primary-subtle");
-                OnAddClassName($toast, "bg-danger-subtle")
-            }
-            $toastMes[0].innerHTML = res.Mes
-            $toast.show()
-        }
-
-        const OnServerErr = ($toast, $toastMes) => {
-            OnRemoveClassName($toast, "bg-primary-subtle");
-            OnAddClassName($toast, "bg-danger-subtle")
-            $toastMes[0].innerHTML = "Connection fail or Something wrong in server."
-
         }
     </script>
 }
