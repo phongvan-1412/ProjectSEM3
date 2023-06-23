@@ -41,7 +41,14 @@ namespace ProjectSEM3.Controllers
         }
         public ActionResult Quiz_Knowledge(int? examId)
         {
-            ViewData["lstKnowledge"] = GetData(examId).Knowledge;
+            try
+            {
+                ViewData["lstKnowledge"] = GetData(examId).Knowledge;
+            }
+            catch (Exception)
+            {
+                TempData["loadExamDetailFailed"] = "Sorry! Page doesn't exist.";
+            }
             return View();
         }
 
@@ -81,13 +88,26 @@ namespace ProjectSEM3.Controllers
             //ViewData["lstMath"] = lstTemp; 
             //return View(lstTemp);
             //ViewData["lstMath"] = GetData();
-            ViewData["lstMath"] = GetData(examId).Math;
-
+            try
+            {
+                ViewData["lstMath"] = GetData(examId).Math;
+            }
+            catch (Exception)
+            {
+                TempData["loadExamDetailFailed"] = "Sorry! Page doesn't exist.";
+            }
             return View();
         }
         public ActionResult Quiz_Computer(int? examId)
         {
-            ViewData["lstComputer"] = GetData(examId).Computer;
+            try
+            {
+                ViewData["lstComputer"] = GetData(examId).Computer;
+            }
+            catch (Exception)
+            {
+                TempData["loadExamDetailFailed"] = "Sorry! Page doesn't exist.";
+            }
             return View();
         }
 
