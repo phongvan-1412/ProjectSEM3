@@ -77,65 +77,109 @@
                         </div>
                     </div>
                     <hr />
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
 
-                                <span class="col-1"><b>A</b> <i style="color:red">*</i></span>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
-                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
-                                        Is Correct Answer
-                                    </label>
-                                </div>
-                            </div>
-                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerAUpdate" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
-                                <span class="col-1"><b>B</b> <i style="color:red">*</i></span>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
-                                    <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
-                                        Is Correct Answer
-                                    </label>
+                    <div id="normalUpdateView">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
 
+                                    <span class="col-1"><b>A</b> <i style="color:red">*</i></span>
+                                    <div class="form-check col-6 isCorrectAnswerUpdateWrap">
+                                        <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
+                                        <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
+                                            Is Correct Answer
+                                        </label>
+                                    </div>
                                 </div>
+                                <textarea class="form-control p-0 ckEditor" placeholder="" id="answerAUpdate" rows="3"></textarea>
                             </div>
-                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerBUpdate" rows="3"></textarea>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <span class="col-1"><b>B</b> <i style="color:red">*</i></span>
+                                    <div class="form-check col-6 isCorrectAnswerUpdateWrap">
+                                        <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
+                                        <label class="form-check-label pointer" for="isCorrectAnswer" onclick="OnIsCorrectTextClick(event)">
+                                            Is Correct Answer
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <textarea class="form-control p-0 ckEditor" placeholder="" id="answerBUpdate" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <span class="col-1"><b>C</b> <i style="color:red">*</i></span>
+                                    <div class="form-check col-6 isCorrectAnswerUpdateWrap">
+                                        <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
+                                        <label class="form-check-label pointer" for="isCorrectAnswerCUpdate" onclick="OnIsCorrectTextClick(event)">
+                                            Is Correct Answer
+                                        </label>
+                                    </div>
+                                </div>
+                                <textarea class="form-control p-0 ckEditor" placeholder="" id="answerCUpdate" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <span class="col-1"><b>D</b> <i style="color:red">*</i></span>
+                                    <div class="form-check col-6 isCorrectAnswerUpdateWrap">
+                                        <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
+                                        <label class="form-check-label pointer" for="isCorrectAnswerDUpdate" onclick="OnIsCorrectTextClick(event)">
+                                            Is Correct Answer
+                                        </label>
+                                    </div>
+                                </div>
+                                <textarea class="form-control p-0 ckEditor" placeholder="" id="answerDUpdate" rows="3"></textarea>
+                            </div>
                         </div>
                     </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
-                                <span class="col-1"><b>C</b> <i style="color:red">*</i></span>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
-                                    <label class="form-check-label pointer" for="isCorrectAnswerCUpdate" onclick="OnIsCorrectTextClick(event)">
-                                        Is Correct Answer
-                                    </label>
+
+                    <div id="crossUpdateView" hidden>
+                        <div class="row">
+                            <div class="col-5">
+                                <div>
+                                    <label for="exampleFormControlTextarea1" class="form-label"><b>a/</b> <i style="color:red">*</i></label>
+                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" rows="3"></textarea>
+                                </div>
+                                <div>
+                                    <label for="exampleFormControlTextarea1" class="form-label"><b>b/</b> <i style="color:red">*</i></label>
+                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" rows="3"></textarea>
+                                </div>
+                                <div>
+                                    <label for="exampleFormControlTextarea1" class="form-label"><b>c/</b> <i style="color:red">*</i></label>
+                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" rows="3"></textarea>
+                                </div>
+                                <div>
+                                    <label for="exampleFormControlTextarea1" class="form-label"><b>d/</b> <i style="color:red">*</i></label>
+                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" rows="3"></textarea>
                                 </div>
                             </div>
-                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerCUpdate" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
-                                <span class="col-1"><b>D</b> <i style="color:red">*</i></span>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
-                                    <label class="form-check-label pointer" for="isCorrectAnswerDUpdate" onclick="OnIsCorrectTextClick(event)">
-                                        Is Correct Answer
-                                    </label>
+                            <div class="col-7">
+                                <div>
+                                    <label for="exampleFormControlTextarea1" class="form-label"><b>1/</b> <i style="color:red">*</i></label>
+                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" rows="3"></textarea>
+                                </div>
+                                <div>
+                                    <label for="exampleFormControlTextarea1" class="form-label"><b>2/</b> <i style="color:red">*</i></label>
+                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" rows="3"></textarea>
+                                </div>
+                                <div>
+                                    <label for="exampleFormControlTextarea1" class="form-label"><b>3/</b> <i style="color:red">*</i></label>
+                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" rows="3"></textarea>
+                                </div>
+                                <div>
+                                    <label for="exampleFormControlTextarea1" class="form-label"><b>4/</b> <i style="color:red">*</i></label>
+                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" rows="3"></textarea>
                                 </div>
                             </div>
-                            <textarea class="form-control p-0 ckEditor" placeholder="" id="answerDUpdate" rows="3"></textarea>
                         </div>
                     </div>
 

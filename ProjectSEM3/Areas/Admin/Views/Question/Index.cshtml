@@ -33,6 +33,8 @@
         const $isCorrectAnswerUpdate = $(".isCorrectAnswerUpdate")
         const $typeUpdate = $("#typeUpdate")
         const $levelUpdate = $("#levelUpdate")
+        const $questCrossUpdate = $(".questCrossUpdate")
+        const $answerCrossUpdate = $(".answerCrossUpdate")
         const $examTypesUpdate = $("#examTypesUpdate")
         const $pointUpdate = $("#pointUpdate")
         const $isMultiSelectUpdate = $("#isMultiSelectUpdate")
@@ -156,7 +158,6 @@
                 localOption.push($answerB.val())
                 localOption.push($answerC.val())
                 localOption.push($answerD.val())
-
                 Options = JSON.stringify(localOption)
                 CorrectAnwser = JSON.stringify(localOption)
             }
@@ -171,6 +172,7 @@
                 CorrectAnwser,
                 IsMultiAnwser
             }
+            BlockUI()
 
             $.ajax({
                 type: "POST",
@@ -178,32 +180,20 @@
                 data: req,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
+                    setTimeout(OnHideToast, 3000)
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
+                    setTimeout(OnHideToast, 3000)
                 }
             });
-
-            setTimeout(OnHideToast, 3000)
         }
 
         const OnIsCorrectTextClick = (e) => {
             e.target.parentElement.children[0].checked = !e.target.parentElement.children[0].checked
-        }
-
-        const OnHideToast = () => {
-            $liveToast.hide()
-        }
-
-        const OnAddClassName = (ele, className) => {
-            if (!ele[0].classList.contains(className)) {
-                ele[0].classList.add(className);
-            }
-        }
-
-        const OnRemoveClassName = (ele, className) => {
-            ele[0].classList.remove(className);
         }
 
         const OnChangeQuestionStatus = (e) => {
@@ -212,40 +202,70 @@
             const data = JSON.parse(e.target.getAttribute('data-question'))
             const Status = !data.Status
             const req = { Id, Status }
+            BlockUI()
+
             $.ajax({
                 type: "POST",
                 url: "/admin/question/ChangeQuestionStatus",
                 data: req,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
-                    e.target.setAttribute('data-question', JSON.stringify(res.Data))
-                    let statusText = 'Active'
-                    let bgCss = 'success'
-                    if (!res.Data.Status) {
-                        statusText = "Deleted"
-                        bgCss = 'danger'
-                        e.target.hidden = true
+                    if (res.IsSuccess) {
+                        e.target.setAttribute('data-question', JSON.stringify(res.Data))
+                        e.target.hidden = res.Data.StatusType.IsHidden
+                        $questionTable[0].rows[RowIndex].children[5].innerHTML = `<span class="${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
                     }
-                    $questionTable[0].rows[RowIndex].children[4].innerHTML = `<span class="badge bg-${bgCss}">${statusText}</span>`;
+                    setTimeout(OnHideToast, 3000)
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
+                    setTimeout(OnHideToast, 3000)
                 }
             });
-
-            setTimeout(OnHideToast, 3000)
         }
 
         let RowIndex = 0;
         let CurrentId = 0;
         let CurrentSelection = ''
+        const $crossUpdateView = $("#crossUpdateView")
+        const $normalsUpdateView = $("#normalUpdateView")
+        const $isCorrectAnswerUpdateWrap = $(".isCorrectAnswerUpdateWrap")
 
         const OnSelectRowQuestion = (e) => {
             RowIndex = e.target.parentElement.parentElement.rowIndex
             CurrentSelection = e.target
             CurrentId = e.target.getAttribute('data-index')
             const data = JSON.parse(e.target.getAttribute('data-question'))
+            const options = JSON.parse(data.Options)
+            const correctAnwsers = JSON.parse(data.CorrectAnwser)
+            if (data.TypeName == "Cross") {
+                $crossUpdateView[0].removeAttribute("hidden", false)
+                $normalsUpdateView[0].setAttribute("hidden", true)
+                $isMultiSelectUpdate[0].disabled = true
+                const questCross = options[0]
+                const answerCross = options[1]
+                for (var i = 0; i < 4; i++) {
+                    $questCrossUpdate[i].value = questCross[i]
+                    $answerCrossUpdate[i].value = answerCross[i]
+                }
+            } else {
+                $crossUpdateView[0].setAttribute("hidden", true)
+                $normalsUpdateView[0].removeAttribute("hidden", false)
+                if (data.TypeName == "Ranking") {
+                    for (var ele of $isCorrectAnswerUpdateWrap) {
+                        ele.hidden = true
+                    }
+                    $isMultiSelectUpdate[0].disabled = true
+                }
+
+                $answerAUpdate.val(options[0])
+                $answerBUpdate.val(options[1])
+                $answerCUpdate.val(options[2])
+                $answerDUpdate.val(options[3])
+            }
 
             for (var i = 0; i < $typeUpdate[0].length; i++) {
                 if ($typeUpdate[0].options[i].innerHTML == data.TypeName) {
@@ -258,7 +278,7 @@
                     $levelUpdate[0].options[i].selected = true;
                 }
             }
-            
+
             for (var i = 0; i < $pointUpdate[0].length; i++) {
                 if ($pointUpdate[0].options[i].innerHTML == data.Point) {
                     $pointUpdate[0].options[i].selected = true;
@@ -273,13 +293,6 @@
 
             $isMultiSelectUpdate[0].checked = data.IsMultiAnwser
             $contentUpdate.val(data.Content)
-
-            const options = JSON.parse(data.Options)
-            const correctAnwsers = JSON.parse(data.CorrectAnwser)
-            $answerAUpdate.val(options[0])
-            $answerBUpdate.val(options[1])
-            $answerCUpdate.val(options[2])
-            $answerDUpdate.val(options[3])
 
             for (var ele of $isCorrectAnswerUpdate) {
                 if (data.IsMultiAnwser) {
@@ -299,28 +312,55 @@
         const OnUpdateQuestion = (e) => {
             const Id = CurrentId
             var _correctAnwser = []
-            for (var ele of $isCorrectAnswerUpdate) {
-                if (ele.checked) {
-                    _correctAnwser.push(ele.parentElement.parentElement.parentElement.children[1].value)
-                }
-            }
-            const CorrectAnwser = JSON.stringify(_correctAnwser)
-            const IdType = $typeUpdate.val()
-            const IdLevel = $levelUpdate.val()
+            
+            const TypeId = $typeUpdate.val()
+            const LevelId = $levelUpdate.val()
             const Content = $contentUpdate.val()
             const Point = $pointUpdate.val()
-            const localOption = []
-            localOption.push($answerAUpdate.val())
-            localOption.push($answerBUpdate.val())
-            localOption.push($answerCUpdate.val())
-            localOption.push($answerDUpdate.val())
-            const Options = JSON.stringify(localOption)
             const IsMultiAnwser = $isMultiSelectUpdate[0].checked
+          
+            let Options = ''
+            let localOption = []
+            let localAnwser = []
+            let CorrectAnwser = ''
+
+            if (TypeId == 1) {
+                for (var ele of $isCorrectAnswerUpdate) {
+                    if (ele.checked) {
+                        _correctAnwser.push(ele.parentElement.parentElement.parentElement.children[1].value)
+                    }
+                }
+                localOption.push($answerAUpdate.val())
+                localOption.push($answerBUpdate.val())
+                localOption.push($answerCUpdate.val())
+                localOption.push($answerDUpdate.val())
+                Options = JSON.stringify(localOption)
+                CorrectAnwser = JSON.stringify(_correctAnwser)
+            } else if (TypeId == 2) {
+                var options = []
+                var optionAnwsers = []
+                for (var i = 0; i < 4; i++) {
+                    options.push($questCrossUpdate[i].value)
+                    optionAnwsers.push($answerCrossUpdate[i].value)
+                }
+                localAnwser.push(optionAnwsers)
+                localOption.push(options)
+
+                Options = JSON.stringify(localOption)
+                CorrectAnwser = JSON.stringify(localAnwser)
+            } else {
+                localOption.push($answerA.val())
+                localOption.push($answerB.val())
+                localOption.push($answerC.val())
+                localOption.push($answerD.val())
+                Options = JSON.stringify(localOption)
+                CorrectAnwser = JSON.stringify(localOption)
+            }
 
             const req = {
                 Id,
-                IdType,
-                IdLevel,
+                TypeId,
+                LevelId,
                 Content,
                 Point,
                 Options,
@@ -328,14 +368,17 @@
                 IsMultiAnwser
             }
             const rowIndex = RowIndex
-
+            BlockUI()
+            
             $.ajax({
                 type: "POST",
                 url: "/admin/question/UpdateQuestion",
                 data: { req, rowIndex },
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
+                    console.log(res.Data)
                     if (res.IsSuccess) {
                         $questionTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Content;
                         $questionTable[0].rows[RowIndex].children[2].innerHTML = res.Data.TypeName;
@@ -343,13 +386,14 @@
                         CurrentSelection.setAttribute('data-question', JSON.stringify(res.Data))
                         CurrentSelection.parentElement.children[1].setAttribute('data-question', JSON.stringify(res.Data))
                     }
+                    setTimeout(OnHideToast, 3000)
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
+                    setTimeout(OnHideToast, 3000)
                 }
             });
-
-            setTimeout(OnHideToast, 3000)
         }
 
         const OnViewQuestion = (e) => {
@@ -378,47 +422,26 @@
             }
         }
 
-        //$updateHr[0].addEventListener('hidden.bs.modal', function (event) {
-        //    OnClearFormUpdateHr();
-        //})
+                //$updateHr[0].addEventListener('hidden.bs.modal', function (event) {
+                //    OnClearFormUpdateHr();
+                //})
 
-        //const OnClearFormUpdateHr = () => {
-        //    $nameUpdate.val("")
-        //    $emailUpdate.val("")
-        //    $contactUpdate.val("")
-        //    $educationUpdate.val("")
-        //    $addressUpdate.val("")
-        //    $experienceUpdate.val("")
-        //}
+                //const OnClearFormUpdateHr = () => {
+                //    $nameUpdate.val("")
+                //    $emailUpdate.val("")
+                //    $contactUpdate.val("")
+                //    $educationUpdate.val("")
+                //    $addressUpdate.val("")
+                //    $experienceUpdate.val("")
+                //}
 
-
-
-        //const OnClearFormNewHr = () => {
-        //    $name.val("")
-        //    $email.val("")
-        //    $contact.val("")
-        //    $education.val("")
-        //    $address.val("")
-        //    $experience.val("")
-        //}
-
-        const OnSetupToast = (res, $toast, $toastMes) => {
-            if (res.IsSuccess) {
-                OnRemoveClassName($toast, "bg-danger-subtle")
-                OnAddClassName($toast, "bg-primary-subtle");
-            } else {
-                OnRemoveClassName($toast, "bg-primary-subtle");
-                OnAddClassName($toast, "bg-danger-subtle")
-            }
-            $toastMes[0].innerHTML = res.Mes
-            $toast.show()
-        }
-
-        const OnServerErr = ($toast, $toastMes) => {
-            OnRemoveClassName($toast, "bg-primary-subtle");
-            OnAddClassName($toast, "bg-danger-subtle")
-            $toastMes[0].innerHTML = "Connection fail or Something wrong in server."
-
-        }
+                //const OnClearFormNewHr = () => {
+                //    $name.val("")
+                //    $email.val("")
+                //    $contact.val("")
+                //    $education.val("")
+                //    $address.val("")
+                //    $experience.val("")
+                //}
     </script>
 }

@@ -81,14 +81,14 @@
                     if (res.IsSuccess) {
 
                     }
+                    setTimeout(OnHideToast, 3000)
                 },
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
+                    setTimeout(OnHideToast, 3000)
                 }
             });
-         
-            setTimeout(OnHideToast, 3000)
         }
 
         const OnChangeJobStatus = (e) => {
@@ -112,15 +112,15 @@
                         e.target.hidden = !res.Data.Status
                         $jobTable[0].rows[RowIndex].children[6].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
                     }
+                    setTimeout(OnHideToast, 3000)
                 },
 
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
+                    setTimeout(OnHideToast, 3000)
                 }
             });
-
-            setTimeout(OnHideToast, 3000)
         }
 
         let RowIndex = 0;
@@ -186,14 +186,14 @@
                         CurrentSelection.setAttribute('data-job', JSON.stringify(res.Data))
                         CurrentSelection.parentElement.children[1].setAttribute('data-job', JSON.stringify(res.Data))
                     }
+                    setTimeout(OnHideToast, 3000)
                 },
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
+                    setTimeout(OnHideToast, 3000)
                 }
             });
-
-            setTimeout(OnHideToast, 3000)
         }
 
         //const OnViewHr = (e) => {

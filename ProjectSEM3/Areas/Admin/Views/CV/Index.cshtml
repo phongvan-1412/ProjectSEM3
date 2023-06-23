@@ -81,12 +81,11 @@
                         $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
                     } 
                     UnBlockUI()
-                    setTimeout(OnHideToast, 3000)
                 },
                 error: function (jqXHR, err, errorThrown) {
                     OnServerErr($liveToast, $toastMes);
                     UnBlockUI()
-                    setTimeout(OnHideToast, 3000)
+                    HideToast()
                 }
             });
         }
@@ -111,15 +110,14 @@
                         $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
                     } 
                     UnBlockUI()
-                    setTimeout(OnHideToast, 3000)
+                    HideToast()
                 },
                 error: function (jqXHR, err, errorThrown) {
                     OnServerErr($liveToast, $toastMes);
                     UnBlockUI()
-                    setTimeout(OnHideToast, 3000)
+                    HideToast()
                 }
             });
-
         }
     </script>
 }

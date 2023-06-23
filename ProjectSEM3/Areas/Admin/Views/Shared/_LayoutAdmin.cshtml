@@ -68,7 +68,8 @@
         }
 
         const UnBlockUI = () => {
-            $("#blockUi")[0].setAttribute("hidden",true)
+            $("#blockUi")[0].setAttribute("hidden", true)
+            setTimeout(OnHideToast, 3000)
         }
 
         const OnHideToast = () => {

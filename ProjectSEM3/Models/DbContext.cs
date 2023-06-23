@@ -66,11 +66,11 @@ namespace ProjectSEM3.Models
                         var res = JsonConvert.SerializeObject(dataset.Tables[0]);
                         return JsonConvert.DeserializeObject<T>(res);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         cmd.Connection.Close();
                         return JsonConvert.DeserializeObject<T>("null");
-                        throw;
+                        throw ex;
                     }
                     
                     
