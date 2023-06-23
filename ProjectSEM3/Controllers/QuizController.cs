@@ -36,9 +36,9 @@ namespace ProjectSEM3.Controllers
         }
 
         [HttpPost]
-        public ActionResult StartQuiz(int id)
+        public JsonResult StartQuiz(int id)
         {
-            return RedirectToAction("Quiz_Knowledge", new { examId = id });
+            return Json(new { redirectToUrl = Url.Action("Quiz_Knowledge", "Quiz"), examId = id });
         }
         public ActionResult Quiz_Knowledge(int? examId)
         {
@@ -94,10 +94,10 @@ namespace ProjectSEM3.Controllers
         [HttpPost]
         public JsonResult SubmitMath(string result, int examId)
         {
-            var json = JsonConvert.DeserializeObject(result);
-            List<Models.Entities.Result> results = JsonConvert.DeserializeObject<List<Models.Entities.Result>>(json.ToString());
+            //var json = JsonConvert.DeserializeObject(result);
+            //List<Models.Entities.Result> results = JsonConvert.DeserializeObject<List<Models.Entities.Result>>(json.ToString());
 
-            Console.WriteLine(results);
+            //Console.WriteLine(results);
             return Json(new { redirectToUrl = Url.Action("Quiz_Computer", "Quiz"), examId = examId });
         }
 

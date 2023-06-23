@@ -53,13 +53,33 @@
                     </span>
                 </div>
                 <div class="mt-3">
-                    <form action="/Quiz/Quiz_Knowledge" method="post">
-                        <input type="text" name="examId" value="@lst.Id" hidden />
-                        <button id="startQuizBtn" type="submit" class="btn text-white fw-600" style="width: 200px; background-color: rgb(92, 27, 134); border-radius: 3px;">Start Exam</button>
-                    </form>
+                    @*<form action="/Quiz/Quiz_Knowledge" method="post">
+                            <input type="text" name="examId" value="@lst.Id" hidden />
+                            <button id="startQuizBtn" type="submit" class="btn text-white fw-600" style="width: 200px; background-color: rgb(92, 27, 134); border-radius: 3px;">Start Exam</button>
+                        </form>*@
+                    <button id="startQuizBtn" type="submit" class="btn text-white fw-600" style="width: 200px; background-color: rgb(92, 27, 134); border-radius: 3px;">Start Exam</button>
+
                 </div>
             </div>
         </div>
     }
 </main>
 
+<script type="text/javascript">
+    var examBtn = document.getElementById("startQuizBtn");
+    examBtn.addEventListener("click", () => {
+        $.ajax({
+            type: "POST",
+            data: { id: @lst.Id },
+            dataType: "json",
+            url: "/Quiz/StartQuiz",
+            success: function (result) {
+                console.log(result);
+                window.location.href = result.redirectToUrl + "?examId=" + @lst.Id;
+            },
+            error: function (req, status, error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
