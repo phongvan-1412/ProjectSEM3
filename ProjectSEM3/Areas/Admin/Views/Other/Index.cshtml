@@ -45,7 +45,7 @@
         let RowIndex = 0;
         let CurrentId = 0;
         let CurrentSelection = ''
-        
+
         //exam type
         const $idExamType = $("#idExamType")
         const $nameExamType = $("#nameExamType")
@@ -58,14 +58,15 @@
             $idExamType.val(data.Id)
             $nameExamType.val(data.Name)
         }
+
         const OnSubmitExamType = () => {
             const Id = $idExamType.val()
             const Name = $nameExamType.val()
-            const isNewExam = Id != 0
             const req = { Id, Name, RowIndex }
             let action = "/admin/other/NewExamType"
-            if (isNewExam)
+            if (Id != 0) 
                 action = "/admin/other/UpdateExamType"
+           
             BlockUI()
 
             $.ajax({
@@ -76,12 +77,17 @@
                 success: function (res) {
                     UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
+                    var json = JSON.stringify(res.Data)
                     if (res.IsSuccess) {
-                        $examTypeTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
-                        CurrentSelection.setAttribute('data-examType', JSON.stringify(res.Data))
-                        CurrentSelection.parentElement.children[1].setAttribute('data-examType', JSON.stringify(res.Data))
-                        $idExamType.val("0")
-                        $nameExamType.val("")
+                        if (Id != 0) {
+                            $examTypeTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
+                            CurrentSelection.setAttribute('data-examType', json)
+                            CurrentSelection.parentElement.children[1].setAttribute('data-examType', json)
+                            $idExamType.val("0")
+                            $nameExamType.val("")
+                        } else {
+                            location.reload()
+                        }
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
@@ -89,8 +95,6 @@
                     OnServerErr($liveToast, $toastMes);
                 }
             });
-
-            setTimeout(OnHideToast, 3000)
         }
         const OnChangeExamTypeStatus = (e) => {
             RowIndex = e.target.parentElement.parentElement.rowIndex
@@ -143,7 +147,7 @@
             if (Id != 0)
                 action = "/admin/other/UpdateLevel"
             BlockUI()
-            
+
             $.ajax({
                 type: "POST",
                 url: action,
@@ -153,11 +157,15 @@
                     UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
                     if (res.IsSuccess) {
-                        $levelTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
-                        CurrentSelection.setAttribute('data-level', JSON.stringify(res.Data))
-                        CurrentSelection.parentElement.children[1].setAttribute('data-level', JSON.stringify(res.Data))
-                        $idLevel.val("0")
-                        $nameLevel.val("")
+                        if (Id != 0) {
+                            $levelTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
+                            CurrentSelection.setAttribute('data-level', JSON.stringify(res.Data))
+                            CurrentSelection.parentElement.children[1].setAttribute('data-level', JSON.stringify(res.Data))
+                            $idLevel.val("0")
+                            $nameLevel.val("")
+                        } else {
+                            location.reload()
+                        }
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
@@ -212,10 +220,10 @@
 
             const req = { Id, Name, RowIndex }
             let action = "/admin/other/NewQuestionType"
-            if (Id != 0)                     
+            if (Id != 0)
                 action = "/admin/other/UpdateQuestionType"
             BlockUI()
-            
+
             $.ajax({
                 type: "POST",
                 url: action,
@@ -225,9 +233,16 @@
                     UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
                     if (res.IsSuccess) {
-                        $questionTypeTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
-                        CurrentSelection.setAttribute('data-questionType', JSON.stringify(res.Data))
-                        CurrentSelection.parentElement.children[1].setAttribute('data-questionType', JSON.stringify(res.Data))
+                        if (Id != 0) {
+                            $questionTypeTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
+                            CurrentSelection.setAttribute('data-questionType', JSON.stringify(res.Data))
+                            CurrentSelection.parentElement.children[1].setAttribute('data-questionType', JSON.stringify(res.Data))
+                            $idQuestionType.val("0")
+                            $nameQuestionType.val("")
+                        } else {
+                            location.reload()
+                        }
+                        
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
