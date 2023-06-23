@@ -11,8 +11,8 @@
             <span><b>Name</b> <i style="color:red">*</i></span>
         </div>
         <div class="col-4">
-            <input class="form-control p-1" id="id" type="text" hidden>
-            <input class="form-control p-1" id="name" type="text">
+            <input class="form-control p-1" id="idQuestionType" type="text" hidden>
+            <input class="form-control p-1" id="nameQuestionType" type="text">
         </div>
         <div class="col-2">
             <button class="main-btn btn-sm primary-btn btn-hover" onclick="OnSubmitQuestionType()">Submit</button>
@@ -50,15 +50,8 @@ else
                             @{
                                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(item);
                             }
-                            <i class="fa-solid fa-pen-to-square fa-2x pointer" style="color:forestgreen" data-bs-toggle="modal" data-bs-target="#updateHr" data-index="@item.Id" data-questionType="@json" onclick="OnSelectRowQuestionType(event)"></i>
-                            @if (@item.StatusType.IsHidden)
-                            {
-                                <i class="fa-solid fa-rotate fa-2x pointer ms-3" style="color: dodgerblue;" data-index="@item.Id" data-questionType="@json" onclick="OnChangeQuestionTypeStatus(event)" hidden></i>
-                            }
-                            else
-                            {
-                                <i class="fa-solid fa-rotate fa-2x pointer ms-3" style="color: dodgerblue;" data-index="@item.Id" data-questionType="@json" onclick="OnChangeQuestionTypeStatus(event)"></i>
-                            }
+                            <i class="fa-solid fa-pen-to-square fa-2x pointer" style="color:forestgreen" data-index="@item.Id" data-questionType="@json" onclick="OnSelectRowQuestionType(event)"></i>
+                            <i class="fa-solid fa-rotate fa-2x pointer ms-3" style="color: dodgerblue;" data-index="@item.Id" data-questionType="@json" onclick="OnChangeQuestionTypeStatus(event)"></i>
                         </td>
                     </tr>
                 }

@@ -85,7 +85,6 @@
                 error: function (jqXHR, err, errorThrown) {
                     OnServerErr($liveToast, $toastMes);
                     UnBlockUI()
-                    HideToast()
                 }
             });
         }
@@ -110,12 +109,10 @@
                         $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
                     } 
                     UnBlockUI()
-                    HideToast()
                 },
                 error: function (jqXHR, err, errorThrown) {
                     OnServerErr($liveToast, $toastMes);
                     UnBlockUI()
-                    HideToast()
                 }
             });
         }

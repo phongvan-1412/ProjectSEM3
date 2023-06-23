@@ -182,12 +182,10 @@
                 success: function (res) {
                     UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
-                    setTimeout(OnHideToast, 3000)
                 },
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
-                    setTimeout(OnHideToast, 3000)
                 }
             });
         }
@@ -217,12 +215,10 @@
                         e.target.hidden = res.Data.StatusType.IsHidden
                         $questionTable[0].rows[RowIndex].children[5].innerHTML = `<span class="${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
                     }
-                    setTimeout(OnHideToast, 3000)
                 },
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
-                    setTimeout(OnHideToast, 3000)
                 }
             });
         }
@@ -386,12 +382,10 @@
                         CurrentSelection.setAttribute('data-question', JSON.stringify(res.Data))
                         CurrentSelection.parentElement.children[1].setAttribute('data-question', JSON.stringify(res.Data))
                     }
-                    setTimeout(OnHideToast, 3000)
                 },
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
-                    setTimeout(OnHideToast, 3000)
                 }
             });
         }

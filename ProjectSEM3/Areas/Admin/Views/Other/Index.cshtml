@@ -39,10 +39,13 @@
         $levelTable.DataTable();
         $questionTypeTable.DataTable();
 
+        const $liveToast = $("#liveToast")
+        const $toastMes = $("#toastMes")
+
         let RowIndex = 0;
         let CurrentId = 0;
         let CurrentSelection = ''
-
+        
         //exam type
         const $idExamType = $("#idExamType")
         const $nameExamType = $("#nameExamType")
@@ -58,11 +61,12 @@
         const OnSubmitExamType = () => {
             const Id = $idExamType.val()
             const Name = $nameExamType.val()
-
-            const req = { Id, Name }
+            const isNewExam = Id != 0
+            const req = { Id, Name, RowIndex }
             let action = "/admin/other/NewExamType"
-            if (Id != 0)
+            if (isNewExam)
                 action = "/admin/other/UpdateExamType"
+            BlockUI()
 
             $.ajax({
                 type: "POST",
@@ -70,16 +74,18 @@
                 data: req,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
                     if (res.IsSuccess) {
                         $examTypeTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
                         CurrentSelection.setAttribute('data-examType', JSON.stringify(res.Data))
                         CurrentSelection.parentElement.children[1].setAttribute('data-examType', JSON.stringify(res.Data))
-                        $idExamType.val("")
+                        $idExamType.val("0")
                         $nameExamType.val("")
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
@@ -92,6 +98,7 @@
             const data = JSON.parse(e.target.getAttribute('data-examType'))
             const Status = !data.Status
             const job = { Id, Status }
+            BlockUI()
 
             $.ajax({
                 type: "POST",
@@ -99,11 +106,15 @@
                 data: job,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
-                    e.target.setAttribute('data-examType', JSON.stringify(res.Data))
-                    $examTypeTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    if (res.IsSuccess) {
+                        e.target.setAttribute('data-examType', JSON.stringify(res.Data))
+                        $examTypeTable[0].rows[RowIndex].children[2].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    }
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
@@ -127,32 +138,33 @@
             const Id = $idLevel.val()
             const Name = $nameLevel.val()
 
-            const req = { Id, Name }
+            const req = { Id, Name, RowIndex }
             let action = "/admin/other/NewLevel"
             if (Id != 0)
                 action = "/admin/other/UpdateLevel"
-
+            BlockUI()
+            
             $.ajax({
                 type: "POST",
                 url: action,
                 data: req,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
                     if (res.IsSuccess) {
-                        $examTypeTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
+                        $levelTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
                         CurrentSelection.setAttribute('data-level', JSON.stringify(res.Data))
                         CurrentSelection.parentElement.children[1].setAttribute('data-level', JSON.stringify(res.Data))
-                        $idLevel.val("")
+                        $idLevel.val("0")
                         $nameLevel.val("")
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
-
-            setTimeout(OnHideToast, 3000)
         }
         const OnChangeLevelTypeStatus = (e) => {
             RowIndex = e.target.parentElement.parentElement.rowIndex
@@ -160,6 +172,7 @@
             const data = JSON.parse(e.target.getAttribute('data-level'))
             const Status = !data.Status
             const job = { Id, Status }
+            BlockUI()
 
             $.ajax({
                 type: "POST",
@@ -167,16 +180,18 @@
                 data: job,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
-                    e.target.setAttribute('data-level', JSON.stringify(res.Data))
-                    $examTypeTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    if (res.IsSuccess) {
+                        e.target.setAttribute('data-level', JSON.stringify(res.Data))
+                        $levelTable[0].rows[RowIndex].children[2].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    }
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
-
-            setTimeout(OnHideToast, 3000)
         }
 
         //question type
@@ -195,30 +210,31 @@
             const Id = $idQuestionType.val()
             const Name = $nameQuestionType.val()
 
-            const req = { Id, Name }
+            const req = { Id, Name, RowIndex }
             let action = "/admin/other/NewQuestionType"
             if (Id != 0)                     
                 action = "/admin/other/UpdateQuestionType"
-
+            BlockUI()
+            
             $.ajax({
                 type: "POST",
                 url: action,
                 data: req,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
                     if (res.IsSuccess) {
-                        $examTypeTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
+                        $questionTypeTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Name;
                         CurrentSelection.setAttribute('data-questionType', JSON.stringify(res.Data))
                         CurrentSelection.parentElement.children[1].setAttribute('data-questionType', JSON.stringify(res.Data))
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
-
-            setTimeout(OnHideToast, 3000)
         }
         const OnChangeQuestionTypeStatus = (e) => {
             RowIndex = e.target.parentElement.parentElement.rowIndex
@@ -226,6 +242,7 @@
             const data = JSON.parse(e.target.getAttribute('data-questionType'))
             const Status = !data.Status
             const job = { Id, Status }
+            BlockUI()
 
             $.ajax({
                 type: "POST",
@@ -233,34 +250,18 @@
                 data: job,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
-                    e.target.setAttribute('data-questionType', JSON.stringify(res.Data))
-                    $examTypeTable[0].rows[RowIndex].children[3].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    if (res.IsSuccess) {
+                        e.target.setAttribute('data-questionType', JSON.stringify(res.Data))
+                        $questionTypeTable[0].rows[RowIndex].children[2].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    }
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
-
-            setTimeout(OnHideToast, 3000)
-        }
-
-        const OnSetupToast = (res, $toast, $toastMes) => {
-            if (res.IsSuccess) {
-                OnRemoveClassName($toast, "bg-danger-subtle")
-                OnAddClassName($toast, "bg-primary-subtle");
-            } else {
-                OnRemoveClassName($toast, "bg-primary-subtle");
-                OnAddClassName($toast, "bg-danger-subtle")
-            }
-            $toastMes[0].innerHTML = res.Mes
-            $toast.show()
-        }
-
-        const OnServerErr = ($toast, $toastMes) => {
-            OnRemoveClassName($toast, "bg-primary-subtle");
-            OnAddClassName($toast, "bg-danger-subtle")
-            $toastMes[0].innerHTML = "Connection fail or Something wrong in server."
         }
     </script>
 }

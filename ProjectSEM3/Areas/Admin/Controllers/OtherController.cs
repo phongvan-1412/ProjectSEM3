@@ -16,6 +16,11 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             ViewBag.ExamType = DbContext.Instance.Exec<List<ProjectSEM3.Models.Entities.Type.Res>>(DbStore.GetAllTypes);
             ViewBag.Level = DbContext.Instance.Exec<List<Level.Res>>(DbStore.GetAllLevels);
             ViewBag.QuestionType = DbContext.Instance.Exec<List<QuestionType.Res>>(DbStore.GetAllQuestionTypes);
+            ViewBag.PendingCv = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetCvByStatus, new Dictionary<string, dynamic>
+            {
+                { "@Status", 1},
+                { "@IsViewed", 0},
+            });
             return View();
         }
 
