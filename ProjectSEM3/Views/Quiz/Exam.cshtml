@@ -3,11 +3,7 @@
     ViewBag.Title = "Exam";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var lst = ViewData["Exam"] as ProjectSEM3.Models.Entities.Exam.Res;
-
-    if (lst == null)
-    {
-        lst = new ProjectSEM3.Models.Entities.Exam.Res();
-    }
+    var contestant = (int)ViewData["Contestant"];
 }
 
 <main>
@@ -53,11 +49,10 @@
                     </span>
                 </div>
                 <div class="mt-3">
-                    @*<form action="/Quiz/Quiz_Knowledge" method="post">
-                            <input type="text" name="examId" value="@lst.Id" hidden />
-                            <button id="startQuizBtn" type="submit" class="btn text-white fw-600" style="width: 200px; background-color: rgb(92, 27, 134); border-radius: 3px;">Start Exam</button>
-                        </form>*@
-                    <button id="startQuizBtn" type="submit" class="btn text-white fw-600" style="width: 200px; background-color: rgb(92, 27, 134); border-radius: 3px;">Start Exam</button>
+                    <form action="/Quiz/StartQuiz" method="post">
+                        <input type="text" name="examId" value="@lst.Id" hidden />
+                        <button id="startQuizBtn" type="submit" class="btn text-white fw-600" style="width: 200px; background-color: rgb(92, 27, 134); border-radius: 3px;">Start Exam</button>
+                    </form>
 
                 </div>
             </div>
@@ -67,19 +62,5 @@
 
 <script type="text/javascript">
     var examBtn = document.getElementById("startQuizBtn");
-    examBtn.addEventListener("click", () => {
-        $.ajax({
-            type: "POST",
-            data: { id: @lst.Id },
-            dataType: "json",
-            url: "/Quiz/StartQuiz",
-            success: function (result) {
-                console.log(result);
-                window.location.href = result.redirectToUrl + "?examId=" + @lst.Id;
-            },
-            error: function (req, status, error) {
-                console.log(error);
-            }
-        });
-    });
+    localStorage.setItem("contestant", JSON.stringify(@contestant));
 </script>

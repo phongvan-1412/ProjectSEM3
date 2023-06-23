@@ -9,7 +9,6 @@
     <!-- Get Question List -->
     //var lst = (List<ProjectSEM3.Models.Entities.ExamDetail.Res>)ViewData["lstKnowledge"];
     var lst = (ProjectSEM3.Models.Entities.ContestantExam)ViewData["lstExam"];
-    var examId = (int)ViewData["examId"];
 }
 
 <div class="quiz-wrapper pt-5">
@@ -184,7 +183,7 @@
 
     function jumpButtons() {
         let btns = ``;
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < lstTemp.length; i++) {
             btns += `
                 <div class="step bg-white ${i == index ? "finish" : ""} d-flex align-items-center justify-content-center" onclick="showQuestion(${i})" style="cursor: pointer">
                     <div class="d-flex align-items-center justify-content-center">${i + 1}</div>
@@ -240,14 +239,18 @@
 
         lstTemp[index].Answer = JSON.stringify(j);
         setTemp(tempName);
-        console.log(lstTemp)
+        var k = JSON.parse(localStorage.getItem("data"))
+        console.log(k)
     };
+
+    /*-------------- Cross Choice --------------*/
 
     /*  -------------- Question --------------*/
     function submitQuiz() {
         if (tempName == "Knowledge") {
             resetTemp("Math");
             showQuestion(0);
+
         }
         else if (tempName == "Math") {
             resetTemp("Computer");
@@ -256,12 +259,12 @@
         else {
             $.ajax({
                 type: "POST",
-                data: { result: localStorage.getItem("data") },
+                data: { result: localStorage.getItem("data"), contestantId: parseInt(localStorage.getItem("contestant")) },
                 dataType: "json",
                 url: "/Quiz/Submit",
                 success: function (result) {
                     console.log(result);
-                    //window.location.href = result.redirectToUrl + "?examId=" + result.examId;
+                    localStorage.removeItem("contestant");
                 },
                 error: function (req, status, error) {
                     console.log(error);
@@ -317,20 +320,20 @@
 
 </script>
 @*${question.TypeId == 2*@
-                @*? `
-<div class="d-flex align-items-center justify-content-center">
-    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-        Question
-        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${lstTemp.length}
-    </span>
-    <button type="button" class="reset-wrapper d-flex align-items-center justify-content-center text-uppercase border-0 ms-3" onclick="reset()">Reset</button>
-</div>
-                `
-                : `
-<div class="d-flex align-items-center justify-content-center">
-    <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-        Question
-        <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${lstTemp.length}
-    </span>
-</div>
-                `}*@
+@*? `
+    <div class="d-flex align-items-center justify-content-center">
+        <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+            Question
+            <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${lstTemp.length}
+        </span>
+        <button type="button" class="reset-wrapper d-flex align-items-center justify-content-center text-uppercase border-0 ms-3" onclick="reset()">Reset</button>
+    </div>
+                    `
+                    : `
+    <div class="d-flex align-items-center justify-content-center">
+        <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+            Question
+            <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${lstTemp.length}
+        </span>
+    </div>
+                    `}*@

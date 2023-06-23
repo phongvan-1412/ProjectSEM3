@@ -30,16 +30,15 @@ namespace ProjectSEM3.Controllers
             };
 
             var account = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmailPass, param);
-            Session["Contestant"] = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmailPass, param);
 
-            if(account.Count() == 0)
+            if (account.Count() == 0)
             {
                 TempData["accountFailed"] = "Your email or password is invalid. Please try again!";
                 return RedirectToAction("Login");
             }
             else
             {
-                return RedirectToAction("Exam", "Quiz");
+                return RedirectToAction("Exam", "Quiz", new { contestant = account.FirstOrDefault().Id });
             }
         }
     }
