@@ -24,12 +24,12 @@ else
                 </tr>
             </thead>
             <tbody>
+                @{
+                    var index = 1;
+                }
                 @foreach (var item in data)
                 {
                     <tr>
-                        @{
-                            var index = 1;
-                        }
                         <td>@index@{index++;}</td>
                         <td>@item.Content</td>
                         <td>@item.TypeName</td>

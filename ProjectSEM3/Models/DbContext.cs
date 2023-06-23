@@ -58,12 +58,22 @@ namespace ProjectSEM3.Models
                         cmd.Parameters.Add(new SqlParameter(item.Key, item.Value));
                     }
                     da.SelectCommand = cmd;
-
-                    DataSet dataset = new DataSet();
-                    da.Fill(dataset);
-                    cmd.Connection.Close();
-                    var res = JsonConvert.SerializeObject(dataset.Tables[0]);
-                    return JsonConvert.DeserializeObject<T>(res);
+                    try
+                    {
+                        DataSet dataset = new DataSet();
+                        da.Fill(dataset);
+                        cmd.Connection.Close();
+                        var res = JsonConvert.SerializeObject(dataset.Tables[0]);
+                        return JsonConvert.DeserializeObject<T>(res);
+                    }
+                    catch (Exception ex)
+                    {
+                        cmd.Connection.Close();
+                        return JsonConvert.DeserializeObject<T>("null");
+                        throw ex;
+                    }
+                    
+                    
                 }
             }
         }

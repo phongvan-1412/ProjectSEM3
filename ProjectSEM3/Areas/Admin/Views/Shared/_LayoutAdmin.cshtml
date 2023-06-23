@@ -68,7 +68,8 @@
         }
 
         const UnBlockUI = () => {
-            $("#blockUi")[0].setAttribute("hidden",true)
+            $("#blockUi")[0].setAttribute("hidden", true)
+            setTimeout(OnHideToast, 3000)
         }
 
         const OnHideToast = () => {
@@ -102,6 +103,11 @@
             OnAddClassName($toast, "bg-danger-subtle")
             $toastMes[0].innerHTML = "Connection fail or Something wrong in server."
 
+        }
+
+        const FormatDate = (date) => {
+            var formatedDate = moment(date).format('YYYY/MM/DD HH:MM:SS');
+            return formatedDate;
         }
     </script>
     @RenderSection("Scripts", required: false)
