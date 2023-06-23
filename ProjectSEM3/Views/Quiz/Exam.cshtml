@@ -53,32 +53,13 @@
                     </span>
                 </div>
                 <div class="mt-3">
-                    <button id="startQuizBtn" type="submit" class="btn text-white fw-600" style="width: 200px; background-color: rgb(92, 27, 134); border-radius: 3px;">Start Exam</button>
+                    <form action="/Quiz/Quiz_Knowledge" method="post">
+                        <input type="text" name="examId" value="@lst.Id" hidden />
+                        <button id="startQuizBtn" type="submit" class="btn text-white fw-600" style="width: 200px; background-color: rgb(92, 27, 134); border-radius: 3px;">Start Exam</button>
+                    </form>
                 </div>
             </div>
         </div>
     }
-
 </main>
-
-
-<script type="text/javascript">
-    var startQuiz = document.getElementById("startQuizBtn");
-    var examId = parseInt(@lst.Id);
-    startQuiz.addEventListener("click", () => {
-        $.ajax({
-            type: "POST",
-            data: { id: examId },
-            dataType: "json",
-            url: "/Quiz/StartQuiz",
-            success: function (result) {
-                console.log(result);
-            },
-            error: function (req, status, error) {
-                console.log(error);
-            }
-        });
-    });
-
-</script>
 

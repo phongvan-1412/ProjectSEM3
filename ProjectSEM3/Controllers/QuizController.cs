@@ -24,13 +24,12 @@ namespace ProjectSEM3.Controllers
                     { "@ContestId", contestant.Id}
                 };
 
-                List<Exam.Res> exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, param);
+                List<Models.Entities.Exam.Res> exam = DbContext.Instance.Exec<List<Models.Entities.Exam.Res>>(DbStore.GetExamnById, param);
                 ViewData["Exam"] = exam.FirstOrDefault();
             }
             catch (Exception)
             {
                 TempData["loadExamFailed"] = "Sorry! Page doesn't exist.";
-                return View();
             }
             return View();
         }
@@ -40,12 +39,13 @@ namespace ProjectSEM3.Controllers
         {
             return RedirectToAction("Quiz_Knowledge", new { examId = id });
         }
-        public ActionResult Quiz_Knowledge(int examId)
+        public ActionResult Quiz_Knowledge(int? examId)
         {
-            ViewData["lstKnowledge"] = GetData(examId);
+            ViewData["lstKnowledge"] = GetData(examId).Knowledge;
             return View();
         }
-        public ActionResult Quiz_Math()
+
+        public ActionResult Quiz_Math(int? examId)
         {
             //List<Question.Req> lst = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
             //QuestionView temp;
@@ -81,11 +81,13 @@ namespace ProjectSEM3.Controllers
             //ViewData["lstMath"] = lstTemp; 
             //return View(lstTemp);
             //ViewData["lstMath"] = GetData();
+            ViewData["lstMath"] = GetData(examId).Math;
+
             return View();
         }
-        public ActionResult Quiz_Computer()
+        public ActionResult Quiz_Computer(int? examId)
         {
-            ViewData["lstComputer"] = GetData(1);
+            ViewData["lstComputer"] = GetData(examId).Computer;
             return View();
         }
 
@@ -119,10 +121,8 @@ namespace ProjectSEM3.Controllers
             return Json("success");
         }
 
-        public JsonResult GetData(int id = 60)
+        public ContestantExam GetData(int? id)
         {
-            //var lstQuest = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question");
-
             var param = new Dictionary<string, dynamic>
             {
                 { "@ExamId", id},
@@ -130,21 +130,20 @@ namespace ProjectSEM3.Controllers
 
             var examDetails = DbContext.Instance.Exec<List<ExamDetail.Res>>(DbStore.GetExamnDetailById, param);
             var result = new ContestantExam(examDetails);
-            //Session["result"] = result;
-            return Json(result);
+            return result;
         }
 
-        public ActionResult ViewQuiz(int id = 60)
-        {
+        //public ActionResult ViewQuiz(int id = 60)
+        //{
 
-            var param = new Dictionary<string, dynamic>
-            {
-                { "@ExamId", id},
-            };
+        //    var param = new Dictionary<string, dynamic>
+        //    {
+        //        { "@ExamId", id},
+        //    };
 
-            var examDetails = DbContext.Instance.Exec<List<ExamDetail.Res>>(DbStore.GetExamnDetailById, param);
-            var result = new ContestantExam(examDetails);
-            return View(result);
-        }
+        //    var examDetails = DbContext.Instance.Exec<List<ExamDetail.Res>>(DbStore.GetExamnDetailById, param);
+        //    var result = new ContestantExam(examDetails);
+        //    return View(result);
+        //}
     }
 }

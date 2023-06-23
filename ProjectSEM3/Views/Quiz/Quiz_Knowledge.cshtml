@@ -7,10 +7,11 @@
     var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.UtcNow.Ticks).TotalSeconds.ToString("#");
 
     <!-- Get Question List -->
-    var lst = ViewData["lstKnowledge"];
+    var lst = (List<ProjectSEM3.Models.Entities.ExamDetail.Res>)ViewData["lstKnowledge"];
 }
 
 <div class="quiz-wrapper pt-5">
+    @*<input id="examDetail" value="@lst" hidden />*@
     <div class="container-fluid" style="z-index: 1">
         <div class="row text-center">
             <div id="jumper-btns" class="d-flex align-items-center justify-content-center mt-3">
@@ -108,8 +109,9 @@
     /*-----------------------------------
         Create json
     -------------------------------------*/
-    var lstQuest = @Html.Raw(Json.Encode(lst));
-    var data = lstQuest.Data;
+    var data = @Html.Raw(Json.Encode(lst));
+    console.log(data);
+
     let lstTemp = [];
     for (var i = 0; i < data.length; i++) {
         var temp = { id: "", question: "", answer: [], IsMultiAnwser: false, type: "", point: "" };
@@ -122,7 +124,6 @@
         temp.point = data[i].Point;
         lstTemp.push(temp);
     }
-    console.log(data);
     localStorage.setItem("lstCheck", JSON.stringify(lstTemp));
     /*-----------------------------------
         Handle Content
@@ -179,7 +180,7 @@
                 `;
             }
         }
-        
+
         return options;
     };
     function addAnswer(b) {
@@ -224,7 +225,7 @@
         localStorage.setItem("lstCheck", JSON.stringify(a));
     };
 
-    /*-------------- Cross Choice --------------*/
+  /*  -------------- Cross Choice --------------*/
     function showCrossAnswer() {
         let options = ``;
         let questCross = ``;
@@ -236,7 +237,7 @@
             let selectedAns = false;
 
             var a = JSON.parse(localStorage.getItem("lstCheck"));
-            
+
             let qCross = question.Options[0][i];
             let aCross = question.Options[1][i];
 
@@ -352,7 +353,7 @@
                 }
             }
         }
-        
+
         console.log(a);
         localStorage.setItem("lstCheck", JSON.stringify(a));
     };
@@ -365,7 +366,7 @@
         localStorage.setItem("lstCheck", JSON.stringify(a));
         alert('Success!');
     };
-    
+
     function submitQuiz() {
         var c = JSON.parse(localStorage.getItem("lstCheck"));
         console.log(c);
@@ -410,8 +411,8 @@
                         </span>
                     </div>
                 `}
-                
-                    
+
+
 
                     <h1 class="question_title text-center">${question.Content} </h1>
                     ${question.TypeId == 2
@@ -424,7 +425,7 @@
                             ${options}
                         </div>
                     `}
-                    
+
                 </div>
 
                 <div class="form_btn action-btns text-center ms-5 mt-5">
