@@ -35,11 +35,11 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 List<Contestant.Res> contestResult = null;
                 Contestant.Res contest = null;
 
-                var password = AppRandom.String().EncryptPassword();
+                var password = AppRandom.String();
                 var contestParam = new Dictionary<string, dynamic>
                 {
                     { "@Id", req.Id },
-                    { "@Password", password },
+                    { "@Password", password.EncryptPassword() },
                     { "@Name", req.Name },
                     { "@Email", req.Email },
                     { "@Contact", req.Contact },
