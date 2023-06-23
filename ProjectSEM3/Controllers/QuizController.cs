@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using static ProjectSEM3.Models.Entities.Email;
 
 namespace ProjectSEM3.Controllers
 {
@@ -35,80 +36,69 @@ namespace ProjectSEM3.Controllers
         }
 
         [HttpPost]
-        public ActionResult StartQuiz(int id)
+        public JsonResult StartQuiz(int id)
         {
-            return RedirectToAction("Quiz_Knowledge", new { examId = id });
+            return Json(new { redirectToUrl = Url.Action("Quiz_Knowledge", "Quiz"), examId = id });
         }
         public ActionResult Quiz_Knowledge(int? examId)
         {
-            ViewData["lstKnowledge"] = GetData(examId).Knowledge;
+            try
+            {
+                ViewData["lstKnowledge"] = GetData(examId).Knowledge;
+                ViewData["examId"] = examId;
+            }
+            catch (Exception)
+            {
+                TempData["loadExamDetailFailed"] = "Sorry! Page doesn't exist.";
+            }
             return View();
         }
 
         public ActionResult Quiz_Math(int? examId)
         {
-            //List<Question.Req> lst = Models.DbContext.Instance.Exec<List<Question.Req>>("select * from question for json path");
-            //QuestionView temp;
-            //List<QuestionView> lstTemp = new List<QuestionView>();
-            //foreach (var item in lst)
-            //{
-            //    List<string> a = item.Options.Split(',').ToList();
-            //    List<string> b = new List<string>();
-            //    foreach (var i in a)
-            //    {
-            //        var c = i.Replace("[", "");
-            //        var d = c.Replace("\"", "");
-            //        var e = d.Replace("\\", "");
-            //        var f = e.Replace("]", "");
-
-            //        Console.WriteLine(f);
-            //        b.Add(f);
-            //    }
-            //    temp = new QuestionView
-            //    {
-            //        Id = item.Id,
-            //        IdType = item.TypeId,
-            //        IdLevel = item.LevelId,
-            //        Content = item.Content,
-            //        Point = item.Point,
-            //        Options = b,
-            //        CorrectAnwser = item.CorrectAnwser,
-            //        IsMultiAnwser = item.IsMultiAnwser,
-            //        Status = item.Status,
-            //    };
-            //    lstTemp.Add(temp);
-            //}
-            //ViewData["lstMath"] = lstTemp; 
-            //return View(lstTemp);
-            //ViewData["lstMath"] = GetData();
-            ViewData["lstMath"] = GetData(examId).Math;
-
+            try
+            {
+                ViewData["lstMath"] = GetData(examId).Math;
+                ViewData["examId"] = examId;
+            }
+            catch (Exception)
+            {
+                TempData["loadExamDetailFailed"] = "Sorry! Page doesn't exist.";
+            }
             return View();
         }
         public ActionResult Quiz_Computer(int? examId)
         {
-            ViewData["lstComputer"] = GetData(examId).Computer;
+            try
+            {
+                ViewData["lstComputer"] = GetData(examId).Computer;
+                ViewData["examId"] = examId;
+            }
+            catch (Exception)
+            {
+                TempData["loadExamDetailFailed"] = "Sorry! Page doesn't exist.";
+            }
             return View();
         }
 
 
         [HttpPost]
-        public JsonResult SubmitKnowledge(string result)
+        public JsonResult SubmitKnowledge(string result, int examId)
         {
             var json = JsonConvert.DeserializeObject(result);
             List<Result> results = JsonConvert.DeserializeObject<List<Result>>(json.ToString());
 
-            return Json("success");
+            return Json(new { redirectToUrl = Url.Action("Quiz_Math", "Quiz"), examId = examId });
         }
 
         [HttpPost]
-        public JsonResult SubmitMath(string result)
+        public JsonResult SubmitMath(string result, int examId)
         {
-            var json = JsonConvert.DeserializeObject(result);
-            List<Models.Entities.Result> results = JsonConvert.DeserializeObject<List<Models.Entities.Result>>(json.ToString());
+            //var json = JsonConvert.DeserializeObject(result);
+            //List<Models.Entities.Result> results = JsonConvert.DeserializeObject<List<Models.Entities.Result>>(json.ToString());
 
-            Console.WriteLine(results);
-            return Json("success");
+            //Console.WriteLine(results);
+            return Json(new { redirectToUrl = Url.Action("Quiz_Computer", "Quiz"), examId = examId });
         }
 
         [HttpPost]
