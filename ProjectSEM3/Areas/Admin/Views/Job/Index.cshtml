@@ -56,7 +56,7 @@
             const SalaryMin = $salaryMin.val()
             const SalaryMax = $salaryMax.val()
             const LevelId = $level.val()
-            const Content = $content.getData()
+            const Content = encodeURI($content.getData());
 
             const job = {
                 Title,
@@ -68,6 +68,7 @@
                 LevelId,
                 Content
             }
+            BlockUI()
 
             $.ajax({
                 type: "POST",
@@ -75,28 +76,19 @@
                 data: job ,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
+                    if (res.IsSuccess) {
+
+                    }
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
          
             setTimeout(OnHideToast, 3000)
-        }
-
-        const OnHideToast = () => {
-            $liveToast.hide()
-        }
-
-        const OnAddClassName = (ele, className) => {
-            if (!ele[0].classList.contains(className)) {
-                ele[0].classList.add(className);
-            }
-        }
-
-        const OnRemoveClassName = (ele, className) => {
-            ele[0].classList.remove(className);
         }
 
         const OnChangeJobStatus = (e) => {
@@ -105,6 +97,7 @@
             const data = JSON.parse(e.target.getAttribute('data-job'))
             const Status = !data.Status
             const job = { Id, Status }
+            BlockUI()
 
             $.ajax({
                 type: "POST",
@@ -112,12 +105,17 @@
                 data: job,
                 dataType: "json",
                 success: function (res) {
-                    OnSetupToast(res, $liveToast, $toastMes)
-                    e.target.setAttribute('data-job', JSON.stringify(res.Data))
-                    e.target.hidden = !res.Data.Status
-                    $jobTable[0].rows[RowIndex].children[6].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    UnBlockUI()
+                    if (res.IsSuccess) {
+                        OnSetupToast(res, $liveToast, $toastMes)
+                        e.target.setAttribute('data-job', JSON.stringify(res.Data))
+                        e.target.hidden = !res.Data.Status
+                        $jobTable[0].rows[RowIndex].children[6].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                    }
                 },
+
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
@@ -145,7 +143,7 @@
                 }
             }
 
-            $contentUpdate.setData(data.Content)
+            $contentUpdate.setData(decodeURI(data.Content))
         }
 
         const OnUpdateJob = (e) => {
@@ -156,8 +154,7 @@
             const SalaryMin = $salaryMinUpdate.val()
             const SalaryMax = $salaryMaxUpdate.val()
             const LevelId = $levelUpdate.val()
-            const Content = $contentUpdate.getData()
-
+            const Content = encodeURI($contentUpdate.getData());
             const job = {
                 Id,
                 Title,
@@ -169,24 +166,29 @@
                 Content
             }
             const rowIndex = RowIndex
+            BlockUI()
+
             $.ajax({
                 type: "POST",
                 url: "/admin/Job/UpdateJob",
                 data: { job, rowIndex },
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
+                    console.log(res.Data)
                     if (res.IsSuccess) {
                         $jobTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Title;
                         $jobTable[0].rows[RowIndex].children[2].innerHTML = res.Data.Location;
-                        $jobTable[0].rows[RowIndex].children[3].innerHTML = res.Data.PostedDate;
-                        $jobTable[0].rows[RowIndex].children[4].innerHTML = res.Data.EndDate;
+                        $jobTable[0].rows[RowIndex].children[3].innerHTML = res.Data.PostedDateTimeStamp;
+                        $jobTable[0].rows[RowIndex].children[4].innerHTML = res.Data.EndDateTimeStamp;
                         $jobTable[0].rows[RowIndex].children[5].innerHTML = res.Data.Salary;
                         CurrentSelection.setAttribute('data-job', JSON.stringify(res.Data))
                         CurrentSelection.parentElement.children[1].setAttribute('data-job', JSON.stringify(res.Data))
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
+                    UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
                 }
             });
@@ -225,29 +227,6 @@
         //    $address.val("")
         //    $experience.val("")
         //}
-
-        const OnSetupToast = (res, $toast, $toastMes) => {
-            if (res.IsSuccess) {
-                OnRemoveClassName($toast, "bg-danger-subtle")
-                OnAddClassName($toast, "bg-primary-subtle");
-            } else {
-                OnRemoveClassName($toast, "bg-primary-subtle");
-                OnAddClassName($toast, "bg-danger-subtle")
-            }
-            $toastMes[0].innerHTML = res.Mes
-            $toast.show()
-        }
-
-        const OnServerErr = ($toast, $toastMes) => {
-            OnRemoveClassName($toast, "bg-primary-subtle");
-            OnAddClassName($toast, "bg-danger-subtle")
-            $toastMes[0].innerHTML = "Connection fail or Something wrong in server."
-        }
-
-        const FormatDate = (date) => {
-            var formatedDate = moment(date).format('YYYY/MM/DD HH:MM:SS');
-            return formatedDate;
-        }
     </script>
 }
 

@@ -27,7 +27,9 @@ namespace ProjectSEM3.Models.Entities
             public string Title { get; set; }
             public string Location { get; set; }
             public DateTime PostedDate { get; set; }
+            public string PostedDateTimeStamp => PostedDate.ToString();
             public DateTime EndDate { get; set; }
+            public string EndDateTimeStamp => EndDate.ToString();
             public int LevelId { get; set; }
             public string LevelName { get; set; }
             public decimal SalaryMin { get; set; }

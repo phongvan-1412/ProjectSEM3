@@ -65,6 +65,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
         {
             var param = new Dictionary<string, dynamic>
             {
+                { "@Id", job.Id },
                 { "@Title", job.Title },
                 { "@Location", job.Location},
                 { "@Content", job.Content },
@@ -78,7 +79,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             {
                 return Json(new DbContext.Result
                 {
-                    Mes = "Fail.",
+                    Mes = "Update Job Fail.",
                     IsSuccess = false,
                 });
             }
@@ -87,7 +88,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             return Json(new DbContext.Result<Job.Res>
             {
                 Data = result,
-                Mes = "Successfull.",
+                Mes = "Update Job Successfull.",
                 IsSuccess = true,
             });
             //return PartialView(@"~/Areas/Admin/Views/Shared/Partials/job/_PartialRowjob.cshtml", result);
