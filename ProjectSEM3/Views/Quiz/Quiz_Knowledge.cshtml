@@ -8,6 +8,7 @@
 
     <!-- Get Question List -->
     var lst = (List<ProjectSEM3.Models.Entities.ExamDetail.Res>)ViewData["lstKnowledge"];
+    var examId = (int)ViewData["examId"];
 }
 
 <div class="quiz-wrapper pt-5">
@@ -121,20 +122,20 @@
         Create json
     -------------------------------------*/
     var data = @Html.Raw(Json.Encode(lst));
-
+    //console.log(data);
     let lstTemp = [];
     for (var i = 0; i < data.length; i++) {
         var temp = { id: "", question: "", answer: [], IsMultiAnwser: false, type: "", point: "" };
-        data[i].Options = data[i].Options;
-        data[i].CorrectAnwser = data[i].CorrectAnwser;
-        temp.id = data[i].Id;
+        data[i].Options = JSON.parse(data[i].Options);
+        data[i].CorrectAnwser = JSON.parse(data[i].CorrectAnwser);
+        temp.id = data[i].QuestionId;
         temp.question = data[i].Content;
         temp.IsMultiAnwser = data[i].IsMultiAnwser;
         temp.type = data[i].TypeId;
         temp.point = data[i].Point;
         lstTemp.push(temp);
     }
-    console.log(lstTemp);
+    //console.log(lstTemp);
 
     localStorage.setItem("lstCheck", JSON.stringify(lstTemp));
     /*-----------------------------------
@@ -382,19 +383,21 @@
     function submitQuiz() {
         var c = JSON.parse(localStorage.getItem("lstCheck"));
         console.log(c);
-        //$.ajax({
-        //    type: "POST",
-        //    data: { result: localStorage.getItem("lstCheck") },
-        //    dataType: "json",
-        //    url: "/Quiz/SubmitKnowledge",
-        //    success: function (result) {
-        //        console.log(result);
-        //        window.location.href = "https://localhost:44376/Quiz/Quiz_Math";
-        //    },
-        //    error: function (req, status, error) {
-        //        console.log(error);
-        //    }
-        //});
+
+        $.ajax({
+            type: "POST",
+            data: { result: localStorage.getItem("lstCheck"), examId: @examId },
+            dataType: "json",
+            url: "/Quiz/SubmitKnowledge",
+            success: function (result) {
+                console.log(result);
+                window.location.href = result.redirectToUrl + "?examId=" + result.examId;
+                //window.location.href = "https://localhost:44376/Quiz/Quiz_Math";
+            },
+            error: function (req, status, error) {
+                console.log(error);
+            }
+        });
     };
     function showQuestion(i) {
         index = i;
@@ -403,6 +406,7 @@
             question = data[i];
             let options = showAnswer();
             let optionsCross = showCrossAnswer();
+
             container.innerHTML = `
                 <div id="questDisplay" class="multisteps_form_panel">
                 ${question.TypeId == 2
@@ -445,7 +449,7 @@
                     ${index + 1 < data.length ?
                     `<button type="button" onclick="showQuestion(${index + 1})" class="f_btn text-uppercase rounded-pill border-0">Next Question</button>`
                     :
-                    `<button type="button" onclick="submitQuiz()" class="f_btn text-uppercase rounded-pill border-0">Submit</button>`}
+                    `<button type="submit" onclick="submitQuiz()" class="f_btn text-uppercase rounded-pill border-0">Submit</button>`}
                 </div>
             `;
         }
@@ -457,3 +461,8 @@
 
 
 
+@*<form action="/Quiz/SubmitKnowledge" method="post">
+    <input name="result" value="${JSON.parse(localStorage.getItem(" lstCheck"))}" hidden />
+    <input name="examId" value="@examId" hidden />
+    <button type="submit" class="f_btn text-uppercase rounded-pill border-0">Submit</button>
+</form>*@

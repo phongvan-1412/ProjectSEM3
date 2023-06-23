@@ -8,6 +8,7 @@
 
     <!-- Get Question List -->
     var lst = (List<ProjectSEM3.Models.Entities.ExamDetail.Res>)ViewData["lstComputer"];
+    var examId = (int)ViewData["examId"];
 }
 
 <div class="quiz-wrapper pt-5">
@@ -125,8 +126,8 @@
     let lstTemp = [];
     for (var i = 0; i < data.length; i++) {
         var temp = { id: "", question: "", answer: [], IsMultiAnwser: false, type: "", point: "" };
-        data[i].Options = data[i].Options;
-        data[i].CorrectAnwser = data[i].CorrectAnwser;
+        data[i].Options = JSON.parse(data[i].Options);
+        data[i].CorrectAnwser = JSON.parse(data[i].CorrectAnwser);
         temp.id = data[i].Id;
         temp.question = data[i].Content;
         temp.IsMultiAnwser = data[i].IsMultiAnwser;
@@ -382,19 +383,19 @@
     function submitQuiz() {
         var c = JSON.parse(localStorage.getItem("lstCheck"));
         console.log(c);
-        //$.ajax({
-        //    type: "POST",
-        //    data: { result: localStorage.getItem("lstCheck") },
-        //    dataType: "json",
-        //    url: "/Quiz/SubmitComputer",
-        //    success: function (result) {
-        //        console.log(result);
-        //        window.location.href = "https://localhost:44376/Home/Index";
-        //    },
-        //    error: function (req, status, error) {
-        //        console.log(error);
-        //    }
-        //});
+        $.ajax({
+            type: "POST",
+            data: { result: localStorage.getItem("lstCheck"), examId: @examId },
+            dataType: "json",
+            url: "/Quiz/SubmitComputer",
+            success: function (result) {
+                console.log(result);
+                window.location.href = result.redirectToUrl + "?examId=" + result.examId;
+            },
+            error: function (req, status, error) {
+                console.log(error);
+            }
+        });
     };
     function showQuestion(i) {
         index = i;
