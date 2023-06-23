@@ -2917,6 +2917,8 @@
     <Content Include="Views\Quiz\Exam.cshtml" />
     <Content Include="Views\Career\JobDetail.cshtml" />
     <Content Include="Views\Quiz\ViewQuiz.cshtml" />
+    <Content Include="Views\Quiz\Quiz.cshtml" />
+    <Content Include="Views\Quiz\_PartialQuiz.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
