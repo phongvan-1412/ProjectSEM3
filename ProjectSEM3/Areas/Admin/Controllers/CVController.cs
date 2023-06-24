@@ -31,6 +31,24 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             return View(lst);
         }
 
+        [HttpPost]
+        [Route("/admin/cv/GetPendingCv")]
+        public JsonResult GetPendingCv()
+        {
+            var result = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetCvByStatus, new Dictionary<string, dynamic>
+            {
+                { "@Status", 1},
+                { "@IsViewed", 0},
+            });
+
+            return Json(new DbContext.Result<List<Contestant.Res>>
+            {
+                Data = result,
+                Mes = "",
+                IsSuccess = true,
+            });
+        }
+
         public ActionResult View(int id)
         {
             var cvs = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.UpdateViewedCv, new Dictionary<string, dynamic>

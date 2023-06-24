@@ -182,6 +182,9 @@
                 success: function (res) {
                     UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
+                    if (res.IsSuccess) {
+                        location.reload()
+                    }
                 },
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()

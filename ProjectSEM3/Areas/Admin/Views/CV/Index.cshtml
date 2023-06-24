@@ -74,17 +74,18 @@
                 data: req,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
                     if (res.IsSuccess) {
                         CurrentSelection.hidden = res.Data.StatusType.IsHidden
                         CurrentSelection.parentElement.children[3].hidden = res.Data.StatusType.IsHidden
                         $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                        UpdateNotification()
                     } 
-                    UnBlockUI()
                 },
                 error: function (jqXHR, err, errorThrown) {
-                    OnServerErr($liveToast, $toastMes);
                     UnBlockUI()
+                    OnServerErr($liveToast, $toastMes);
                 }
             });
         }
@@ -102,17 +103,18 @@
                 data: cv,
                 dataType: "json",
                 success: function (res) {
+                    UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
                     if (res.IsSuccess) {
                         e.target.hidden = res.Data.StatusType.IsHidden
                         e.target.parentElement.children[0].hidden = res.Data.StatusType.IsHidden
                         $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
+                        UpdateNotification()
                     } 
-                    UnBlockUI()
                 },
                 error: function (jqXHR, err, errorThrown) {
-                    OnServerErr($liveToast, $toastMes);
                     UnBlockUI()
+                    OnServerErr($liveToast, $toastMes);
                 }
             });
         }

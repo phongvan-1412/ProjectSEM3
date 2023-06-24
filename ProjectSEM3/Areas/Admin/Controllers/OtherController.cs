@@ -24,6 +24,8 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             return View();
         }
 
+       
+
         #region Exam Type
         [HttpPost]
         [Route("/admin/other/NewExamType")]

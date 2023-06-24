@@ -76,7 +76,7 @@
                     UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
                     if (res.IsSuccess) {
-                        OnClearFormNewHr();
+                        location.reload()
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
