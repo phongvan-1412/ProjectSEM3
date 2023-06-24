@@ -18,13 +18,31 @@
 @section Scripts {
     <script type="text/javascript">
         const $name = $("#name")
-        const $email = $("#email")
-        const $password = $("#password")
+        const $email = $("#emailNew")
+        const $password = $("#passwordNew")
         const $confirmPassword = $("#confirmPassword")
         const $contact = $("#contact")
         const $education = $("#education")
         const $address = $("#address")
         const $experience = $("#experience")
+
+        const $nameErr = $("#nameErr")
+        const $emailErr = $("#emailErr")
+        const $passwordErr = $("#passwordErr")
+        const $confirmPasswordErr = $("#confirmPasswordErr")
+        const $contactErr = $("#contactErr")
+        const $educationErr = $("#educationErr")
+        const $addressErr = $("#addressErr")
+        const $experienceErr = $("#experienceErr")
+
+        let checkName = false
+        let checkEmail = false
+        let checkPassword = false
+        let checkConfirmPassword = false
+        let checkContact = false
+        let checkEducation = false
+        let checkAddress = false
+        let checkExperience = false
 
         const $nameUpdate = $("#nameUpdate")
         const $emailUpdate = $("#emailUpdate")
@@ -44,10 +62,156 @@
         const $liveToast = $("#liveToast")
         const $toastMes = $("#toastMes")
         const $updateHr = $("#updateHr")
+        const $newHr = $("#newHr")
 
         $hrTable.DataTable();
 
+        const IsValidName = (name) => {
+            var pattern = /^[A-Za-z\s]+$/;
+            return pattern.test(name.trim());
+        }
+
+        const CheckName = () => {
+            var name = $name.val().trim()
+            if (name === '') {
+                $nameErr[0].innerHTML = "*Please enter Hr Name."
+            }
+            else if (!IsValidName(name)) {
+                $nameErr[0].innerHTML = "*Letter only."
+            } else {
+                $nameErr[0].innerHTML = ""
+                checkName = true
+            }
+        }
+
+        const CheckEmail = () => {
+            var email = $email.val().trim()
+            $.ajax({
+                type: "POST",
+                url: "/admin/hr/CheckEmail",
+                data: { email },
+                dataType: "json",
+                success: function (res) {
+                    $emailErr[0].innerHTML = res.Mes
+                    checkEmail = res.IsSuccess
+                },
+                error: function (jqXHR, err, errorThrown) {
+                }
+            });
+        }
+
+        const IsValidPassword = (password) => {
+            const pass = password.trim()
+            if (pass == '') {
+                return "*Please enter password."
+            }
+
+            if (pass.length < 9) {
+                return "*Password too short."
+            }
+
+            var lowerCaseLetters = /[a-z]/g;
+            var upperCaseLetters = /[A-Z]/g;
+            var numbers = /[0-9]/g;
+
+            if (!lowerCaseLetters.test(pass) ||
+                !upperCaseLetters.test(pass) ||
+                !numbers.test(pass)) {
+                return "*Password have to contain numbers, lower/upper case letters."
+            } 
+
+            checkPassword = true
+            return ""
+        }
+
+        const CheckPassword = () => {
+            var password = $password.val().trim()
+            $passwordErr[0].innerHTML = IsValidPassword(password)
+        }
+
+        const CheckConfirmPassword = () => {
+            var password = $password.val().trim()
+            var confirmPassword = $confirmPassword.val().trim()
+            if (confirmPassword == '') {
+                $confirmPasswordErr[0].innerHTML = "*Please enter confirm password."
+            }
+            else if (confirmPassword !== password) {
+                $confirmPasswordErr[0].innerHTML = "*Wrong password."
+            } else {
+                $confirmPasswordErr[0].innerHTML = ""
+                checkConfirmPassword = true
+            }
+        }
+
+        const IsValidContact = (contact) => {
+            const pattern = /^((\+)33|0)[1-9](\d{2}){4}$/;
+            return pattern.test(contact.trim())
+        };
+
+        const CheckContact = () => {
+            var contact = $contact.val().trim()
+            if (contact === '') {
+                $contactErr[0].innerHTML = "*Please enter Hr Contact."
+            }else if (!IsValidContact(contact)) {
+                $contactErr[0].innerHTML = "*Wrong format. Eg: 0325485695."
+            } else {
+                $contactErr[0].innerHTML = ""
+                checkContact = true
+            }
+        }
+
+        const CheckEducation = () => {
+            var education = $education.val().trim()
+            if (education === '') {
+                $educationErr[0].innerHTML = "*Please enter Hr Education."
+            } else {
+                $educationErr[0].innerHTML = ""
+                checkEducation = true
+            }
+        }
+       
+        const CheckAddress = () => {
+            var address = $address.val().trim()
+            if (address === '') {
+                $addressErr[0].innerHTML = "*Please enter Hr Address."
+            } else {
+                $addressErr[0].innerHTML = ""
+                checkAddress = true
+            }
+        }
+
+        const CheckExperience = () => {
+            var exp = $experience.val().trim()
+            if (exp === '') {
+                $experienceErr[0].innerHTML = "*Please enter Hr Experience."
+            } else {
+                $experienceErr[0].innerHTML = ""
+                checkExperience = true
+            }
+        }
+
         const OnNewHr = () => {
+            CheckName();
+            CheckEmail();
+            CheckPassword();
+            CheckConfirmPassword();
+            CheckContact();
+            CheckEducation();
+            CheckAddress();
+            CheckExperience();
+            console.log(checkName)
+            console.log(checkEmail)
+            console.log(checkPassword)
+            console.log(checkConfirmPassword)
+            console.log(checkContact)
+            console.log(checkEducation)
+            console.log(checkAddress)
+            console.log(checkExperience)
+            if (!checkName || !checkEmail || !checkPassword || checkConfirmPassword ||
+                !checkContact || !checkEducation || !checkAddress || !checkExperience) {
+                return
+            }
+
             const Name = $name.val()
             const Email = $email.val()
             const Password = $password.val()
@@ -188,6 +352,14 @@
             OnClearFormUpdateHr();
         })
 
+        $newHr[0].addEventListener('hidden.bs.modal', function (event) {
+            OnClearFormNewHr();
+        })
+
+        $newHr[0].addEventListener('show.bs.modal', function (event) {
+            OnClearFormNewHr();
+        })
+
         const OnClearFormUpdateHr = () => {
             $nameUpdate.val("")
             $emailUpdate.val("")
@@ -200,10 +372,21 @@
         const OnClearFormNewHr = () => {
             $name.val("")
             $email.val("")
+            $password.val("")
+            $confirmPassword.val("")
             $contact.val("")
             $education.val("")
             $address.val("")
             $experience.val("")
+
+            $nameErr[0].innerHTML = ""
+            $emailErr[0].innerHTML = ""
+            $passwordErr[0].innerHTML = ""
+            $confirmPasswordErr[0].innerHTML = ""
+            $educationErr[0].innerHTML = ""
+            $contactErr[0].innerHTML = ""
+            $addressErr[0].innerHTML = ""
+            $experienceErr[0].innerHTML = ""
         }
     </script>
 }

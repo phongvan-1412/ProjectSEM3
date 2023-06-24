@@ -13,60 +13,72 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-6">
-                            <div class="m-1">
+                            <div class="m-2">
                                 <span><b>Name</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="name" type="text" placeholder="eg: Join Doe"/>
+                                <input class="form-control p-1" onblur="CheckName()" id="name" type="text" placeholder="eg: Join Doe" />
+                                <span id="nameErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="m-1">
+                            <div class="m-2">
                                 <span><b>Email</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="email" type="text" placeholder="eg: email@gmail.com"/>
+                                <input class="form-control p-1" onblur="CheckEmail()" id="emailNew" type="text" placeholder="eg: email@gmail.com" />
+                                <span id="emailErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-6">
-                            <div class="m-1">
+                            <div class="m-2">
                                 <span><b>Password</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="password" type="password" placeholder="eg: 123qweQWE"/>
+                                <input class="form-control p-1" onblur="CheckPassword()" id="passwordNew" type="password" placeholder="eg: 123qweQWE" />
+                                <span id="passwordErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="m-1">
+                            <div class="m-2">
                                 <span><b>Confirm Password</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="confirmPassword" type="password" placeholder="eg: 123qweQWE"/>
+                                <input class="form-control p-1" onblur="CheckConfirmPassword()" id="confirmPassword" type="password" placeholder="eg: 123qweQWE" />
+                                <span id="confirmPasswordErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-6">
-                            <div class="m-1">
+                            <div class="m-2">
                                 <span><b>Contact</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="contact" type="text" placeholder="eg: 0377965901"/>
+                                <input class="form-control p-1" onblur="CheckContact()" id="contact" type="text" placeholder="eg: 0377965901" />
+                                <span id="contactErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="m-1">
+                            <div class="m-2">
                                 <span><b>Education</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="education" type="text" placeholder="eg: RMIT Univercity"/>
+                                <input class="form-control p-1" onblur="CheckEducation()" id="education" type="text" placeholder="eg: RMIT Univercity" />
+                                <span id="educationErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="m-1">
-                        <span><b>Address</b> <i style="color:red">*</i></span>
-                        <input class="form-control p-1" id="address" type="text" placeholder="eg: 2 Gamon St, Seddon VIC 3011, Australia "/>
+                    <div class="row">
+                        <div class="col-12 m-2">
+                            <span><b>Address</b> <i style="color:red">*</i></span>
+                            <input class="form-control p-1" onblur="CheckAddress()" id="address" type="text" placeholder="eg: 2 Gamon St, Seddon VIC 3011, Australia " />
+                            <span id="addressErr" style="color:red;font-size:12px;position:absolute"></span>
+                        </div>
                     </div>
 
-                    <div class="m-1">
-                        <span><b>Experience</b> <i style="color:red">*</i></span>
-                        <textarea class="form-control p-1" id="experience" rows="3" placeholder="eg: Junior Fullstack Developer At Aecis"></textarea>
+                    <div class="row">
+                        <div class="col-12 m-2">
+                            <span><b>Experience</b> <i style="color:red">*</i></span>
+                            <textarea class="form-control p-1" onblur="CheckExperience()" id="experience" rows="3" placeholder="eg: Junior Fullstack Developer At Aecis"></textarea>
+                            <span id="experienceErr" style="color:red;font-size:12px;position:absolute"></span>
+                        </div>
                     </div>
 
-                    <div class="m-2">
+                    <div class="m-3">
                         <button class="main-btn secondary-btn-outline btn-sm float-end" type="button" onclick="OnNewHr()">Submit</button>
                     </div>
                 </div>

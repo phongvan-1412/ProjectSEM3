@@ -8,6 +8,10 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using System.IO;
 using ProjectSEM3.Utils;
+using static ProjectSEM3.Models.DbContext;
+using System.Text.RegularExpressions;
+using System.Web.WebPages;
+using Microsoft.Ajax.Utilities;
 
 namespace ProjectSEM3.Areas.Admin.Controllers
 {
@@ -161,6 +165,37 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             var hrs = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrs, param);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public JsonResult CheckEmail(string email)
+        {
+            string pattern = @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|" + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)" + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$";
+            var regex = new Regex(pattern, RegexOptions.IgnoreCase);
+
+            if (email.IsNullOrWhiteSpace())
+            {
+                return Json(new DbContext.Result
+                {
+                    Mes = "*Please enter Hr Email.",
+                    IsSuccess = false,
+                });
+            }
+
+            if (!regex.IsMatch(email))
+            {
+                return Json(new DbContext.Result
+                {
+                    Mes = "*Wrong format. Eg: abc@gmail.com.",
+                    IsSuccess = false,
+                });
+            }
+
+            return Json(new DbContext.Result
+            {
+                Mes = "",
+                IsSuccess = true,
+            });
         }
     }
 }

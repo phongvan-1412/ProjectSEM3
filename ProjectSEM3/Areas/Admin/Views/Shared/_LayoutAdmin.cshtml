@@ -63,44 +63,55 @@
     <script src="https://cdn.datatables.net/fixedcolumns/4.2.2/js/dataTables.fixedColumns.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
     <script>
-
         const $notificationView = $("#notificationView")
         const $countNotification = $("#countNotification")
 
+        const CompareArray = (arr1,arr2) => {
+            return JSON.stringify(arr1) === JSON.stringify(arr2)
+        }
+
+        const SetLocal = (name,data) => {
+            localStorage.setItem(name, JSON.stringify(data))
+        }
+
+        const GetLocal = (name) => {
+            return JSON.parse(localStorage.setItem(name))
+        }
+
         const UpdateNotification = () => {
-            $notificationView.empty();
-            $countNotification[0].innerHTML = 0;
+            var localPendingCv = JSON.parse(localStorage.getItem("PendingCv"))
 
             $.ajax({
                 type: "POST",
                 url: "/admin/cv/GetPendingCv",
                 dataType: "json",
                 success: function (res) {
-                    console.log(res)
-                    if (res.IsSuccess) {
+                    if (res.IsSuccess && !CompareArray(localPendingCv, res.Data)) {
                         $countNotification[0].innerHTML = res.Data.length;
                         let template = ""
                         for (var item of res.Data) {
                             var link = `https://localhost:44376/admin/cv/View/${item.Id}`
                             template +=
                                 `
-                                     <li onclick="test(event)" class="pointer">
-                                     <a href="${link}">
-                                         <div class="content">
-                                             <h6>
-                                                ${item.Name}
-                                                 <span class="text-regular">
-                                                     Apply Cv at
-                                                 </span>
-                                             </h6>
-                                             <p>${item.JobTitle}</p>
-                                             <span>10 mins ago</span>
-                                         </div>
-                                     </a>
-                                 </li>
-                                `
+                                         <li onclick="test(event)" class="pointer">
+                                         <a href="${link}">
+                                             <div class="content">
+                                                 <h6>
+                                                    ${item.Name}
+                                                     <span class="text-regular">
+                                                         Apply Cv at
+                                                     </span>
+                                                 </h6>
+                                                 <p>${item.JobTitle}</p>
+                                                 <span>10 mins ago</span>
+                                             </div>
+                                         </a>
+                                     </li>
+                                    `
                         }
+                        $notificationView.empty();
                         $notificationView[0].innerHTML = template
+                        SetLocal("PendingCv", res.Data)
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
