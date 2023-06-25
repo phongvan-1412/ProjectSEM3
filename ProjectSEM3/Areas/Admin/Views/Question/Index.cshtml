@@ -17,18 +17,63 @@
         const $isCorrectAnswerWrap = $(".isCorrectAnswerWrap")
         const $questCross = $(".questCross")
         const $answerCross = $(".answerCross")
+        const $crossQuestion = $("#crossQuestion")
+        const $normalQuestion = $("#normalQuestion")
+
         const $type = $("#type")
         const $level = $("#level")
         const $examTypes = $("#examTypes")
         const $point = $("#point")
         const $isMultiSelect = $("#isMultiSelect")
-        const $crossQuestion = $("#crossQuestion")
-        const $normalQuestion = $("#normalQuestion")
         const $content = $("#content")
         const $answerA = $("#answerA")
         const $answerB = $("#answerB")
         const $answerC = $("#answerC")
         const $answerD = $("#answerD")
+        const $crossQuestA = $("#crossQuestA")
+        const $crossQuestB = $("#crossQuestB")
+        const $crossQuestC = $("#crossQuestC")
+        const $crossQuestD = $("#crossQuestD")
+        const $crossAnswerA = $("#crossAnswerA")
+        const $crossAnswerB = $("#crossAnswerB")
+        const $crossAnswerC = $("#crossAnswerC")
+        const $crossAnswerD = $("#crossAnswerD")
+
+        const $typeErr = $("#typeErr")
+        const $levelErr = $("#levelErr")
+        const $examTypesErr = $("#examTypesErr")
+        const $pointErr = $("#pointErr")
+        const $contentErr = $("#contentErr")
+        const $answerAErr = $("#answerAErr")
+        const $answerBErr = $("#answerBErr")
+        const $answerCErr = $("#answerCErr")
+        const $answerDErr = $("#answerDErr")
+        const $crossQuestAErr = $("#crossQuestAErr")
+        const $crossQuestBErr = $("#crossQuestBErr")
+        const $crossQuestCErr = $("#crossQuestCErr")
+        const $crossQuestDErr = $("#crossQuestDErr")
+        const $crossAnswerAErr = $("#crossAnswerAErr")
+        const $crossAnswerBErr = $("#crossAnswerBErr")
+        const $crossAnswerCErr = $("#crossAnswerCErr")
+        const $crossAnswerDErr = $("#crossAnswerDErr")
+
+        let checkType = false
+        let checkLevel = false
+        let checkExamTypes = false
+        let checkPoint = false
+        let checkContent = false
+        let checkAnswerA = false
+        let checkAnswerB = false
+        let checkAnswerC = false
+        let checkAnswerD = false
+        let checkCrossQuestA = false
+        let checkCrossQuestB = false
+        let checkCrossQuestC = false
+        let checkCrossQuestD = false
+        let checkCrossAnswerA = false
+        let checkCrossAnswerB = false
+        let checkCrossAnswerC = false
+        let checkCrossAnswerD = false
 
         const $isCorrectAnswerUpdate = $(".isCorrectAnswerUpdate")
         const $typeUpdate = $("#typeUpdate")
@@ -43,6 +88,34 @@
         const $answerBUpdate = $("#answerBUpdate")
         const $answerCUpdate = $("#answerCUpdate")
         const $answerDUpdate = $("#answerDUpdate")
+
+        const $contentUpdateErr = $("#contentUpdateErr")
+        const $answerAUpdateErr = $("#answerAUpdateErr")
+        const $answerBUpdateErr = $("#answerBUpdateErr")
+        const $answerCUpdateErr = $("#answerCUpdateErr")
+        const $answerDUpdateErr = $("#answerDUpdateErr")
+        const $crossQuestAUpdateErr = $("#crossQuestAUpdateErr")
+        const $crossQuestBUpdateErr = $("#crossQuestBUpdateErr")
+        const $crossQuestCUpdateErr = $("#crossQuestCUpdateErr")
+        const $crossQuestDUpdateErr = $("#crossQuestDUpdateErr")
+        const $crossAnswerAUpdateErr = $("#crossAnswerAUpdateErr")
+        const $crossAnswerBUpdateErr = $("#crossAnswerBUpdateErr")
+        const $crossAnswerCUpdateErr = $("#crossAnswerCUpdateErr")
+        const $crossAnswerDUpdateErr = $("#crossAnswerDUpdateErr")
+
+        let checkContentUpdate = false
+        let checkAnswerAUpdate = false
+        let checkAnswerBUpdate = false
+        let checkAnswerCUpdate = false
+        let checkAnswerDUpdate = false
+        let checkCrossQuestAUpdate = false
+        let checkCrossQuestBUpdate = false
+        let checkCrossQuestCUpdate = false
+        let checkCrossQuestDUpdate = false
+        let checkCrossAnswerAUpdate = false
+        let checkCrossAnswerBUpdate = false
+        let checkCrossAnswerCUpdate = false
+        let checkCrossAnswerDUpdate = false
 
         const $isCorrectAnswerView = $(".isCorrectAnswerView")
         const $typeView = $("#typeView")
@@ -62,7 +135,8 @@
         const $questionTable = $("#questionTable")
         const $liveToast = $("#liveToast")
         const $toastMes = $("#toastMes")
-        //const $updateHr = $("#updateHr")
+        const $newQuest = $("#newQuest")
+        const $updateQuest = $("#updateQuest")
 
         $questionTable.DataTable();
 
@@ -86,6 +160,8 @@
                 $isMultiSelect[0].checked = true
                 $isMultiSelect[0].disabled = true
             }
+
+            OnClearFormCheck()
         }
 
         const OnMultiSelected = (e) => {
@@ -108,7 +184,237 @@
             }
         }
 
+        const CheckType = () => {
+            var data = $type.val()
+            if (data == 0) {
+                $typeErr[0].innerHTML = "*Please select Type."
+            } else {
+                $typeErr[0].innerHTML = ""
+                checkType = true
+            }
+        }
+
+        const CheckLevel = () => {
+            var data = $level.val()
+            if (data == 0) {
+                $levelErr[0].innerHTML = "*Please select Level."
+            } else {
+                $levelErr[0].innerHTML = ""
+                checkLevel = true
+            }
+        }
+
+        const CheckExamType = () => {
+            var data = $examTypes.val()
+            if (data == 0) {
+                $examTypesErr[0].innerHTML = "*Please select Exam."
+            } else {
+                $examTypesErr[0].innerHTML = ""
+                checkExamTypes = true
+            }
+        }
+
+        const CheckPoint = () => {
+            var data = $point.val()
+            if (data == 0) {
+                $pointErr[0].innerHTML = "*Please select Point."
+            } else {
+                $pointErr[0].innerHTML = ""
+                checkPoint = true
+            }
+        }
+
+        const CheckContent = () => {
+            var data = $content.val()
+            if (data == 0) {
+                $contentErr[0].innerHTML = "*Please enter Content."
+            } else if (data.length > 1000) {
+                $contentErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $contentErr[0].innerHTML = ""
+                checkContent = true
+            }
+        }
+
+        const CheckAnswerA = () => {
+            var data = $answerA.val()
+            if (data == "") {
+                $answerAErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $answerAErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $answerAErr[0].innerHTML = ""
+                checkAnswerA = true
+            }
+        }
+
+        const CheckAnswerB = () => {
+            var data = $answerB.val()
+            if (data == "") {
+                $answerBErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $answerBErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $answerBErr[0].innerHTML = ""
+                checkAnswerB = true
+            }
+        }
+
+        const CheckAnswerC = () => {
+            var data = $answerC.val()
+            if (data == "") {
+                $answerCErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $answerCErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $answerCErr[0].innerHTML = ""
+                checkAnswerC = true
+            }
+        }
+
+        const CheckAnswerD = () => {
+            var data = $answerD.val()
+            if (data == "") {
+                $answerDErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $answerDErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $answerDErr[0].innerHTML = ""
+                checkAnswerD = true
+            }
+        }
+
+        const CheckCrossQuestA = () => {
+            var data = $crossQuestA.val()
+            if (data == "") {
+                $crossQuestAErr[0].innerHTML = "*Please enter Question."
+            } else if (data.length > 1000) {
+                $crossQuestAErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossQuestAErr[0].innerHTML = ""
+                checkCrossQuestA = true
+            }
+        }
+
+        const CheckCrossQuestB = () => {
+            var data = $crossQuestB.val()
+            if (data == "") {
+                $crossQuestBErr[0].innerHTML = "*Please enter Question."
+            } else if (data.length > 1000) {
+                $crossQuestBErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossQuestBErr[0].innerHTML = ""
+                checkCrossQuestB = true
+            }
+        }
+
+        const CheckCrossQuestC = () => {
+            var data = $crossQuestC.val()
+            if (data == "") {
+                $crossQuestCErr[0].innerHTML = "*Please enter Question."
+            } else if (data.length > 1000) {
+                $crossQuestCErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossQuestCErr[0].innerHTML = ""
+                checkCrossQuestC = true
+            }
+        }
+
+        const CheckCrossQuestD = () => {
+            var data = $crossQuestD.val()
+            if (data == "") {
+                $crossQuestDErr[0].innerHTML = "*Please enter Question."
+            } else if (data.length > 1000) {
+                $crossQuestDErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossQuestDErr[0].innerHTML = ""
+                checkCrossQuestD = true
+            }
+        }
+
+        const CheckCrossAnswerA = () => {
+            var data = $crossAnswerA.val()
+            if (data == "") {
+                $crossAnswerAErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $crossAnswerAErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossAnswerAErr[0].innerHTML = ""
+                checkCrossAnswerA = true
+            }
+        }
+
+        const CheckCrossAnswerB = () => {
+            var data = $crossAnswerB.val()
+            if (data == "") {
+                $crossAnswerBErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $crossAnswerBErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossAnswerBErr[0].innerHTML = ""
+                checkCrossAnswerB = true
+            }
+        }
+
+        const CheckCrossAnswerC = () => {
+            var data = $crossAnswerC.val()
+            if (data == "") {
+                $crossAnswerCErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $crossAnswerCErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossAnswerCErr[0].innerHTML = ""
+                checkCrossAnswerC = true
+            }
+        }
+
+        const CheckCrossAnswerD = () => {
+            var data = $crossAnswerD.val()
+            if (data == "") {
+                $crossAnswerDErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $crossAnswerDErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossAnswerDErr[0].innerHTML = ""
+                checkCrossAnswerD = true
+            }
+        }
+
         const NewQuestion = () => {
+            CheckType();
+            CheckLevel();
+            CheckExamType();
+            CheckPoint();
+            CheckContent();
+
+            if ($type.val() == 2) {
+                CheckCrossQuestA();
+                CheckCrossQuestB();
+                CheckCrossQuestC();
+                CheckCrossQuestD();
+
+                CheckCrossAnswerA();
+                CheckCrossAnswerB();
+                CheckCrossAnswerC();
+                CheckCrossAnswerD();
+
+                if (!checkType || checkLevel || checkExamTypes || checkPoint || checkContent ||
+                    checkCrossQuestA || checkCrossQuestB || checkCrossQuestC || !checkCrossQuestD ||
+                    checkCrossAnswerA || checkCrossAnswerB || checkCrossAnswerC || !checkCrossAnswerD) {
+                    return;
+                }
+            } else {
+                CheckAnswerA();
+                CheckAnswerB();
+                CheckAnswerC();
+                CheckAnswerD();
+
+                if (!checkType || checkLevel || checkExamTypes || checkPoint || checkContent ||
+                    checkAnswerA || checkAnswerB || checkAnswerC || checkAnswerD) {
+                    return;
+                }
+            }
+
             var _correctAnwser = []
             const TypeId = $type.val()
             const LevelId = $level.val()
@@ -266,11 +572,8 @@
                 $answerDUpdate.val(options[3])
             }
 
-            for (var i = 0; i < $typeUpdate[0].length; i++) {
-                if ($typeUpdate[0].options[i].innerHTML == data.TypeName) {
-                    $typeUpdate[0].options[i].selected = true;
-                }
-            }
+            $typeUpdate[0].value = data.TypeId;
+            $typeUpdate[0].innerHTML = data.TypeName;
 
             for (var i = 0; i < $levelUpdate[0].length; i++) {
                 if ($levelUpdate[0].options[i].innerHTML == data.LevelName) {
@@ -308,16 +611,202 @@
             }
         }
 
+        const CheckContentUpdate = () => {
+            var data = $contentUpdate.val()
+            if (data == 0) {
+                $contentUpdateErr[0].innerHTML = "*Please enter Content."
+            } else if (data.length > 1000) {
+                $contentUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $contentUpdateErr[0].innerHTML = ""
+                checkContentUpdate = true
+            }
+        }
+
+        const CheckAnswerAUpdate = () => {
+            var data = $answerAUpdate.val()
+            if (data == "") {
+                $answerAUpdateErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $answerAUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $answerAUpdateErr[0].innerHTML = ""
+                checkAnswerAUpdate = true
+            }
+        }
+
+        const CheckAnswerBUpdate = () => {
+            var data = $answerBUpdate.val()
+            if (data == "") {
+                $answerBUpdateErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $answerBUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $answerBUpdateErr[0].innerHTML = ""
+                checkAnswerBUpdate = true
+            }
+        }
+
+        const CheckAnswerCUpdate = () => {
+            var data = $answerCUpdate.val()
+            if (data == "") {
+                $answerCUpdateErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $answerCUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $answerCUpdateErr[0].innerHTML = ""
+                checkAnswerCUpdate = true
+            }
+        }
+
+        const CheckAnswerDUpdate = () => {
+            var data = $answerDUpdate.val()
+            if (data == "") {
+                $answerDUpdateErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $answerDUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $answerDUpdateErr[0].innerHTML = ""
+                checkAnswerDUpdate = true
+            }
+        }
+
+        const CheckCrossQuestAUpdate = () => {
+            var data = $crossQuestAUpdate.val()
+            if (data == "") {
+                $crossQuestAUpdateErr[0].innerHTML = "*Please enter Question."
+            } else if (data.length > 1000) {
+                $crossQuestAUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossQuestAUpdateErr[0].innerHTML = ""
+                checkCrossQuestAUpdate = true
+            }
+        }
+
+        const CheckCrossQuestBUpdate = () => {
+            var data = $crossQuestBUpdate.val()
+            if (data == "") {
+                $crossQuestBUpdateErr[0].innerHTML = "*Please enter Question."
+            } else if (data.length > 1000) {
+                $crossQuestBUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossQuestBUpdateErr[0].innerHTML = ""
+                checkCrossQuestBUpdate = true
+            }
+        }
+
+        const CheckCrossQuestCUpdate = () => {
+            var data = $crossQuestCUpdate.val()
+            if (data == "") {
+                $crossQuestCUpdateErr[0].innerHTML = "*Please enter Question."
+            } else if (data.length > 1000) {
+                $crossQuestCUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossQuestCUpdateErr[0].innerHTML = ""
+                checkCrossQuestCUpdate = true
+            }
+        }
+
+        const CheckCrossQuestDUpdate = () => {
+            var data = $crossQuestDUpdate.val()
+            if (data == "") {
+                $crossQuestDUpdateErr[0].innerHTML = "*Please enter Question."
+            } else if (data.length > 1000) {
+                $crossQuestDUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossQuestDUpdateErr[0].innerHTML = ""
+                checkCrossQuestDUpdate = true
+            }
+        }
+
+        const CheckCrossAnswerAUpdate = () => {
+            var data = $crossAnswerAUpdate.val()
+            if (data == "") {
+                $crossAnswerAUpdateErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $crossAnswerAUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossAnswerAUpdateErr[0].innerHTML = ""
+                checkCrossAnswerAUpdate = true
+            }
+        }
+
+        const CheckCrossAnswerBUpdate = () => {
+            var data = $crossAnswerBUpdate.val()
+            if (data == "") {
+                $crossAnswerBErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $crossAnswerBErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossAnswerBErr[0].innerHTML = ""
+                checkCrossAnswerB = true
+            }
+        }
+
+        const CheckCrossAnswerCUpdate = () => {
+            var data = $crossAnswerCUpdate.val()
+            if (data == "") {
+                $crossAnswerCUpdateErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $crossAnswerCUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossAnswerCUpdateErr[0].innerHTML = ""
+                checkCrossAnswerCUpdate = true
+            }
+        }
+
+        const CheckCrossAnswerDUpdate = () => {
+            var data = $crossAnswerDUpdate.val()
+            if (data == "") {
+                $crossAnswerDUpdateErr[0].innerHTML = "*Please enter Answer."
+            } else if (data.length > 1000) {
+                $crossAnswerDUpdateErr[0].innerHTML = "*Max length 1000 letters."
+            } else {
+                $crossAnswerDUpdateErr[0].innerHTML = ""
+                checkCrossAnswerDUpdate = true
+            }
+        }
+
         const OnUpdateQuestion = (e) => {
+            CheckContentUpdate();
+
+            if ($type.val() == 2) {
+                CheckCrossQuestAUpdate();
+                CheckCrossQuestBUpdate();
+                CheckCrossQuestCUpdate();
+                CheckCrossQuestDUpdate();
+
+                CheckCrossAnswerAUpdate();
+                CheckCrossAnswerBUpdate();
+                CheckCrossAnswerCUpdate();
+                CheckCrossAnswerDUpdate();
+
+                if (!checkContentUpdate ||
+                    !checkCrossQuestAUpdate || !checkCrossQuestBUpdate || !checkCrossQuestCUpdate || !checkCrossQuestDUpdate ||
+                    !checkCrossAnswerAUpdate || !checkCrossAnswerBUpdate || !checkCrossAnswerCUpdate || !checkCrossAnswerDUpdate) {
+                    return;
+                }
+            } else {
+                CheckAnswerA();
+                CheckAnswerB();
+                CheckAnswerC();
+                CheckAnswerD();
+
+                if (!checkTypeUpdate || checkLevelUpdate || !checkExamTypesUpdate || !checkPointUpdate || !checkContentUpdate ||
+                    !checkAnswerAUpdate || !checkAnswerBUpdate || !checkAnswerCUpdate || !checkAnswerDUpdate) {
+                    return;
+                }
+            }
+
             const Id = CurrentId
             var _correctAnwser = []
-            
+
             const TypeId = $typeUpdate.val()
             const LevelId = $levelUpdate.val()
             const Content = $contentUpdate.val()
             const Point = $pointUpdate.val()
             const IsMultiAnwser = $isMultiSelectUpdate[0].checked
-          
+
             let Options = ''
             let localOption = []
             let localAnwser = []
@@ -374,7 +863,7 @@
             }
             const rowIndex = RowIndex
             BlockUI()
-            
+
             $.ajax({
                 type: "POST",
                 url: "/admin/question/UpdateQuestion",
@@ -425,26 +914,127 @@
             }
         }
 
-                //$updateHr[0].addEventListener('hidden.bs.modal', function (event) {
-                //    OnClearFormUpdateHr();
-                //})
+        $updateQuest[0].addEventListener('hidden.bs.modal', function (event) {
+            OnClearFormUpdateQuestion();
+        })
 
-                //const OnClearFormUpdateHr = () => {
-                //    $nameUpdate.val("")
-                //    $emailUpdate.val("")
-                //    $contactUpdate.val("")
-                //    $educationUpdate.val("")
-                //    $addressUpdate.val("")
-                //    $experienceUpdate.val("")
-                //}
+        $newQuest[0].addEventListener('hidden.bs.modal', function (event) {
+            OnClearFormNewQUestion();
+        })
 
-                //const OnClearFormNewHr = () => {
-                //    $name.val("")
-                //    $email.val("")
-                //    $contact.val("")
-                //    $education.val("")
-                //    $address.val("")
-                //    $experience.val("")
-                //}
+        $newQuest[0].addEventListener('show.bs.modal', function (event) {
+            OnClearFormNewQuestion();
+        })
+
+        const OnClearFormUpdateQuestion = () => {
+            $typeUpdate[0].options[0].selected = true;
+            OnClearFormCheckUpdate()
+        }
+
+        const OnClearFormCheckUpdate = () => {
+            $answerAUpdate.val("")
+            $answerBUpdate.val("")
+            $answerCUpdate.val("")
+            $answerDUpdate.val("")
+            $crossQuestAUpdate.val("")
+            $crossQuestBUpdate.val("")
+            $crossQuestCUpdate.val("")
+            $crossQuestDUpdate.val("")
+            $crossAnswerAUpdateErr.val("")
+            $crossAnswerBUpdateErr.val("")
+            $crossAnswerCUpdateErr.val("")
+            $crossAnswerDUpdateErr.val("")
+
+            $typeUpdateErr[0].innerHTML = ""
+            $levelUpdateErr[0].innerHTML = ""
+            $examTypesUpdateErr[0].innerHTML = ""
+            $pointUpdateErr[0].innerHTML = ""
+            $contentUpdateErr[0].innerHTML = ""
+            $answerAUpdateErr[0].innerHTML = ""
+            $answerBUpdateErr[0].innerHTML = ""
+            $answerCUpdateErr[0].innerHTML = ""
+            $answerDUpdateErr[0].innerHTML = ""
+            $crossQuestAUpdateErr[0].innerHTML = ""
+            $crossQuestBUpdateErr[0].innerHTML = ""
+            $crossQuestCUpdateErr[0].innerHTML = ""
+            $crossQuestDUpdateErr[0].innerHTML = ""
+            $crossAnswerAUpdateErr[0].innerHTML = ""
+            $crossAnswerBUpdateErr[0].innerHTML = ""
+            $crossAnswerCUpdateErr[0].innerHTML = ""
+            $crossAnswerDUpdateErr[0].innerHTML = ""
+
+            checkContent = false
+            checkAnswerA = false
+            checkAnswerB = false
+            checkAnswerC = false
+            checkAnswerD = false
+            checkCrossQuestA = false
+            checkCrossQuestB = false
+            checkCrossQuestC = false
+            checkCrossQuestD = false
+            checkCrossAnswerA = false
+            checkCrossAnswerB = false
+            checkCrossAnswerC = false
+            checkCrossAnswerD = false
+        }
+
+        const OnClearFormNewQuestion = () => {
+            $type[0].options[0].selected = true;
+            OnClearFormCheck();
+        }
+
+        const OnClearFormCheck = () => {
+            $level[0].options[0].selected = true;
+            $examTypes[0].options[0].selected = true;
+            $point[0].options[0].selected = true;
+            $answerA.val("")
+            $answerB.val("")
+            $answerC.val("")
+            $answerD.val("")
+            $crossQuestA.val("")
+            $crossQuestB.val("")
+            $crossQuestC.val("")
+            $crossQuestD.val("")
+            $crossAnswerAErr.val("")
+            $crossAnswerBErr.val("")
+            $crossAnswerCErr.val("")
+            $crossAnswerDErr.val("")
+
+            $typeErr[0].innerHTML = ""
+            $levelErr[0].innerHTML = ""
+            $examTypesErr[0].innerHTML = ""
+            $pointErr[0].innerHTML = ""
+            $contentErr[0].innerHTML = ""
+            $answerAErr[0].innerHTML = ""
+            $answerBErr[0].innerHTML = ""
+            $answerCErr[0].innerHTML = ""
+            $answerDErr[0].innerHTML = ""
+            $crossQuestAErr[0].innerHTML = ""
+            $crossQuestBErr[0].innerHTML = ""
+            $crossQuestCErr[0].innerHTML = ""
+            $crossQuestDErr[0].innerHTML = ""
+            $crossAnswerAErr[0].innerHTML = ""
+            $crossAnswerBErr[0].innerHTML = ""
+            $crossAnswerCErr[0].innerHTML = ""
+            $crossAnswerDErr[0].innerHTML = ""
+
+            checkType = false
+            checkLevel = false
+            checkExamTypes = false
+            checkPoint = false
+            checkContent = false
+            checkAnswerA = false
+            checkAnswerB = false
+            checkAnswerC = false
+            checkAnswerD = false
+            checkCrossQuestA = false
+            checkCrossQuestB = false
+            checkCrossQuestC = false
+            checkCrossQuestD = false
+            checkCrossAnswerA = false
+            checkCrossAnswerB = false
+            checkCrossAnswerC = false
+            checkCrossAnswerD = false
+        }
     </script>
 }

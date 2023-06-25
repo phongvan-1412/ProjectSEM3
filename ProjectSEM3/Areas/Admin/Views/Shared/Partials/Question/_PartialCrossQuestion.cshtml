@@ -2,37 +2,45 @@
     <div class="col-5">
         <div>
             <label for="exampleFormControlTextarea1" class="form-label"><b>a/</b> <i style="color:red">*</i></label>
-            <textarea class="form-control p-0 ckEditor questCross" rows="3"></textarea>
+            <textarea class="form-control p-0 ckEditor questCross" id="crossQuestA" onblur="CheckCrossQuestA()" rows="3"></textarea>
+            <span id="crossQuestAErr" style="color:red;font-size:12px;position:absolute"></span>
         </div>
-        <div>
+        <div class="mt-2">
             <label for="exampleFormControlTextarea1" class="form-label"><b>b/</b> <i style="color:red">*</i></label>
-            <textarea class="form-control p-0 ckEditor questCross" rows="3"></textarea>
+            <textarea class="form-control p-0 ckEditor questCross" id="crossQuestB" onblur="CheckCrossQuestB()" rows="3"></textarea>
+            <span id="crossQuestBErr" style="color:red;font-size:12px;position:absolute"></span>
         </div>
-        <div>
+        <div class="mt-2">
             <label for="exampleFormControlTextarea1" class="form-label"><b>c/</b> <i style="color:red">*</i></label>
-            <textarea class="form-control p-0 ckEditor questCross" rows="3"></textarea>
+            <textarea class="form-control p-0 ckEditor questCross" id="crossQuestC" onblur="CheckCrossQuestC()" rows="3"></textarea>
+            <span id="crossQuestCErr" style="color:red;font-size:12px;position:absolute"></span>
         </div>
-        <div>
+        <div class="mt-2">
             <label for="exampleFormControlTextarea1" class="form-label"><b>d/</b> <i style="color:red">*</i></label>
-            <textarea class="form-control p-0 ckEditor questCross" rows="3"></textarea>
+            <textarea class="form-control p-0 ckEditor questCross" id="crossQuestD" onblur="CheckCrossQuestD()" rows="3"></textarea>
+            <span id="crossQuestDErr" style="color:red;font-size:12px;position:absolute"></span>
         </div>
     </div>
     <div class="col-7">
         <div>
             <label for="exampleFormControlTextarea1" class="form-label"><b>1/</b> <i style="color:red">*</i></label>
-            <textarea class="form-control p-0 ckEditor answerCross" rows="3"></textarea>
+            <textarea class="form-control p-0 ckEditor answerCross" id="crossAnswerA" onblur="CheckCrossAnswerA()" rows="3"></textarea>
+            <span id="crossAnswerAErr" style="color:red;font-size:12px;position:absolute"></span>
         </div>
-        <div>
+        <div class="mt-2">
             <label for="exampleFormControlTextarea1" class="form-label"><b>2/</b> <i style="color:red">*</i></label>
-            <textarea class="form-control p-0 ckEditor answerCross" rows="3"></textarea>
+            <textarea class="form-control p-0 ckEditor answerCross" id="crossAnswerB" onblur="CheckCrossAnswerB()" rows="3"></textarea>
+            <span id="crossAnswerBErr" style="color:red;font-size:12px;position:absolute"></span>
         </div>
-        <div>
+        <div class="mt-2">
             <label for="exampleFormControlTextarea1" class="form-label"><b>3/</b> <i style="color:red">*</i></label>
-            <textarea class="form-control p-0 ckEditor answerCross" rows="3"></textarea>
+            <textarea class="form-control p-0 ckEditor answerCross" id="crossAnswerC" onblur="CheckCrossAnswerC()" rows="3"></textarea>
+            <span id="crossAnswerCErr" style="color:red;font-size:12px;position:absolute"></span>
         </div>
-        <div>
+        <div class="mt-2">
             <label for="exampleFormControlTextarea1" class="form-label"><b>4/</b> <i style="color:red">*</i></label>
-            <textarea class="form-control p-0 ckEditor answerCross" rows="3"></textarea>
+            <textarea class="form-control p-0 ckEditor answerCross" id="crossAnswerD" onblur="CheckCrossAnswerD()" rows="3"></textarea>
+            <span id="crossAnswerDErr" style="color:red;font-size:12px;position:absolute"></span>
         </div>
     </div>
 </div>

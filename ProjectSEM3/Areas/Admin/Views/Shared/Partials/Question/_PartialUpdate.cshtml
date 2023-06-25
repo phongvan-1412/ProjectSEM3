@@ -7,7 +7,7 @@
 }
 
 
-<div id="updateQuestion" class="modal fade" role="dialog">
+<div id="updateQuest" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
@@ -21,13 +21,7 @@
                     <div class="row">
                         <div class="col-2 m-1">
                             <span><b>Type</b> <i style="color:red">*</i></span>
-                            <select class="form-select" id="typeUpdate">
-                                <option value="0" selected hidden>Type</option>
-                                @foreach (var item in types)
-                                {
-                                    <option class="pointer" value="@item.Id">@item.Name</option>
-                                }
-                            </select>
+                            <div id="typeUpdate"></div>
                         </div>
                         <div class="col-2 m-1">
                             <span><b>Level</b> <i style="color:red">*</i></span>
@@ -38,6 +32,7 @@
                                     <option class="pointer" value="@item.Id">@item.Name</option>
                                 }
                             </select>
+                            <span id="levelErr" style="color:red;font-size:12px;position:absolute"></span>
                         </div>
 
                         <div class="col-3 m-1">
@@ -49,6 +44,7 @@
                                     <option class="pointer" value="@item.Id">@item.Name</option>
                                 }
                             </select>
+                            <span id="examTypesErr" style="color:red;font-size:12px;position:absolute"></span>
                         </div>
 
                         <div class="col-2 m-1">
@@ -61,6 +57,7 @@
                                 <option class="pointer" value="4">4</option>
                                 <option class="pointer" value="5">5</option>
                             </select>
+                            <span id="pointErr" style="color:red;font-size:12px;position:absolute"></span>
                         </div>
                         <div class="col-2 m-1">
                             <span><b>Multiselect</b> <i style="color:red">*</i></span>
@@ -73,7 +70,8 @@
                     <div class="row">
                         <div class="col-12">
                             <span><b>Content</b> <i style="color:red">*</i></span>
-                            <textarea class="form-control p-0 ckEditor" placeholder="" name="isCorrectAnswer" id="contentUpdate" rows="3"></textarea>
+                            <textarea class="form-control p-0 ckEditor" onblur="CheckContentUpdate()" placeholder="" name="isCorrectAnswer" id="contentUpdate" rows="3"></textarea>
+                            <span id="contentUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                         </div>
                     </div>
                     <hr />
@@ -82,7 +80,6 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="row">
-
                                     <span class="col-1"><b>A</b> <i style="color:red">*</i></span>
                                     <div class="form-check col-6 isCorrectAnswerUpdateWrap">
                                         <input class="form-check-input pointer isCorrectAnswerUpdate" name="isCorrectAnswer" id="" type="radio" value="">
@@ -91,7 +88,8 @@
                                         </label>
                                     </div>
                                 </div>
-                                <textarea class="form-control p-0 ckEditor" placeholder="" id="answerAUpdate" rows="3"></textarea>
+                                <textarea class="form-control p-0 ckEditor" onblur="CheckAnswerAUpdate()" placeholder="" id="answerAUpdate" rows="3"></textarea>
+                                <span id="answerAUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <hr />
@@ -107,7 +105,8 @@
 
                                     </div>
                                 </div>
-                                <textarea class="form-control p-0 ckEditor" placeholder="" id="answerBUpdate" rows="3"></textarea>
+                                <textarea class="form-control p-0 ckEditor" onblur="CheckAnswerBUpdate()" placeholder="" id="answerBUpdate" rows="3"></textarea>
+                                <span id="answerBUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <hr />
@@ -122,7 +121,8 @@
                                         </label>
                                     </div>
                                 </div>
-                                <textarea class="form-control p-0 ckEditor" placeholder="" id="answerCUpdate" rows="3"></textarea>
+                                <textarea class="form-control p-0 ckEditor" onblur="CheckAnswerCUpdate()" placeholder="" id="answerCUpdate" rows="3"></textarea>
+                                <span id="answerCUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <hr />
@@ -137,7 +137,8 @@
                                         </label>
                                     </div>
                                 </div>
-                                <textarea class="form-control p-0 ckEditor" placeholder="" id="answerDUpdate" rows="3"></textarea>
+                                <textarea class="form-control p-0 ckEditor" onblur="CheckAnswerDUpdate()" placeholder="" id="answerDUpdate" rows="3"></textarea>
+                                <span id="answerDUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                     </div>
@@ -147,37 +148,45 @@
                             <div class="col-5">
                                 <div>
                                     <label for="exampleFormControlTextarea1" class="form-label"><b>a/</b> <i style="color:red">*</i></label>
-                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" rows="3"></textarea>
+                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" onblur="CheckCrossQuestAUpdate()" rows="3"></textarea>
+                                    <span id="crossQuestAUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                                 </div>
                                 <div>
                                     <label for="exampleFormControlTextarea1" class="form-label"><b>b/</b> <i style="color:red">*</i></label>
-                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" rows="3"></textarea>
+                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" onblur="CheckCrossQuestBUpdate()" rows="3"></textarea>
+                                    <span id="crossQuestBUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                                 </div>
                                 <div>
                                     <label for="exampleFormControlTextarea1" class="form-label"><b>c/</b> <i style="color:red">*</i></label>
-                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" rows="3"></textarea>
+                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" onblur="CheckCrossQuestCUpdate()" rows="3"></textarea>
+                                    <span id="crossQuestCUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                                 </div>
                                 <div>
                                     <label for="exampleFormControlTextarea1" class="form-label"><b>d/</b> <i style="color:red">*</i></label>
-                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" rows="3"></textarea>
+                                    <textarea class="form-control p-0 ckEditor questCrossUpdate" onblur="CheckCrossQuestDUpdate()" rows="3"></textarea>
+                                    <span id="crossQuestDUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                                 </div>
                             </div>
                             <div class="col-7">
                                 <div>
                                     <label for="exampleFormControlTextarea1" class="form-label"><b>1/</b> <i style="color:red">*</i></label>
-                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" rows="3"></textarea>
+                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" onblur="CheckCrossAnswerAUpdate()" rows="3"></textarea>
+                                    <span id="crossAnswerAUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                                 </div>
                                 <div>
                                     <label for="exampleFormControlTextarea1" class="form-label"><b>2/</b> <i style="color:red">*</i></label>
-                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" rows="3"></textarea>
+                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" onblur="CheckCrossAnswerBUpdate()" rows="3"></textarea>
+                                    <span id="crossAnswerBUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                                 </div>
                                 <div>
                                     <label for="exampleFormControlTextarea1" class="form-label"><b>3/</b> <i style="color:red">*</i></label>
-                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" rows="3"></textarea>
+                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" onblur="CheckCrossAnswerCUpdate()" rows="3"></textarea>
+                                    <span id="crossAnswerCUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                                 </div>
                                 <div>
                                     <label for="exampleFormControlTextarea1" class="form-label"><b>4/</b> <i style="color:red">*</i></label>
-                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" rows="3"></textarea>
+                                    <textarea class="form-control p-0 ckEditor answerCrossUpdate" onblur="CheckCrossAnswerDUpdate()" rows="3"></textarea>
+                                    <span id="crossAnswerDUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                                 </div>
                             </div>
                         </div>

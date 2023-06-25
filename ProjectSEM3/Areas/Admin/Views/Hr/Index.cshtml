@@ -457,6 +457,20 @@
             $educationUpdate.val("")
             $addressUpdate.val("")
             $experienceUpdate.val("")
+
+            $nameUpdateErr[0].innerHTML = ""
+            $emailUpdateErr[0].innerHTML = ""
+            $educationUpdateErr[0].innerHTML = ""
+            $contactUpdateErr[0].innerHTML = ""
+            $addressUpdateErr[0].innerHTML = ""
+            $experienceUpdateErr[0].innerHTML = ""
+
+            checkNameUpdate = false
+            checkEmailUpdate = false
+            checkContactUpdate = false
+            checkEducationUpdate = false
+            checkAddressUpdate = false
+            checkExperienceUpdate = false
         }
 
         const OnClearFormNewHr = () => {
@@ -477,6 +491,15 @@
             $contactErr[0].innerHTML = ""
             $addressErr[0].innerHTML = ""
             $experienceErr[0].innerHTML = ""
+
+            checkName = false
+            checkEmail = false
+            checkPassword = false
+            checkConfirmPassword = false
+            checkContact = false
+            checkEducation = false
+            checkAddress = false
+            checkExperience = false
         }
     </script>
 }

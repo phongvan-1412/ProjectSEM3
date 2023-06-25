@@ -30,6 +30,7 @@
                                     <option class="pointer" value="@item.Id">@item.Name</option>
                                 }
                             </select>
+                            <span id="typeErr" style="color:red;font-size:12px;position:absolute"></span>
                         </div>
                         <div class="col-2 m-1">
                             <span><b>Level</b> <i style="color:red">*</i></span>
@@ -40,6 +41,7 @@
                                     <option class="pointer" value="@item.Id">@item.Name</option>
                                 }
                             </select>
+                            <span id="levelErr" style="color:red;font-size:12px;position:absolute"></span>
                         </div>
                         <div class="col-3 m-1">
                             <span><b>Exam Type</b> <i style="color:red">*</i></span>
@@ -50,6 +52,8 @@
                                     <option class="pointer" value="@item.Id">@item.Name</option>
                                 }
                             </select>
+                            <span id="examTypesErr" style="color:red;font-size:12px;position:absolute"></span>
+
                         </div>
                         <div class="col-2 m-1">
                             <span><b>Point</b> <i style="color:red">*</i></span>
@@ -61,6 +65,7 @@
                                 <option class="pointer" value="4">4</option>
                                 <option class="pointer" value="5">5</option>
                             </select>
+                            <span id="pointErr" style="color:red;font-size:12px;position:absolute"></span>
                         </div>
                         <div class="col-2 m-1">
                             <span><b>Multiselect</b> <i style="color:red">*</i></span>
@@ -70,9 +75,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 m-1">
                             <span><b>Content</b> <i style="color:red">*</i></span>
-                            <textarea class="form-control p-0 ckEditor" placeholder="" name="isCorrectAnswer" id="content" rows="3"></textarea>
+                            <textarea class="form-control p-0 ckEditor" onblur="CheckContent()" placeholder="" name="isCorrectAnswer" id="content" rows="3"></textarea>
+                            <span id="contentErr" style="color:red;font-size:12px;position:absolute"></span>
                         </div>
                     </div>
                     <hr />
@@ -82,7 +88,6 @@
                     <div id="normalQuestion" >
                         @Html.Partial("~/Areas/Admin/Views/Shared/Partials/Question/_PartialNormalQuestion.cshtml")
                     </div>
-
 
                     <div class="m-2">
                         <button class="main-btn secondary-btn-outline btn-sm  float-end" type="button" onclick="NewQuestion()">Submit</button>
