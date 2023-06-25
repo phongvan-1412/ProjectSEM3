@@ -80,7 +80,7 @@
 </div>
 
 <script type="text/javascript">
-    localStorage.removeItem("lstCheck")
+    localStorage.removeItem("data")
     /*-----------------------------------
         Countdown
     -------------------------------------*/
@@ -123,20 +123,6 @@
     -------------------------------------*/
     var data = @Html.Raw(Json.Encode(lst));
     //console.log(data);
-
-
-    //for (var i = 0; i < data.Knowledge.length; i++) {
-    //    var temp = { id: "", question: "", answer: [], IsMultiAnwser: false, type: "", point: "" };
-    //    data[i].Options = JSON.parse(data[i].Options);
-    //    data[i].CorrectAnwser = JSON.parse(data[i].CorrectAnwser);
-    //    temp.id = data[i].QuestionId;
-    //    temp.question = data[i].Content;
-    //    temp.IsMultiAnwser = data[i].IsMultiAnwser;
-    //    temp.type = data[i].TypeId;
-    //    temp.point = data[i].Point;
-    //    lstTemp.push(temp);
-    //}
-    //console.log(lstTemp);
 
     localStorage.setItem("data", JSON.stringify(data));
     let lstTemp = [];
@@ -196,10 +182,10 @@
     /*-------------- Single & Multi Choice --------------*/
     function showAnswer() {
         let options = ``;
-        var e = JSON.parse(question.Options);
+        var convertOptionsToArray = JSON.parse(question.Options);
 
-        for (var i = 0; i < e.length; i++) {
-            let option = e[i];
+        for (var i = 0; i < convertOptionsToArray.length; i++) {
+            let option = convertOptionsToArray[i];
             let selected = false;
 
             if (lstTemp[index].IsMultiAnwser == false) {
@@ -245,6 +231,149 @@
 
     /*-------------- Cross Choice --------------*/
 
+    function showCrossAnswer() {
+        let options = ``;
+        let questCross = ``;
+        let ansCross = ``;
+        let displayCross = ``;
+        let convertQuestionsToArray = JSON.parse(question.Options);
+        let convertAnswersToArray = JSON.parse(question.CorrectAnwser);
+        //console.log(question)
+        //console.log(convertOptionsToArray)
+        for (var i = 0; i < convertOptionsToArray.length; i++) {
+
+        }
+        for (var i = 0; i < convertOptionsToArray.length; i++) {
+            let selectedQuest = false;
+            let selectedAns = false;
+
+
+            let qCross = convertOptionsToArray[i];
+            let aCross = convertAnswersToArray[i];
+
+            
+            for (var j = 0; j < lstTemp[index].Answer.length; j++) {
+                if (lstTemp[index].answer[j][0] == qCross) {
+                    selectedQuest = true;
+                }
+            }
+            questCross += `
+                <div class="rounded-pill bg-white text-end d-flex align-items-center" style="width: 100%; height: 3.5rem; margin-bottom: 1rem; padding: 0 1rem 0 9.5rem;">
+                    <div style="margin-right: 1rem;">
+                        ${qCross}
+                    </div>
+                        <input type="checkbox" onclick="addCrossQuestion(${i})" name="question-btn${i}" ${selectedQuest ? "disabled='true' checked='true'" : ""} value="${qCross}" style="margin-right: 0"/>
+                </div>
+            `;
+
+            for (var k = 0; k < lstTemp[index].Answer.length; k++) {
+                if (lstTemp[index].Answer[k][1] == aCross) {
+                    selectedAns = true;
+                }
+            }
+            ansCross += `
+                <div class="rounded-pill bg-white text-start d-flex align-items-center" style="width: 100%; height: 3.5rem; margin-bottom: 1rem; padding: 0 5rem 0 1.5rem;">
+                    <input type="checkbox" onclick="addCrossAnswer(${i})" name="answerCross-btn${i}" ${selectedAns ? "disabled='true' checked='true'" : ""} value="${aCross}"/>
+                    <div>${aCross}</div>
+                </div>
+            `;
+        }
+
+        for (var i = 0; i < lstTemp[index].Answer.length; i++) {
+            displayCross += `
+                <div class="d-flex align-items-center justify-content-center">
+                    <span class="me-3 text-dark">Question "${lstTemp[index].Answer[i][0]}": </span>
+                    <span>${lstTemp[index].Answer[i][1]}</span>
+                </div>
+            `;
+        }
+
+        options = `
+            <div class="d-flex align-items-center justify-content-evenly">
+                <div class="question-container d-flex flex-column">
+                    ${questCross}
+                </div>
+                <div class="answer-container d-flex flex-column">
+                    ${ansCross}
+                </div>
+            </div>
+
+            <div class="d-flex flex-column align-items-center justify-content-center mt-3">
+                    ${displayCross}
+            </div>
+        `;
+        return options;
+    }
+    function addCrossQuestion(b) {
+        let currentCrossQuest = document.getElementsByName(`question-btn${b}`);
+
+        if (lstTemp[index].Answer.length == 0) {
+            if (currentCrossQuest[0].checked == true) {
+                selectedAnswer[`${currentCrossQuest[0].value}`] = "";
+                lstTemp[index].answer.push(Object.keys(selectedAnswer));
+                currentCrossQuest[0].setAttribute("disabled", true);
+            }
+        } else {
+            if (currentCrossQuest[0].checked == true) {
+                selectedAnswer = {};
+                for (var i = 0; i < lstTemp[index].Answer.length; i++) {
+                    if (lstTemp[index].Answer[i][0] !== currentCrossQuest[0].value) {
+                        selectedAnswer[`${currentCrossQuest[0].value}`] = "";
+                        lstTemp[index].Answer.push(Object.keys(selectedAnswer));
+                        currentCrossQuest[0].setAttribute("disabled", true);
+                        break;
+                    }
+                }
+            } else {
+                for (var i = 0; i < lstTemp[index].Answer.length; i++) {
+                    if (lstTemp[index].Answer[i][0] == currentCrossQuest[0].value) {
+                        lstTemp[index].Answer.splice(i, 1);
+                    }
+                }
+            }
+        }
+        console.log(lstTemp);
+        setTemp(tempName);
+    };
+    function addCrossAnswer(b) {
+        let currentCrossOpt = document.getElementsByName(`answerCross-btn${b}`);
+
+        if (lstTemp[index].Answer.length == 0) {
+            if (currentCrossOpt[0].checked == true) {
+                currentCrossOpt[0].checked = false;
+                alert('Please choose question first!');
+            }
+        } else {
+            if (currentCrossOpt[0].checked == true) {
+                selectedAnswer[Object.keys(selectedAnswer)] = currentCrossOpt[0];
+                for (var i = 0; i < a[index].answer.length; i++) {
+                    if (lstTemp[index].Answer[i][0] == Object.keys(selectedAnswer)) {
+                        lstTemp[index].Answer[i].push(currentCrossOpt[0].value);
+                        currentCrossOpt[0].setAttribute("disabled", true);
+                        selectedAnswer = {};
+                        break;
+                    }
+                }
+            } else {
+                for (var i = 0; i < lstTemp[index].Answer.length; i++) {
+                    if (lstTemp[index].Answer[i][1] == currentCrossOpt[0].value) {
+                        lstTemp[index].Answer.splice(i, 1);
+                    }
+                }
+            }
+        }
+
+        console.log(lstTemp);
+        setTemp(tempName);
+    };
+    function reset() {
+        for (var i = 0; i < lstTemp[index].Answer.length; i++) {
+            lstTemp[index].Answer.splice(0, lstTemp[index].Answer.length);
+        }
+        setTemp(tempName);
+        alert('Success!');
+    };
+
     /*  -------------- Question --------------*/
     function submitQuiz() {
         if (tempName == "Knowledge") {
@@ -278,18 +407,30 @@
             jumpButtons();
             question = lstTemp[i];
             let options = showAnswer();
-            //let optionsCross = showCrossAnswer();
+            let optionsCross = showCrossAnswer();
 
             container.innerHTML = `
                 <div id="questDisplay" class="multisteps_form_panel">
+                    ${question.TypeId == 2
+                        ? `
+                        <div class="d-flex align-items-center justify-content-center">
+                            <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                                Question
+                                <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${data.length}
+                            </span>
+                            <button type="button" class="reset-wrapper d-flex align-items-center justify-content-center text-uppercase border-0 ms-3" onclick="reset()">Reset</button>
+                        </div>
+                    `
+                        : `
+                        <div class="d-flex align-items-center justify-content-center">
+                            <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
+                                Question
+                                <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${data.length}
+                            </span>
+                        </div>
+                    `}
 
 
-                <div class="d-flex align-items-center justify-content-center">
-                        <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-                            Question
-                            <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${lstTemp.length}
-                        </span>
-                    </div>
 
                     <h1 class="question_title text-center">${question.Content} </h1>
                     ${question.TypeId == 2
@@ -319,21 +460,3 @@
     showQuestion(0);
 
 </script>
-@*${question.TypeId == 2*@
-@*? `
-    <div class="d-flex align-items-center justify-content-center">
-        <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-            Question
-            <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${lstTemp.length}
-        </span>
-        <button type="button" class="reset-wrapper d-flex align-items-center justify-content-center text-uppercase border-0 ms-3" onclick="reset()">Reset</button>
-    </div>
-                    `
-                    : `
-    <div class="d-flex align-items-center justify-content-center">
-        <span class="question_number text-uppercase d-flex justify-content-center align-items-center">
-            Question
-            <span id="question-number" class="d-flex justify-content-center ms-1" style="margin-top: 16px">${index + 1}</span>/${lstTemp.length}
-        </span>
-    </div>
-                    `}*@

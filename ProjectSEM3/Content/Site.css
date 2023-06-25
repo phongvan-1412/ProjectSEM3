@@ -605,6 +605,22 @@ body .container-fluid {
     font-size: 14px;
     color: rgb(92, 27, 134);
 }
+.job-list-section{
+    display: flex;
+    flex-direction: row;
+}
+@media (max-width: 1400px) {
+    .job-list-section {
+        display: flex;
+        flex-direction: column !important;
+    }
+    .jobs-list-wrapper, .job-detail-wrapper {
+        width: 100%;
+    }
+    .job-detail-wrapper{
+        display: none;
+    }
+}
 .jobs-list-wrapper {
     border: 1px solid #fff;
     border-radius: 2px;

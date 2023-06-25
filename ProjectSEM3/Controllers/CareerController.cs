@@ -68,7 +68,7 @@ namespace ProjectSEM3.Controllers
 
         public List<Country> Country()
         {
-            string countryText = System.IO.File.ReadAllText(@"C:\Aptech\SEM3\Project SEM3\countries.json");
+            string countryText = System.IO.File.ReadAllText(Path.Combine(Server.MapPath("~/Content/countries.json")));
             string countryJson = JsonConvert.SerializeObject(countryText);
             var countriesText = JsonConvert.DeserializeObject(countryJson);
             List<Country> countries = JsonConvert.DeserializeObject<List<Country>>(countriesText.ToString());
