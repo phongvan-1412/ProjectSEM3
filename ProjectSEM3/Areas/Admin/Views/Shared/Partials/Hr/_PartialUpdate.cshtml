@@ -11,42 +11,52 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-6">
-                            <div class="m-1">
+                            <div class="m-2">
                                 <span><b>Name</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="nameUpdate" type="text" />
+                                <input class="form-control p-1" onblur="CheckNameUpdate()" id="nameUpdate" type="text" />
+                                <span id="nameUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="m-1">
+                            <div class="m-2">
                                 <span><b>Email</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="emailUpdate" type="text" />
+                                <input class="form-control p-1" onblur="CheckEmailUpdate()"  id="emailUpdate" type="text" />
+                                <span id="emailUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-6">
-                            <div class="m-1">
+                            <div class="m-2">
                                 <span><b>Contact</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="contactUpdate" type="text" />
+                                <input class="form-control p-1" onblur="CheckContactUpdate()" id="contactUpdate" type="text" />
+                                <span id="contactUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="m-1">
+                            <div class="m-2">
                                 <span><b>Education</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="educationUpdate" type="text" />
+                                <input class="form-control p-1" onblur="CheckEducationUpdate()" id="educationUpdate" type="text" />
+                                <span id="educationUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="m-1">
-                        <span><b>Address</b> <i style="color:red">*</i></span>
-                        <input class="form-control p-1" id="addressUpdate" type="text" />
+                    <div class="row">
+                        <div class="m-2">
+                            <span><b>Address</b> <i style="color:red">*</i></span>
+                            <input class="form-control p-1" onblur="CheckAddressUpdate()" id="addressUpdate" type="text" />
+                            <span id="addressUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
+                        </div>
                     </div>
 
-                    <div class="m-1">
-                        <span><b>Experience</b> <i style="color:red">*</i></span>
-                        <textarea class="form-control p-1" placeholder="" id="experienceUpdate" style="height: 100px"></textarea>
+                    <div class="row">
+                        <div class="m-2">
+                            <span><b>Experience</b> <i style="color:red">*</i></span>
+                            <textarea class="form-control p-1" onblur="CheckExperienceUpdate()" placeholder="" id="experienceUpdate" style="height: 100px"></textarea>
+                            <span id="experienceUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
+                        </div>
                     </div>
 
                     <div class="m-2">

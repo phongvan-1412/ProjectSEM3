@@ -51,6 +51,22 @@
         const $addressUpdate = $("#addressUpdate")
         const $experienceUpdate = $("#experienceUpdate")
 
+        const $nameUpdateErr = $("#nameUpdateErr")
+        const $emailUpdateErr = $("#emailUpdateErr")
+        const $contactUpdateErr = $("#contactUpdateErr")
+        const $educationUpdateErr = $("#educationUpdateErr")
+        const $addressUpdateErr = $("#addressUpdateErr")
+        const $experienceUpdateErr = $("#experienceUpdateErr")
+
+        let checkNameUpdate = false
+        let checkEmailUpdate = false
+        let checkPasswordUpdate = false
+        let checkConfirmPasswordUpdate = false
+        let checkContactUpdate = false
+        let checkEducationUpdate = false
+        let checkAddressUpdate = false
+        let checkExperienceUpdate = false
+
         const $nameView = $("#nameView")
         const $emailView = $("#emailView")
         const $contactView = $("#contactView")
@@ -287,7 +303,89 @@
             $experienceUpdate.val(data.Experience)
         }
 
-        const OnUpdateHr = (e) => {
+        const CheckNameUpdate = () => {
+            var name = $nameUpdate.val().trim()
+            if (name === '') {
+                $nameUpdateErr[0].innerHTML = "*Please enter Hr Name."
+            }
+            else if (!IsValidName(name)) {
+                $nameUpdateErr[0].innerHTML = "*Letter only."
+            } else {
+                $nameUpdateErr[0].innerHTML = ""
+                checkName = true
+            }
+        }
+
+        const CheckEmailUpdate = () => {
+            var email = $emailUpdate.val().trim()
+            $.ajax({
+                type: "POST",
+                url: "/admin/hr/CheckEmail",
+                data: { email },
+                dataType: "json",
+                success: function (res) {
+                    $emailUpdateErr[0].innerHTML = res.Mes
+                    checkEmail = res.IsSuccess
+                },
+                error: function (jqXHR, err, errorThrown) {
+                }
+            });
+        }
+
+        const CheckContactUpdate = () => {
+            var contact = $contactUpdate.val().trim()
+            if (contact === '') {
+                $contactUpdateErr[0].innerHTML = "*Please enter Hr Contact."
+            } else if (!IsValidContact(contact)) {
+                $contactUpdateErr[0].innerHTML = "*Wrong format. Eg: 0325485695."
+            } else {
+                $contactUpdateErr[0].innerHTML = ""
+                checkContact = true
+            }
+        }
+
+        const CheckEducationUpdate = () => {
+            var education = $educationUpdate.val().trim()
+            if (education === '') {
+                $educationUpdateErr[0].innerHTML = "*Please enter Hr Education."
+            } else {
+                $educationUpdateErr[0].innerHTML = ""
+                checkEducation = true
+            }
+        }
+
+        const CheckAddressUpdate = () => {
+            var address = $addressUpdate.val().trim()
+            if (address === '') {
+                $addressUpdateErr[0].innerHTML = "*Please enter Hr Address."
+            } else {
+                $addressUpdateErr[0].innerHTML = ""
+                checkAddress = true
+            }
+        }
+
+        const CheckExperienceUpdate = () => {
+            var exp = $experienceUpdate.val().trim()
+            if (exp === '') {
+                $experienceUpdateErr[0].innerHTML = "*Please enter Hr Experience."
+            } else {
+                $experienceUpdateErr[0].innerHTML = ""
+                checkExperience = true
+            }
+        }
+
+        const OnUpdateHr = () => {
+            CheckNameUpdate();
+            CheckEmailUpdate();
+            CheckContactUpdate();
+            CheckEducationUpdate();
+            CheckAddressUpdate();
+            CheckExperienceUpdate();
+            if (!checkNameUpdate || !checkEmailUpdate || !checkPasswordUpdate || checkConfirmPasswordUpdate ||
+                !checkContactUpdate || !checkEducationUpdate || !checkAddressUpdate || !checkExperienceUpdate) {
+                return
+            }
+
             const Id = CurrentId
             const Name = $nameUpdate.val()
             const Email = $emailUpdate.val()
