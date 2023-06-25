@@ -32,15 +32,16 @@ namespace ProjectSEM3.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult StartQuiz(int? examId)
+        public ActionResult StartQuiz(int? examId, int? contestantId)
         {
-            return RedirectToAction("Quiz", "Quiz", new { examId = examId });
+            return RedirectToAction("Quiz", "Quiz", new { examId = examId, contestantId = contestantId });
         }
-        public ActionResult Quiz(int? examId)
+        public ActionResult Quiz(int? examId, int? contestantId)
         {
             try
             {
                 ViewData["lstExam"] = GetData(examId);
+                ViewData["contestantId"] = contestantId;
             }
             catch (Exception)
             {
