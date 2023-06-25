@@ -343,8 +343,8 @@
                     optionAnwsers.push($answerCrossUpdate[i].value)
 
                     var anwsers = []
-                    anwsers.push($questCross[i].value)
-                    anwsers.push($answerCross[i].value)
+                    anwsers.push($questCrossUpdate[i].value)
+                    anwsers.push($answerCrossUpdate[i].value)
                     localAnwser.push(anwsers)
                     anwsers = []
                 }
@@ -354,10 +354,10 @@
                 Options = JSON.stringify(localOption)
                 CorrectAnwser = JSON.stringify(localAnwser)
             } else {
-                localOption.push($answerA.val())
-                localOption.push($answerB.val())
-                localOption.push($answerC.val())
-                localOption.push($answerD.val())
+                localOption.push($answerAUpdate.val())
+                localOption.push($answerBUpdate.val())
+                localOption.push($answerCUpdate.val())
+                localOption.push($answerDUpdate.val())
                 Options = JSON.stringify(localOption)
                 CorrectAnwser = JSON.stringify(localOption)
             }
