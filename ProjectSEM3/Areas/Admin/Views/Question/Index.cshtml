@@ -339,11 +339,17 @@
                 var options = []
                 var optionAnwsers = []
                 for (var i = 0; i < 4; i++) {
-                    options.push($questCrossUpdate[i].value)
-                    optionAnwsers.push($answerCrossUpdate[i].value)
+                    options.push($questCross[i].value)
+                    optionAnwsers.push($answerCross[i].value)
+
+                    var anwsers = []
+                    anwsers.push($questCross[i].value)
+                    anwsers.push($answerCross[i].value)
+                    localAnwser.push(anwsers)
+                    anwsers = []
                 }
-                localAnwser.push(optionAnwsers)
                 localOption.push(options)
+                localOption.push(optionAnwsers)
 
                 Options = JSON.stringify(localOption)
                 CorrectAnwser = JSON.stringify(localAnwser)

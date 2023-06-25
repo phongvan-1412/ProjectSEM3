@@ -70,7 +70,7 @@
             var pattern = /^[A-Za-z\s]+$/;
             return pattern.test(name.trim());
         }
-
+        
         const CheckName = () => {
             var name = $name.val().trim()
             if (name === '') {
@@ -199,14 +199,6 @@
             CheckEducation();
             CheckAddress();
             CheckExperience();
-            console.log(checkName)
-            console.log(checkEmail)
-            console.log(checkPassword)
-            console.log(checkConfirmPassword)
-            console.log(checkContact)
-            console.log(checkEducation)
-            console.log(checkAddress)
-            console.log(checkExperience)
             if (!checkName || !checkEmail || !checkPassword || checkConfirmPassword ||
                 !checkContact || !checkEducation || !checkAddress || !checkExperience) {
                 return
