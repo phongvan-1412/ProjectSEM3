@@ -198,7 +198,8 @@
     function showAnswer() {
         let options = ``;
         var convertOptionsToArray = JSON.parse(question.Options);
-
+        console.log(question.Answer)
+        console.log(lstTemp[index].Answer)
         for (var i = 0; i < convertOptionsToArray.length; i++) {
             let option = convertOptionsToArray[i];
             let selected = false;
@@ -206,7 +207,7 @@
             if (lstTemp[index].IsMultiAnwser == false) {
                 if (lstTemp[index].Answer != "") {
                     let singleAnswer = JSON.parse(lstTemp[index].Answer);
-                    if (singleAnswer[i] == option) {
+                    if (singleAnswer[0] == option) {
                         selected = true;
                     }
                 }
@@ -223,9 +224,12 @@
                         let multiAnswer = JSON.parse(lstTemp[index].Answer);
                         console.log(multiAnswer)
 
-                        if (multiAnswer[j] == option) {
-                            selected = true;
+                        for (var f = 0; f < multiAnswer.length; f++) {
+                            if (multiAnswer[f] == option) {
+                                selected = true;
+                            }
                         }
+                       
                     }
                 }
                 options += `
@@ -242,12 +246,14 @@
         var j = [];
 
         for (var i = 0; i < localChoice.length; i++) {
+           
             if (localChoice[i].checked == true) {
                 j.push(localChoice[i].value)
             }
         }
-
-        lstTemp[index].Answer = JSON.stringify(j);
+        if (j.length != 0) {
+            lstTemp[index].Answer = JSON.stringify(j);
+        }
         setTemp(tempName);
         //var k = JSON.parse(localStorage.getItem("data"))
         //console.log(k)
