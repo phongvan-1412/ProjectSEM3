@@ -342,7 +342,7 @@
         tmpAnswer = e.target.value
         onSelectCross()
     };
-        function displayCross() {
+    function displayCross() {
 
         displayCrossChoice.innerHTML = "";
         var convertAnswersToArray = question.Answer;
@@ -358,7 +358,7 @@
                 }
             }
         }
-    }
+        };
     function onSelectCross() {
         var convertAnswerToArray = JSON.parse(lstTemp[index].Answer);
         if (tmpQuestion == '' || tmpAnswer == '') {
@@ -416,19 +416,15 @@
             rankingLists = document.getElementsByClassName("rankingLists");
 
             return options;
-        }
-
-        let testInnerHtml =''
-
+        };
         function OnDragStart(e) {
             selectedElement = e.target;
-        }
-
-        const OnDragOver = (e) => {
+        };
+        function OnDragOver(e) {
             dropElement = e.target;
             e.preventDefault();
-        }
-        const OnDrop = () => {
+        };
+        function OnDrop() {
             let localRankingChoice = [];
 
             if (dropElement.children.length == 0 && dropElement.tagName === "DIV") {
@@ -442,20 +438,14 @@
                 }
             }
 
-            //for (var ele of rightBox.children) {
-            //    if (ele.children[0]) {
-            //        localRankingChoice.push(ele.children[0].innerHTML.trim())
-            //    }
-            //}
-
             question.Answer = JSON.stringify(localRankingChoice)
             setTemp(tempName);
-        }
+        };
 
     /*  -------------- Question --------------*/
     function submitQuiz() {
-        //var checkLocal = JSON.parse(localStorage.getItem("data"));
-
+        var checkLocal = JSON.parse(localStorage.getItem("data"));
+        console.log(checkLocal)
         //for (var i = 0; i < lstTemp.length; i++) {
         //    if (lstTemp[i].Answer == "") {
         //        alert(`You haven't chosen answer for question ${lstTemp[i].Content}`)
@@ -473,7 +463,7 @@
         else {
             $.ajax({
                 type: "POST",
-                data: { result: localStorage.getItem("data"), contestantId: parseInt(localStorage.getItem("contestant")) },
+                data: { result: JSON.parse(localStorage.getItem("data")), contestantId: parseInt(localStorage.getItem("contestant")) },
                 dataType: "json",
                 url: "/Quiz/Submit",
                 success: function (result) {
@@ -497,9 +487,14 @@
             let optionsCross = showCrossAnswer()
             let optionRankingLeft = showRakingAnswer(JSON.parse(question.Options));
             let optionRankingRight = "";
+            console.log(question.Answer)
             if (question.Answer == "") {
                 optionRankingRight = showRakingAnswer(null)
             } else {
+                let answerArr = JSON.parse(question.Answer);
+                for (var i = 0; i < answerArr.length; i++) {
+                    console.log(answerArr[i])
+                }
                 optionRankingRight = showRakingAnswer(JSON.parse(question.Answer))
             }
 
