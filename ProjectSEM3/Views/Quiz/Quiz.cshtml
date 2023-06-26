@@ -80,7 +80,8 @@
     }
 </div>
 
-<script type="text/javascript">
+@section scripts{
+    <script type="text/javascript">
     var contestantId = @id;
 
     if (contestantId == localStorage.getItem("contestant")) {
@@ -198,8 +199,7 @@
     function showAnswer() {
         let options = ``;
         var convertOptionsToArray = JSON.parse(question.Options);
-        console.log(question.Answer)
-        console.log(lstTemp[index].Answer)
+
         for (var i = 0; i < convertOptionsToArray.length; i++) {
             let option = convertOptionsToArray[i];
             let selected = false;
@@ -213,28 +213,27 @@
                 }
                 options += `
                     <div class="answer-container rounded-pill bg-white text-start">
-                            <input type="radio" onclick="addAnswer()" name="answer-btn" class="choice" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
+                        <input type="radio" onclick="addAnswer()" name="answer-btn" class="choice" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
                     </div>
                 `;
-                
+
             }
             else {
                 for (var j = 0; j < lstTemp[index].Answer.length; j++) {
                     if (lstTemp[index].Answer != "") {
                         let multiAnswer = JSON.parse(lstTemp[index].Answer);
-                        console.log(multiAnswer)
 
                         for (var f = 0; f < multiAnswer.length; f++) {
                             if (multiAnswer[f] == option) {
                                 selected = true;
                             }
                         }
-                       
+
                     }
                 }
                 options += `
                     <div class="answer-container rounded-pill bg-white text-start">
-                            <input type="checkbox" onclick="addAnswer()" name="answer-btn" class="choice" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
+                        <input type="checkbox" onclick="addAnswer()" name="answer-btn" class="choice" ${selected ? "checked = 'true'" : ""} value="${option}">${option}
                     </div>
                 `;
             }
@@ -246,7 +245,6 @@
         var j = [];
 
         for (var i = 0; i < localChoice.length; i++) {
-           
             if (localChoice[i].checked == true) {
                 j.push(localChoice[i].value)
             }
@@ -324,8 +322,11 @@
                 </div>
             `;
 
-            lstTemp[index].Answer = JSON.stringify(localQuest);
-            console.log(lstTemp)
+            if (lstTemp[index].Answer == "" || lstTemp[index].Answer == null) {
+                lstTemp[index].Answer = JSON.stringify(localQuest);
+            } 
+
+            //console.log(lstTemp)
         }
         return options;
     }
@@ -341,7 +342,8 @@
         tmpAnswer = e.target.value
         onSelectCross()
     };
-    function displayCross() {
+        function displayCross() {
+
         displayCrossChoice.innerHTML = "";
         var convertAnswersToArray = question.Answer;
         if (convertAnswersToArray != "") {
@@ -376,27 +378,90 @@
             lstTemp[index].Answer = JSON.stringify(convertAnswerToArray);
         }
 
-        question.Answer = JSON.stringify(convertAnswerToArray);
-        setTemp(tempName);
-        console.log(lstTemp);
-
         displayCross();
         tmpAnswer = ''
         for (var i = 0; i < answerCrossChoice.length; i++) {
             answerCrossChoice[i].checked = false;
         }
+       
+        question.Answer = JSON.stringify(convertAnswerToArray);
+        setTemp(tempName);
     };
+
+    /*-------------- Ranking Choice --------------*/
+        let selectedElement;
+        let dropElement;
+
+        function showRakingAnswer(data) {
+            let options = ``;
+            for (var i = 0; i < 4; i++) {
+                let option = "";
+                if (data != null) {
+                    option = data[i]
+                    options += `
+                        <div class="rounded-pill bg-white d-flex align-items-center text-start mt-3" ondragover='OnDragOver(event)' ondragend='OnDrop(event)' draggable=true style="width: 100%; height: 56px; padding-left: 20px; cursor:grab">
+                            <span class="rankingLists d-flex align-items-center text-dark fw-normal" ondragstart="OnDragStart(event)"  draggable=true style="width: 100%; padding: 0 0 0 20px; cursor:grab; font-size: 14px">
+                                ${option}
+                            </span>
+                        </div>
+                    `;
+                } else {
+                    options += `
+                        <div class="rounded-pill bg-white d-flex align-items-center text-start mt-3" ondragover='OnDragOver(event)' ondragend='OnDrop(event)' draggable=true style="width: 100%; height: 56px; padding-left: 20px; cursor:grab">
+                            
+                        </div>
+                    `;
+                }
+            }
+            rankingLists = document.getElementsByClassName("rankingLists");
+
+            return options;
+        }
+
+        let testInnerHtml =''
+
+        function OnDragStart(e) {
+            selectedElement = e.target;
+        }
+
+        const OnDragOver = (e) => {
+            dropElement = e.target;
+            e.preventDefault();
+        }
+        const OnDrop = () => {
+            let localRankingChoice = [];
+
+            if (dropElement.children.length == 0 && dropElement.tagName === "DIV") {
+                dropElement.appendChild(selectedElement);
+              
+            }
+
+            for (var i = 0; i < rightBox.children.length; i++) {
+                if (rightBox.children[i].children[0]) {
+                    localRankingChoice.push(rightBox.children[i].children[0].innerHTML.trim())
+                }
+            }
+
+            //for (var ele of rightBox.children) {
+            //    if (ele.children[0]) {
+            //        localRankingChoice.push(ele.children[0].innerHTML.trim())
+            //    }
+            //}
+
+            question.Answer = JSON.stringify(localRankingChoice)
+            setTemp(tempName);
+        }
 
     /*  -------------- Question --------------*/
     function submitQuiz() {
         //var checkLocal = JSON.parse(localStorage.getItem("data"));
 
-        for (var i = 0; i < lstTemp.length; i++) {
-            if (lstTemp[i].Answer == "") {
-                alert(`You haven't chosen answer for question ${lstTemp[i].Content}`)
-                break;
-            }
-        }
+        //for (var i = 0; i < lstTemp.length; i++) {
+        //    if (lstTemp[i].Answer == "") {
+        //        alert(`You haven't chosen answer for question ${lstTemp[i].Content}`)
+        //        break;
+        //    }
+        //}
         if (tempName == "Knowledge") {
             resetTemp("Math");
             showQuestion(0);
@@ -420,15 +485,23 @@
                 }
             });
         }
-        
+
     };
     function showQuestion(i) {
         index = i;
         if (lstTemp[i]) {
             jumpButtons();
             question = lstTemp[i];
+
             let options = showAnswer();
-            let optionsCross = showCrossAnswer();
+            let optionsCross = showCrossAnswer()
+            let optionRankingLeft = showRakingAnswer(JSON.parse(question.Options));
+            let optionRankingRight = "";
+            if (question.Answer == "") {
+                optionRankingRight = showRakingAnswer(null)
+            } else {
+                optionRankingRight = showRakingAnswer(JSON.parse(question.Answer))
+            }
 
             container.innerHTML = `
                 <div id="questDisplay" class="multisteps_form_panel">
@@ -440,16 +513,30 @@
                     </div>
 
                     <h1 class="question_title text-center">${question.Content} </h1>
+
+                    ${question.TypeId == 1
+                    ? `
+                        <div class="form_items d-flex flex-column justify-content-center">
+                            ${options}
+                        </div>
+                    ` : ``}
                     ${question.TypeId == 2
                     ? `
                         <div class="form_items d-flex flex-column justify-content-center">
                             ${optionsCross}
-                        </div>`
-                    : `
-                        <div class="form_items d-flex flex-column justify-content-center">
-                            ${options}
                         </div>
-                    `}
+                    ` : ``}
+                    ${question.TypeId == 3
+                    ? `
+                        <div class="d-flex justify-content-center">
+                            <div id="left" class="form_items d-flex flex-column justify-content-center">
+                                ${optionRankingLeft}
+                            </div>
+                            <div id="right" class="form_items d-flex flex-column justify-content-center" ondrop='OnDrop(event)'>
+                                ${optionRankingRight}
+                            </div>
+                        </div>
+                        ` : ``}
 
                 </div>
 
@@ -462,14 +549,22 @@
                 </div>
             `;
         }
+
         if (question.TypeId == 2) {
             displayCrossChoice = document.getElementById("displayCross");
             answerCrossChoice = document.getElementsByClassName("answerCross");
+            console.log(question.Answer)
+
             displayCross();
+        }
+        if (question.TypeId == 3) {
+            rightBox = document.getElementById("right");
+            leftBox = document.getElementById("left");
         }
     };
 
     showQuestion(0);
 
-</script>
+    </script>
+}
 
