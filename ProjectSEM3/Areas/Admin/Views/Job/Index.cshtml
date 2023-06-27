@@ -25,6 +25,22 @@
         const $level = $("#level")
         const $content = CKEDITOR.replace('content');
 
+        const $titleErr = $("#titleErr")
+        const $locationErr = $("#locationErr")
+        const $endDateErr = $("#endDateErr")
+        const $salaryMinErr = $("#salaryMin")
+        const $salaryMaxErr = $("#salaryMax")
+        const $levelErr = $("#levelErr")
+        const $contentErr = $("#contentErr");
+
+        let checkTitle = false
+        let checkLocation = false
+        let checkEnDate = false
+        let checkMinSal = false
+        let checkMaxSal = false
+        let checkLevel = false
+        let checkContent = false
+
         const $titleUpdate = $("#titleUpdate")
         const $locationUpdate = $("#locationUpdate")
         const $endDateUpdate = $("#endDateUpdate")
@@ -48,7 +64,60 @@
 
         $jobTable.DataTable();
 
+        const CheckTitle = () => {
+            var data = $title.val()
+            if (data === '') {
+                $titleErr[0].innerHTML = "*Please enter Job Title."
+            } else if (education.length > 1000) {
+                $titleErr[0].innerHTML = "*Max lenght 1000."
+            } else {
+                $titleErr[0].innerHTML = ""
+                checkTitle = true
+            }
+        }
+
+        const CheckLocation = () => {
+
+        }
+
+        const CheckEndDate = () => {
+
+        }
+
+        const CheckMinSal = () => {
+
+        }
+
+        const CheckMaxSal = () => {
+
+        }
+
+        const CheckLevel = () => {
+
+        }
+
+        const CheckContent = () => {
+
+        }
+
+
         const OnNewJob = () => {
+            CheckTitle();
+            CheckLocation();
+            CheckEndDate();
+            CheckMinSal();
+            CheckMaxSal();
+            CheckLevel();
+            CheckContent();
+
+            if (!checkTittle || !checkLocation || !checkEnDate || !checkMinSal ||
+                !checkMaxSal || !checkLevel || !checkContent) {
+                return;
+                }
+
+
+
+
             const Title = $title.val()
             const Location = $location.val()
             const PostedDate = FormatDate(new Date().toUTCString());

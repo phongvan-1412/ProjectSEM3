@@ -72,8 +72,6 @@ namespace ProjectSEM3.Models
                         return JsonConvert.DeserializeObject<T>("null");
                         throw ex;
                     }
-                    
-                    
                 }
             }
         }

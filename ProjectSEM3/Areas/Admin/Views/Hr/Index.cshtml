@@ -180,7 +180,10 @@
             var education = $education.val().trim()
             if (education === '') {
                 $educationErr[0].innerHTML = "*Please enter Hr Education."
-            } else {
+            } else if (education.length > 1000) {
+                $educationErr[0].innerHTML = "*Max lenght 1000."
+            }
+            else {
                 $educationErr[0].innerHTML = ""
                 checkEducation = true
             }
@@ -190,6 +193,8 @@
             var address = $address.val().trim()
             if (address === '') {
                 $addressErr[0].innerHTML = "*Please enter Hr Address."
+            } else if (education.length > 1000) {
+                $addressErr[0].innerHTML = "*Max lenght 1000."
             } else {
                 $addressErr[0].innerHTML = ""
                 checkAddress = true
@@ -200,6 +205,8 @@
             var exp = $experience.val().trim()
             if (exp === '') {
                 $experienceErr[0].innerHTML = "*Please enter Hr Experience."
+            } else if (education.length > 1000) {
+                $experienceErr[0].innerHTML = "*Max lenght 1000."
             } else {
                 $experienceErr[0].innerHTML = ""
                 checkExperience = true
