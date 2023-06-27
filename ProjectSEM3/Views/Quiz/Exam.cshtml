@@ -19,6 +19,12 @@
     {
         <div class="container-fluid d-flex align-items-center justify-content-center" style="height: 80vh">
             <div class="exam-wrapper container d-flex flex-column align-items-center">
+                @if (TempData["accountLateTime"] != null)
+                {
+                    <div class="form-group alert alert-danger mb-3">
+                        <strong class="text-danger fw-bold">@TempData["accountLateTime"]</strong>
+                    </div>
+                }
                 <div class="d-flex flex-row align-items-center justify-content-center mb-3">
                     <h2 class="d-flex align-items-center m-0">Interview Exam</h2>
                     <span class="ms-3">

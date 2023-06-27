@@ -32,12 +32,11 @@ namespace ProjectSEM3.Controllers
 
             var paramExam = new Dictionary<string, dynamic>
             {
-                { "@ExamId", account.FirstOrDefault().ExamId},
                 { "@ContestId", account.FirstOrDefault().Id}
             };
 
             var exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, paramExam);
-            var endTime = exam.FirstOrDefault().EndTime;
+            var endTime = exam.FirstOrDefault().LateTime;
             var now = DateTime.UtcNow;
 
             if (account.Count() == 0)
@@ -54,7 +53,7 @@ namespace ProjectSEM3.Controllers
                 };
                 DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.ChangeCvStatus, paramDeactive);
 
-                TempData["accountEndTime"] = "Your account has expired!";
+                TempData["accountEndTime"] = "Your account has expired because it's over 30 mins from start time!";
                 return RedirectToAction("Login", "Account");
             }
             else

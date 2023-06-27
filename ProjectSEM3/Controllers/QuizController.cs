@@ -5,6 +5,7 @@ using ProjectSEM3.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Web.Mvc;
 
@@ -34,20 +35,15 @@ namespace ProjectSEM3.Controllers
         [HttpPost]
         public ActionResult StartQuiz(int? examId, int? contestantId)
         {
-            //var param = new Dictionary<string, dynamic>
-            //    {
-            //        { "@ExamId", examId},
-            //    };
+            var param = new Dictionary<string, dynamic>
+                {
+                    { "@ContestId", contestantId},
+                };
 
-            //var exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, param);
-            //var lateTime = exam.FirstOrDefault().LateTime;
-            //var now = DateTime.UtcNow;
+            var exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, param);
+            ViewData["endTime"] = exam.FirstOrDefault().EndTime;
 
-            //if (lateTime > now)
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-                return RedirectToAction("Quiz", "Quiz", new { examId = examId, contestantId = contestantId });
+            return RedirectToAction("Quiz", "Quiz", new { examId = examId, contestantId = contestantId });
         }
         public ActionResult Quiz(int? examId, int? contestantId)
         {
