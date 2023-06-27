@@ -35,6 +35,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 { "@Title", job.Title },
                 { "@Location", job.Location},
                 { "@Content", job.Content },
+                { "@Qualification", job.Qualification },
                 { "@DatePosted", job.PostedDate },
                 { "@EndDate", job.EndDate },
                 { "@SalaryMin", job.SalaryMin },
@@ -69,6 +70,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 { "@Title", job.Title },
                 { "@Location", job.Location},
                 { "@Content", job.Content },
+                { "@Qualification", job.Qualification },
                 { "@EndDate", job.EndDate },
                 { "@SalaryMin", job.SalaryMin },
                 { "@SalaryMax",  job.SalaryMax },
@@ -91,7 +93,6 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 Mes = "Update Job Successfull.",
                 IsSuccess = true,
             });
-            //return PartialView(@"~/Areas/Admin/Views/Shared/Partials/job/_PartialRowjob.cshtml", result);
         }
 
         [HttpGet]

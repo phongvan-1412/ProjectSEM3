@@ -24,6 +24,7 @@
         const $salaryMax = $("#salaryMax")
         const $level = $("#level")
         const $content = CKEDITOR.replace('content');
+        const $qualification = CKEDITOR.replace('qualification');
 
         const $titleErr = $("#titleErr")
         const $locationErr = $("#locationErr")
@@ -32,6 +33,7 @@
         const $salaryMaxErr = $("#salaryMax")
         const $levelErr = $("#levelErr")
         const $contentErr = $("#contentErr");
+        const $qualificationErr = $("#qualificationErr");
 
         let checkTitle = false
         let checkLocation = false
@@ -40,6 +42,7 @@
         let checkMaxSal = false
         let checkLevel = false
         let checkContent = false
+        let checkQualification = false
 
         const $titleUpdate = $("#titleUpdate")
         const $locationUpdate = $("#locationUpdate")
@@ -48,6 +51,7 @@
         const $salaryMaxUpdate = $("#salaryMaxUpdate")
         const $levelUpdate = $("#levelUpdate")
         const $contentUpdate = CKEDITOR.replace('contentUpdate');
+        const $qualificationUpdate = CKEDITOR.replace('qualificationUpdate');
 
         //const $titleView = $("#titleView")
         //const $locationView = $("#locationView")
@@ -100,20 +104,24 @@
 
         }
 
+        const CheckQualification = () => {
+
+        }
+
 
         const OnNewJob = () => {
-            CheckTitle();
-            CheckLocation();
-            CheckEndDate();
-            CheckMinSal();
-            CheckMaxSal();
-            CheckLevel();
-            CheckContent();
+            //CheckTitle();
+            //CheckLocation();
+            //CheckEndDate();
+            //CheckMinSal();
+            //CheckMaxSal();
+            //CheckLevel();
+            //CheckContent();
 
-            if (!checkTittle || !checkLocation || !checkEnDate || !checkMinSal ||
-                !checkMaxSal || !checkLevel || !checkContent) {
-                return;
-                }
+            //if (!checkTittle || !checkLocation || !checkEnDate || !checkMinSal ||
+            //    !checkMaxSal || !checkLevel || !checkContent) {
+            //    return;
+            //    }
 
 
 
@@ -126,6 +134,7 @@
             const SalaryMax = $salaryMax.val()
             const LevelId = $level.val()
             const Content = encodeURI($content.getData());
+            const Qualification = encodeURI($qualification.getData());
 
             const job = {
                 Title,
@@ -135,7 +144,8 @@
                 SalaryMin,
                 SalaryMax,
                 LevelId,
-                Content
+                Content,
+                Qualification
             }
             BlockUI()
 
