@@ -33,6 +33,7 @@
 @section Scripts {
     <script type="text/javascript">
         const $examTypeTable = $("#examTypeTable")
+        const $examTypeTable = $("#examTypeTable")
         const $levelTable = $("#levelTable")
         const $questionTypeTable = $("#questionTypeTable")
         $examTypeTable.DataTable();
@@ -49,6 +50,20 @@
         //exam type
         const $idExamType = $("#idExamType")
         const $nameExamType = $("#nameExamType")
+        const $nameExamTypeErr = $("#nameExamTypeErr")
+        let checkExamType = false
+
+        const OnCheckExamType = () => {
+            var data = $nameExamType.val();
+            if (data === '') {
+                $nameExamTypeErr[0].innerHTML = "*Please enter Exam Type."
+            } else if (data.length > 100) {
+                $nameExamTypeErr[0].innerHTML = "*Max lenght 100."
+            } else {
+                $nameExamTypeErr[0].innerHTML = ""
+                checkExamType = true
+            }
+        }
 
         const OnSelectRowExamType = (e) => {
             RowIndex = e.target.parentElement.parentElement.rowIndex
@@ -60,6 +75,11 @@
         }
 
         const OnSubmitExamType = () => {
+            OnCheckExamType()
+
+            if (!checkExamType)
+                return;
+
             const Id = $idExamType.val()
             const Name = $nameExamType.val()
             const req = { Id, Name, RowIndex }
@@ -88,11 +108,13 @@
                         } else {
                             location.reload()
                         }
+                        checkExamType = false
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
+                    checkExamType = false
                 }
             });
         }
@@ -129,6 +151,20 @@
         //level
         const $idLevel = $("#idLevel")
         const $nameLevel = $("#nameLevel")
+        const $nameLevelErr = $("#nameLevelErr")
+        let checkLevel = false
+
+        const OnCheckLevel = () => {
+            var data = $nameLevel.val();
+            if (data === '') {
+                $nameLevelErr[0].innerHTML = "*Please enter Level."
+            } else if (data.length > 100) {
+                $nameLevelErr[0].innerHTML = "*Max lenght 100."
+            } else {
+                $nameLevelErr[0].innerHTML = ""
+                checkLevel = true
+            }
+        }
 
         const OnSelectRowLevelType = (e) => {
             RowIndex = e.target.parentElement.parentElement.rowIndex
@@ -139,6 +175,11 @@
             $nameLevel.val(data.Name)
         }
         const OnSubmitLevelType = () => {
+            OnCheckLevel()
+
+            if (!checkLevel)
+                return;
+
             const Id = $idLevel.val()
             const Name = $nameLevel.val()
 
@@ -166,11 +207,13 @@
                         } else {
                             location.reload()
                         }
+                        checkLevel = false
                     }
                 },
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
+                    checkLevel = false
                 }
             });
         }
@@ -205,7 +248,20 @@
         //question type
         const $idQuestionType = $("#idQuestionType")
         const $nameQuestionType = $("#nameQuestionType")
+        const $nameQuestionTypeErr = $("#nameQuestionTypeErr")
+        let checkQuestionType = false
 
+        const OnCheckQuestionType = () => {
+            var data = $nameQuestionType.val();
+            if (data === '') {
+                $nameQuestionTypeErr[0].innerHTML = "*Please enter Level."
+            } else if (data.length > 100) {
+                $nameQuestionTypeErr[0].innerHTML = "*Max lenght 100."
+            } else {
+                $nameQuestionTypeErr[0].innerHTML = ""
+                checkQuestionType = true
+            }
+        }
         const OnSelectRowQuestionType = (e) => {
             RowIndex = e.target.parentElement.parentElement.rowIndex
             CurrentSelection = e.target
@@ -215,6 +271,11 @@
             $nameQuestionType.val(data.Name)
         }
         const OnSubmitQuestionType = () => {
+            OnCheckQuestionType()
+
+            if (!checkQuestionType)
+                return;
+
             const Id = $idQuestionType.val()
             const Name = $nameQuestionType.val()
 
@@ -242,12 +303,13 @@
                         } else {
                             location.reload()
                         }
-                        
                     }
+                    checkQuestionType = false
                 },
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()
                     OnServerErr($liveToast, $toastMes);
+                    checkQuestionType = false
                 }
             });
         }

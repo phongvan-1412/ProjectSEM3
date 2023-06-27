@@ -22,14 +22,14 @@
                         <div class="col-6">
                             <div class="m-1">
                                 <span><b>Title</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="title" type="text" placeholder="eg: Title" />
+                                <input class="form-control p-1" id="title" onblur="CheckTitle()" type="text" placeholder="eg: Title" />
                                 <span id="titleErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="m-1">
                                 <span><b>Location</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="location" type="text" placeholder="eg: Location" />
+                                <input class="form-control p-1" id="location" onblur="CheckLocation()" type="text" placeholder="eg: Location" />
                                 <span id="locationErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
@@ -39,21 +39,21 @@
                         <div class="col-3">
                             <div class="m-1">
                                 <span><b>End Date</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="endDate" type="date" />
+                                <input class="form-control p-1" id="endDate" onblur="CheckEndDate()" type="date" />
                                 <span id="endDateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="m-1">
                                 <span><b>Min Salary</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="salaryMin" type="number" min="0" value="0" step="100" />
+                                <input class="form-control p-1" id="salaryMin" onblur="CheckMinSal()" type="number" min="0" value="0" step="100" />
                                 <span id="minSalErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="m-1">
                                 <span><b>Max Salary</b> <i style="color:red">*</i></span>
-                                <input class="form-control p-1" id="salaryMax" type="number" min="0" value="0" step="100" />
+                                <input class="form-control p-1" id="salaryMax" onblur="CheckMaxSal()" type="number" min="0" value="0" step="100" />
                                 <span id="maxSalErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
@@ -72,13 +72,13 @@
 
                     <div class="m-1">
                         <span><b>Content</b> <i style="color:red">*</i></span>
-                        <input class="form-control p-1" id="content" type="text" placeholder="eg:  Content" />
+                        <input class="form-control p-1" id="content" onblur="CheckContent()" type="text" placeholder="eg:  Content" />
                         <span id="contentErr" style="color:red;font-size:12px;position:absolute"></span>
                     </div>
 
-                    <div class="m-1">
+                    <div class="m-3">
                         <span><b>Qualification</b> <i style="color:red">*</i></span>
-                        <input class="form-control p-1" id="qualification" type="text" placeholder="eg:  Content" />
+                        <input class="form-control p-1" id="qualification" onblur="CheckQualification()" type="text" placeholder="eg:  Qualification" />
                         <span id="qualificationErr" style="color:red;font-size:12px;position:absolute"></span>
                     </div>
 

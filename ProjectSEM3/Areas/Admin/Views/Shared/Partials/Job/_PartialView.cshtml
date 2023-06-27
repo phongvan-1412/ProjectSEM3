@@ -44,7 +44,7 @@ else
                                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(item);
                             }
                             <i class="fa-solid fa-pen-to-square fa-2x pointer" style="color:forestgreen" data-bs-toggle="modal" data-bs-target="#updateJob" data-index="@item.Id" data-job="@json" onclick="OnSelectRowJob(event)"></i>
-                            <i class="fa-sharp fa-solid fa-circle-info fa-2x pointer ms-3" style="color: dodgerblue;" data-bs-toggle="modal" data-bs-target="#infoJob" data-job="@json" onclick="OnViewJob(event)"></i>
+                            @*<i class="fa-sharp fa-solid fa-circle-info fa-2x pointer ms-3" style="color: dodgerblue;" data-bs-toggle="modal" data-bs-target="#infoJob" data-job="@json" onclick="OnViewJob(event)"></i>*@
                             @if (@item.StatusType.IsHidden)
                             {
                                 <i class="fa-solid fa-trash-can fa-2x pointer ms-3" style="color: red;" data-index="@item.Id" data-job="@json" onclick="OnChangeJobStatus(event)" hidden></i>

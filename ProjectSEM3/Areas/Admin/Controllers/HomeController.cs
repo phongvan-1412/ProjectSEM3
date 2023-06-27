@@ -40,6 +40,13 @@ namespace ProjectSEM3.Areas.Admin.Controllers
 
         public ActionResult Logout()
         {
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public ActionResult Infomation()
+        {
+
             return View();
         }
     }

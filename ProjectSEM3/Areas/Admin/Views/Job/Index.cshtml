@@ -29,8 +29,8 @@
         const $titleErr = $("#titleErr")
         const $locationErr = $("#locationErr")
         const $endDateErr = $("#endDateErr")
-        const $salaryMinErr = $("#salaryMin")
-        const $salaryMaxErr = $("#salaryMax")
+        const $salaryMinErr = $("#minSalErr")
+        const $salaryMaxErr = $("#maxSalErr")
         const $levelErr = $("#levelErr")
         const $contentErr = $("#contentErr");
         const $qualificationErr = $("#qualificationErr");
@@ -53,6 +53,24 @@
         const $contentUpdate = CKEDITOR.replace('contentUpdate');
         const $qualificationUpdate = CKEDITOR.replace('qualificationUpdate');
 
+        const $titleUpdateErr = $("#titleUpdateErr")
+        const $locationUpdateErr = $("#locationUpdateErr")
+        const $endDateUpdateErr = $("#endDateUpdateErr")
+        const $salaryMinUpdateErr = $("#minSalUpdateErr")
+        const $salaryMaxUpdateErr = $("#maxSalUpdateErr")
+        const $levelUpdateErr = $("#levelUpdateErr")
+        const $contentUpdateErr = $("#contentUpdateErr");
+        const $qualificationUpdateErr = $("#qualificationUpdateErr");
+
+        let checkTitleUpdate = false
+        let checkLocationUpdate = false
+        let checkEnDateUpdate = false
+        let checkMinSalUpdate = false
+        let checkMaxSalUpdate = false
+        let checkLevelUpdate = false
+        let checkContentUpdate = false
+        let checkQualificationUpdate = false
+
         //const $titleView = $("#titleView")
         //const $locationView = $("#locationView")
         //const $endDateView = $("#endDateView")
@@ -72,7 +90,7 @@
             var data = $title.val()
             if (data === '') {
                 $titleErr[0].innerHTML = "*Please enter Job Title."
-            } else if (education.length > 1000) {
+            } else if (data.length > 1000) {
                 $titleErr[0].innerHTML = "*Max lenght 1000."
             } else {
                 $titleErr[0].innerHTML = ""
@@ -81,50 +99,101 @@
         }
 
         const CheckLocation = () => {
-
+            var data = $location.val()
+            if (data === '') {
+                $locationErr[0].innerHTML = "*Please enter Job Location."
+            } else if (data.length > 1000) {
+                $locationErr[0].innerHTML = "*Max lenght 1000."
+            } else {
+                $locationErr[0].innerHTML = ""
+                checkLocation = true
+            }
         }
 
         const CheckEndDate = () => {
-
+            var data = $endDate.val()
+            if (data === '') {
+                $endDateErr[0].innerHTML = "*Please enter Job End Date."
+            } else {
+                $endDateErr[0].innerHTML = ""
+                checkEnDate = true
+            }
         }
 
         const CheckMinSal = () => {
-
+            const data = $salaryMin.val()
+            if (data <= 0) {
+                $salaryMin.val(0)
+                $salaryMinErr[0].innerHTML = "*Please enter Min Salary."
+            } else if (data > 5000) {
+                $salaryMin.val(5000)
+            } else {
+                $salaryMinErr[0].innerHTML = ""
+                checkMinSal = true
+            }
         }
 
         const CheckMaxSal = () => {
-
+            const data = $salaryMax.val()
+            if (data <= 0) {
+                $salaryMax.val(0)
+                $salaryMaxErr[0].innerHTML = "*Please enter Max Salary."
+            } else if (data > 5000) {
+                $salaryMax.val(5000)
+            }else {
+                $salaryMaxErr[0].innerHTML = ""
+                checkMaxSal = true
+            }
         }
 
         const CheckLevel = () => {
-
+            var data = $level.val()
+            if (data == 0) {
+                $levelErr[0].innerHTML = "*Please select Level."
+            } else {
+                $levelErr[0].innerHTML = ""
+                checkLevel = true
+            }
         }
 
         const CheckContent = () => {
-
+            var data = encodeURI($content.getData());
+            if (data === '') {
+                $contentErr[0].innerHTML = "*Please enter Job Content."
+            } else if (data.length > 1000) {
+                $contentErr[0].innerHTML = "*Max lenght 2000."
+            } else {
+                $contentErr[0].innerHTML = ""
+                checkContent = true
+            }
         }
 
         const CheckQualification = () => {
-
+            var data = encodeURI($qualification.getData());
+            if (data === '') {
+                $qualificationErr[0].innerHTML = "*Please enter Job Qualification."
+            } else if (data.length > 1000) {
+                $qualificationErr[0].innerHTML = "*Max lenght 2000."
+            } else {
+                $qualificationErr[0].innerHTML = ""
+                checkQualification = true
+            }
         }
 
-
         const OnNewJob = () => {
-            //CheckTitle();
-            //CheckLocation();
-            //CheckEndDate();
-            //CheckMinSal();
-            //CheckMaxSal();
-            //CheckLevel();
-            //CheckContent();
+            CheckTitle();
+            CheckLocation();
+            CheckEndDate();
+            CheckMinSal();
+            CheckMaxSal();
+            CheckLevel();
+            CheckContent();
+            CheckQualification();
 
-            //if (!checkTittle || !checkLocation || !checkEnDate || !checkMinSal ||
-            //    !checkMaxSal || !checkLevel || !checkContent) {
-            //    return;
-            //    }
-
-
-
+            if (!checkTittle || !checkLocation || !checkEnDate || !checkMinSal ||
+                !checkMaxSal || !checkLevel || !checkContent || !checkQualification) {
+                return;
+                }
 
             const Title = $title.val()
             const Location = $location.val()
@@ -221,7 +290,115 @@
             $contentUpdate.setData(decodeURI(data.Content))
         }
 
-        const OnUpdateJob = (e) => {
+        const CheckTitleUpdate = () => {
+            var data = $titleUpdate.val()
+            if (data === '') {
+                $titleUpdateErr[0].innerHTML = "*Please enter Job Title."
+            } else if (data.length > 1000) {
+                $titleUpdateErr[0].innerHTML = "*Max lenght 1000."
+            } else {
+                $titleUpdateErr[0].innerHTML = ""
+                checkTitleUpdate = true
+            }
+        }
+
+        const CheckLocationUpdate = () => {
+            var data = $locationUpdate.val()
+            if (data === '') {
+                $locationUpdateErr[0].innerHTML = "*Please enter Job Location."
+            } else if (data.length > 1000) {
+                $locationUpdateErr[0].innerHTML = "*Max lenght 1000."
+            } else {
+                $locationUpdateErr[0].innerHTML = ""
+                checkLocationUpdate = true
+            }
+        }
+
+        const CheckEndDateUpdate = () => {
+            var data = $endDateUpdate.val()
+            if (data === '') {
+                $endDateUpdateErr[0].innerHTML = "*Please enter Job End Date."
+            } else {
+                $endDateUpdateErr[0].innerHTML = ""
+                checkEnDateUpdate = true
+            }
+        }
+
+        const CheckMinSalUpdate = () => {
+            const data = $salaryMinUpdate.val()
+            if (data <= 0) {
+                $salaryMinUpdate.val(0)
+                $salaryMinUpdateErr[0].innerHTML = "*Please enter Min Salary."
+            } else if (data > 5000) {
+                $salaryMinUpdate.val(5000)
+            } else {
+                $salaryMinUpdateErr[0].innerHTML = ""
+                checkMinSalUpdate = true
+            }
+        }
+
+        const CheckMaxSalUpdate = () => {
+            const data = $salaryMaxUpdate.val()
+            if (data <= 0) {
+                $salaryMaxUpdate.val(0)
+                $salaryMaxUpdateErr[0].innerHTML = "*Please enter Max Salary."
+            } else if (data > 5000) {
+                $salaryMaxUpdate.val(5000)
+            } else {
+                $salaryMaxUpdateErr[0].innerHTML = ""
+                checkMaxSalUpdate = true
+            }
+        }
+
+        const CheckLevelUpdate = () => {
+            var data = $level.val()
+            if (data == 0) {
+                $levelErr[0].innerHTML = "*Please select Level."
+            } else {
+                $levelErr[0].innerHTML = ""
+                checkLevel = true
+            }
+        }
+
+        const CheckContentUpdate = () => {
+            var data = encodeURI($contentUpdate.getData());
+            if (data === '') {
+                $contentUpdateErr[0].innerHTML = "*Please enter Job Content."
+            } else if (data.length > 1000) {
+                $contentUpdateErr[0].innerHTML = "*Max lenght 2000."
+            } else {
+                $contentUpdateErr[0].innerHTML = ""
+                checkContentUpdate = true
+            }
+        }
+
+        const CheckQualificationUpdate = () => {
+            var data = encodeURI($qualificationUpdate.getData());
+            if (data === '') {
+                $qualificationUpdateErr[0].innerHTML = "*Please enter Job Qualification."
+            } else if (data.length > 1000) {
+                $qualificationUpdateErr[0].innerHTML = "*Max lenght 2000."
+            } else {
+                $qualificationUpdateErr[0].innerHTML = ""
+                checkQualificationUpdate = true
+            }
+        }
+
+        const OnUpdateJob = () => {
+            CheckTitleUpdate();
+            CheckLocationUpdate();
+            CheckEndDateUpdate();
+            CheckMinSalUpdate();
+            CheckMaxSalUpdate();
+            CheckLevelUpdate();
+            CheckContentUpdate();
+            CheckQualificationUpdate();
+
+            if (!checkTittleUpdate || !checkLocationUpdate || !checkEnDateUpdate || !checkMinSalUpdate ||
+                !checkMaxSalUpdate || !checkLevelUpdate || !checkContentUpdate || !checkQualificationUpdate) {
+                return;
+            }
+
             const Id = CurrentId
             const Title = $titleUpdate.val()
             const Location = $locationUpdate.val()

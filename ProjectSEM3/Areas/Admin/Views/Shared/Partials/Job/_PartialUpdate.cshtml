@@ -20,12 +20,14 @@
                             <div class="m-1">
                                 <span><b>Title</b> <i style="color:red">*</i></span>
                                 <input class="form-control p-1" id="titleUpdate" type="text" placeholder="eg: " />
+                                <span id="titleUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="m-1">
                                 <span><b>Location</b> <i style="color:red">*</i></span>
                                 <input class="form-control p-1" id="locationUpdate" type="text" placeholder="eg: " />
+                                <span id="locationUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                     </div>
@@ -35,18 +37,21 @@
                             <div class="m-1">
                                 <span><b>End Date</b> <i style="color:red">*</i></span>
                                 <input class="form-control p-1" id="endDateUpdate" type="date" placeholder="eg: " />
+                                <span id="endDateUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="m-1">
                                 <span><b>Min Salary</b> <i style="color:red">*</i></span>
                                 <input class="form-control p-1" id="salaryMinUpdate" type="number" placeholder="eg: " />
+                                <span id="minSalUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="m-1">
                                 <span><b>Max Salary</b> <i style="color:red">*</i></span>
                                 <input class="form-control p-1" id="salaryMaxUpdate" type="number" placeholder="eg: " />
+                                <span id="maxSalUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                             </div>
                         </div>
                         <div class="col-3">
@@ -58,12 +63,20 @@
                                     <option class="pointer" value="@item.Id">@item.Name</option>
                                 }
                             </select>
+                            <span id="levelUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                         </div>
                     </div>
 
                     <div class="m-1">
                         <span><b>Content</b> <i style="color:red">*</i></span>
                         <input class="form-control p-1" id="contentUpdate" type="text" placeholder="eg:  " />
+                        <span id="contentUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
+                    </div>
+
+                    <div class="m-3">
+                        <span><b>Qualification</b> <i style="color:red">*</i></span>
+                        <input class="form-control p-1" id="qualificationUpdate" type="text" placeholder="eg:  Qualification" />
+                        <span id="qualificationUpdateErr" style="color:red;font-size:12px;position:absolute"></span>
                     </div>
 
                     <div class="m-2">

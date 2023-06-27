@@ -61,7 +61,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                     contest = contestResult.FirstOrDefault();
 
                 var startTime = DateTime.UtcNow;
-                var endTime = startTime.AddDays(1);
+                var endTime = startTime.AddHours(1);
                 var lateTime = startTime.AddMinutes(30);
                 var examParam = new Dictionary<string, dynamic>
                 {

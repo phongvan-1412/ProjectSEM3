@@ -2868,6 +2868,8 @@
     <Content Include="Areas\Admin\Views\Shared\Partials\Exam\_PartialView.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\Level\_PartialView.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\QuestionType\_PartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Infomation.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
