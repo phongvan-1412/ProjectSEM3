@@ -3,6 +3,6 @@ alter proc Sp_GetExamDetailById
 as
 begin
 	select * from GetExamDetails() 
-	where ExamId = @ExamId
+	where ExamId = @ExamId and Status=1
 end
 

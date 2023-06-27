@@ -32,15 +32,16 @@ namespace ProjectSEM3.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult StartQuiz(int? examId)
+        public ActionResult StartQuiz(int? examId, int? contestantId)
         {
-            return RedirectToAction("Quiz", "Quiz", new { examId = examId });
+            return RedirectToAction("Quiz", "Quiz", new { examId = examId, contestantId = contestantId });
         }
-        public ActionResult Quiz(int? examId)
+        public ActionResult Quiz(int? examId, int? contestantId)
         {
             try
             {
                 ViewData["lstExam"] = GetData(examId);
+                ViewData["contestantId"] = contestantId;
             }
             catch (Exception)
             {
@@ -51,10 +52,26 @@ namespace ProjectSEM3.Controllers
 
 
         [HttpPost]
-        public JsonResult Submit(string result, int contestantId)
+        public JsonResult Submit(ContestantExam result, int contestantId)
         {
-            var json = JsonConvert.DeserializeObject(result);
-            List<Result> results = JsonConvert.DeserializeObject<List<Result>>(json.ToString());
+            var examId = result.Math.FirstOrDefault().ExamId;
+            int pointMath = CheckAnswer(result.Math);
+            int pointKnowledge = CheckAnswer(result.Knowledge);
+            int pointComputer = CheckAnswer(result.Computer);
+         
+            DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdatePointForExam, new Dictionary<string, dynamic>
+            {
+                { "@ExamId", examId},
+                { "@KnowledgePoint", pointKnowledge},
+                { "@MathPoint", pointMath},
+                { "@ComputerPoint", pointComputer},
+            });
+
+            int totalPoint = pointMath + pointKnowledge + pointComputer;
+
+            // send email: pass/fail
+
+            // ajax reload page =))
             return Json(new { redirectToUrl = Url.Action("Home", "Index") });
         }
 
@@ -68,6 +85,39 @@ namespace ProjectSEM3.Controllers
             var examDetails = DbContext.Instance.Exec<List<ExamDetail.Res>>(DbStore.GetExamnDetailById, param);
             var result = new ContestantExam(examDetails);
             return result;
+        }
+
+        private int CheckAnswer(List<ExamDetail.Res> data)
+        {
+            var point = 0;
+
+            foreach (var item in data)
+            {
+                DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdateAnswerForExamDetail, new Dictionary<string, dynamic>
+                {
+                    { "@ExamId", item.ExamId},
+                    { "@QuestionId", item.QuestionId},
+                    { "@Answer",item.Answer},
+                });
+
+                if (item.TypeId == 1 && item.IsMultiAnwser)
+                {
+                    var answer = JsonConvert.DeserializeObject<List<string>>(item.Answer);
+                    var correctAnswer = JsonConvert.DeserializeObject<List<string>>(item.CorrectAnwser);
+                    answer.Sort();
+                    correctAnswer.Sort();
+
+                    if (answer.Equals(correctAnswer))
+                        point += item.Point;
+                }
+                else
+                {
+                    if (item.Answer.Equals(item.CorrectAnwser))
+                        point += item.Point;
+                }
+            }
+
+            return point;
         }
     }
 }

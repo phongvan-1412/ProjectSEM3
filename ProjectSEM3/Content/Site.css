@@ -1269,7 +1269,13 @@ body .container-fluid {
     padding: 0rem 2rem;
     cursor: pointer;
 }
-
+#left, #right{
+    width: 300px;
+    min-height: 400px;
+    margin: 20px;
+    padding: 20px;
+    border: 2px dashed #ffc533;
+}
 /*.form_items ul {
     display: block;
     list-style-type: none;

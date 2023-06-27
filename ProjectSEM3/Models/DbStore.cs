@@ -46,12 +46,14 @@
 
         public static string InsertExam = "Sp_InsertExam";
         public static string UpdateExam = "Sp_UpdateExam";
+        public static string UpdatePointForExam = "Sp_UpdatePointForExam";
         public static string ChangeExamStatus = "Sp_ChangeExamStatus";
         public static string GetExamnById = "Sp_GetExamById";
         public static string GetExamns = "Sp_GetExams";
 
         public static string InsertExamDetail = "Sp_InsertExamDetail";
         public static string UpdateExamDetail = "Sp_UpdateExamDetail";
+        public static string UpdateAnswerForExamDetail = "Sp_UpdateAnswerForExamDetail";
         public static string ChangeExamDetailStatus = "Sp_ChangeExamDetailStatus";
         public static string GetExamnDetailById = "Sp_GetExamDetailById";
         public static string GetExamnDetails = "Sp_GetExamDetails";

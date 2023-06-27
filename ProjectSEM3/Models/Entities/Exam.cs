@@ -16,6 +16,11 @@ namespace ProjectSEM3.Models.Entities
             public DateTime LateTime { get; set; }
             public int TotalPoint { get; set; }
             public int Status { get; set; }
+            public string Email { get; set; }
+            public int KnowledgePoint { get; set; }
+            public int MathPoint { get; set; }
+            public int ComputerPoint { get; set; }
+
         }
 
         public class Req

@@ -95,7 +95,7 @@ namespace ProjectSEM3.Areas.Admin.Controllers
 
                 foreach (var type in examTypeResult)
                 {
-                    var randomQuestions = questionResult.Where(x => x.LevelId == levelId && x.ExamTypeId == type.Id).Random(5);
+                    var randomQuestions = questionResult.Where(x => x.LevelId == levelId && x.ExamTypeId == type.Id && x.Status).Random(5);
                     foreach (var question in randomQuestions)
                     {
                         var examDetailParam = new Dictionary<string, dynamic>
