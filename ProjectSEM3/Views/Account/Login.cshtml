@@ -13,6 +13,12 @@
                 <strong class="text-danger fw-bold">@TempData["accountFailed"]</strong>
             </div>
         }
+        @if (TempData["accountEndTime"] != null)
+        {
+            <div class="form-group alert alert-danger mb-3">
+                <strong class="text-danger fw-bold">@TempData["accountEndTime"]</strong>
+            </div>
+        }
         <form action="Login" method="post">
 
             <div class="form-group has-placeholder mb-3">

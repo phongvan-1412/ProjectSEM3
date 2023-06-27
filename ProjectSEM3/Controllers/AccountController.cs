@@ -23,18 +23,39 @@ namespace ProjectSEM3.Controllers
         [HttpPost]
         public ActionResult Login(Contestant.Res contestant)
         {
-            var param = new Dictionary<string, dynamic>
+            var paramAccount = new Dictionary<string, dynamic>
             {
                 { "@Email", contestant.Email},
                 { "@Password", contestant.Password.EncryptPassword() },
             };
+            var account = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmailPass, paramAccount);
 
-            var account = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmailPass, param);
+            var paramExam = new Dictionary<string, dynamic>
+            {
+                { "@ExamId", account.FirstOrDefault().ExamId},
+                { "@ContestId", account.FirstOrDefault().Id}
+            };
+
+            var exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, paramExam);
+            var endTime = exam.FirstOrDefault().EndTime;
+            var now = DateTime.UtcNow;
 
             if (account.Count() == 0)
             {
                 TempData["accountFailed"] = "Your email or password is invalid. Please try again!";
                 return RedirectToAction("Login");
+            }
+            else if (endTime <= now)
+            {
+                var paramDeactive = new Dictionary<string, dynamic>
+                {
+                    { "@Id", account.FirstOrDefault().Id },
+                    { "@Status", 3 },
+                };
+                DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.ChangeCvStatus, paramDeactive);
+
+                TempData["accountEndTime"] = "Your account has expired!";
+                return RedirectToAction("Login", "Account");
             }
             else
             {

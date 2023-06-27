@@ -34,7 +34,20 @@ namespace ProjectSEM3.Controllers
         [HttpPost]
         public ActionResult StartQuiz(int? examId, int? contestantId)
         {
-            return RedirectToAction("Quiz", "Quiz", new { examId = examId, contestantId = contestantId });
+            //var param = new Dictionary<string, dynamic>
+            //    {
+            //        { "@ExamId", examId},
+            //    };
+
+            //var exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, param);
+            //var lateTime = exam.FirstOrDefault().LateTime;
+            //var now = DateTime.UtcNow;
+
+            //if (lateTime > now)
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
+                return RedirectToAction("Quiz", "Quiz", new { examId = examId, contestantId = contestantId });
         }
         public ActionResult Quiz(int? examId, int? contestantId)
         {

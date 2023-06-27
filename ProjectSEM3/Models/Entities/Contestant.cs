@@ -59,6 +59,9 @@ namespace ProjectSEM3.Models.Entities
                 default:
                     result = new StatusType("Rejected", "badge bg-danger", true);
                     break;
+                case 4:
+                    result = new StatusType("Passed", "badge bg-success", true);
+                    break;
             }
             return result;
         }
@@ -69,5 +72,6 @@ namespace ProjectSEM3.Models.Entities
         Pending = 1,
         Accepted = 2,
         Rejected = 3,
+        Passed = 4
     }
 }
