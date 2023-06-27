@@ -1,6 +1,7 @@
-create proc Sp_GetExamById
+alter proc Sp_GetExamById
+@ExamId int,
 @ContestId int
 as
 begin
-	select * from Exam where ContestId = @ContestId
+	select * from Exam where ContestId = @ContestId and Id = @ExamId
 end
