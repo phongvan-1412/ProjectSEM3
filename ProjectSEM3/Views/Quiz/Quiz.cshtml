@@ -130,7 +130,7 @@
         Create json
     -------------------------------------*/
     var data = @Html.Raw(Json.Encode(lst));
-    //console.log(data);
+    console.log(data);
 
     localStorage.setItem("data", JSON.stringify(data));
     let lstTemp = [];

@@ -1,10 +1,10 @@
-create proc Sp_UpdatePointForExam
-@ContestId int,
-@KnowledgePoint int,
-@MathPoint int,
-@ComputerPoint int
+alter proc Sp_UpdateAnswerForExamDetail
+@ExamId int,
+@QuestionId int,
+@Answer ntext
 
 as
 begin
-	update Exam set KnowledgePoint = @KnowledgePoint, MathPoint=@MathPoint, ComputerPoint=@ComputerPoint where ContestId= @ContestId
+	update ExamDetail set Answer = @Answer where ExamId = @ExamId and QuestionId = @QuestionId
+	select top 1 * from ExamDetail where ExamId = @ExamId 
 end

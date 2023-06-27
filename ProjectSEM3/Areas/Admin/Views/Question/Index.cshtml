@@ -559,12 +559,11 @@
             } else {
                 $crossUpdateView[0].setAttribute("hidden", true)
                 $normalsUpdateView[0].removeAttribute("hidden", false)
-                if (data.TypeName == "Ranking") {
-                    for (var ele of $isCorrectAnswerUpdateWrap) {
-                        ele.hidden = true
-                    }
-                    $isMultiSelectUpdate[0].disabled = true
+                console.log(data.TypeName)
+                for (var ele of $isCorrectAnswerUpdateWrap) {
+                    ele.hidden = data.TypeName == "Ranking"
                 }
+                $isMultiSelectUpdate[0].disabled = data.TypeName == "Ranking"
 
                 $answerAUpdate.val(options[0])
                 $answerBUpdate.val(options[1])
@@ -781,23 +780,23 @@
                 CheckCrossAnswerCUpdate();
                 CheckCrossAnswerDUpdate();
 
-                if (!checkContentUpdate ||
+                if (
                     !checkCrossQuestAUpdate || !checkCrossQuestBUpdate || !checkCrossQuestCUpdate || !checkCrossQuestDUpdate ||
                     !checkCrossAnswerAUpdate || !checkCrossAnswerBUpdate || !checkCrossAnswerCUpdate || !checkCrossAnswerDUpdate) {
                     return;
                 }
             } else {
-                CheckAnswerA();
-                CheckAnswerB();
-                CheckAnswerC();
-                CheckAnswerD();
-
-                if (!checkTypeUpdate || checkLevelUpdate || !checkExamTypesUpdate || !checkPointUpdate || !checkContentUpdate ||
+                CheckAnswerAUpdate();
+                CheckAnswerBUpdate();
+                CheckAnswerCUpdate();
+                CheckAnswerDUpdate();
+                
+                if (!checkContentUpdate ||
                     !checkAnswerAUpdate || !checkAnswerBUpdate || !checkAnswerCUpdate || !checkAnswerDUpdate) {
                     return;
                 }
             }
-
+           
             const Id = CurrentId
             var _correctAnwser = []
 
@@ -872,7 +871,6 @@
                 success: function (res) {
                     UnBlockUI()
                     OnSetupToast(res, $liveToast, $toastMes)
-                    console.log(res.Data)
                     if (res.IsSuccess) {
                         $questionTable[0].rows[RowIndex].children[1].innerHTML = res.Data.Content;
                         $questionTable[0].rows[RowIndex].children[2].innerHTML = res.Data.TypeName;
@@ -927,28 +925,10 @@
         })
 
         const OnClearFormUpdateQuestion = () => {
-            $typeUpdate[0].options[0].selected = true;
             OnClearFormCheckUpdate()
         }
 
         const OnClearFormCheckUpdate = () => {
-            $answerAUpdate.val("")
-            $answerBUpdate.val("")
-            $answerCUpdate.val("")
-            $answerDUpdate.val("")
-            $crossQuestAUpdate.val("")
-            $crossQuestBUpdate.val("")
-            $crossQuestCUpdate.val("")
-            $crossQuestDUpdate.val("")
-            $crossAnswerAUpdateErr.val("")
-            $crossAnswerBUpdateErr.val("")
-            $crossAnswerCUpdateErr.val("")
-            $crossAnswerDUpdateErr.val("")
-
-            $typeUpdateErr[0].innerHTML = ""
-            $levelUpdateErr[0].innerHTML = ""
-            $examTypesUpdateErr[0].innerHTML = ""
-            $pointUpdateErr[0].innerHTML = ""
             $contentUpdateErr[0].innerHTML = ""
             $answerAUpdateErr[0].innerHTML = ""
             $answerBUpdateErr[0].innerHTML = ""
