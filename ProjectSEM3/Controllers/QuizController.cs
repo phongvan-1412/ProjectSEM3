@@ -107,7 +107,9 @@ namespace ProjectSEM3.Controllers
                     answer.Sort();
                     correctAnswer.Sort();
 
-                    if (answer.Equals(correctAnswer))
+                    var jsonAnswer = JsonConvert.SerializeObject(answer);
+                    var jsonCorrectAnswer = JsonConvert.SerializeObject(correctAnswer);
+                    if (jsonAnswer.Equals(jsonCorrectAnswer))
                         point += item.Point;
                 }
                 else
