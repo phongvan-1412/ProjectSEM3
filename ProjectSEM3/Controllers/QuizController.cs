@@ -54,183 +54,182 @@ namespace ProjectSEM3.Controllers
         [HttpPost]
         public JsonResult Submit(ContestantExam result, int contestantId)
         {
-            var math = result.Math;
-            var knowledge = result.Knowledge;
-            var computer = result.Computer;
-            List<int> questions = new List<int>();
-            List<string> answer;
-            List<string> correctAnswer;
-            int pointMath = 0;
-            int pointKnowledge = 0;
-            int pointComputer = 0;
-            int totalPoint = 0;
+            var examId = result.Math.FirstOrDefault().ExamId;
+            int pointMath = CheckAnswer(result.Math);
+            int pointKnowledge = CheckAnswer(result.Knowledge);
+            int pointComputer = CheckAnswer(result.Computer);
 
-            foreach (var item in knowledge)
-            {
-                bool checkKnowledge = false;
-                int checkMulti = 0;
+            //var math = result.Math;
+            //var knowledge = result.Knowledge;
+            //var computer = result.Computer;
+            //List<int> questions = new List<int>();
+            //List<string> answer;
+            //List<string> correctAnswer;
+            //int pointMath = 0;
+            //int pointKnowledge = 0;
+            //int pointComputer = 0;
+            
 
-                DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdateAnswerForExamDetail, new Dictionary<string, dynamic>
-                 {
-                     { "@ExamId", item.ExamId},
-                     { "@QuestionId", item.QuestionId},
-                     { "@Answer",item.Answer},
-                 });
+            //foreach (var item in knowledge)
+            //{
+            //    bool checkKnowledge = false;
+            //    int checkMulti = 0;
 
-                if (item.TypeId != 1)
-                {
-                    if (item.Answer.Equals(item.CorrectAnwser))
-                    {
-                        checkKnowledge = true;
-                    }
-                    if (checkKnowledge)
-                    {
-                        pointKnowledge += item.Point;
-                    }
-                }
-                else
-                {
-                    answer = JsonConvert.DeserializeObject<List<string>>(item.Answer);
-                    correctAnswer = JsonConvert.DeserializeObject<List<string>>(item.CorrectAnwser);
+            //    DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdateAnswerForExamDetail, new Dictionary<string, dynamic>
+            //     {
+            //         { "@ExamId", item.ExamId},
+            //         { "@QuestionId", item.QuestionId},
+            //         { "@Answer",item.Answer},
+            //     });
 
-                    foreach (var ele in answer)
-                    {
-                        foreach (var correctEle in correctAnswer)
-                        {
-                            if (!item.IsMultiAnwser)
-                            {
-                                if (ele.Equals(correctEle))
-                                {
-                                    checkKnowledge = true;
-                                }
-                            }
-                            else
-                            {
-                                if (ele.Equals(correctEle))
-                                {
-                                    checkMulti += 1;
-                                }
-                            }
-                            if (checkKnowledge || checkMulti == correctAnswer.Count())
-                            {
-                                pointKnowledge += item.Point;
-                            }
-                        }
-                    }
-                }
-            }
-            foreach (var item in math)
-            {
-                bool checkMath = false;
-                int checkMulti = 0;
-                DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdateAnswerForExamDetail, new Dictionary<string, dynamic>
-                 {
-                     { "@ExamId", item.ExamId},
-                     { "@QuestionId", item.QuestionId},
-                     { "@Answer",item.Answer},
-                 });
+            //    if (item.TypeId != 1)
+            //    {
+            //        if (item.Answer.Equals(item.CorrectAnwser))
+            //            pointKnowledge += item.Point;
+            //    }
+            //    else
+            //    {
+            //        answer = JsonConvert.DeserializeObject<List<string>>(item.Answer);
+            //        correctAnswer = JsonConvert.DeserializeObject<List<string>>(item.CorrectAnwser);
 
-                if (item.TypeId != 1)
-                {
-                    if (item.Answer.Equals(item.CorrectAnwser))
-                    {
-                        checkMath = true;
-                    }
-                    if (checkMath)
-                    {
-                        pointMath += item.Point;
-                    }
-                }
-                else
-                {
-                    answer = JsonConvert.DeserializeObject<List<string>>(item.Answer);
-                    correctAnswer = JsonConvert.DeserializeObject<List<string>>(item.CorrectAnwser);
+            //        foreach (var ele in answer)
+            //        {
+            //            foreach (var correctEle in correctAnswer)
+            //            {
+            //                if (!item.IsMultiAnwser)
+            //                {
+            //                    if (ele.Equals(correctEle))
+            //                    {
+            //                        checkKnowledge = true;
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    if (ele.Equals(correctEle))
+            //                    {
+            //                        checkMulti += 1;
+            //                    }
+            //                }
+            //                if (checkKnowledge || checkMulti == correctAnswer.Count())
+            //                {
+            //                    pointKnowledge += item.Point;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //foreach (var item in math)
+            //{
+            //    bool checkMath = false;
+            //    int checkMulti = 0;
+            //    DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdateAnswerForExamDetail, new Dictionary<string, dynamic>
+            //     {
+            //         { "@ExamId", item.ExamId},
+            //         { "@QuestionId", item.QuestionId},
+            //         { "@Answer",item.Answer},
+            //     });
 
-                    foreach (var ele in answer)
-                    {
-                        foreach (var correctEle in correctAnswer)
-                        {
-                            if (item.TypeId == 1)
-                            {
-                                if (!item.IsMultiAnwser)
-                                {
-                                    if (ele.Equals(correctEle))
-                                    {
-                                        checkMath = true;
-                                    }
-                                }
-                                else
-                                {
-                                    if (ele.Equals(correctEle))
-                                    {
-                                        checkMulti += 1;
-                                    }
-                                }
-                                if (checkMath || checkMulti == correctAnswer.Count())
-                                {
-                                    pointMath += item.Point;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            foreach (var item in computer)
-            {
-                bool checkComputer = false;
-                int checkMulti = 0;
-                DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdateAnswerForExamDetail, new Dictionary<string, dynamic>
-                 {
-                     { "@ExamId", item.ExamId},
-                     { "@QuestionId", item.QuestionId},
-                     { "@Answer",item.Answer},
-                 });
+            //    if (item.TypeId != 1)
+            //    {
+            //        if (item.Answer.Equals(item.CorrectAnwser))
+            //        {
+            //            checkMath = true;
+            //        }
+            //        if (checkMath)
+            //        {
+            //            pointMath += item.Point;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        answer = JsonConvert.DeserializeObject<List<string>>(item.Answer);
+            //        correctAnswer = JsonConvert.DeserializeObject<List<string>>(item.CorrectAnwser);
 
-                if (item.TypeId != 1)
-                {
-                    if (item.Answer.Equals(item.CorrectAnwser))
-                    {
-                        checkComputer = true;
-                    }
-                    if (checkComputer)
-                    {
-                        pointComputer += item.Point;
-                    }
-                }
-                else
-                {
-                    answer = JsonConvert.DeserializeObject<List<string>>(item.Answer);
-                    correctAnswer = JsonConvert.DeserializeObject<List<string>>(item.CorrectAnwser);
+            //        foreach (var ele in answer)
+            //        {
+            //            foreach (var correctEle in correctAnswer)
+            //            {
+            //                if (item.TypeId == 1)
+            //                {
+            //                    if (!item.IsMultiAnwser)
+            //                    {
+            //                        if (ele.Equals(correctEle))
+            //                        {
+            //                            checkMath = true;
+            //                        }
+            //                    }
+            //                    else
+            //                    {
+            //                        if (ele.Equals(correctEle))
+            //                        {
+            //                            checkMulti += 1;
+            //                        }
+            //                    }
+            //                    if (checkMath || checkMulti == correctAnswer.Count())
+            //                    {
+            //                        pointMath += item.Point;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //foreach (var item in computer)
+            //{
+            //    bool checkComputer = false;
+            //    int checkMulti = 0;
+            //    DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdateAnswerForExamDetail, new Dictionary<string, dynamic>
+            //     {
+            //         { "@ExamId", item.ExamId},
+            //         { "@QuestionId", item.QuestionId},
+            //         { "@Answer",item.Answer},
+            //     });
 
-                    foreach (var ele in answer)
-                    {
-                        foreach (var correctEle in correctAnswer)
-                        {
-                            if (item.TypeId == 1)
-                            {
-                                if (!item.IsMultiAnwser)
-                                {
-                                    if (ele.Equals(correctEle))
-                                    {
-                                        checkComputer = true;
-                                    }
-                                }
-                                else
-                                {
-                                    if (ele.Equals(correctEle))
-                                    {
-                                        checkMulti += 1;
-                                    }
-                                }
-                                if (checkComputer || checkMulti == correctAnswer.Count())
-                                {
-                                    pointComputer += item.Point;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            //    if (item.TypeId != 1)
+            //    {
+            //        if (item.Answer.Equals(item.CorrectAnwser))
+            //        {
+            //            checkComputer = true;
+            //        }
+            //        if (checkComputer)
+            //        {
+            //            pointComputer += item.Point;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        answer = JsonConvert.DeserializeObject<List<string>>(item.Answer);
+            //        correctAnswer = JsonConvert.DeserializeObject<List<string>>(item.CorrectAnwser);
+
+            //        foreach (var ele in answer)
+            //        {
+            //            foreach (var correctEle in correctAnswer)
+            //            {
+            //                if (item.TypeId == 1)
+            //                {
+            //                    if (!item.IsMultiAnwser)
+            //                    {
+            //                        if (ele.Equals(correctEle))
+            //                        {
+            //                            checkComputer = true;
+            //                        }
+            //                    }
+            //                    else
+            //                    {
+            //                        if (ele.Equals(correctEle))
+            //                        {
+            //                            checkMulti += 1;
+            //                        }
+            //                    }
+            //                    if (checkComputer || checkMulti == correctAnswer.Count())
+            //                    {
+            //                        pointComputer += item.Point;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
             //foreach (var item in knowledge)
             //{
@@ -241,15 +240,19 @@ namespace ProjectSEM3.Controllers
             //         { "@Answer",item.Answer},
             //     });
             //}
-            var point = DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdatePointForExam, new Dictionary<string, dynamic>
+            DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdatePointForExam, new Dictionary<string, dynamic>
             {
-                { "@ExamId", math.FirstOrDefault().ExamId},
+                { "@ExamId", examId},
                 { "@KnowledgePoint", pointKnowledge},
                 { "@MathPoint", pointMath},
                 { "@ComputerPoint", pointComputer},
             });
 
-            totalPoint = pointMath + pointKnowledge + pointComputer;
+            int totalPoint = pointMath + pointKnowledge + pointComputer;
+
+            // send email: pass/fail
+
+            // ajax reload page =))
             return Json(new { redirectToUrl = Url.Action("Home", "Index") });
         }
 
@@ -263,6 +266,39 @@ namespace ProjectSEM3.Controllers
             var examDetails = DbContext.Instance.Exec<List<ExamDetail.Res>>(DbStore.GetExamnDetailById, param);
             var result = new ContestantExam(examDetails);
             return result;
+        }
+
+        private int CheckAnswer(List<ExamDetail.Res> data)
+        {
+            var point = 0;
+
+            foreach (var item in data)
+            {
+                DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdateAnswerForExamDetail, new Dictionary<string, dynamic>
+                {
+                    { "@ExamId", item.ExamId},
+                    { "@QuestionId", item.QuestionId},
+                    { "@Answer",item.Answer},
+                });
+
+                if (item.TypeId == 1 && item.IsMultiAnwser)
+                {
+                    var answer = JsonConvert.DeserializeObject<List<string>>(item.Answer);
+                    var correctAnswer = JsonConvert.DeserializeObject<List<string>>(item.CorrectAnwser);
+                    answer.Sort();
+                    correctAnswer.Sort();
+
+                    if (answer.Equals(correctAnswer))
+                        point += item.Point;
+                }
+                else
+                {
+                    if (item.Answer.Equals(item.CorrectAnwser))
+                        point += item.Point;
+                }
+            }
+
+            return point;
         }
     }
 }
