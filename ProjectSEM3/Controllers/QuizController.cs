@@ -99,7 +99,6 @@ namespace ProjectSEM3.Controllers
                 { "@ComputerPoint", pointComputer},
             });
 
-
             // send email: pass/fail
             var email = new Email();
             if (finalPoint >= 75)
@@ -122,6 +121,14 @@ namespace ProjectSEM3.Controllers
                 
                 email.SendFailedResult(emailReject);
             }
+
+            var paramDeactive = new Dictionary<string, dynamic>
+            {
+                { "@Id", contestant.FirstOrDefault().Id },
+                { "@Status", 3 },
+            };
+
+            DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.ChangeCvStatus, paramDeactive);
 
             return Json(new { redirectUrl = Url.Action("TestResult", "Quiz", new { finish = "finish" }) });
         }

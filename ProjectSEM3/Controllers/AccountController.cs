@@ -30,6 +30,11 @@ namespace ProjectSEM3.Controllers
             };
             var account = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmailPass, paramAccount);
 
+            if (account.Count() == 0 || account == null )
+            {
+                TempData["accountFailed"] = "Your email or password is invalid. Please try again!";
+                return RedirectToAction("Login");
+            }
             var paramExam = new Dictionary<string, dynamic>
             {
                 { "@ContestId", account.FirstOrDefault().Id}
@@ -40,12 +45,7 @@ namespace ProjectSEM3.Controllers
             var startTime = exam.FirstOrDefault().StartTime;
             var now = DateTime.UtcNow;
 
-            if (account.Count() == 0)
-            {
-                TempData["accountFailed"] = "Your email or password is invalid. Please try again!";
-                return RedirectToAction("Login");
-            }
-            else if (endTime <= now)
+            if (endTime <= now)
             {
                 var paramDeactive = new Dictionary<string, dynamic>
                 {
