@@ -37,6 +37,7 @@ namespace ProjectSEM3.Controllers
 
             var exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, paramExam);
             var endTime = exam.FirstOrDefault().LateTime;
+            var startTime = exam.FirstOrDefault().StartTime;
             var now = DateTime.UtcNow;
 
             if (account.Count() == 0)
@@ -54,6 +55,11 @@ namespace ProjectSEM3.Controllers
                 DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.ChangeCvStatus, paramDeactive);
 
                 TempData["accountEndTime"] = "Your account has expired because it's over 30 mins from start time!";
+                return RedirectToAction("Login", "Account");
+            }
+            else if(startTime > now)
+            {
+                TempData["accountStartTime"] = "Please wait a minute. It's not exam time yet";
                 return RedirectToAction("Login", "Account");
             }
             else
