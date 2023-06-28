@@ -19,7 +19,7 @@ namespace ProjectSEM3.Controllers
             ViewData["lstCountries"] = Country();
             return View();
         }
-        public ActionResult Jobs(string lstCountries)
+        public ActionResult Jobs(string lstCountries, string input)
         {
             if(lstCountries != null)
             {
@@ -62,9 +62,9 @@ namespace ProjectSEM3.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(string lstCountries)
+        public ActionResult Search(string input, string lstCountries)
         {
-            return RedirectToAction("Jobs", "Career", new { lstCountries = lstCountries });
+            return RedirectToAction("Jobs", "Career", new { lstCountries = lstCountries, input = input });
         }
 
         public List<Country> Country()
