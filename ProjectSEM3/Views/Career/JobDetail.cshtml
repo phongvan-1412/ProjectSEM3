@@ -7,9 +7,10 @@
         <div class="d-flex align-items-center">
             <div class="d-flex align-items-center" style="width: 100%;">
                 <div class="d-flex align-items-center">
-                    <button type="button" class="apply-job-btn btn text-white me-5" aria-label="Apply" data-is-focusable="true">
+
+                    <button type="button" class="apply-job-btn btn text-white me-5" data-bs-toggle="modal" data-bs-target="#applyJob">
                         <span class="d-flex align-items-center justify-content-center">
-                            <span id="applyJobBtn" class="fw-600">Apply</span>
+                            <span class="fw-600">Apply</span>
                         </span>
                     </button>
                     <div class="d-flex align-items-center" style="height: auto; cursor: pointer;">
@@ -123,19 +124,11 @@
         <p style="font-size: 11px">Microsoft is an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to age, ancestry, citizenship, color, family or medical care leave, gender identity or expression, genetic information, immigration status, marital status, medical condition, national origin, physical or mental disability, political affiliation, protected veteran or military status, race, ethnicity, religion, sex (including pregnancy), sexual orientation, or any other characteristic protected by applicable local laws, regulations and ordinances. If you need assistance and/or a reasonable accommodation due to a disability during the application process, read more about requesting accommodations.</p>
     </div>
 
-    <div class="mt-3">
+    @*<div class="mt-3">
         <button type="button" class="apply-job-btn btn text-white me-5" aria-label="Apply" data-is-focusable="true">
             <span class="d-flex align-items-center justify-content-center">
                 <span id="applyJobBtn" class="fw-600">Apply</span>
             </span>
         </button>
-    </div>
+    </div>*@
 </main>
-
-
-@section scripts {
-    <script>
-        const data = JSON.parse(localStorage.getItem("currentJob"))
-        console.log(data)
-    </script>
-}

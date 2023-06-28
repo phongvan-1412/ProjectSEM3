@@ -19,7 +19,6 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Career", "Index", "Career", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
                 <ul class="navbar-nav text-end">
@@ -29,9 +28,11 @@
             </div>
         </div>
     </nav>
+
     <div class="container-fluid body-content">
         @RenderBody()
         @Html.Partial("~/Views/Shared/_Footer.cshtml")
+        @Html.Partial("~/Views/Career/ApplyJob.cshtml")
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")

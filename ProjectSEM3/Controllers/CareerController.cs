@@ -19,17 +19,35 @@ namespace ProjectSEM3.Controllers
             ViewData["lstCountries"] = Country();
             return View();
         }
-        public ActionResult Jobs(string lstCountries)
+        public ActionResult Jobs(string lstCountries, string input, int experience = 0, string profession = "")
         {
-            if(lstCountries != null)
+            var result = JobList();
+            
+            if (input != null || lstCountries != null)
             {
-                string[] lst = lstCountries.Split(',');
-                List<string> list = new List<string>(lst);
+                var param = new Dictionary<string, dynamic>
+                {
+                    { "@Title", input},
+                    { "@Location", lstCountries },
+                    { "@Content", input},
+                    { "@Qualification", input},
+                    { "@LevelId", experience},
+                    { "@Position", profession}
+                };
+
+                result = DbContext.Instance.Exec<List<Job.Res>>(DbStore.GetJobs, param);
             }
 
+            var sessionData = Session["JobById"] as List<Job.Res>;
+            Session.Remove("JobById");
+            if(sessionData != null)
+            {
+                result = sessionData;
+            }
             ViewData["lstCountries"] = Country();
             ViewData["lstLevels"] = Levels();
-            ViewData["lstJobs"] = JobList();
+            ViewData["lstJobs"] = result;
+
             return View();
         }
 
@@ -39,7 +57,7 @@ namespace ProjectSEM3.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadCV(string job, string contName, string contEmail, string contPhone, HttpPostedFileBase cv)
+        public ActionResult UploadCV(int jobId, string contName, string contEmail, string contPhone, HttpPostedFileBase cv)
         {
             var savePath = Path.Combine(Server.MapPath("~/Content/pdf"), cv.FileName);
             cv.SaveAs(savePath);
@@ -49,7 +67,7 @@ namespace ProjectSEM3.Controllers
 
             var param = new Dictionary<string, dynamic>
             {
-                { "@JobId", 1 },
+                { "@JobId", jobId },
                 { "@Name", contName},
                 { "@Email", contEmail },
                 { "@Contact", contPhone },
@@ -62,9 +80,21 @@ namespace ProjectSEM3.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(string lstCountries)
+        public ActionResult Search(string input = "", string lstCountries = "", int experience = 0, string profession = "")
         {
-            return RedirectToAction("Jobs", "Career", new { lstCountries = lstCountries });
+          
+            return RedirectToAction("Jobs", "Career", new { lstCountries = lstCountries, input = input, experience = experience, profession = profession });
+        }
+
+        public ActionResult GetJobById(int id)
+        {
+            var result = DbContext.Instance.Exec<List<Job.Res>>(DbStore.GetJobById, new Dictionary<string, dynamic>
+            {
+                { "@Id", id }
+            });
+
+            Session["JobById"]  = result;
+            return RedirectToAction("Jobs");
         }
 
         public List<Country> Country()

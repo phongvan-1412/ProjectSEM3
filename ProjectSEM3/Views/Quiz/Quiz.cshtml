@@ -84,7 +84,6 @@
 
 @section scripts{
     <script type="text/javascript">
-        localStorage.removeItem("data");
 
     /*-----------------------------------
         Countdown
@@ -442,15 +441,21 @@
 
     /*  -------------- Question --------------*/
     function submitQuiz() {
-        var checkLocal = JSON.parse(localStorage.getItem("data"));
-        console.log(checkLocal)
-        //for (var i = 0; i < lstTemp.length; i++) {
-        //    if (lstTemp[i].Answer == "") {
-        //        alert(`You haven't chosen answer for question ${lstTemp[i].Content}`)
-        //        break;
-        //    }
-        //}
+        var check = false;
+        for (var i = 0; i < lstTemp.length; i++) {
+            if (lstTemp[i].Answer == "") {
+                alert(`You haven't chosen answer for question ${i + 1}`);
+                check = true;
+                break;
+            }
+        }
+
+        if (check)
+            return;
+
+        
         if (tempName == "Knowledge") {
+            
             resetTemp("Math");
             showQuestion(0);
         }
@@ -467,6 +472,9 @@
                 success: function (result) {
                     console.log(result);
                     localStorage.removeItem("contestant");
+                    localStorage.removeItem("data");
+                    localStorage.removeItem("tempName");
+
                     window.location.replace(result.redirectUrl + "?finish=" + result.finish);
                 },
                 error: function (req, status, error) {
@@ -474,6 +482,7 @@
                 }
             });
         }
+        
 
     };
     function showQuestion(i) {
