@@ -43,7 +43,6 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                     { "@Name", req.Name },
                     { "@Email", req.Email },
                     { "@Contact", req.Contact },
-                    { "@Address", req.Address?? string.Empty },
                     { "@Status", (int)CvStatus.Accepted },
                 };
 

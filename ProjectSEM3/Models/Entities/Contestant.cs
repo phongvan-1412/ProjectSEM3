@@ -15,7 +15,6 @@ namespace ProjectSEM3.Models.Entities
             public string Password { get; set; }
             public string Cv { get; set; }
             public string Contact { get; set; }
-            public string Address { get; set; }
             public DateTime DatePosted { get; set; }
             public int JobId { get; set; }
             public int ExamId { get; set; }
@@ -31,7 +30,6 @@ namespace ProjectSEM3.Models.Entities
             public string Password { get; set; }
             public string Cv { get; set; }
             public string Contact { get; set; }
-            public string Address { get; set; }
             public int JobId { get; set; }
             public string JobTitle { get; set; }
             public string JobLink => $"https://localhost:44376/Career?id={JobId}";
