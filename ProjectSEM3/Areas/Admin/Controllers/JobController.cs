@@ -38,8 +38,8 @@ namespace ProjectSEM3.Areas.Admin.Controllers
                 { "@Qualification", job.Qualification },
                 { "@DatePosted", job.PostedDate },
                 { "@EndDate", job.EndDate },
-                { "@SalaryMin", job.SalaryMin },
-                { "@SalaryMax",  job.SalaryMax },
+                { "@SalaryMin", decimal.Parse(job.SalaryMin) },
+                { "@SalaryMax",  decimal.Parse(job.SalaryMax) },
                 { "@LevelId",  job.LevelId }
             };
             var result = DbContext.Instance.Exec<List<Job.Res>>(DbStore.InsertJob, param);
