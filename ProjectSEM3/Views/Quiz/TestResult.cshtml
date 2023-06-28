@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "TestResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="container-fluid d-flex align-items-center justify-content-center" style="height: 80vh">
+        <div class="exam-wrapper container d-flex flex-column align-items-center">
+            <div class="d-flex flex-row align-items-center justify-content-center mb-3">
+                <h2 class="d-flex align-items-center m-0">Congratulation!</h2>
+            </div>
+            <div>
+                <span>
+                    <span class="fw-bold">Note:</span> You've finished the quiz. Please check your email to know the result.
+                </span>
+            </div>
+            <div class="mt-3">
+                    <a href="https://localhost:44376/Home/Index" class="btn text-white fw-600" style="width: 200px; background-color: rgb(92, 27, 134); border-radius: 3px;">Go Back To Home</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    localStorage.removeItem("data");
+    localStorage.removeItem("contestant");
+</script>

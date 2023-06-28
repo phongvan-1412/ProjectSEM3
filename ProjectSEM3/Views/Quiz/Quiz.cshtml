@@ -8,10 +8,9 @@
 
 
     <!-- Define countdown time -->
-    //var endTime = DateTime.UtcNow.AddSeconds(425);
-    var time = (DateTime)ViewData["endTime"];
-    var now = DateTime.UtcNow;
-    var endTime = time - now;
+    var now = DateTime.UtcNow.Ticks;
+
+    var endTime = (DateTime)ViewData["endTime"];
     var timeRemaining = TimeSpan.FromTicks(endTime.Ticks - DateTime.UtcNow.Ticks).TotalSeconds.ToString("#");
 }
 
@@ -85,8 +84,8 @@
 
 @section scripts{
     <script type="text/javascript">
+        localStorage.removeItem("data");
 
-    localStorage.removeItem("data")
     /*-----------------------------------
         Countdown
     -------------------------------------*/
@@ -98,8 +97,8 @@
         else return '' + number;
     }
     function startTick() {
-            document.getElementById("secRemaining").innerText = formatNumber(secCounter);
-            document.getElementById("minRemaining").innerText = formatNumber(parseInt(remSeconds / 60));
+        document.getElementById("secRemaining").innerText = formatNumber(secCounter);
+        document.getElementById("minRemaining").innerText = formatNumber(parseInt(remSeconds / 60));
 
         var _tick = setInterval(function () {
             if (remSeconds > 0 && secCounter == 0) {
@@ -117,10 +116,11 @@
                     secCounter = 60;
             }
             else {
-                    alert('Times out!');
-                    clearInterval(_tick);
-                }
-            }, 1000);
+                alert('Times out!');
+                clearInterval(_tick);
+                submitQuiz();
+            }
+        }, 1000);
     }
     startTick();
 
@@ -387,58 +387,58 @@
     };
 
     /*-------------- Ranking Choice --------------*/
-        let selectedElement;
-        let dropElement;
+    let selectedElement;
+    let dropElement;
 
-        function showRakingAnswer(data) {
-            let options = ``;
-            for (var i = 0; i < 4; i++) {
-                let option = "";
-                if (data != null) {
-                    option = data[i]
-                    options += `
-                        <div class="rounded-pill bg-white d-flex align-items-center text-start mt-3" ondragover='OnDragOver(event)' ondragend='OnDrop(event)' draggable=true style="width: 100%; height: 56px; padding-left: 20px; cursor:grab">
-                            <span class="rankingLists d-flex align-items-center text-dark fw-normal" ondragstart="OnDragStart(event)"  draggable=true style="width: 100%; padding: 0 0 0 20px; cursor:grab; font-size: 14px">
-                                ${option}
-                            </span>
-                        </div>
-                    `;
-                } else {
-                    options += `
-                        <div class="rounded-pill bg-white d-flex align-items-center text-start mt-3" ondragover='OnDragOver(event)' ondragend='OnDrop(event)' draggable=true style="width: 100%; height: 56px; padding-left: 20px; cursor:grab">
+    function showRakingAnswer(data) {
+        let options = ``;
+        for (var i = 0; i < 4; i++) {
+            let option = "";
+            if (data != null) {
+                option = data[i]
+                options += `
+                    <div class="rounded-pill bg-white d-flex align-items-center text-start mt-3" ondragover='OnDragOver(event)' ondragend='OnDrop(event)' draggable=true style="width: 100%; height: 56px; padding-left: 20px; cursor:grab">
+                        <span class="rankingLists d-flex align-items-center text-dark fw-normal" ondragstart="OnDragStart(event)"  draggable=true style="width: 100%; padding: 0 0 0 20px; cursor:grab; font-size: 14px">
+                            ${option}
+                        </span>
+                    </div>
+                `;
+            } else {
+                options += `
+                    <div class="rounded-pill bg-white d-flex align-items-center text-start mt-3" ondragover='OnDragOver(event)' ondragend='OnDrop(event)' draggable=true style="width: 100%; height: 56px; padding-left: 20px; cursor:grab">
 
-                        </div>
-                    `;
-                }
+                    </div>
+                `;
             }
-            rankingLists = document.getElementsByClassName("rankingLists");
+        }
+        rankingLists = document.getElementsByClassName("rankingLists");
 
-            return options;
-        };
-        function OnDragStart(e) {
-            selectedElement = e.target;
-        };
-        function OnDragOver(e) {
-            dropElement = e.target;
-            e.preventDefault();
-        };
-        function OnDrop() {
-            let localRankingChoice = [];
+        return options;
+    };
+    function OnDragStart(e) {
+        selectedElement = e.target;
+    };
+    function OnDragOver(e) {
+        dropElement = e.target;
+        e.preventDefault();
+    };
+    function OnDrop() {
+        let localRankingChoice = [];
 
-            if (dropElement.children.length == 0 && dropElement.tagName === "DIV") {
-                dropElement.appendChild(selectedElement);
+        if (dropElement.children.length == 0 && dropElement.tagName === "DIV") {
+            dropElement.appendChild(selectedElement);
 
+        }
+
+        for (var i = 0; i < rightBox.children.length; i++) {
+            if (rightBox.children[i].children[0]) {
+                localRankingChoice.push(rightBox.children[i].children[0].innerHTML.trim())
             }
+        }
 
-            for (var i = 0; i < rightBox.children.length; i++) {
-                if (rightBox.children[i].children[0]) {
-                    localRankingChoice.push(rightBox.children[i].children[0].innerHTML.trim())
-                }
-            }
-
-            question.Answer = JSON.stringify(localRankingChoice)
-            setTemp(tempName);
-        };
+        question.Answer = JSON.stringify(localRankingChoice)
+        setTemp(tempName);
+    };
 
     /*  -------------- Question --------------*/
     function submitQuiz() {

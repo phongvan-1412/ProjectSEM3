@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Web.Mvc;
+using static ProjectSEM3.Models.Entities.Email;
 
 namespace ProjectSEM3.Controllers
 {
@@ -22,7 +23,7 @@ namespace ProjectSEM3.Controllers
                     { "@ContestId", contestant}
                 };
 
-                List<Exam.Res> exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, param);
+                List<Models.Entities.Exam.Res> exam = DbContext.Instance.Exec<List<Models.Entities.Exam.Res>>(DbStore.GetExamnById, param);
                 ViewData["Exam"] = exam.FirstOrDefault();
                 ViewData["Contestant"] = contestant;
             }
@@ -40,17 +41,23 @@ namespace ProjectSEM3.Controllers
                     { "@ContestId", contestantId},
                 };
 
-            var exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, param);
-            ViewData["endTime"] = exam.FirstOrDefault().EndTime;
+            var exam = DbContext.Instance.Exec<List<Models.Entities.Exam.Res>>(DbStore.GetExamnById, param);
 
-            return RedirectToAction("Quiz", "Quiz", new { examId = examId, contestantId = contestantId });
+            return RedirectToAction("Quiz", "Quiz", new { examId = examId, contestantId = contestantId, endTime = exam.FirstOrDefault().EndTime });
         }
-        public ActionResult Quiz(int? examId, int? contestantId)
+        public ActionResult Quiz(int? examId, int? contestantId, DateTime? endTime)
         {
             try
             {
+                if (examId == null || contestantId == null || endTime == null)
+                {
+                    TempData["loadExamDetailFailed"] = "Sorry! Page doesn't exist.";
+                }
+
                 ViewData["lstExam"] = GetData(examId);
                 ViewData["contestantId"] = contestantId;
+                ViewData["endTime"] = endTime;
+                
             }
             catch (Exception)
             {
@@ -59,9 +66,8 @@ namespace ProjectSEM3.Controllers
             return View();
         }
 
-
         [HttpPost]
-        public JsonResult Submit(ContestantExam result, int contestantId)
+        public ActionResult Submit(ContestantExam result, int contestantId)
         {
             var examId = result.Math.FirstOrDefault().ExamId;
             int pointMath = CheckAnswer(result.Math);
@@ -80,10 +86,12 @@ namespace ProjectSEM3.Controllers
 
             // send email: pass/fail
 
-            // ajax reload page =))
-            return Json(new { redirectToUrl = Url.Action("Home", "Index") });
+            return RedirectToAction("TestResult", "Quiz");
         }
-
+        public ActionResult TestResult()
+        {
+            return View();
+        }
         public ContestantExam GetData(int? id)
         {
             var param = new Dictionary<string, dynamic>
