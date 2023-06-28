@@ -11,5 +11,5 @@ as
 				[Level] l,[Type] t
 			where 
 			ed.QuestionId = q.Id and q.TypeId = qt.Id and
-			q.LevelId = l.id and q.ExamTypeId = t.Id
+			q.LevelId = l.id and q.ExamTypeId = t.Id and q.[Status] = 1
 		)

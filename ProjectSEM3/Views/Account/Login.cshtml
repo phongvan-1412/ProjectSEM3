@@ -10,13 +10,19 @@
         @if (TempData["accountFailed"] != null)
         {
             <div class="form-group alert alert-danger mb-3">
-                <strong class="text-danger fw-bold">@TempData["accountFailed"]</strong>
+                <strong class="text-danger fw-bold" style="font-size: 14px;">@TempData["accountFailed"]</strong>
             </div>
         }
         @if (TempData["accountEndTime"] != null)
         {
             <div class="form-group alert alert-danger mb-3">
-                <strong class="text-danger fw-bold">@TempData["accountEndTime"]</strong>
+                <strong class="text-danger fw-bold" style="font-size: 14px;">@TempData["accountEndTime"]</strong>
+            </div>
+        }
+        @if (TempData["accountStartTime"] != null)
+        {
+            <div class="form-group alert alert-warning mb-3">
+                <strong class="text-warning fw-bold" style="font-size: 14px;">@TempData["accountStartTime"]</strong>
             </div>
         }
         <form action="Login" method="post">

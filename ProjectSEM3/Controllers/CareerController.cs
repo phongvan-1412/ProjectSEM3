@@ -29,6 +29,7 @@ namespace ProjectSEM3.Controllers
 
             ViewData["lstCountries"] = Country();
             ViewData["lstLevels"] = Levels();
+            ViewData["lstJobs"] = JobList();
             return View();
         }
 
@@ -73,6 +74,12 @@ namespace ProjectSEM3.Controllers
             var countriesText = JsonConvert.DeserializeObject(countryJson);
             List<Country> countries = JsonConvert.DeserializeObject<List<Country>>(countriesText.ToString());
             return countries;
+        }
+
+        public List<Job.Res> JobList()
+        {
+            var lstJobs = DbContext.Instance.Exec<List<Job.Res>>(DbStore.GetJobs);
+            return lstJobs;
         }
         public List<Level.Res> Levels()
         {

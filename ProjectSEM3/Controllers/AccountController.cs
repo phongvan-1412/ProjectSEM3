@@ -30,22 +30,22 @@ namespace ProjectSEM3.Controllers
             };
             var account = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantByEmailPass, paramAccount);
 
-            var paramExam = new Dictionary<string, dynamic>
-            {
-                { "@ExamId", account.FirstOrDefault().ExamId},
-                { "@ContestId", account.FirstOrDefault().Id}
-            };
-
-            var exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, paramExam);
-            var endTime = exam.FirstOrDefault().EndTime;
-            var now = DateTime.UtcNow;
-
-            if (account.Count() == 0)
+            if (account.Count() == 0 || account == null )
             {
                 TempData["accountFailed"] = "Your email or password is invalid. Please try again!";
                 return RedirectToAction("Login");
             }
-            else if (endTime <= now)
+            var paramExam = new Dictionary<string, dynamic>
+            {
+                { "@ContestId", account.FirstOrDefault().Id}
+            };
+
+            var exam = DbContext.Instance.Exec<List<Exam.Res>>(DbStore.GetExamnById, paramExam);
+            var endTime = exam.FirstOrDefault().LateTime;
+            var startTime = exam.FirstOrDefault().StartTime;
+            var now = DateTime.UtcNow;
+
+            if (endTime <= now)
             {
                 var paramDeactive = new Dictionary<string, dynamic>
                 {
@@ -54,7 +54,12 @@ namespace ProjectSEM3.Controllers
                 };
                 DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.ChangeCvStatus, paramDeactive);
 
-                TempData["accountEndTime"] = "Your account has expired!";
+                TempData["accountEndTime"] = "Your account has expired because it's over 30 mins from start time!";
+                return RedirectToAction("Login", "Account");
+            }
+            else if(startTime > now)
+            {
+                TempData["accountStartTime"] = "Please wait a minute. It's not exam time yet";
                 return RedirectToAction("Login", "Account");
             }
             else
