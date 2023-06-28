@@ -32,7 +32,7 @@ namespace ProjectSEM3.Models.Entities
             public string Contact { get; set; }
             public int JobId { get; set; }
             public string JobTitle { get; set; }
-            public string JobLink => $"https://localhost:44376/Career?id={JobId}";
+            public string JobLink => $"https://localhost:44376/Career/GetJobById/{JobId}";
             public DateTime DatePosted { get; set; }
             public bool IsViewed { get; set; }
             public int Status { get; set; }

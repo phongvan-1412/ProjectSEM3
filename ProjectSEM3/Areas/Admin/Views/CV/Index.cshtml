@@ -19,7 +19,6 @@
         const $id = $("#id")
         const $email = $("#email")
         const $contact = $("#contact")
-        const $address = $("#address")
         const $level = $("#level")
         const $levelId = $("#levelId")
         const $filePath = $("#filePath")
@@ -43,7 +42,6 @@
             $name.val(data.Name)
             $email.val(data.Email)
             $contact.val(data.Contact)
-            $address.val(data.Address)
             $level.val(data.LevelName)
             $levelId.val(data.LevelId)
             $filePath.val(data.FilePath)
@@ -55,14 +53,12 @@
             const Name = $name.val()
             const Email = $email.val()
             const Contact = $contact.val()
-            const Address = $address.val()
             const LevelId = $levelId.val()
 
             const req = {
                 Name,
                 Email,
                 Contact,
-                Address,
                 LevelId,
                 Id
             }

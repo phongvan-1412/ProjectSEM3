@@ -112,13 +112,15 @@ namespace ProjectSEM3.Controllers
             }
             else
             {
+
                 var emailReject = new QuizResult
                 {
                     Name = contestant.FirstOrDefault().Name,
                     Email = contestant.FirstOrDefault().Email,
                     Point = finalPoint.ToString(),
+                    JobLink = "https://localhost:44376/Career/GetJobById/" + contestant.FirstOrDefault().JobId,
                 };
-                
+
                 email.SendFailedResult(emailReject);
             }
 

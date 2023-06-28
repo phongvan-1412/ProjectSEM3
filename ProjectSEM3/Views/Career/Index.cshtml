@@ -29,7 +29,7 @@
                         <div class="d-flex" style="position: absolute; margin-left: .4rem; margin-top: 1.1rem;">
                             <i class="fa fa-search" style="width: 24px; height: 24px;"></i>
                         </div>
-                        <input type="text" aria-required="true" size="30" value="" name="" id="" class="form-control" placeholder="Search by job title or key word" style="border-radius: 2px">
+                        <input type="text" aria-required="true" size="30" value="" name="input" id="" class="form-control" placeholder="Search by job title or key word" style="border-radius: 2px">
                     </div>
                 </div>
             </div>
@@ -37,7 +37,8 @@
             <div class="col-lg-3 col-md-12 col-sm-12 mt-2">
                 <div class="d-flex align-items-center">
                     <div class="d-flex form-group has-placeholder col-12">
-                        <select id="selCountries" name="lstCountries" multiple placeholder="City, state, or country" data-search="true" data-silent-initial-value-set="true">
+                        <select id="selCountries" name="lstCountries" placeholder="City, state, or country" data-search="true" data-silent-initial-value-set="true">
+                            <option selected disabled>City, state, or country</option>
                             @foreach (var item in lstCountries as List<ProjectSEM3.Models.Entities.Country>)
                             {
                                 <option>@item.Name</option>
