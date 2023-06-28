@@ -1,201 +1,141 @@
-﻿<h1 style="font-weight: 700; font-size: 26px; margin-bottom: 16px; margin-top: 0px; color: rgb(0, 0, 0);">Software Engineer</h1>
-<div class="d-flex align-content-center" style="margin-bottom: 24px;">
-    <p style="margin: 0px; font-weight: 400; font-size: 16px; padding-top: 2px; color: black">Redmond, Washington, United States</p>
-</div>
-<div class="d-flex align-items-center" style="height: auto; padding-bottom: 20px;">
-    <div class="d-flex align-items-center">
-        <div class="d-flex align-items-center" style="width: 100%;">
-            <div class="d-flex align-items-center">
-                <button type="button" class="apply-job-btn btn text-white me-5" aria-label="Apply" data-is-focusable="true">
-                    <span class="d-flex align-items-center justify-content-center">
-                        <span id="applyJobBtn" class="fw-600">Apply</span>
-                    </span>
-                </button>
-                <div class="d-flex align-items-center" style="height: auto; cursor: pointer;">
-                    <div title="Save" class="d-flex align-items-center" data-is-focusable="true" style="background-color: transparent; border-color: transparent; cursor: pointer;">
-                        <img src="https://localhost:44376/Content/img/icons/save.png" style="width: 30px; height: 30px" />
+﻿<main>
+    <h1 style="font-weight: 700; font-size: 26px; margin-bottom: 16px; margin-top: 0px; color: rgb(0, 0, 0);" id="title"></h1>
+    <div class="d-flex align-content-center" style="margin-bottom: 24px;">
+        <p style="margin: 0px; font-weight: 400; font-size: 16px; padding-top: 2px; color: black" id="location"></p>
+    </div>
+    <div class="d-flex align-items-center" style="height: auto; padding-bottom: 20px;">
+        <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center" style="width: 100%;">
+                <div class="d-flex align-items-center">
+                    <button type="button" class="apply-job-btn btn text-white me-5" aria-label="Apply" data-is-focusable="true">
+                        <span class="d-flex align-items-center justify-content-center">
+                            <span id="applyJobBtn" class="fw-600">Apply</span>
+                        </span>
+                    </button>
+                    <div class="d-flex align-items-center" style="height: auto; cursor: pointer;">
+                        <div title="Save" class="d-flex align-items-center" data-is-focusable="true" style="background-color: transparent; border-color: transparent; cursor: pointer;">
+                            <img src="https://localhost:44376/Content/img/icons/save.png" style="width: 30px; height: 30px" />
+                        </div>
+                        <p style="margin: 0px 0px 0px 6px; font-size: 16px; padding-top: 3px; color: black">Save</p>
                     </div>
-                    <p style="margin: 0px 0px 0px 6px; font-size: 16px; padding-top: 3px; color: black">Save</p>
+                </div>
+            </div>
+        </div>
+        <label></label>
+    </div>
+
+    <div class="d-flex flex-column" style="padding: 0">
+        <div class="d-flex align-items-center col-12" style="width: 100%;">
+            <div class="d-flex align-items-center col-6">
+                <div class="d-flex align-items-center" style="padding-top: 9px; padding-bottom: 9px; padding-right: 9px; word-break: break-word;">
+                    <div class="d-flex align-items-center" style="font-weight: 400; font-size: 14px; color: rgb(96, 94, 92); padding-right: 9px;">Date posted</div>
+                    <div id="datePosted" class="d-flex align-items-center" style="font-weight: 600; font-size: 14px; color: rgb(23, 23, 23);"></div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center col-6">
+                <div class="d-flex align-items-center" style="padding-top: 9px; padding-bottom: 9px; padding-right: 9px; word-break: break-word;">
+                    <div class="d-flex align-items-center" style="font-weight: 400; font-size: 14px; color: rgb(96, 94, 92); padding-right: 9px;">Profession</div>
+                    <div class="d-flex align-items-center" style="font-weight: 600; font-size: 14px; color: rgb(23, 23, 23);">Software Engineering</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center col-12" style="width: 100%;">
+            <div class="d-flex align-items-center col-6">
+                <div class="d-flex align-items-center" style="padding-top: 9px; padding-bottom: 9px; padding-right: 9px; word-break: break-word;">
+                    <div class="d-flex align-items-center" style="font-weight: 400; font-size: 14px; color: rgb(96, 94, 92); padding-right: 9px;">Work site</div>
+                    <div class="d-flex align-items-center" style="font-weight: 600; font-size: 14px; color: rgb(23, 23, 23);">Up to 50% work from home</div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center col-6">
+                <div class="d-flex align-items-center" style="padding-top: 9px; padding-bottom: 9px; padding-right: 9px; word-break: break-word;">
+                    <div class="d-flex align-items-center" style="font-weight: 400; font-size: 14px; color: rgb(96, 94, 92); padding-right: 9px;">Employment type</div>
+                    <div class="d-flex align-items-center" style="font-weight: 600; font-size: 14px; color: rgb(23, 23, 23);">Full-Time</div>
                 </div>
             </div>
         </div>
     </div>
-    <label></label>
-</div>
 
-<div class="d-flex flex-column" style="padding: 0">
-    <div class="d-flex align-items-center col-12" style="width: 100%;">
-        <div class="d-flex align-items-center col-6">
-            <div class="d-flex align-items-center" style="padding-top: 9px; padding-bottom: 9px; padding-right: 9px; word-break: break-word;">
-                <div class="d-flex align-items-center" style="font-weight: 400; font-size: 14px; color: rgb(96, 94, 92); padding-right: 9px;">Date posted</div>
-                <div class="d-flex align-items-center" style="font-weight: 600; font-size: 14px; color: rgb(23, 23, 23);">Jun 20, 2023</div>
+    <hr class="horizontalLine" />
+
+    <div class="d-flex">
+        <div class="d-flex flex-column col-8">
+            <div class="overview-wrapper" id="overView">
+                
             </div>
         </div>
-        <div class="d-flex align-items-center col-6">
-            <div class="d-flex align-items-center" style="padding-top: 9px; padding-bottom: 9px; padding-right: 9px; word-break: break-word;">
-                <div class="d-flex align-items-center" style="font-weight: 400; font-size: 14px; color: rgb(96, 94, 92); padding-right: 9px;">Profession</div>
-                <div class="d-flex align-items-center" style="font-weight: 600; font-size: 14px; color: rgb(23, 23, 23);">Software Engineering</div>
-            </div>
+        <div class="qualification-wrapper d-flex flex-column col-4 ms-2" style="padding: 16px;" id="qualifications">
+            
         </div>
     </div>
-    
-    <div class="d-flex align-items-center col-12" style="width: 100%;">
-        <div class="d-flex align-items-center col-6">
-            <div class="d-flex align-items-center" style="padding-top: 9px; padding-bottom: 9px; padding-right: 9px; word-break: break-word;">
-                <div class="d-flex align-items-center" style="font-weight: 400; font-size: 14px; color: rgb(96, 94, 92); padding-right: 9px;">Work site</div>
-                <div class="d-flex align-items-center" style="font-weight: 600; font-size: 14px; color: rgb(23, 23, 23);">Up to 50% work from home</div>
+
+    <div class="d-flex flex-column" style="font-size: 14px">
+        <p class="mt-5">Benefits/perks listed below may vary depending on the nature of your employment with Microsoft and the country where you work.</p>
+        <div class="d-flex flex-column">
+            <div class="d-flex align-items-center col-12">
+                <div class="d-flex align-items-center col-6">
+                    <img src="https://localhost:44376/Content/img/icons/healthcare.png" class="me-3" style="width: 13px; height: 13px" />
+                    <span>Industry leading healthcare</span>
+                </div>
+                <div class="d-flex align-items-center col-6">
+                    <img src="https://localhost:44376/Content/img/icons/mortarboard.png" class="me-3" style="width: 13px; height: 13px" />
+                    <span>Educational resources</span>
+                </div>
+
             </div>
-        </div>
-        <div class="d-flex align-items-center col-6">
-            <div class="d-flex align-items-center" style="padding-top: 9px; padding-bottom: 9px; padding-right: 9px; word-break: break-word;">
-                <div class="d-flex align-items-center" style="font-weight: 400; font-size: 14px; color: rgb(96, 94, 92); padding-right: 9px;">Employment type</div>
-                <div class="d-flex align-items-center" style="font-weight: 600; font-size: 14px; color: rgb(23, 23, 23);">Full-Time</div>
+            <div class="d-flex align-items-center col-12">
+                <div class="d-flex align-items-center col-6">
+                    <img src="https://localhost:44376/Content/img/icons/price-tag.png" class="me-3" style="width: 13px; height: 13px" />
+                    <span>Discounts on products and services</span>
+                </div>
+                <div class="d-flex align-items-center col-6">
+                    <img src="https://localhost:44376/Content/img/icons/money.png" class="me-3" style="width: 13px; height: 13px" />
+                    <span>Savings and investments</span>
+                </div>
             </div>
+            <div class="d-flex align-items-center col-12">
+                <div class="d-flex align-items-center col-6">
+                    <img src="https://localhost:44376/Content/img/icons/profile.png" class="me-3" style="width: 13px; height: 13px" />
+                    <span>Maternity and paternity leave</span>
+                </div>
+                <div class="d-flex align-items-center col-6">
+                    <img src="https://localhost:44376/Content/img/icons/calendar.png" class="me-3" style="width: 13px; height: 13px" />
+                    <span>Generous time away</span>
+                </div>
+            </div>
+            <div class="d-flex align-items-center col-12">
+                <div class="d-flex align-items-center col-6">
+                    <img src="https://localhost:44376/Content/img/icons/heart.png" class="me-3" style="width: 13px; height: 13px" />
+                    <span>Giving programs</span>
+                </div>
+                <div class="d-flex align-items-center col-6">
+                    <img src="https://localhost:44376/Content/img/icons/networking.png" class="me-3" style="width: 13px; height: 13px" />
+                    <span>Opportunities to network and connect</span>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
 
-<hr class="horizontalLine"/>
+    <hr class="horizontalLine" />
 
-<div class="d-flex">
-    <div class="d-flex flex-column col-8">
-        <div class="overview-wrapper">
-            <h3 style="color: black;">Overview</h3>
-            <p>
-                Microsoft Purview is a family of data governance, risk, and compliance solutions that can help your organization govern, protect, and manage your entire data estate. Microsoft Purview solutions provide integrated coverage and help address the recent increases in remote user connectivity, the fragmentation of data across organizations, and the blurring of traditional IT management roles. Microsoft Purview combines the former Azure Purview and Microsoft 365 compliance solutions and services together into a single brand.
-            </p>
-            <p>
-                Since Microsoft Purview was brought onto the market, thousands of organizations have collectively discovered tens of billions of data assets as well as served up millions of searches every month to empower knowledge workers to find valuable enterprise data quickly and easily.
-            </p>
-            <p>
-                Organizations that use Microsoft Purview have a more holistic understanding of their hybrid data estate, which is always kept up to date with automated data discovery and sensitive data classification. In addition to empowering knowledge workers, this understanding, along with insights from sensitivity, business context, and relationships between data assets is also being used by teams working under the Chief Data Officers (CDO), the Chief Information and Security Officers (CIO and CISO) and the Chief Risk and Compliance Officers (CRO and CCO) to govern, protect, and manage data more effectively.
-            </p>
-            <p>
-                We are looking for committed Software Engineers with distributed systems experience to join us as we evolve our state-of-the-art data catalog, sharing, privacy and governance services. You will gain experience building high-scale, low-latency and reliable Azure services that deal with big-data in the cloud. You will get to work on the full stack using the latest technologies and work alongside a team of  talented engineers. We have teams that are geo-distributed, and we deeply respect and care about diversity and inclusion. We are a modern blended engineering team with no shortage of opportunities to make a big impact on the way Microsoft and its customers do business.
-            </p>
-        </div>
-        <br/>
-        <div class="responsibilities-wrapper">
-            <h3 style="color: black;">Responsibilities</h3>
-            <p>
-                This is a great opportunity for you to help us build platform features related to data discovery, search, graphing, scanning, classification, trending and governance for the next generation of the data catalog. Below are some of the responsibilities on this role, come join us on this exciting journey to build an innovative product.
-            </p>
-            <ul class="ms-5">
-                <li>
-                    As a Software Engineer on the platform team, responsible for building core services that enables fundamental features to delight our customers.
-                </li>
-                <li>
-                    Empower customers to provision account, scans, explore, annotate and classify their data sets from catalog hosting millions of assets.
-                </li>
-                <li>
-                    Embrace new tech and frameworks to build modern scalable and secure services that integrate with other partner Azure eco-system.
-                </li>
-                <li>
-                    Work closely with product manager and designer on the requirements, leverage the inhouse/open-source components to meet the functional needs.
-                </li>
-                <li>
-                    Enable telemetry to learn customer usage patterns and issues. Engage with beta customers to help try the feature and gather feedback for further improvements.
-                </li>
-            </ul>
-        </div>
+    <div>
+        <p style="font-size: 11px">Microsoft is an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to age, ancestry, citizenship, color, family or medical care leave, gender identity or expression, genetic information, immigration status, marital status, medical condition, national origin, physical or mental disability, political affiliation, protected veteran or military status, race, ethnicity, religion, sex (including pregnancy), sexual orientation, or any other characteristic protected by applicable local laws, regulations and ordinances. If you need assistance and/or a reasonable accommodation due to a disability during the application process, read more about requesting accommodations.</p>
     </div>
-    <div class="qualification-wrapper d-flex flex-column col-4 ms-2" style="padding: 16px;">
-        <h3 style="color: black;">Qualifications</h3>
-        <div>
-            <span class="fw-bold">Required Qualifications</span>
-            <ul class="ms-3">
-                <li>
-                    Bachelor's Degree in Computer Science, or related technical discipline with proven experience coding in languages including, but not limited to, C, C++, C#, Java, JavaScript, or GoLang or equivalent experience.
-                </li>
-                <li>Experience with Distributed Services.</li>
-            </ul>
-        </div>
-        <div>
-            <span class="fw-bold">Other Requirements:</span>
-            <p>Ability to meet Microsoft, customer and/or government security screening requirements are required for this role. These requirements include, but are not limited to, the following specialized security screenings:</p>
-            <ul class="ms-5">
-                <li>Microsoft Cloud Background Check: This position will be required to pass the Microsoft Cloud background check upon hire/transfer and every two years thereafter.</li>
-            </ul>
-        </div>
-        <div>
-            <p class="fw-bold" style="color: black;">Additional or Preferred Qualifications</p>
-            <ul class="ms-3">
-                <li>Experience building and shipping production grade software or services.</li>
-                <li>Experience building and operating online services and fault-tolerant distributed systems.</li>
-                <li>Experience creating and shipping V1 products using modern development practices. </li>
-                <li>Experience using agile methodologies or test-driven development (TDD).</li>
-                <li>High enthusiasm, integrity, ingenuity, results-orientation, self-motivation, and resourcefulness in a fast-paced competitive environment. </li>
-                <li>Have a deep desire to work collaboratively, solve problems with groups, find win/win solutions and celebrate successes.</li>
-                <li>Deep passion and empathy for customers.</li>
-                <li>Understanding of data structures, algorithms, and distributed systems</li>
-            </ul>
-        </div>
-        <div>
-            <p>Software Engineering IC2 - The typical base pay range for this role across the U.S. is USD $76,400 - $151,800 per year. There is a different range applicable to specific work locations, within the San Francisco Bay area and New York City metropolitan area, and the base pay range for this role in those locations is USD $100,300 - $165,400 per year.</p>
-            <p>Software Engineering IC3 - The typical base pay range for this role across the U.S. is USD $94,300 - $182,600 per year. There is a different range applicable to specific work locations, within the San Francisco Bay area and New York City metropolitan area, and the base pay range for this role in those locations is USD $120,900 - $198,600 per year.</p>
-            <p>Certain roles may be eligible for benefits and other compensation. Find additional benefits and pay information here: <a href="https://careers.microsoft.com/us/en/us-corporate-pay">https://careers.microsoft.com/us/en/us-corporate-pay</a></p>
-        </div>
+
+    <div class="mt-3">
+        <button type="button" class="apply-job-btn btn text-white me-5" aria-label="Apply" data-is-focusable="true">
+            <span class="d-flex align-items-center justify-content-center">
+                <span id="applyJobBtn" class="fw-600">Apply</span>
+            </span>
+        </button>
     </div>
-</div>
+</main>
 
-<div class="d-flex flex-column" style="font-size: 14px">
-    <p class="mt-5">Benefits/perks listed below may vary depending on the nature of your employment with Microsoft and the country where you work.</p>
-    <div class="d-flex flex-column">
-        <div class="d-flex align-items-center col-12">
-            <div class="d-flex align-items-center col-6">
-                <img src="https://localhost:44376/Content/img/icons/healthcare.png" class="me-3" style="width: 13px; height: 13px"/>
-                <span>Industry leading healthcare</span>
-            </div>
-            <div class="d-flex align-items-center col-6">
-                <img src="https://localhost:44376/Content/img/icons/mortarboard.png" class="me-3" style="width: 13px; height: 13px"/>
-                <span>Educational resources</span>
-            </div>
 
-        </div>
-        <div class="d-flex align-items-center col-12">
-            <div class="d-flex align-items-center col-6">
-                <img src="https://localhost:44376/Content/img/icons/price-tag.png" class="me-3" style="width: 13px; height: 13px"/>
-                <span>Discounts on products and services</span>
-            </div>
-            <div class="d-flex align-items-center col-6">
-                <img src="https://localhost:44376/Content/img/icons/money.png" class="me-3" style="width: 13px; height: 13px"/>
-                <span>Savings and investments</span>
-            </div>
-        </div>
-        <div class="d-flex align-items-center col-12">
-            <div class="d-flex align-items-center col-6">
-                <img src="https://localhost:44376/Content/img/icons/profile.png" class="me-3" style="width: 13px; height: 13px"/>
-                <span>Maternity and paternity leave</span>
-            </div>
-            <div class="d-flex align-items-center col-6">
-                <img src="https://localhost:44376/Content/img/icons/calendar.png" class="me-3" style="width: 13px; height: 13px"/>
-                <span>Generous time away</span>
-            </div>
-        </div>
-        <div class="d-flex align-items-center col-12">
-            <div class="d-flex align-items-center col-6">
-                <img src="https://localhost:44376/Content/img/icons/heart.png" class="me-3" style="width: 13px; height: 13px"/>
-                <span>Giving programs</span>
-            </div>
-            <div class="d-flex align-items-center col-6">
-                <img src="https://localhost:44376/Content/img/icons/networking.png" class="me-3" style="width: 13px; height: 13px"/>
-                <span>Opportunities to network and connect</span>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<hr class="horizontalLine"/>
-
-<div>
-    <p style="font-size: 11px">Microsoft is an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to age, ancestry, citizenship, color, family or medical care leave, gender identity or expression, genetic information, immigration status, marital status, medical condition, national origin, physical or mental disability, political affiliation, protected veteran or military status, race, ethnicity, religion, sex (including pregnancy), sexual orientation, or any other characteristic protected by applicable local laws, regulations and ordinances. If you need assistance and/or a reasonable accommodation due to a disability during the application process, read more about requesting accommodations.</p>
-</div>
-
-<div class="mt-3">
-    <button type="button" class="apply-job-btn btn text-white me-5" aria-label="Apply" data-is-focusable="true">
-        <span class="d-flex align-items-center justify-content-center">
-            <span id="applyJobBtn" class="fw-600">Apply</span>
-        </span>
-    </button>
-</div>
+@section scripts {
+    <script>
+        const data = JSON.parse(localStorage.getItem("currentJob"))
+        console.log(data)
+    </script>
+}
