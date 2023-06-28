@@ -60,6 +60,16 @@ namespace ProjectSEM3.Models.Entities
             public string JobLink { get; set; }
         }
 
+        public class QuizResult
+        {
+            public string Name { get; set; }
+            public string Email { get; set; }
+
+            public string Point { get; set; }
+            public string JobLink { get; set; }
+
+        }
+
         public class Congratulations
         {
             public string UserName { get; set; }
@@ -118,6 +128,24 @@ namespace ProjectSEM3.Models.Entities
                 "<p>Unfortunately your experience suitable for our job.</p> ";
 
             MessageBody.Body = string.Format(bodyFormat, email.Name, email.JobLink);
+
+            return SendEmail();
+        }
+
+        public string SendFailedResult(QuizResult email)
+        {
+            MailTo.Add(email.Email);
+            MessageBody.Subject = "Exam Result";
+            MessageBody.Priority = MailPriority.High;
+            MessageBody.IsBodyHtml = true;
+
+            var bodyFormat = "<h1>Dear {0}</h1>" +
+                "<p>Your quiz result is: <strong>{1}%</strong></p>" +
+                "<p>According to your result, you've failed the exam so we truly sorry to annouce that you're not suitable at this position <a class='nav-link text-dark'target='blank' href='{2}'></a> at this point</p>" +
+                "<p>Please feel free to comeback for our opening jobs whenever you're ready</p>" +
+                "<h3>Sincerely";
+
+            MessageBody.Body = string.Format(bodyFormat, email.Name, email.Point, email.JobLink);
 
             return SendEmail();
         }

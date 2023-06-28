@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Web.Mvc;
+using static ProjectSEM3.Models.DbContext;
 using static ProjectSEM3.Models.Entities.Email;
 
 namespace ProjectSEM3.Controllers
@@ -69,11 +70,27 @@ namespace ProjectSEM3.Controllers
         [HttpPost]
         public ActionResult Submit(ContestantExam result, int contestantId)
         {
+            // calculate: point
             var examId = result.Math.FirstOrDefault().ExamId;
-            int pointMath = CheckAnswer(result.Math);
-            int pointKnowledge = CheckAnswer(result.Knowledge);
-            int pointComputer = CheckAnswer(result.Computer);
-         
+            int pointMath = CheckAnswer(result.Math).SectionPoint;
+            int pointKnowledge = CheckAnswer(result.Knowledge).SectionPoint;
+            int pointComputer = CheckAnswer(result.Computer).SectionPoint;
+            int totalPoint = CheckAnswer(result.Math).TotalPoint + CheckAnswer(result.Knowledge).TotalPoint + CheckAnswer(result.Computer).TotalPoint;
+            int totalCorrectPoint = pointMath + pointKnowledge + pointComputer;
+            float finalPoint = (totalCorrectPoint*100) / totalPoint;
+
+            var paramContestant = new Dictionary<string, dynamic>
+            {
+                { "@Id", contestantId}
+            };
+            var contestant = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetContestantById, paramContestant);
+
+            var paramExam = new Dictionary<string, dynamic>
+            {
+                { "@ContestId", contestantId}
+            };
+            var exam = DbContext.Instance.Exec<List<Models.Entities.Exam.Res>>(DbStore.GetExamnById, paramExam);
+
             DbContext.Instance.Exec<ExamDetail.Res>(DbStore.UpdatePointForExam, new Dictionary<string, dynamic>
             {
                 { "@ExamId", examId},
@@ -82,14 +99,38 @@ namespace ProjectSEM3.Controllers
                 { "@ComputerPoint", pointComputer},
             });
 
-            int totalPoint = pointMath + pointKnowledge + pointComputer;
 
             // send email: pass/fail
+            var email = new Email();
+            if (finalPoint >= 75)
+            {
+                var emailPassed = new Congratulations
+                {
+                    UserName = contestant.FirstOrDefault().Name,
+                    Exam = exam.FirstOrDefault(),
+                };
+                email.SendCongratulations(emailPassed);
+            }
+            else
+            {
+                var emailReject = new QuizResult
+                {
+                    Name = contestant.FirstOrDefault().Name,
+                    Email = contestant.FirstOrDefault().Email,
+                    Point = finalPoint.ToString(),
+                };
+                
+                email.SendFailedResult(emailReject);
+            }
 
-            return RedirectToAction("TestResult", "Quiz");
+            return Json(new { redirectUrl = Url.Action("TestResult", "Quiz", new { finish = "finish" }) });
         }
-        public ActionResult TestResult()
+        public ActionResult TestResult(string finish)
         {
+            if(finish == null || finish == "")
+            {
+                TempData["pageNotExist"] = "Sorry! Page doesn't exist";
+            }
             return View();
         }
         public ContestantExam GetData(int? id)
@@ -104,9 +145,11 @@ namespace ProjectSEM3.Controllers
             return result;
         }
 
-        private int CheckAnswer(List<ExamDetail.Res> data)
+        private Models.Entities.Result CheckAnswer(List<ExamDetail.Res> data)
         {
             var point = 0;
+            var totalPoint = 0;
+            Models.Entities.Result result;
 
             foreach (var item in data)
             {
@@ -134,9 +177,15 @@ namespace ProjectSEM3.Controllers
                     if (item.Answer.Equals(item.CorrectAnwser))
                         point += item.Point;
                 }
+                totalPoint += item.Point;
             }
+            result = new Models.Entities.Result
+            {
+                SectionPoint = point,
+                TotalPoint = totalPoint,
+            };
 
-            return point;
+            return result;
         }
     }
 }

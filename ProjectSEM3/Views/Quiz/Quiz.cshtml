@@ -467,6 +467,7 @@
                 success: function (result) {
                     console.log(result);
                     localStorage.removeItem("contestant");
+                    window.location.replace(result.redirectUrl + "?finish=" + result.finish);
                 },
                 error: function (req, status, error) {
                     console.log(error);
