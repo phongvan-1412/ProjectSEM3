@@ -39,7 +39,7 @@ namespace ProjectSEM3.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadCV(string job, string contName, string contEmail, string contPhone, HttpPostedFileBase cv)
+        public ActionResult UploadCV(int jobId, string contName, string contEmail, string contPhone, HttpPostedFileBase cv)
         {
             var savePath = Path.Combine(Server.MapPath("~/Content/pdf"), cv.FileName);
             cv.SaveAs(savePath);

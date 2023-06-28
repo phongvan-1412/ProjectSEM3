@@ -136,13 +136,11 @@
     VirtualSelect.init({
         ele: '#selCountries',
     });
-
     VirtualSelect.init({
         ele: '#selExperience',
         dropboxWidth: "250px",
 
     });
-
     VirtualSelect.init({
         ele: '#selProfessions',
         dropboxWidth: "250px",
@@ -245,7 +243,6 @@
     /* -----------------------------------
         Display Job Detail Content
     -------------------------------------*/
-        var jobDetailBtn = document.getElementsByClassName("jobDetailBtn");
         var jobContent = document.getElementById("jobDetailContent");
         let jobDetailWrapper = document.getElementById("job-detail-wrapper");
 
@@ -268,6 +265,9 @@
             $("#location")[0].innerHTML = job.Location;
             $("#title")[0].innerHTML = job.Title;
             $("#datePosted")[0].innerHTML = job.EndDateTimeStamp.substring(0, 9);
+
+            // setup modal
+            $("#jobId").val(job.Id)
         };
         if (jobContent.value === "no") {
             jobDetailWrapper.innerHTML = `
@@ -278,5 +278,98 @@
                 </div>
             `;
         };
+
+    /* -----------------------------------
+        Apply Job Modal
+    -------------------------------------*/
+        var headerBtn = document.getElementById("headerButton");
+        var icon = document.getElementById('iconChevron');
+
+        var btnUpload = document.getElementById("addFileContainer");
+        var cv = document.getElementById("cvInput");
+        var result = document.getElementById('resultInput');
+        var noti = document.getElementById('notiInput');
+
+        var job = document.getElementById("job");
+        var contName = document.getElementById("contName");
+        var contEmail = document.getElementById("contEmail");
+        var contPhone = document.getElementById("contPhone");
+        var formData = new FormData();
+        var submitBtn = document.getElementById("applyBtn");
+
+        var cvName = document.getElementById("cvFileName");
+        /*-----------------------------------
+            Prevent image upload & restrict file's size
+        -------------------------------------*/
+        cv.addEventListener("change", e => {
+            const file = cv.files[0];
+            const type = cv.files[0].type.substring(12);
+            noti.innerHTML = "";
+            noti.innerHTML = "";
+            cvName.innerHTML = "";
+
+            if (type.localeCompare("pdf") === 0 && file.size < 5000 * 1024) {
+                result.value = 'rightType';
+                cvName.innerHTML = `
+                            <table class="table table-borderless m-0 p-0">
+                                <tr>
+                                    <td>
+                                        <img src="https://localhost:44376/Content/img/icons/file.png" style="height: 20px; width: 20px; margin-right: .5rem; color: black"/>
+                                        ${cv.files[0].name}
+                                    </td>
+                                    <td>
+                                        <button type="button" onclick="deleteFileRow()" class="btn" style="background-color: transparent; border: none; color: rgb(92, 27, 134)">
+                                            <img src="https://localhost:44376/Content/img/icons/bin.png" style="width: 14px; height: 14px;"/>
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        `;
+            }
+            else {
+                result.value = 'falseType';
+                if (type.localeCompare("pdf") !== 0) {
+                    noti.innerHTML = 'File must be .pdf extension';
+                    noti.style.color = "rgb(92, 27, 134)";
+                }
+                if (file.size > 5000 * 1024) {
+                    noti.innerHTML = 'File exceeds 5Mb';
+                    noti.style.color = "red";
+                }
+            }
+        })
+
+        /*-----------------------------------
+            Open upload file dialog
+        -------------------------------------*/
+        btnUpload.addEventListener("click", () => {
+            cv.click();
+        });
+
+        /*-----------------------------------
+            Change chevron icon
+        -------------------------------------*/
+        headerBtn.addEventListener("click", () => {
+            if (headerBtn.getAttribute("aria-expanded") === "true") {
+                icon.classList.remove("fa-chevron-down");
+                icon.classList.add("fa-chevron-up");
+            }
+            if (headerBtn.getAttribute("aria-expanded") === "false") {
+                icon.classList.remove("fa-chevron-up");
+                icon.classList.add("fa-chevron-down");
+            }
+        });
+
+        /*-----------------------------------
+            Delete File Row
+        -------------------------------------*/
+        function deleteFileRow() {
+            cvName.innerHTML = "";
+            cv.value = "";
+        }
+        deleteFileRow();
+
+
     </script>
 }

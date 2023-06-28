@@ -2910,13 +2910,13 @@
     <Content Include="Content\js\.DS_Store" />
     <Content Include="Views\Career\Index.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Career\ApplyCV.cshtml" />
     <Content Include="Views\Career\Jobs.cshtml" />
     <Content Include="Views\Shared\Partial\_QuizPartial.cshtml" />
     <Content Include="Views\Quiz\Exam.cshtml" />
     <Content Include="Views\Career\JobDetail.cshtml" />
     <Content Include="Views\Quiz\Quiz.cshtml" />
     <Content Include="Views\Quiz\TestResult.cshtml" />
+    <Content Include="Views\Career\ApplyJob.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
