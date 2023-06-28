@@ -112,10 +112,11 @@
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                 <div class="profile-info">
-                                    @*<div class="info">
-                                            @if (admin != null)
+                                    <div class="info">
+                                        <h6 id="adminName1"></h6>
+
+                                        @*@if (admin != null)
                                             {
-                                                <h6>@admin.Name</h6>
 
                                                 <div class="image">
                                                     @if (admin.Avatar.Equals("hacker.png"))
@@ -128,8 +129,8 @@
                                                     }
                                                     <span class="status"></span>
                                                 </div>
-                                            }
-                                        </div>*@
+                                            }*@
+                                    </div>
                                 </div>
                                 <i class="lni lni-chevron-down"></i>
                             </button>
@@ -152,9 +153,7 @@
                                         <a href="#0"> <i class="lni lni-cog"></i> Settings </a>
                                     </li>*@
                                 <li>
-                                    <form>
-                                        <a asp-area="Admin" asp-controller="Home" asp-action="Logout"> <i class="lni lni-exit"></i> Sign Out </a>
-                                    </form>
+                                    <button type="button" onclick="Logout()"><i class="lni lni-exit"></i> Sign Out </button>
                                 </li>
                             </ul>
                         </div>
@@ -162,11 +161,22 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </header>
-<!-- ========== header end ========== -->
 
+<!-- ========== header end ========== -->
 <script type="text/javascript">
+
     localStorage.setItem("PendingCv", JSON.stringify(@Html.Raw(Json.Encode(data))))
+    var localAdmin1 = JSON.parse(localStorage.getItem("admin"))
+        document.getElementById("adminName1").innerHTML = localAdmin1.Name
+
+    const Logout = () => {
+        localStorage.removeItem("admin")
+        window.location.href = "https://localhost:44376/Admin/Home/Login"
+    }
 </script>
+
+
