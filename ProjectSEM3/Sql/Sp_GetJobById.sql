@@ -5,9 +5,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-create proc [dbo].[Sp_GetJobById]
+alter proc [dbo].[Sp_GetJobById]
 @Id int
 as
 begin
-	select * from GetJob() where Id = @Id and [Status] = 1
+	select * from GetJobs() where Id = @Id and [Status] = 1
 end

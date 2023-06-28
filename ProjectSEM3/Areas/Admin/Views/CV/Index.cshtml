@@ -15,6 +15,10 @@
 
 @section Scripts{
     <script type="text/javascript">
+        if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD) {
+            CheckLogin();
+        }
+        CheckLogin();
         const $name = $("#name")
         const $id = $("#id")
         const $email = $("#email")
@@ -63,7 +67,7 @@
                 Id
             }
             BlockUI()
-            
+
             $.ajax({
                 type: "POST",
                 url: "/admin/contestant/NewContestant",
@@ -77,7 +81,7 @@
                         CurrentSelection.parentElement.children[3].hidden = res.Data.StatusType.IsHidden
                         $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
                         UpdateNotification()
-                    } 
+                    }
                 },
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()
@@ -106,7 +110,7 @@
                         e.target.parentElement.children[0].hidden = res.Data.StatusType.IsHidden
                         $cvTable[0].rows[RowIndex].children[5].innerHTML = `<span class="badge bg-${res.Data.StatusType.BadgeCss}">${res.Data.StatusType.Name}</span>`;
                         UpdateNotification()
-                    } 
+                    }
                 },
                 error: function (jqXHR, err, errorThrown) {
                     UnBlockUI()

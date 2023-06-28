@@ -167,6 +167,15 @@
             var formatedDate = moment(date).format('YYYY/MM/DD HH:MM:SS');
             return formatedDate;
         }
+
+        const CheckLogin = () => {
+            let localAdmin = JSON.parse(localStorage.getItem("admin"))
+            console.log(localAdmin)
+            if (localAdmin == null) {
+                window.location.href = "https://localhost:44376/Admin/Home/Login"
+            }
+        }
+
     </script>
     @RenderSection("Scripts", required: false)
 </body>

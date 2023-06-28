@@ -1,5 +1,6 @@
 ﻿using ProjectSEM3.Models;
 using ProjectSEM3.Models.Entities;
+using ProjectSEM3.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,32 +23,41 @@ namespace ProjectSEM3.Areas.Admin.Controllers
             };
 
             ViewBag.PendingCv = DbContext.Instance.Exec<List<Contestant.Res>>(DbStore.GetCvByStatus, param);
+            ViewBag.Admin = Session["Admin"];
+            return View();
+        }
 
+        public ActionResult Login()
+        {
+            ViewBag.ResultLogin = Session["ResultLogin"];
+            Session.Remove("ResultLogin");
             return View();
         }
 
         [HttpPost]
         public ActionResult Login(Hr.Req hr)
         {
+            var tet = hr.Password.EncryptPassword();
             var param = new Dictionary<string, dynamic>
             {
-                { "@Name", "hr13 name" },
-                { "@Password", "111111" }
+                { "@Email", hr.Email },
+                { "@Password", hr.Password.EncryptPassword() }
             };
-            var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrByEmailPass, param).FirstOrDefault();
+            var result = DbContext.Instance.Exec<List<Hr.Res>>(DbStore.GetHrByEmailPass, param);
+
+            if(result is null)
+            {
+                Session["ResultLogin"] = "Wrong Email or password. Please Try Again.";
+                return RedirectToAction(nameof(Login));
+            }
+            Session["Admin"] = result.FirstOrDefault();
             return RedirectToAction(nameof(Index));
         }
 
         public ActionResult Logout()
         {
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        public ActionResult Infomation()
-        {
-
-            return View();
+            Session.Remove("Admin");
+            return RedirectToAction(nameof(Login));
         }
     }
 }
