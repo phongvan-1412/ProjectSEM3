@@ -117,7 +117,23 @@
             else {
                 alert('Times out!');
                 clearInterval(_tick);
-                submitQuiz();
+                $.ajax({
+                    type: "POST",
+                    data: { result: JSON.parse(localStorage.getItem("data")), contestantId: parseInt(localStorage.getItem("contestant")) },
+                    dataType: "json",
+                    url: "/Quiz/Submit",
+                    success: function (result) {
+                        console.log(result);
+                        localStorage.removeItem("contestant");
+                        localStorage.removeItem("data");
+                        localStorage.removeItem("tempName");
+
+                        window.location.replace(result.redirectUrl + "?finish=" + result.finish);
+                    },
+                    error: function (req, status, error) {
+                        console.log(error);
+                    }
+                });
             }
         }, 1000);
     }

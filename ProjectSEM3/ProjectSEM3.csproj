@@ -2687,6 +2687,7 @@
     <Content Include="Content\img\icons\file.png" />
     <Content Include="Content\img\icons\healthcare.png" />
     <Content Include="Content\img\icons\heart.png" />
+    <Content Include="Content\img\icons\message.png" />
     <Content Include="Content\img\icons\money.png" />
     <Content Include="Content\img\icons\mortarboard.png" />
     <Content Include="Content\img\icons\networking.png" />
@@ -2917,6 +2918,7 @@
     <Content Include="Views\Quiz\Quiz.cshtml" />
     <Content Include="Views\Quiz\TestResult.cshtml" />
     <Content Include="Views\Career\ApplyJob.cshtml" />
+    <Content Include="Views\Career\ApplySuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

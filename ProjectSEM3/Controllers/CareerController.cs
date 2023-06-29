@@ -50,12 +50,14 @@ namespace ProjectSEM3.Controllers
 
             return View();
         }
-
         public ActionResult ApplyCV()
         {
             return View();
         }
-
+        public ActionResult ApplySuccess()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult UploadCV(int jobId, string contName, string contEmail, string contPhone, HttpPostedFileBase cv)
         {
@@ -76,7 +78,7 @@ namespace ProjectSEM3.Controllers
             };
 
             DbContext.Instance.Exec<List<Contestant.Req>>(DbStore.InsertCV, param);
-            return RedirectToAction("Index");
+            return RedirectToAction("ApplySuccess");
         }
 
         [HttpPost]
