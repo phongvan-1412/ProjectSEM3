@@ -103,12 +103,14 @@ namespace ProjectSEM3.Controllers
             var email = new Email();
             if (finalPoint >= 75)
             {
-                var emailPassed = new Congratulations
+                var emailPassed = new QuizResult
                 {
-                    UserName = contestant.FirstOrDefault().Name,
-                    Exam = exam.FirstOrDefault(),
+                    Name = contestant.FirstOrDefault().Name,
+                    Email = contestant.FirstOrDefault().Email,
+                    Point = finalPoint.ToString(),
+                    JobLink = "https://localhost:44376/Career/GetJobById/" + contestant.FirstOrDefault().JobId,
                 };
-                email.SendCongratulations(emailPassed);
+                email.SendPassResult(emailPassed);
             }
             else
             {
